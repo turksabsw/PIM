@@ -1,0 +1,583 @@
+{
+  "doctype": "DocType",
+  "name": "Tenant Config",
+  "module": "PIM",
+  "issingle": 0,
+  "autoname": "field:user",
+  "is_submittable": 0,
+  "track_changes": 1,
+
+  "fields": [
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "read_only": 1,
+      "description": "User this onboarding configuration belongs to"
+    },
+    {
+      "fieldname": "section_break_company",
+      "fieldtype": "Section Break",
+      "label": "Company Information"
+    },
+    {
+      "fieldname": "company_name",
+      "fieldtype": "Data",
+      "label": "Company Name",
+      "reqd": 1,
+      "description": "Name of the company or organization"
+    },
+    {
+      "fieldname": "company_website",
+      "fieldtype": "Data",
+      "label": "Website URL",
+      "description": "Company website address"
+    },
+    {
+      "fieldname": "column_break_company",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "company_size",
+      "fieldtype": "Select",
+      "label": "Company Size",
+      "options": "\n1-10\n11-50\n51-200\n201-500\n501-1000\n1000+",
+      "reqd": 1,
+      "description": "Number of employees in the organization"
+    },
+    {
+      "fieldname": "primary_role",
+      "fieldtype": "Select",
+      "label": "Admin Role",
+      "options": "\nProduct Manager\nCatalog Manager\nE-Commerce Manager\nIT Administrator\nMarketing Manager\nOperations Manager\nBusiness Owner\nOther",
+      "reqd": 1,
+      "description": "Primary role of the person setting up PIM"
+    },
+    {
+      "fieldname": "existing_systems",
+      "fieldtype": "Small Text",
+      "label": "Current Systems (JSON)",
+      "reqd": 1,
+      "description": "JSON array of existing systems (e.g., ERP, spreadsheets, other PIM)"
+    },
+    {
+      "fieldname": "pain_points",
+      "fieldtype": "Small Text",
+      "label": "Pain Points (JSON)",
+      "description": "JSON array of pain points the company wants to solve"
+    },
+
+    {
+      "fieldname": "section_break_industry",
+      "fieldtype": "Section Break",
+      "label": "Industry & Template"
+    },
+    {
+      "fieldname": "selected_industry",
+      "fieldtype": "Select",
+      "label": "Industry",
+      "options": "\nfashion\nindustrial\nfood\nelectronics\nhealth_beauty\nautomotive\ncustom",
+      "reqd": 1,
+      "description": "Industry sector selected during onboarding"
+    },
+    {
+      "fieldname": "industry_sub_vertical",
+      "fieldtype": "Data",
+      "label": "Sub-Vertical",
+      "description": "More specific industry classification within the sector"
+    },
+    {
+      "fieldname": "column_break_industry",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "industry_template_version",
+      "fieldtype": "Data",
+      "label": "Template Version",
+      "read_only": 1,
+      "description": "Version of the industry template applied to this tenant"
+    },
+    {
+      "fieldname": "custom_industry_name",
+      "fieldtype": "Data",
+      "label": "Custom Industry Name",
+      "depends_on": "eval:doc.selected_industry == 'custom'",
+      "description": "Custom industry name when 'custom' sector is selected"
+    },
+
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Structure"
+    },
+    {
+      "fieldname": "estimated_sku_count",
+      "fieldtype": "Select",
+      "label": "SKU Range",
+      "options": "\n1-100\n101-500\n501-2000\n2001-10000\n10000+",
+      "reqd": 1,
+      "description": "Estimated number of SKUs to manage"
+    },
+    {
+      "fieldname": "uses_variants",
+      "fieldtype": "Check",
+      "label": "Uses Variants",
+      "default": 0,
+      "description": "Whether products have variants (size, color, etc.)"
+    },
+    {
+      "fieldname": "variant_axes",
+      "fieldtype": "Small Text",
+      "label": "Variant Axes (JSON)",
+      "depends_on": "eval:doc.uses_variants",
+      "description": "JSON array of variant axes (e.g., ['Size', 'Color', 'Material'])"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_family_count",
+      "fieldtype": "Select",
+      "label": "Family Count Range",
+      "options": "\n1-5\n6-15\n16-50\n50+",
+      "reqd": 1,
+      "description": "Estimated number of product families needed"
+    },
+    {
+      "fieldname": "custom_families",
+      "fieldtype": "Small Text",
+      "label": "Custom Families (JSON)",
+      "description": "JSON array of custom product family names defined during onboarding"
+    },
+    {
+      "fieldname": "data_import_source",
+      "fieldtype": "Select",
+      "label": "Import Method",
+      "options": "\nmanual_entry\ncsv_import\nerp_sync\napi_import\nno_existing_data",
+      "reqd": 1,
+      "description": "How existing product data will be imported"
+    },
+
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Attribute Configuration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "attribute_groups",
+      "fieldtype": "Small Text",
+      "label": "Active Groups (JSON)",
+      "description": "JSON array of active attribute groups from template or custom"
+    },
+    {
+      "fieldname": "removed_template_attrs",
+      "fieldtype": "Small Text",
+      "label": "Removed Attrs (JSON)",
+      "description": "JSON array of template attributes removed by the user"
+    },
+    {
+      "fieldname": "column_break_attributes",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "custom_attributes",
+      "fieldtype": "Small Text",
+      "label": "Custom Attrs (JSON)",
+      "description": "JSON array of custom attributes added by the user"
+    },
+    {
+      "fieldname": "total_attribute_count",
+      "fieldtype": "Int",
+      "label": "Total Attribute Count",
+      "read_only": 1,
+      "description": "Computed total count of active attributes"
+    },
+
+    {
+      "fieldname": "section_break_taxonomy",
+      "fieldtype": "Section Break",
+      "label": "Taxonomy",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "category_source",
+      "fieldtype": "Select",
+      "label": "Category Source",
+      "options": "\ntemplate\ncustom\nimport\ngpc",
+      "description": "Source of product category taxonomy"
+    },
+    {
+      "fieldname": "category_data",
+      "fieldtype": "Long Text",
+      "label": "Category Tree (JSON)",
+      "description": "JSON representation of the category tree structure"
+    },
+    {
+      "fieldname": "brand_names",
+      "fieldtype": "Small Text",
+      "label": "Brands (JSON)",
+      "description": "JSON array of brand names managed by this tenant"
+    },
+
+    {
+      "fieldname": "section_break_channels",
+      "fieldtype": "Section Break",
+      "label": "Channels",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "selected_channels",
+      "fieldtype": "Small Text",
+      "label": "Selected Channels (JSON)",
+      "description": "JSON array of selected sales channels"
+    },
+    {
+      "fieldname": "primary_channel",
+      "fieldtype": "Data",
+      "label": "Primary Channel",
+      "description": "The primary sales channel identifier"
+    },
+    {
+      "fieldname": "business_model",
+      "fieldtype": "Select",
+      "label": "Business Model",
+      "options": "\nb2c\nb2b\nb2b2c\nmarketplace\nomnichannel",
+      "description": "Primary business model for channel strategy"
+    },
+
+    {
+      "fieldname": "section_break_localization",
+      "fieldtype": "Section Break",
+      "label": "Localization",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "primary_language",
+      "fieldtype": "Data",
+      "label": "Primary Language",
+      "default": "tr",
+      "description": "Primary language code (ISO 639-1)"
+    },
+    {
+      "fieldname": "additional_languages",
+      "fieldtype": "Small Text",
+      "label": "Additional Languages (JSON)",
+      "description": "JSON array of additional language codes"
+    },
+    {
+      "fieldname": "enable_auto_translate",
+      "fieldtype": "Check",
+      "label": "AI Translation",
+      "default": 0,
+      "description": "Enable AI-powered automatic translation of product content"
+    },
+    {
+      "fieldname": "column_break_localization",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "default_currency",
+      "fieldtype": "Link",
+      "label": "Default Currency",
+      "options": "Currency",
+      "description": "Default currency for product pricing"
+    },
+    {
+      "fieldname": "default_uom",
+      "fieldtype": "Link",
+      "label": "Default UOM",
+      "options": "UOM",
+      "description": "Default unit of measure for products"
+    },
+
+    {
+      "fieldname": "section_break_workflow",
+      "fieldtype": "Section Break",
+      "label": "Workflow",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "workflow_complexity",
+      "fieldtype": "Select",
+      "label": "Workflow Type",
+      "options": "\nsimple\nstandard\nadvanced",
+      "default": "standard",
+      "description": "Complexity level of the product lifecycle workflow"
+    },
+    {
+      "fieldname": "require_quality_check",
+      "fieldtype": "Check",
+      "label": "Quality Gate",
+      "default": 0,
+      "description": "Require quality score threshold before publishing"
+    },
+    {
+      "fieldname": "column_break_workflow",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "auto_publish",
+      "fieldtype": "Check",
+      "label": "Auto Publish",
+      "default": 0,
+      "description": "Automatically publish products when quality threshold is met"
+    },
+    {
+      "fieldname": "notify_on_status_change",
+      "fieldtype": "Check",
+      "label": "Notifications",
+      "default": 1,
+      "description": "Send notifications when product workflow status changes"
+    },
+
+    {
+      "fieldname": "section_break_quality",
+      "fieldtype": "Section Break",
+      "label": "Quality & Scoring",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "quality_threshold",
+      "fieldtype": "Int",
+      "label": "Min Quality Score",
+      "default": 70,
+      "description": "Minimum quality score (0-100) required for publication"
+    },
+    {
+      "fieldname": "scoring_weights",
+      "fieldtype": "Small Text",
+      "label": "Scoring Weights (JSON)",
+      "description": "JSON object with scoring dimension weights (attribute, content, media, seo, compliance)"
+    },
+
+    {
+      "fieldname": "section_break_integrations",
+      "fieldtype": "Section Break",
+      "label": "Integrations",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "enable_erp_sync",
+      "fieldtype": "Check",
+      "label": "ERP Sync",
+      "default": 1,
+      "description": "Enable synchronization with ERPNext"
+    },
+    {
+      "fieldname": "erp_type",
+      "fieldtype": "Select",
+      "label": "ERP Type",
+      "options": "\nerpnext\nsap\noracle\nmicrosoft_dynamics\nother",
+      "default": "erpnext",
+      "depends_on": "eval:doc.enable_erp_sync",
+      "description": "Type of ERP system to integrate with"
+    },
+    {
+      "fieldname": "sync_direction",
+      "fieldtype": "Select",
+      "label": "Sync Direction",
+      "options": "\npim_to_erp\nerp_to_pim\nbidirectional",
+      "default": "bidirectional",
+      "depends_on": "eval:doc.enable_erp_sync",
+      "description": "Direction of data synchronization with ERP"
+    },
+    {
+      "fieldname": "column_break_integrations",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enable_ai_enrichment",
+      "fieldtype": "Check",
+      "label": "AI Enrichment",
+      "default": 0,
+      "description": "Enable AI-powered product content enrichment"
+    },
+    {
+      "fieldname": "ai_provider",
+      "fieldtype": "Select",
+      "label": "AI Provider",
+      "options": "\nopenai\nanthropic\ngoogle\nlocal",
+      "depends_on": "eval:doc.enable_ai_enrichment",
+      "description": "AI service provider for content enrichment"
+    },
+    {
+      "fieldname": "ai_use_cases",
+      "fieldtype": "Small Text",
+      "label": "AI Use Cases (JSON)",
+      "depends_on": "eval:doc.enable_ai_enrichment",
+      "description": "JSON array of enabled AI use cases (description_generation, seo_optimization, translation, etc.)"
+    },
+    {
+      "fieldname": "enable_gs1",
+      "fieldtype": "Check",
+      "label": "GS1/GTIN",
+      "default": 0,
+      "description": "Enable GS1/GTIN barcode management"
+    },
+    {
+      "fieldname": "enable_mdm",
+      "fieldtype": "Check",
+      "label": "MDM",
+      "default": 0,
+      "description": "Enable Master Data Management features (golden record, survivorship rules)"
+    },
+
+    {
+      "fieldname": "section_break_compliance",
+      "fieldtype": "Section Break",
+      "label": "Compliance",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "compliance_standards",
+      "fieldtype": "Small Text",
+      "label": "Standards (JSON)",
+      "description": "JSON array of applicable compliance standards (e.g., textile_labeling, food_safety, ce_marking)"
+    },
+    {
+      "fieldname": "certification_tracking",
+      "fieldtype": "Check",
+      "label": "Cert Tracking",
+      "default": 0,
+      "description": "Enable product certification tracking and expiry management"
+    },
+
+    {
+      "fieldname": "section_break_feature_flags",
+      "fieldtype": "Section Break",
+      "label": "Feature Flags"
+    },
+    {
+      "fieldname": "enable_variants",
+      "fieldtype": "Check",
+      "label": "Variants",
+      "default": 1,
+      "description": "Enable product variant management"
+    },
+    {
+      "fieldname": "enable_quality_scoring",
+      "fieldtype": "Check",
+      "label": "Quality Scoring",
+      "default": 1,
+      "description": "Enable data quality scoring for products"
+    },
+    {
+      "fieldname": "enable_channels",
+      "fieldtype": "Check",
+      "label": "Channels",
+      "default": 1,
+      "description": "Enable multi-channel product distribution"
+    },
+    {
+      "fieldname": "enable_workflow",
+      "fieldtype": "Check",
+      "label": "Workflow",
+      "default": 1,
+      "description": "Enable product lifecycle workflow management"
+    },
+    {
+      "fieldname": "column_break_feature_flags",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enable_translations",
+      "fieldtype": "Check",
+      "label": "Translations",
+      "default": 0,
+      "description": "Enable multi-language product content management"
+    },
+    {
+      "fieldname": "enable_ai",
+      "fieldtype": "Check",
+      "label": "AI Features",
+      "default": 0,
+      "description": "Enable AI-powered features (enrichment, translation, SEO)"
+    },
+    {
+      "fieldname": "enable_bundling",
+      "fieldtype": "Check",
+      "label": "Bundling",
+      "default": 0,
+      "description": "Enable product bundling and kit management"
+    },
+    {
+      "fieldname": "enable_competitor_tracking",
+      "fieldtype": "Check",
+      "label": "Competitor Tracking",
+      "default": 0,
+      "description": "Enable competitor product tracking and analysis"
+    },
+
+    {
+      "fieldname": "section_break_onboarding",
+      "fieldtype": "Section Break",
+      "label": "Onboarding Status"
+    },
+    {
+      "fieldname": "onboarding_status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "\nnot_started\nin_progress\ncompleted\nskipped",
+      "default": "not_started",
+      "description": "Current onboarding wizard status for this tenant"
+    },
+    {
+      "fieldname": "onboarding_current_step",
+      "fieldtype": "Int",
+      "label": "Current Step",
+      "default": 0,
+      "description": "Current step number (1-12) in the onboarding wizard"
+    },
+    {
+      "fieldname": "column_break_onboarding",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "onboarding_started_at",
+      "fieldtype": "Datetime",
+      "label": "Started At",
+      "read_only": 1,
+      "description": "When the onboarding wizard was first started"
+    },
+    {
+      "fieldname": "onboarding_completed_at",
+      "fieldtype": "Datetime",
+      "label": "Completed At",
+      "read_only": 1,
+      "description": "When the onboarding wizard was completed"
+    },
+    {
+      "fieldname": "onboarding_step_data",
+      "fieldtype": "Long Text",
+      "label": "Step Data (JSON)",
+      "read_only": 1,
+      "description": "JSON object storing per-step completion data and timestamps"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

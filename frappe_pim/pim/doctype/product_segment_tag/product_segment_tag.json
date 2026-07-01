@@ -1,0 +1,54 @@
+{
+  "doctype": "DocType",
+  "name": "Product Segment Tag",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+
+  "field_order": [
+    "target_segment",
+    "segment_priority",
+    "is_primary_segment",
+    "notes"
+  ],
+  "fields": [
+    {
+      "fieldname": "target_segment",
+      "fieldtype": "Link",
+      "label": "Target Segment",
+      "options": "Target Segment",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 4
+    },
+    {
+      "fieldname": "segment_priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Primary\nSecondary\nTertiary",
+      "default": "Secondary",
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "is_primary_segment",
+      "fieldtype": "Check",
+      "label": "Is Primary",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Mark as the primary target segment for this product"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Additional notes about targeting this segment"
+    }
+  ],
+
+  "actions": [],
+  "links": [],
+  "states": [],
+  "permissions": []
+}

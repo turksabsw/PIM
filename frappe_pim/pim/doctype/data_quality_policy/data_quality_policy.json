@@ -1,0 +1,310 @@
+{
+  "doctype": "DocType",
+  "name": "Data Quality Policy",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:policy_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "priority",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "policy_name",
+      "fieldtype": "Data",
+      "label": "Policy Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "Descriptive name for this data quality policy"
+    },
+    {
+      "fieldname": "policy_code",
+      "fieldtype": "Data",
+      "label": "Policy Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug) for this policy. Example: amazon-listing-requirements"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "policy_type",
+      "fieldtype": "Select",
+      "label": "Policy Type",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "options": "Global\nProduct Family\nChannel\nBrand\nCustom",
+      "default": "Global",
+      "description": "Scope of this policy (Global applies to all products)"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this policy"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 100,
+      "in_list_view": 1,
+      "description": "Policy priority (lower = higher priority). Higher priority policies are evaluated first"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Policy Scope"
+    },
+    {
+      "fieldname": "apply_to_product_families",
+      "fieldtype": "Table MultiSelect",
+      "label": "Apply to Product Families",
+      "options": "Policy Product Family",
+      "depends_on": "eval:doc.policy_type == 'Product Family' || doc.policy_type == 'Custom'",
+      "description": "Product families this policy applies to"
+    },
+    {
+      "fieldname": "apply_to_channels",
+      "fieldtype": "Table MultiSelect",
+      "label": "Apply to Channels",
+      "options": "Policy Channel",
+      "depends_on": "eval:doc.policy_type == 'Channel' || doc.policy_type == 'Custom'",
+      "description": "Channels this policy applies to"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "apply_to_brands",
+      "fieldtype": "Table MultiSelect",
+      "label": "Apply to Brands",
+      "options": "Policy Brand",
+      "depends_on": "eval:doc.policy_type == 'Brand' || doc.policy_type == 'Custom'",
+      "description": "Brands this policy applies to"
+    },
+    {
+      "fieldname": "exclude_product_families",
+      "fieldtype": "Table MultiSelect",
+      "label": "Exclude Product Families",
+      "options": "Policy Product Family",
+      "depends_on": "eval:doc.policy_type == 'Global'",
+      "description": "Product families to exclude from this global policy"
+    },
+    {
+      "fieldname": "section_break_rules",
+      "fieldtype": "Section Break",
+      "label": "Validation Rules"
+    },
+    {
+      "fieldname": "rules",
+      "fieldtype": "Table",
+      "label": "Validation Rules",
+      "options": "Data Quality Rule",
+      "reqd": 1,
+      "description": "Define validation rules for data quality checks"
+    },
+    {
+      "fieldname": "section_break_behavior",
+      "fieldtype": "Section Break",
+      "label": "Policy Behavior"
+    },
+    {
+      "fieldname": "enforcement_mode",
+      "fieldtype": "Select",
+      "label": "Enforcement Mode",
+      "reqd": 1,
+      "options": "Strict\nWarning\nAudit Only",
+      "default": "Warning",
+      "description": "Strict: Block save on errors. Warning: Show warnings but allow save. Audit: Log only"
+    },
+    {
+      "fieldname": "block_publish_on_failure",
+      "fieldtype": "Check",
+      "label": "Block Publish on Failure",
+      "default": 0,
+      "description": "Prevent publishing products that fail this policy's validation rules"
+    },
+    {
+      "fieldname": "column_break_behavior",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "run_on_save",
+      "fieldtype": "Check",
+      "label": "Run on Save",
+      "default": 1,
+      "description": "Automatically validate products when saved"
+    },
+    {
+      "fieldname": "run_on_import",
+      "fieldtype": "Check",
+      "label": "Run on Import",
+      "default": 1,
+      "description": "Validate products during bulk import operations"
+    },
+    {
+      "fieldname": "run_scheduled",
+      "fieldtype": "Check",
+      "label": "Run in Scheduled Scans",
+      "default": 1,
+      "description": "Include this policy in scheduled data quality scans"
+    },
+    {
+      "fieldname": "section_break_scoring",
+      "fieldtype": "Section Break",
+      "label": "Quality Scoring",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "include_in_score",
+      "fieldtype": "Check",
+      "label": "Include in Quality Score",
+      "default": 1,
+      "description": "Include this policy's rules in overall data quality score calculation"
+    },
+    {
+      "fieldname": "policy_weight",
+      "fieldtype": "Float",
+      "label": "Policy Weight",
+      "default": 1.0,
+      "depends_on": "eval:doc.include_in_score",
+      "description": "Weight multiplier for this policy in score calculation"
+    },
+    {
+      "fieldname": "column_break_scoring",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "minimum_pass_rate",
+      "fieldtype": "Percent",
+      "label": "Minimum Pass Rate",
+      "default": 100,
+      "description": "Minimum percentage of rules that must pass for the policy to be considered passed"
+    },
+    {
+      "fieldname": "section_break_notification",
+      "fieldtype": "Section Break",
+      "label": "Notifications",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "notify_on_failure",
+      "fieldtype": "Check",
+      "label": "Notify on Failure",
+      "default": 0,
+      "description": "Send notification when products fail this policy"
+    },
+    {
+      "fieldname": "notification_recipients",
+      "fieldtype": "Small Text",
+      "label": "Notification Recipients",
+      "depends_on": "eval:doc.notify_on_failure",
+      "description": "Email addresses to notify on failure (comma-separated)"
+    },
+    {
+      "fieldname": "column_break_notification",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notification_frequency",
+      "fieldtype": "Select",
+      "label": "Notification Frequency",
+      "options": "\nImmediate\nDaily Digest\nWeekly Digest",
+      "depends_on": "eval:doc.notify_on_failure",
+      "description": "How often to send failure notifications"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description of this policy and its purpose"
+    },
+    {
+      "fieldname": "section_break_stats",
+      "fieldtype": "Section Break",
+      "label": "Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "total_products_evaluated",
+      "fieldtype": "Int",
+      "label": "Total Products Evaluated",
+      "read_only": 1,
+      "description": "Number of products evaluated by this policy"
+    },
+    {
+      "fieldname": "total_products_passed",
+      "fieldtype": "Int",
+      "label": "Total Products Passed",
+      "read_only": 1,
+      "description": "Number of products that passed this policy"
+    },
+    {
+      "fieldname": "column_break_stats",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "total_products_failed",
+      "fieldtype": "Int",
+      "label": "Total Products Failed",
+      "read_only": 1,
+      "description": "Number of products that failed this policy"
+    },
+    {
+      "fieldname": "last_scan_date",
+      "fieldtype": "Datetime",
+      "label": "Last Scan Date",
+      "read_only": 1,
+      "description": "When this policy was last used in a quality scan"
+    },
+    {
+      "fieldname": "pass_rate",
+      "fieldtype": "Percent",
+      "label": "Pass Rate",
+      "read_only": 1,
+      "description": "Percentage of products that passed this policy"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

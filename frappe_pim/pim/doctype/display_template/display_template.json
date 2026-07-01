@@ -1,0 +1,472 @@
+{
+  "doctype": "DocType",
+  "name": "Display Template",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:template_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "sort_order",
+  "sort_order": "ASC",
+  "fields": [
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for this template"
+    },
+    {
+      "fieldname": "template_code",
+      "fieldtype": "Data",
+      "label": "Template Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: sales-premium, catalog-basic"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "template_type",
+      "fieldtype": "Select",
+      "label": "Template Type",
+      "reqd": 1,
+      "options": "Sales Presentation\nProduct Catalog\nTechnical Sheet\nMarketing Flyer\nPrice List\nQuotation\nCustomer Portal\nE-commerce\nPrint Label\nSpecification Sheet\nComparison Sheet\nOther",
+      "default": "Sales Presentation",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of presentation template"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this template"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default",
+      "default": 0,
+      "description": "Set as default template for its type"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Order in which templates appear (lower = first)"
+    },
+    {
+      "fieldname": "section_break_target",
+      "fieldtype": "Section Break",
+      "label": "Target Audience"
+    },
+    {
+      "fieldname": "customer_type",
+      "fieldtype": "Select",
+      "label": "Customer Type",
+      "options": "\nB2B\nB2C\nWholesale\nRetail\nDistributor\nReseller\nEnd User\nAll",
+      "default": "All",
+      "in_standard_filter": 1,
+      "description": "Target customer segment for this template"
+    },
+    {
+      "fieldname": "target_segment",
+      "fieldtype": "Link",
+      "label": "Target Segment",
+      "options": "Target Segment",
+      "description": "Specific market segment this template is designed for"
+    },
+    {
+      "fieldname": "column_break_target",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "in_standard_filter": 1,
+      "description": "Sales or marketing channel this template is for"
+    },
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "Language",
+      "description": "Language/locale this template is designed for"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Product Scope"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "description": "Apply this template only to specific product family"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Category",
+      "description": "Apply this template only to specific category"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "description": "Apply this template only to specific brand"
+    },
+    {
+      "fieldname": "linked_collection",
+      "fieldtype": "Link",
+      "label": "Collection",
+      "options": "Product Collection",
+      "description": "Apply this template only to specific collection"
+    },
+    {
+      "fieldname": "section_break_layout",
+      "fieldtype": "Section Break",
+      "label": "Layout Configuration"
+    },
+    {
+      "fieldname": "output_format",
+      "fieldtype": "Select",
+      "label": "Output Format",
+      "options": "HTML\nPDF\nPrint\nEmail\nJSON\nXML",
+      "default": "HTML",
+      "in_standard_filter": 1,
+      "description": "Primary output format for this template"
+    },
+    {
+      "fieldname": "page_size",
+      "fieldtype": "Select",
+      "label": "Page Size",
+      "options": "\nA4\nA5\nLetter\nLegal\nCustom",
+      "description": "Page size for print/PDF output"
+    },
+    {
+      "fieldname": "orientation",
+      "fieldtype": "Select",
+      "label": "Orientation",
+      "options": "\nPortrait\nLandscape",
+      "description": "Page orientation for print/PDF"
+    },
+    {
+      "fieldname": "column_break_layout",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_images",
+      "fieldtype": "Check",
+      "label": "Show Images",
+      "default": 1,
+      "description": "Include product images in template"
+    },
+    {
+      "fieldname": "show_pricing",
+      "fieldtype": "Check",
+      "label": "Show Pricing",
+      "default": 1,
+      "description": "Include pricing information in template"
+    },
+    {
+      "fieldname": "show_technical_specs",
+      "fieldtype": "Check",
+      "label": "Show Technical Specs",
+      "default": 1,
+      "description": "Include technical specifications"
+    },
+    {
+      "fieldname": "show_variants",
+      "fieldtype": "Check",
+      "label": "Show Variants",
+      "default": 0,
+      "description": "Include variant options in template"
+    },
+    {
+      "fieldname": "section_break_fields",
+      "fieldtype": "Section Break",
+      "label": "Field Configuration"
+    },
+    {
+      "fieldname": "included_fields",
+      "fieldtype": "Small Text",
+      "label": "Included Fields",
+      "description": "Comma-separated list of field names to include. Leave blank for all fields."
+    },
+    {
+      "fieldname": "excluded_fields",
+      "fieldtype": "Small Text",
+      "label": "Excluded Fields",
+      "description": "Comma-separated list of field names to exclude."
+    },
+    {
+      "fieldname": "column_break_fields",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "field_order",
+      "fieldtype": "Small Text",
+      "label": "Field Order",
+      "description": "Comma-separated list defining field display order."
+    },
+    {
+      "fieldname": "custom_field_labels",
+      "fieldtype": "Code",
+      "label": "Custom Field Labels",
+      "options": "JSON",
+      "description": "JSON object mapping field names to custom labels. Example: {\"product_name\": \"Item Name\"}"
+    },
+    {
+      "fieldname": "section_break_template",
+      "fieldtype": "Section Break",
+      "label": "Template Content"
+    },
+    {
+      "fieldname": "header_html",
+      "fieldtype": "Code",
+      "label": "Header HTML",
+      "options": "HTML",
+      "description": "HTML content for template header. Use {{variables}} for dynamic content."
+    },
+    {
+      "fieldname": "body_template",
+      "fieldtype": "Code",
+      "label": "Body Template",
+      "options": "HTML",
+      "description": "Main HTML template body. Use Jinja2 syntax: {{ product.product_name }}, {% for item in items %}"
+    },
+    {
+      "fieldname": "footer_html",
+      "fieldtype": "Code",
+      "label": "Footer HTML",
+      "options": "HTML",
+      "description": "HTML content for template footer. Use {{variables}} for dynamic content."
+    },
+    {
+      "fieldname": "section_break_style",
+      "fieldtype": "Section Break",
+      "label": "Styling"
+    },
+    {
+      "fieldname": "custom_css",
+      "fieldtype": "Code",
+      "label": "Custom CSS",
+      "options": "CSS",
+      "description": "Custom CSS styles for this template"
+    },
+    {
+      "fieldname": "column_break_style",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "primary_color",
+      "fieldtype": "Color",
+      "label": "Primary Color",
+      "description": "Primary brand color for template"
+    },
+    {
+      "fieldname": "secondary_color",
+      "fieldtype": "Color",
+      "label": "Secondary Color",
+      "description": "Secondary accent color"
+    },
+    {
+      "fieldname": "font_family",
+      "fieldtype": "Data",
+      "label": "Font Family",
+      "description": "CSS font-family value. Example: Arial, sans-serif"
+    },
+    {
+      "fieldname": "section_break_preview",
+      "fieldtype": "Section Break",
+      "label": "Preview & Testing"
+    },
+    {
+      "fieldname": "preview_product",
+      "fieldtype": "Link",
+      "label": "Preview Product",
+      "options": "Product Master",
+      "description": "Product to use for template preview"
+    },
+    {
+      "fieldname": "preview_html",
+      "fieldtype": "HTML",
+      "label": "Preview",
+      "read_only": 1,
+      "description": "Click 'Generate Preview' to see template output"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "When this template becomes active"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "When this template expires"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "version",
+      "fieldtype": "Data",
+      "label": "Version",
+      "default": "1.0",
+      "description": "Template version number"
+    },
+    {
+      "fieldname": "last_used_date",
+      "fieldtype": "Date",
+      "label": "Last Used Date",
+      "read_only": 1,
+      "description": "When this template was last used"
+    },
+    {
+      "fieldname": "usage_count",
+      "fieldtype": "Int",
+      "label": "Usage Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this template has been used"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description & Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description of this template and its intended use"
+    },
+    {
+      "fieldname": "usage_instructions",
+      "fieldtype": "Text Editor",
+      "label": "Usage Instructions",
+      "description": "Instructions for using this template"
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Small Text",
+      "label": "Internal Notes",
+      "description": "Internal notes visible only to administrators"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "template_name",
+    "template_code",
+    "column_break_basic",
+    "template_type",
+    "enabled",
+    "is_default",
+    "sort_order",
+    "section_break_target",
+    "customer_type",
+    "target_segment",
+    "column_break_target",
+    "channel",
+    "locale",
+    "section_break_scope",
+    "linked_product_family",
+    "linked_category",
+    "column_break_scope",
+    "linked_brand",
+    "linked_collection",
+    "section_break_layout",
+    "output_format",
+    "page_size",
+    "orientation",
+    "column_break_layout",
+    "show_images",
+    "show_pricing",
+    "show_technical_specs",
+    "show_variants",
+    "section_break_fields",
+    "included_fields",
+    "excluded_fields",
+    "column_break_fields",
+    "field_order",
+    "custom_field_labels",
+    "section_break_template",
+    "header_html",
+    "body_template",
+    "footer_html",
+    "section_break_style",
+    "custom_css",
+    "column_break_style",
+    "primary_color",
+    "secondary_color",
+    "font_family",
+    "section_break_preview",
+    "preview_product",
+    "preview_html",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "version",
+    "last_used_date",
+    "usage_count",
+    "section_break_description",
+    "description",
+    "usage_instructions",
+    "internal_notes"
+  ]
+}

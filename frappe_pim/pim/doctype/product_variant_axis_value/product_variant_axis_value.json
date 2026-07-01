@@ -1,0 +1,46 @@
+{
+  "doctype": "DocType",
+  "name": "Product Variant Axis Value",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "engine": "InnoDB",
+
+  "fields": [
+    {
+      "fieldname": "attribute",
+      "fieldtype": "Link",
+      "label": "Axis Attribute",
+      "options": "PIM Attribute",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3,
+      "description": "Must be an attribute with is_variant_axis=True"
+    },
+    {
+      "fieldname": "attribute_value",
+      "fieldtype": "Data",
+      "label": "Value",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "display_value",
+      "fieldtype": "Data",
+      "label": "Display Value",
+      "read_only": 1,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "option",
+      "fieldtype": "Link",
+      "label": "Option Reference",
+      "options": "PIM Attribute Option",
+      "description": "Link to predefined attribute option (if applicable)"
+    }
+  ],
+  "permissions": []
+}

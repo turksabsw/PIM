@@ -1,0 +1,723 @@
+{
+  "doctype": "DocType",
+  "name": "Product Score",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "PS-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "tab_basic",
+      "fieldtype": "Tab Break",
+      "label": "Basic Information"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Linked Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Product this score applies to"
+    },
+    {
+      "fieldname": "score_type",
+      "fieldtype": "Select",
+      "label": "Score Type",
+      "reqd": 1,
+      "options": "Overall\nContent Quality\nMedia Quality\nSEO\nTranslation Coverage\nAttribute Completeness\nMarket Performance\nCustomer Satisfaction\nCompetitive Position\nManual",
+      "default": "Overall",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of score being recorded"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "reqd": 1,
+      "options": "Active\nPending Review\nExpired\nArchived",
+      "default": "Active",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of this score"
+    },
+    {
+      "fieldname": "is_current",
+      "fieldtype": "Check",
+      "label": "Is Current Score",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Whether this is the active score for the product"
+    },
+    {
+      "fieldname": "section_break_score",
+      "fieldtype": "Section Break",
+      "label": "Score Values"
+    },
+    {
+      "fieldname": "overall_score",
+      "fieldtype": "Percent",
+      "label": "Overall Score",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Final composite score (0-100)"
+    },
+    {
+      "fieldname": "weighted_score",
+      "fieldtype": "Float",
+      "label": "Weighted Score",
+      "precision": 2,
+      "read_only": 1,
+      "description": "Score after applying hierarchy weights"
+    },
+    {
+      "fieldname": "column_break_score",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "manual_override",
+      "fieldtype": "Check",
+      "label": "Manual Override",
+      "default": 0,
+      "description": "Score was manually set instead of calculated"
+    },
+    {
+      "fieldname": "manual_score",
+      "fieldtype": "Percent",
+      "label": "Manual Score",
+      "depends_on": "manual_override",
+      "description": "Manually set score value (0-100)"
+    },
+    {
+      "fieldname": "tab_breakdown",
+      "fieldtype": "Tab Break",
+      "label": "Score Breakdown"
+    },
+    {
+      "fieldname": "section_break_content",
+      "fieldtype": "Section Break",
+      "label": "Content Scores"
+    },
+    {
+      "fieldname": "content_completeness_score",
+      "fieldtype": "Percent",
+      "label": "Content Completeness",
+      "description": "Score based on product description completeness"
+    },
+    {
+      "fieldname": "content_quality_score",
+      "fieldtype": "Percent",
+      "label": "Content Quality",
+      "description": "Score based on content quality assessment"
+    },
+    {
+      "fieldname": "column_break_content",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "media_completeness_score",
+      "fieldtype": "Percent",
+      "label": "Media Completeness",
+      "description": "Score based on product media/images completeness"
+    },
+    {
+      "fieldname": "media_quality_score",
+      "fieldtype": "Percent",
+      "label": "Media Quality",
+      "description": "Score based on media quality assessment"
+    },
+    {
+      "fieldname": "section_break_seo",
+      "fieldtype": "Section Break",
+      "label": "SEO & Localization Scores"
+    },
+    {
+      "fieldname": "seo_score",
+      "fieldtype": "Percent",
+      "label": "SEO Score",
+      "description": "Score based on SEO metadata completeness"
+    },
+    {
+      "fieldname": "seo_meta_title_score",
+      "fieldtype": "Percent",
+      "label": "Meta Title Score",
+      "description": "Score for meta title quality"
+    },
+    {
+      "fieldname": "column_break_seo",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "translation_coverage_score",
+      "fieldtype": "Percent",
+      "label": "Translation Coverage",
+      "description": "Score based on translation completeness across required languages"
+    },
+    {
+      "fieldname": "translation_quality_score",
+      "fieldtype": "Percent",
+      "label": "Translation Quality",
+      "description": "Score based on verified translations"
+    },
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Attribute & Data Scores"
+    },
+    {
+      "fieldname": "attribute_completeness_score",
+      "fieldtype": "Percent",
+      "label": "Attribute Completeness",
+      "description": "Score based on required attributes filled"
+    },
+    {
+      "fieldname": "attribute_quality_score",
+      "fieldtype": "Percent",
+      "label": "Attribute Quality",
+      "description": "Score based on attribute data quality"
+    },
+    {
+      "fieldname": "column_break_attributes",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "data_accuracy_score",
+      "fieldtype": "Percent",
+      "label": "Data Accuracy",
+      "description": "Score based on data accuracy checks"
+    },
+    {
+      "fieldname": "data_consistency_score",
+      "fieldtype": "Percent",
+      "label": "Data Consistency",
+      "description": "Score based on data consistency across fields"
+    },
+    {
+      "fieldname": "section_break_market",
+      "fieldtype": "Section Break",
+      "label": "Market & Performance Scores"
+    },
+    {
+      "fieldname": "market_performance_score",
+      "fieldtype": "Percent",
+      "label": "Market Performance",
+      "description": "Score based on sales and market data"
+    },
+    {
+      "fieldname": "customer_satisfaction_score",
+      "fieldtype": "Percent",
+      "label": "Customer Satisfaction",
+      "description": "Score based on customer feedback and reviews"
+    },
+    {
+      "fieldname": "column_break_market",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "competitive_position_score",
+      "fieldtype": "Percent",
+      "label": "Competitive Position",
+      "description": "Score based on competitor analysis"
+    },
+    {
+      "fieldname": "feedback_sentiment_score",
+      "fieldtype": "Percent",
+      "label": "Feedback Sentiment",
+      "description": "Score based on feedback sentiment analysis"
+    },
+    {
+      "fieldname": "tab_hierarchy",
+      "fieldtype": "Tab Break",
+      "label": "Hierarchy Breakdown"
+    },
+    {
+      "fieldname": "section_break_hierarchy",
+      "fieldtype": "Section Break",
+      "label": "Product Hierarchy Context"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "read_only": 1,
+      "in_standard_filter": 1,
+      "description": "Product family (auto-populated from product)"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Product Category",
+      "read_only": 1,
+      "in_standard_filter": 1,
+      "description": "Product category (auto-populated from family)"
+    },
+    {
+      "fieldname": "column_break_hierarchy",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "read_only": 1,
+      "in_standard_filter": 1,
+      "description": "Product brand (auto-populated from product)"
+    },
+    {
+      "fieldname": "linked_collection",
+      "fieldtype": "Link",
+      "label": "Collection",
+      "options": "Product Collection",
+      "read_only": 1,
+      "description": "Product collection (auto-populated from product)"
+    },
+    {
+      "fieldname": "section_break_hierarchy_scores",
+      "fieldtype": "Section Break",
+      "label": "Hierarchy Score Comparison"
+    },
+    {
+      "fieldname": "family_avg_score",
+      "fieldtype": "Percent",
+      "label": "Family Average Score",
+      "read_only": 1,
+      "description": "Average score of products in the same family"
+    },
+    {
+      "fieldname": "family_rank",
+      "fieldtype": "Int",
+      "label": "Family Rank",
+      "read_only": 1,
+      "description": "Product's rank within its family"
+    },
+    {
+      "fieldname": "family_total_products",
+      "fieldtype": "Int",
+      "label": "Family Total Products",
+      "read_only": 1,
+      "description": "Total products in the family"
+    },
+    {
+      "fieldname": "column_break_hierarchy_scores",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "category_avg_score",
+      "fieldtype": "Percent",
+      "label": "Category Average Score",
+      "read_only": 1,
+      "description": "Average score of products in the same category"
+    },
+    {
+      "fieldname": "category_rank",
+      "fieldtype": "Int",
+      "label": "Category Rank",
+      "read_only": 1,
+      "description": "Product's rank within its category"
+    },
+    {
+      "fieldname": "category_total_products",
+      "fieldtype": "Int",
+      "label": "Category Total Products",
+      "read_only": 1,
+      "description": "Total products in the category"
+    },
+    {
+      "fieldname": "section_break_percentile",
+      "fieldtype": "Section Break",
+      "label": "Percentile Rankings"
+    },
+    {
+      "fieldname": "overall_percentile",
+      "fieldtype": "Percent",
+      "label": "Overall Percentile",
+      "read_only": 1,
+      "description": "Percentile rank among all products"
+    },
+    {
+      "fieldname": "family_percentile",
+      "fieldtype": "Percent",
+      "label": "Family Percentile",
+      "read_only": 1,
+      "description": "Percentile rank within product family"
+    },
+    {
+      "fieldname": "column_break_percentile",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "category_percentile",
+      "fieldtype": "Percent",
+      "label": "Category Percentile",
+      "read_only": 1,
+      "description": "Percentile rank within category"
+    },
+    {
+      "fieldname": "brand_percentile",
+      "fieldtype": "Percent",
+      "label": "Brand Percentile",
+      "read_only": 1,
+      "description": "Percentile rank within brand"
+    },
+    {
+      "fieldname": "tab_weights",
+      "fieldtype": "Tab Break",
+      "label": "Score Weights"
+    },
+    {
+      "fieldname": "section_break_weights",
+      "fieldtype": "Section Break",
+      "label": "Component Weights",
+      "description": "Weight percentages used in overall score calculation (must sum to 100)"
+    },
+    {
+      "fieldname": "content_weight",
+      "fieldtype": "Percent",
+      "label": "Content Weight",
+      "default": 25,
+      "description": "Weight for content scores"
+    },
+    {
+      "fieldname": "media_weight",
+      "fieldtype": "Percent",
+      "label": "Media Weight",
+      "default": 15,
+      "description": "Weight for media scores"
+    },
+    {
+      "fieldname": "seo_weight",
+      "fieldtype": "Percent",
+      "label": "SEO Weight",
+      "default": 15,
+      "description": "Weight for SEO scores"
+    },
+    {
+      "fieldname": "column_break_weights",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "translation_weight",
+      "fieldtype": "Percent",
+      "label": "Translation Weight",
+      "default": 10,
+      "description": "Weight for translation scores"
+    },
+    {
+      "fieldname": "attribute_weight",
+      "fieldtype": "Percent",
+      "label": "Attribute Weight",
+      "default": 20,
+      "description": "Weight for attribute scores"
+    },
+    {
+      "fieldname": "market_weight",
+      "fieldtype": "Percent",
+      "label": "Market Weight",
+      "default": 15,
+      "description": "Weight for market and performance scores"
+    },
+    {
+      "fieldname": "section_break_custom_weights",
+      "fieldtype": "Section Break",
+      "label": "Weight Configuration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "use_custom_weights",
+      "fieldtype": "Check",
+      "label": "Use Custom Weights",
+      "default": 0,
+      "description": "Use custom weights instead of system defaults"
+    },
+    {
+      "fieldname": "weights_profile",
+      "fieldtype": "Data",
+      "label": "Weights Profile",
+      "depends_on": "use_custom_weights",
+      "description": "Name of the custom weights profile"
+    },
+    {
+      "fieldname": "total_weight",
+      "fieldtype": "Percent",
+      "label": "Total Weight",
+      "read_only": 1,
+      "description": "Sum of all weights (should be 100)"
+    },
+    {
+      "fieldname": "tab_validity",
+      "fieldtype": "Tab Break",
+      "label": "Validity & History"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Score Validity"
+    },
+    {
+      "fieldname": "calculated_date",
+      "fieldtype": "Datetime",
+      "label": "Calculated Date",
+      "read_only": 1,
+      "description": "When the score was last calculated"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Date from which this score is effective"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "valid_until",
+      "fieldtype": "Date",
+      "label": "Valid Until",
+      "description": "Date until which this score is valid"
+    },
+    {
+      "fieldname": "next_review_date",
+      "fieldtype": "Date",
+      "label": "Next Review Date",
+      "description": "Scheduled date for score review"
+    },
+    {
+      "fieldname": "section_break_calculation",
+      "fieldtype": "Section Break",
+      "label": "Calculation Details"
+    },
+    {
+      "fieldname": "calculation_method",
+      "fieldtype": "Select",
+      "label": "Calculation Method",
+      "options": "Automatic\nManual\nScheduled\nBatch\nAPI",
+      "default": "Automatic",
+      "read_only": 1,
+      "description": "How this score was calculated"
+    },
+    {
+      "fieldname": "calculation_version",
+      "fieldtype": "Data",
+      "label": "Calculation Version",
+      "read_only": 1,
+      "description": "Version of the scoring algorithm used"
+    },
+    {
+      "fieldname": "column_break_calculation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "previous_score",
+      "fieldtype": "Percent",
+      "label": "Previous Score",
+      "read_only": 1,
+      "description": "Previous overall score value"
+    },
+    {
+      "fieldname": "score_change",
+      "fieldtype": "Float",
+      "label": "Score Change",
+      "precision": 2,
+      "read_only": 1,
+      "description": "Change from previous score"
+    },
+    {
+      "fieldname": "section_break_history",
+      "fieldtype": "Section Break",
+      "label": "Score History",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "score_history",
+      "fieldtype": "Small Text",
+      "label": "Score History",
+      "read_only": 1,
+      "description": "JSON array of historical scores"
+    },
+    {
+      "fieldname": "recalculation_count",
+      "fieldtype": "Int",
+      "label": "Recalculation Count",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of times score has been recalculated"
+    },
+    {
+      "fieldname": "tab_notes",
+      "fieldtype": "Tab Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Scoring Notes"
+    },
+    {
+      "fieldname": "calculation_notes",
+      "fieldtype": "Text Editor",
+      "label": "Calculation Notes",
+      "description": "Notes about the score calculation"
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Small Text",
+      "label": "Internal Notes",
+      "description": "Internal notes visible only to PIM team"
+    },
+    {
+      "fieldname": "section_break_improvements",
+      "fieldtype": "Section Break",
+      "label": "Improvement Recommendations",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "improvement_recommendations",
+      "fieldtype": "Text Editor",
+      "label": "Improvement Recommendations",
+      "read_only": 1,
+      "description": "Auto-generated recommendations to improve the score"
+    },
+    {
+      "fieldname": "priority_improvements",
+      "fieldtype": "Small Text",
+      "label": "Priority Improvements",
+      "read_only": 1,
+      "description": "Top 3 areas to improve the score"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "export": 1
+    }
+  ],
+  "field_order": [
+    "tab_basic",
+    "linked_product",
+    "score_type",
+    "column_break_basic",
+    "status",
+    "is_current",
+    "section_break_score",
+    "overall_score",
+    "weighted_score",
+    "column_break_score",
+    "manual_override",
+    "manual_score",
+    "tab_breakdown",
+    "section_break_content",
+    "content_completeness_score",
+    "content_quality_score",
+    "column_break_content",
+    "media_completeness_score",
+    "media_quality_score",
+    "section_break_seo",
+    "seo_score",
+    "seo_meta_title_score",
+    "column_break_seo",
+    "translation_coverage_score",
+    "translation_quality_score",
+    "section_break_attributes",
+    "attribute_completeness_score",
+    "attribute_quality_score",
+    "column_break_attributes",
+    "data_accuracy_score",
+    "data_consistency_score",
+    "section_break_market",
+    "market_performance_score",
+    "customer_satisfaction_score",
+    "column_break_market",
+    "competitive_position_score",
+    "feedback_sentiment_score",
+    "tab_hierarchy",
+    "section_break_hierarchy",
+    "linked_product_family",
+    "linked_category",
+    "column_break_hierarchy",
+    "linked_brand",
+    "linked_collection",
+    "section_break_hierarchy_scores",
+    "family_avg_score",
+    "family_rank",
+    "family_total_products",
+    "column_break_hierarchy_scores",
+    "category_avg_score",
+    "category_rank",
+    "category_total_products",
+    "section_break_percentile",
+    "overall_percentile",
+    "family_percentile",
+    "column_break_percentile",
+    "category_percentile",
+    "brand_percentile",
+    "tab_weights",
+    "section_break_weights",
+    "content_weight",
+    "media_weight",
+    "seo_weight",
+    "column_break_weights",
+    "translation_weight",
+    "attribute_weight",
+    "market_weight",
+    "section_break_custom_weights",
+    "use_custom_weights",
+    "weights_profile",
+    "total_weight",
+    "tab_validity",
+    "section_break_validity",
+    "calculated_date",
+    "valid_from",
+    "column_break_validity",
+    "valid_until",
+    "next_review_date",
+    "section_break_calculation",
+    "calculation_method",
+    "calculation_version",
+    "column_break_calculation",
+    "previous_score",
+    "score_change",
+    "section_break_history",
+    "score_history",
+    "recalculation_count",
+    "tab_notes",
+    "section_break_notes",
+    "calculation_notes",
+    "internal_notes",
+    "section_break_improvements",
+    "improvement_recommendations",
+    "priority_improvements"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "doctype": "DocType",
+  "name": "Product Media",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "file",
+      "fieldtype": "Attach",
+      "label": "File",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "media_type",
+      "fieldtype": "Select",
+      "label": "Type",
+      "options": "Image\nVideo\nDocument\n3D Model\nAudio",
+      "default": "Image",
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "Title",
+      "in_list_view": 1,
+      "columns": 2,
+      "translatable": 1
+    },
+    {
+      "fieldname": "alt_text",
+      "fieldtype": "Data",
+      "label": "Alt Text",
+      "translatable": 1,
+      "description": "For accessibility and SEO"
+    },
+    {
+      "fieldname": "is_primary",
+      "fieldtype": "Check",
+      "label": "Primary",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Main image for product listing"
+    },
+    {
+      "fieldname": "role",
+      "fieldtype": "Select",
+      "label": "Role",
+      "options": "Main\nGallery\nThumbnail\nTechnical\nPackaging\nLifestyle",
+      "default": "Gallery"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "apply_to_variant",
+      "fieldtype": "Link",
+      "label": "Apply to Variant Only",
+      "options": "Product Variant",
+      "description": "Leave empty to apply to all variants"
+    },
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "Language",
+      "description": "Leave empty for all locales"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "description": "Leave empty for all channels"
+    }
+  ]
+}

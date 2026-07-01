@@ -1,0 +1,1200 @@
+{
+    "archetype": "automotive",
+    "version": "1.0",
+    "label": "Automotive & Vehicles",
+    "description": "Industry archetype for automotive parts, accessories, vehicles, and aftermarket components. Includes product types for OEM parts, aftermarket accessories, tires, and fluids with technical attributes for vehicle fitment, engine specifications, OE numbers, and regulatory compliance (ECE, DOT, SAE).",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Vehicle Fitment",
+            "group_code": "vehicle_fitment",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-car",
+            "description": "Vehicle compatibility: make, model, year, engine, and trim level for part fitment"
+        },
+        {
+            "group_name": "Engine & Drivetrain",
+            "group_code": "engine_drivetrain",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-cogs",
+            "description": "Engine specifications, displacement, fuel type, transmission, and drivetrain attributes"
+        },
+        {
+            "group_name": "Part Identification",
+            "group_code": "part_identification",
+            "sort_order": 100,
+            "is_standard": 0,
+            "icon": "fa fa-barcode",
+            "description": "OE part numbers, cross-references, manufacturer codes, and interchange data"
+        },
+        {
+            "group_name": "Performance & Safety",
+            "group_code": "performance_safety",
+            "sort_order": 110,
+            "is_standard": 0,
+            "icon": "fa fa-tachometer-alt",
+            "description": "Performance ratings, load capacity, safety certifications, and compliance marks"
+        },
+        {
+            "group_name": "Physical Specifications",
+            "group_code": "physical_specs",
+            "sort_order": 120,
+            "is_standard": 0,
+            "icon": "fa fa-ruler-combined",
+            "description": "Dimensions, weight, material composition, and finish for automotive parts"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "Year Range",
+            "type_code": "year_range",
+            "base_type": "String",
+            "has_options": 0,
+            "is_standard": 0,
+            "is_active": 1,
+            "validation_regex": "^\\d{4}(-\\d{4})?$",
+            "validation_message": "Enter a year (2020) or year range (2018-2024)",
+            "input_component": "text-input",
+            "display_component": "text-display",
+            "icon": "fa fa-calendar-alt"
+        },
+        {
+            "type_name": "Part Number",
+            "type_code": "part_number",
+            "base_type": "String",
+            "has_options": 0,
+            "is_standard": 0,
+            "is_active": 1,
+            "validation_regex": "^[A-Za-z0-9\\-\\.]+$",
+            "validation_message": "Part numbers may only contain letters, numbers, hyphens, and dots",
+            "input_component": "text-input",
+            "display_component": "code-display",
+            "icon": "fa fa-hashtag"
+        },
+        {
+            "type_name": "Torque Rating",
+            "type_code": "torque_rating",
+            "base_type": "Float",
+            "supports_unit": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "input_component": "measurement-input",
+            "display_component": "measurement-display",
+            "icon": "fa fa-wrench"
+        },
+        {
+            "type_name": "Certification Badge",
+            "type_code": "auto_cert_badge",
+            "base_type": "JSON",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "multiselect",
+            "display_component": "tags-display",
+            "icon": "fa fa-certificate"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Vehicle Make",
+            "attribute_code": "vehicle_make",
+            "attribute_group": "vehicle_fitment",
+            "data_type": "Select",
+            "options": "Audi, BMW, Chevrolet, Chrysler, Citroën, Dodge, Fiat, Ford, Honda, Hyundai, Jaguar, Jeep, Kia, Land Rover, Lexus, Mazda, Mercedes-Benz, Mini, Mitsubishi, Nissan, Opel, Peugeot, Porsche, Renault, Seat, Škoda, Subaru, Suzuki, Tesla, Toyota, Volkswagen, Volvo, Universal",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 10,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Vehicle manufacturer the part is designed for (select Universal for multi-fit)"
+        },
+        {
+            "attribute_name": "Vehicle Model",
+            "attribute_code": "vehicle_model",
+            "attribute_group": "vehicle_fitment",
+            "data_type": "Text",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 200,
+            "sort_order": 20,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Vehicle model name or comma-separated list of compatible models"
+        },
+        {
+            "attribute_name": "Year Range",
+            "attribute_code": "year_range",
+            "attribute_group": "vehicle_fitment",
+            "data_type": "Text",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 50,
+            "sort_order": 30,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Compatible model years as a range (e.g., 2018-2024)"
+        },
+        {
+            "attribute_name": "Engine Type",
+            "attribute_code": "engine_type",
+            "attribute_group": "engine_drivetrain",
+            "data_type": "Select",
+            "options": "Petrol, Diesel, Hybrid, Plug-in Hybrid, Electric, LPG, CNG, Hydrogen",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 40,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Fuel or powertrain type the part is compatible with"
+        },
+        {
+            "attribute_name": "Engine Displacement",
+            "attribute_code": "engine_displacement",
+            "attribute_group": "engine_drivetrain",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 50,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Engine displacement in litres or cc (e.g., 2.0L, 1998cc)"
+        },
+        {
+            "attribute_name": "Transmission Type",
+            "attribute_code": "transmission_type",
+            "attribute_group": "engine_drivetrain",
+            "data_type": "Select",
+            "options": "Manual, Automatic, CVT, DCT, AMT, N/A",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 60,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Transmission type the part fits (N/A if not transmission-specific)"
+        },
+        {
+            "attribute_name": "Drive Type",
+            "attribute_code": "drive_type",
+            "attribute_group": "engine_drivetrain",
+            "data_type": "Select",
+            "options": "FWD, RWD, AWD, 4WD, N/A",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 70,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Drivetrain configuration the part is designed for"
+        },
+        {
+            "attribute_name": "OE Part Number",
+            "attribute_code": "oe_part_number",
+            "attribute_group": "part_identification",
+            "data_type": "Text",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 1,
+            "max_length": 100,
+            "sort_order": 80,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Original Equipment part number from the vehicle manufacturer"
+        },
+        {
+            "attribute_name": "Cross-Reference Numbers",
+            "attribute_code": "cross_reference",
+            "attribute_group": "part_identification",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 500,
+            "sort_order": 90,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Equivalent part numbers from other manufacturers (comma-separated)"
+        },
+        {
+            "attribute_name": "Part Position",
+            "attribute_code": "part_position",
+            "attribute_group": "part_identification",
+            "data_type": "Select",
+            "options": "Front, Rear, Left, Right, Front Left, Front Right, Rear Left, Rear Right, Upper, Lower, Inner, Outer, N/A",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 100,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Installation position on the vehicle (for side-specific or directional parts)"
+        },
+        {
+            "attribute_name": "Part Condition",
+            "attribute_code": "part_condition",
+            "attribute_group": "part_identification",
+            "data_type": "Select",
+            "options": "New, Remanufactured, Used - Grade A, Used - Grade B, Core",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 110,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Condition of the part: new, remanufactured, or used with grading"
+        },
+        {
+            "attribute_name": "Part Material",
+            "attribute_code": "part_material",
+            "attribute_group": "physical_specs",
+            "data_type": "Select",
+            "options": "Steel, Aluminium, Cast Iron, Stainless Steel, Carbon Fibre, Plastic, Rubber, Ceramic, Copper, Brass, Composite",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 120,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary material the part is manufactured from"
+        },
+        {
+            "attribute_name": "Part Weight",
+            "attribute_code": "part_weight",
+            "attribute_group": "physical_specs",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "min_value": 0,
+            "value_suffix": " kg",
+            "sort_order": 130,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Weight of the part in kilograms for shipping and handling"
+        },
+        {
+            "attribute_name": "Finish",
+            "attribute_code": "auto_finish",
+            "attribute_group": "physical_specs",
+            "data_type": "Select",
+            "options": "Chrome, Matte Black, Gloss Black, Silver, Painted, Powder Coated, Anodised, Raw, Galvanised",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 140,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Surface finish or coating applied to the part"
+        },
+        {
+            "attribute_name": "Certification",
+            "attribute_code": "auto_certification",
+            "attribute_group": "performance_safety",
+            "data_type": "Select",
+            "options": "ECE R90, DOT, SAE, TÜV, ISO 9001, IATF 16949, ADR, E-Mark, None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 150,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Regulatory certification or safety standard the part complies with"
+        },
+        {
+            "attribute_name": "Load Rating",
+            "attribute_code": "load_rating",
+            "attribute_group": "performance_safety",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 160,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Maximum load rating or capacity (e.g., 92T for tyres, 1500 kg for springs)"
+        },
+        {
+            "attribute_name": "Warranty Period",
+            "attribute_code": "auto_warranty",
+            "attribute_group": "performance_safety",
+            "data_type": "Select",
+            "options": "6 Months, 1 Year, 2 Years, 3 Years, 5 Years, Lifetime, As-Is",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 170,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Manufacturer or seller warranty coverage period"
+        },
+        {
+            "attribute_name": "Tyre Size",
+            "attribute_code": "tyre_size",
+            "attribute_group": "physical_specs",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 30,
+            "sort_order": 180,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Tyre size designation (e.g., 225/45R17)"
+        },
+        {
+            "attribute_name": "Viscosity Grade",
+            "attribute_code": "viscosity_grade",
+            "attribute_group": "engine_drivetrain",
+            "data_type": "Select",
+            "options": "0W-20, 0W-30, 5W-20, 5W-30, 5W-40, 10W-30, 10W-40, 15W-40, 20W-50, ATF, 75W-80, 75W-90, 80W-90",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 190,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Oil or fluid viscosity grade (SAE classification)"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "OEM Part",
+            "type_code": "oem_part",
+            "description": "Original Equipment Manufacturer parts sourced directly from vehicle manufacturers or authorised suppliers. Identified by OE part numbers.",
+            "is_active": 1,
+            "allow_variants": 0
+        },
+        {
+            "type_name": "Aftermarket Part",
+            "type_code": "aftermarket_part",
+            "description": "Third-party replacement parts compatible with one or more vehicle makes and models. May offer enhanced performance or value.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Performance Part",
+            "type_code": "performance_part",
+            "description": "Upgraded or high-performance parts designed to improve vehicle output, handling, or braking beyond OEM specifications.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Tyre",
+            "type_code": "tyre",
+            "description": "Tyres for passenger vehicles, SUVs, and light trucks. Classified by size, speed rating, load index, and season.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Fluid & Chemical",
+            "type_code": "fluid_chemical",
+            "description": "Oils, lubricants, coolants, brake fluids, and chemical treatments. Classified by viscosity, specification, and capacity.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Accessory",
+            "type_code": "auto_accessory",
+            "description": "Vehicle accessories including floor mats, roof racks, lighting upgrades, and interior enhancements.",
+            "is_active": 1,
+            "allow_variants": 1
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Automotive",
+            "family_code": "automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Root family for all automotive parts, accessories, and fluids"
+        },
+        {
+            "family_name": "Engine Parts",
+            "family_code": "engine_parts",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "ENG-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Engine components: gaskets, filters, belts, pumps, sensors, and ignition parts",
+            "attributes": [
+                {"attribute": "vehicle_make", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "vehicle_model", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "year_range", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "engine_type", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "engine_displacement", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "oe_part_number", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "cross_reference", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 80},
+                {"attribute": "part_material", "is_required_in_family": 0, "sort_order": 90},
+                {"attribute": "auto_certification", "is_required_in_family": 0, "sort_order": 100},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 110}
+            ],
+            "variant_attributes": []
+        },
+        {
+            "family_name": "Air Filters",
+            "family_code": "air_filters",
+            "parent_family": "Engine Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "AFI-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Engine air filters and cabin air filters"
+        },
+        {
+            "family_name": "Oil Filters",
+            "family_code": "oil_filters",
+            "parent_family": "Engine Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "OFI-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Engine oil filters and transmission filters"
+        },
+        {
+            "family_name": "Spark Plugs & Ignition",
+            "family_code": "spark_plugs_ignition",
+            "parent_family": "Engine Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SPK-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Spark plugs, ignition coils, and glow plugs"
+        },
+        {
+            "family_name": "Braking System",
+            "family_code": "braking_system",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BRK-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Brake pads, discs, callipers, lines, and master cylinders",
+            "attributes": [
+                {"attribute": "vehicle_make", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "vehicle_model", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "year_range", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "oe_part_number", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "part_position", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "part_material", "is_required_in_family": 1, "sort_order": 70},
+                {"attribute": "auto_certification", "is_required_in_family": 1, "sort_order": 80},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 90}
+            ],
+            "variant_attributes": []
+        },
+        {
+            "family_name": "Brake Pads",
+            "family_code": "brake_pads",
+            "parent_family": "Braking System",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BPD-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 90,
+            "description": "Front and rear brake pads in organic, semi-metallic, and ceramic compounds"
+        },
+        {
+            "family_name": "Brake Discs",
+            "family_code": "brake_discs",
+            "parent_family": "Braking System",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BDC-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 90,
+            "description": "Solid and ventilated brake discs (rotors)"
+        },
+        {
+            "family_name": "Suspension & Steering",
+            "family_code": "suspension_steering",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SUS-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Shock absorbers, struts, springs, control arms, and steering components",
+            "attributes": [
+                {"attribute": "vehicle_make", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "vehicle_model", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "year_range", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "oe_part_number", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "part_position", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "part_material", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "load_rating", "is_required_in_family": 0, "sort_order": 80},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 90}
+            ],
+            "variant_attributes": []
+        },
+        {
+            "family_name": "Shock Absorbers",
+            "family_code": "shock_absorbers",
+            "parent_family": "Suspension & Steering",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SHK-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Gas and oil shock absorbers and strut assemblies"
+        },
+        {
+            "family_name": "Springs",
+            "family_code": "springs",
+            "parent_family": "Suspension & Steering",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SPR-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Coil springs, leaf springs, and lowering springs"
+        },
+        {
+            "family_name": "Tyres & Wheels",
+            "family_code": "tyres_wheels",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TYR-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Tyres, alloy wheels, steel wheels, and wheel accessories",
+            "attributes": [
+                {"attribute": "vehicle_make", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "tyre_size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "load_rating", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "auto_certification", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "tyre_size", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Summer Tyres",
+            "family_code": "summer_tyres",
+            "parent_family": "Tyres & Wheels",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "STY-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Summer and all-season tyres for warm and dry conditions"
+        },
+        {
+            "family_name": "Winter Tyres",
+            "family_code": "winter_tyres",
+            "parent_family": "Tyres & Wheels",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "WTY-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Winter tyres with M+S and 3PMSF markings"
+        },
+        {
+            "family_name": "Alloy Wheels",
+            "family_code": "alloy_wheels",
+            "parent_family": "Tyres & Wheels",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "ALW-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Cast and forged alloy wheels in various sizes and finishes"
+        },
+        {
+            "family_name": "Oils & Fluids",
+            "family_code": "oils_fluids",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "OIL-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Engine oils, transmission fluids, brake fluids, coolants, and additives",
+            "attributes": [
+                {"attribute": "viscosity_grade", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "auto_certification", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 40}
+            ],
+            "variant_attributes": [
+                {"attribute": "viscosity_grade", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Engine Oil",
+            "family_code": "engine_oil",
+            "parent_family": "Oils & Fluids",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "EOL-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Fully synthetic, semi-synthetic, and mineral engine oils"
+        },
+        {
+            "family_name": "Brake Fluid",
+            "family_code": "brake_fluid",
+            "parent_family": "Oils & Fluids",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BFL-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "DOT 3, DOT 4, and DOT 5.1 brake fluids"
+        },
+        {
+            "family_name": "Accessories",
+            "family_code": "auto_accessories",
+            "parent_family": "Automotive",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "AAC-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 70,
+            "description": "Vehicle accessories: floor mats, roof racks, lighting, and interior upgrades",
+            "attributes": [
+                {"attribute": "vehicle_make", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "vehicle_model", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "year_range", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "part_condition", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "auto_finish", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "auto_warranty", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "auto_finish", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Floor Mats",
+            "family_code": "floor_mats",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FMT-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Rubber, carpet, and all-weather floor mats"
+        },
+        {
+            "family_name": "Lighting",
+            "family_code": "lighting",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "LGT-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 75,
+            "description": "LED bulbs, headlight assemblies, fog lights, and light bars"
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All automotive parts, accessories, and fluids"
+        },
+        {
+            "category_name": "Engine Parts",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Engine components, filters, and ignition parts"
+        },
+        {
+            "category_name": "Air Filters",
+            "parent_category": "Engine Parts",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Engine air filters and cabin air filters"
+        },
+        {
+            "category_name": "Oil Filters",
+            "parent_category": "Engine Parts",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Engine and transmission oil filters"
+        },
+        {
+            "category_name": "Spark Plugs & Ignition",
+            "parent_category": "Engine Parts",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Spark plugs, ignition coils, and glow plugs"
+        },
+        {
+            "category_name": "Belts & Timing",
+            "parent_category": "Engine Parts",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Timing belts, serpentine belts, and timing chain kits"
+        },
+        {
+            "category_name": "Braking",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Brake pads, discs, callipers, and braking components"
+        },
+        {
+            "category_name": "Brake Pads",
+            "parent_category": "Braking",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Organic, semi-metallic, and ceramic brake pads"
+        },
+        {
+            "category_name": "Brake Discs & Rotors",
+            "parent_category": "Braking",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Solid and ventilated brake discs"
+        },
+        {
+            "category_name": "Brake Callipers",
+            "parent_category": "Braking",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Brake callipers and calliper repair kits"
+        },
+        {
+            "category_name": "Suspension & Steering",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Shock absorbers, springs, control arms, and steering parts"
+        },
+        {
+            "category_name": "Shock Absorbers",
+            "parent_category": "Suspension & Steering",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Gas and oil shock absorbers for all vehicle types"
+        },
+        {
+            "category_name": "Springs",
+            "parent_category": "Suspension & Steering",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Coil springs, leaf springs, and lowering kits"
+        },
+        {
+            "category_name": "Control Arms & Bushings",
+            "parent_category": "Suspension & Steering",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Control arms, wishbones, bushings, and ball joints"
+        },
+        {
+            "category_name": "Tyres & Wheels",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Tyres, alloy wheels, and wheel accessories"
+        },
+        {
+            "category_name": "Summer Tyres",
+            "parent_category": "Tyres & Wheels",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Summer and all-season tyres"
+        },
+        {
+            "category_name": "Winter Tyres",
+            "parent_category": "Tyres & Wheels",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Winter and studded tyres"
+        },
+        {
+            "category_name": "Alloy Wheels",
+            "parent_category": "Tyres & Wheels",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Aftermarket and OEM alloy wheels"
+        },
+        {
+            "category_name": "Oils & Fluids",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Engine oils, brake fluids, coolants, and additives"
+        },
+        {
+            "category_name": "Engine Oil",
+            "parent_category": "Oils & Fluids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Synthetic, semi-synthetic, and mineral engine oils"
+        },
+        {
+            "category_name": "Brake & Power Steering Fluid",
+            "parent_category": "Oils & Fluids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Brake fluid and power steering fluid"
+        },
+        {
+            "category_name": "Coolant & Antifreeze",
+            "parent_category": "Oils & Fluids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Engine coolant and antifreeze concentrates"
+        },
+        {
+            "category_name": "Accessories",
+            "parent_category": "Automotive",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Vehicle accessories and interior enhancements"
+        },
+        {
+            "category_name": "Floor Mats & Liners",
+            "parent_category": "Accessories",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "All-weather and carpet floor mats"
+        },
+        {
+            "category_name": "Lighting Upgrades",
+            "parent_category": "Accessories",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "LED bulbs, headlight upgrades, and auxiliary lighting"
+        },
+        {
+            "category_name": "New Arrivals",
+            "parent_category": "Automotive",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Newly listed automotive parts and accessories"
+        },
+        {
+            "category_name": "Deals & Clearance",
+            "parent_category": "Automotive",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Discounted and clearance automotive products"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "auto_req_make",
+            "rule_name": "Vehicle Make Required",
+            "rule_type": "required_field",
+            "target_attribute": "vehicle_make",
+            "severity": "error",
+            "weight": 10,
+            "message": "Automotive parts must specify the compatible vehicle make",
+            "description": "Vehicle make is the primary fitment criterion for parts lookup and compatibility"
+        },
+        {
+            "rule_code": "auto_req_model",
+            "rule_name": "Vehicle Model Required",
+            "rule_type": "required_field",
+            "target_attribute": "vehicle_model",
+            "severity": "error",
+            "weight": 10,
+            "message": "Parts must specify compatible vehicle model(s)",
+            "description": "Vehicle model is essential for accurate fitment and prevents incorrect purchases"
+        },
+        {
+            "rule_code": "auto_req_year",
+            "rule_name": "Year Range Required",
+            "rule_type": "required_field",
+            "target_attribute": "year_range",
+            "severity": "error",
+            "weight": 8,
+            "message": "Parts must specify compatible model year(s)",
+            "description": "Model year range ensures customers find parts that fit their specific vehicle generation"
+        },
+        {
+            "rule_code": "auto_req_oe_number",
+            "rule_name": "OE Part Number Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "oe_part_number",
+            "severity": "warning",
+            "weight": 7,
+            "message": "Providing an OE part number improves searchability and cross-referencing",
+            "description": "OE numbers are the industry standard for identifying and cross-referencing parts"
+        },
+        {
+            "rule_code": "auto_req_condition",
+            "rule_name": "Part Condition Required",
+            "rule_type": "required_field",
+            "target_attribute": "part_condition",
+            "severity": "error",
+            "weight": 8,
+            "message": "Part condition (New, Remanufactured, Used) must be specified",
+            "description": "Condition disclosure is legally required in most markets for automotive parts"
+        },
+        {
+            "rule_code": "auto_req_certification",
+            "rule_name": "Safety Certification Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "auto_certification",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Safety-critical parts should specify regulatory certification (ECE, DOT, etc.)",
+            "description": "Certification information builds trust and is required for braking and lighting parts"
+        },
+        {
+            "rule_code": "auto_req_warranty",
+            "rule_name": "Warranty Period Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "auto_warranty",
+            "severity": "info",
+            "weight": 3,
+            "message": "Specifying warranty period helps build customer confidence",
+            "description": "Warranty coverage is a key differentiator in aftermarket automotive parts"
+        },
+        {
+            "rule_code": "auto_min_images",
+            "rule_name": "Automotive Minimum Images",
+            "rule_type": "media_presence",
+            "min_images": 2,
+            "severity": "warning",
+            "weight": 6,
+            "message": "Automotive parts should have at least 2 images (product photo, fitment/mounting detail)",
+            "description": "Product and fitment images help customers verify compatibility before purchase"
+        },
+        {
+            "rule_code": "auto_weight_positive",
+            "rule_name": "Part Weight Must Be Positive",
+            "rule_type": "value_constraint",
+            "target_attribute": "part_weight",
+            "min_value": 0.001,
+            "severity": "error",
+            "weight": 5,
+            "message": "Part weight must be a positive number",
+            "description": "Zero or negative weight values indicate data entry errors"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "Front Brake Pad Set - BMW 3 Series",
+            "product_code": "BPD-BMW3-001",
+            "product_type": "Aftermarket Part",
+            "product_family": "brake_pads",
+            "description": "Premium ceramic front brake pad set for BMW 3 Series (F30/F31/G20). ECE R90 approved with low dust formula and chamfered edges for noise reduction.",
+            "attributes": {
+                "vehicle_make": "BMW",
+                "vehicle_model": "3 Series (F30, F31, G20, G21)",
+                "year_range": "2012-2024",
+                "oe_part_number": "34-11-6-850-568",
+                "cross_reference": "TRW GDB1960, Brembo P06075, Textar 2519401",
+                "part_position": "Front",
+                "part_condition": "New",
+                "part_material": "Ceramic",
+                "auto_certification": "ECE R90",
+                "auto_warranty": "2 Years"
+            },
+            "variants": []
+        },
+        {
+            "product_name": "Fully Synthetic Engine Oil 5W-30",
+            "product_code": "EOL-SYN530-001",
+            "product_type": "Fluid & Chemical",
+            "product_family": "engine_oil",
+            "description": "Fully synthetic 5W-30 engine oil meeting ACEA C3 and BMW LL-04 specifications. Excellent cold-start protection and fuel economy.",
+            "attributes": {
+                "viscosity_grade": "5W-30",
+                "part_condition": "New",
+                "auto_certification": "ISO 9001",
+                "auto_warranty": "N/A"
+            },
+            "variants": [
+                {"viscosity_grade": "5W-30"},
+                {"viscosity_grade": "5W-40"}
+            ]
+        },
+        {
+            "product_name": "Performance Shock Absorber - VW Golf",
+            "product_code": "SHK-VWG-001",
+            "product_type": "Performance Part",
+            "product_family": "shock_absorbers",
+            "description": "Sport-tuned gas shock absorber for VW Golf Mk7/Mk8. Offers 20% firmer damping for improved handling while maintaining ride comfort.",
+            "attributes": {
+                "vehicle_make": "Volkswagen",
+                "vehicle_model": "Golf VII, Golf VIII",
+                "year_range": "2013-2024",
+                "oe_part_number": "5Q0-413-031-FJ",
+                "part_position": "Front Left",
+                "part_condition": "New",
+                "part_material": "Steel",
+                "load_rating": "1200 kg",
+                "auto_warranty": "3 Years"
+            },
+            "variants": []
+        },
+        {
+            "product_name": "All-Season Tyre 225/45 R17 94W",
+            "product_code": "STY-AS2254517-001",
+            "product_type": "Tyre",
+            "product_family": "summer_tyres",
+            "description": "Premium all-season tyre with asymmetric tread pattern. Excellent wet grip and low rolling resistance for fuel efficiency.",
+            "attributes": {
+                "tyre_size": "225/45R17",
+                "load_rating": "94W",
+                "part_condition": "New",
+                "auto_certification": "E-Mark",
+                "auto_warranty": "5 Years"
+            },
+            "variants": [
+                {"tyre_size": "205/55R16"},
+                {"tyre_size": "225/45R17"},
+                {"tyre_size": "225/40R18"}
+            ]
+        },
+        {
+            "product_name": "Custom-Fit Floor Mat Set - Mercedes C-Class",
+            "product_code": "FMT-MBC-001",
+            "product_type": "Accessory",
+            "product_family": "floor_mats",
+            "description": "Precision-cut all-weather rubber floor mats for Mercedes C-Class (W206). Anti-slip backing and raised edges for maximum protection.",
+            "attributes": {
+                "vehicle_make": "Mercedes-Benz",
+                "vehicle_model": "C-Class (W206)",
+                "year_range": "2021-2025",
+                "part_condition": "New",
+                "auto_finish": "Matte Black",
+                "auto_warranty": "2 Years"
+            },
+            "variants": [
+                {"auto_finish": "Matte Black"},
+                {"auto_finish": "Grey"}
+            ]
+        }
+    ]
+}

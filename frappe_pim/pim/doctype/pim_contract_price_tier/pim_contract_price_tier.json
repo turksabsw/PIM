@@ -1,0 +1,63 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Contract Price Tier",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "tier_name",
+      "fieldtype": "Data",
+      "label": "Tier Name",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Optional name for this tier (e.g., 'Bulk Discount')"
+    },
+    {
+      "fieldname": "min_qty",
+      "fieldtype": "Float",
+      "label": "Min Qty",
+      "reqd": 1,
+      "default": 1,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Minimum quantity for this tier"
+    },
+    {
+      "fieldname": "max_qty",
+      "fieldtype": "Float",
+      "label": "Max Qty",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Maximum quantity for this tier (0 = unlimited)"
+    },
+    {
+      "fieldname": "tier_price",
+      "fieldtype": "Currency",
+      "label": "Tier Price",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Fixed price for this tier (overrides parent pricing)"
+    },
+    {
+      "fieldname": "discount_percent",
+      "fieldtype": "Percent",
+      "label": "Discount %",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Discount percentage for this tier"
+    },
+    {
+      "fieldname": "discount_amount",
+      "fieldtype": "Currency",
+      "label": "Discount Amt",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Fixed discount amount for this tier"
+    }
+  ],
+
+  "permissions": []
+}

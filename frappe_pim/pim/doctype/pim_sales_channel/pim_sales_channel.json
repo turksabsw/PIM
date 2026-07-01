@@ -1,0 +1,271 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Sales Channel",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:channel_code",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "channel_name",
+      "fieldtype": "Data",
+      "label": "Channel Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the sales channel"
+    },
+    {
+      "fieldname": "channel_code",
+      "fieldtype": "Data",
+      "label": "Channel Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (URL-safe slug)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "channel_type",
+      "fieldtype": "Select",
+      "label": "Channel Type",
+      "options": "Direct\nMarketplace\nDistributor\nRetail\nWholesale\nB2B\nB2C\nDropship\nAffiliate\nOther",
+      "reqd": 1,
+      "default": "Direct",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of sales channel"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing Configuration"
+    },
+    {
+      "fieldname": "erp_price_list",
+      "fieldtype": "Link",
+      "label": "ERP Price List",
+      "options": "Price List",
+      "description": "Linked ERPNext Price List for this channel"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "reqd": 1,
+      "description": "Default currency for this channel"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "price_markup_percent",
+      "fieldtype": "Percent",
+      "label": "Price Markup %",
+      "default": 0,
+      "description": "Default markup percentage applied to base prices"
+    },
+    {
+      "fieldname": "price_rounding",
+      "fieldtype": "Select",
+      "label": "Price Rounding",
+      "options": "None\nNearest 0.01\nNearest 0.05\nNearest 0.10\nNearest 0.50\nNearest 1.00\nNearest 5.00\nNearest 10.00\nUp to .99\nUp to .95",
+      "default": "None",
+      "description": "How to round calculated prices"
+    },
+    {
+      "fieldname": "section_break_margins",
+      "fieldtype": "Section Break",
+      "label": "Margins & Commission"
+    },
+    {
+      "fieldname": "commission_rate",
+      "fieldtype": "Percent",
+      "label": "Commission Rate %",
+      "default": 0,
+      "description": "Channel commission/fee percentage"
+    },
+    {
+      "fieldname": "min_price_margin",
+      "fieldtype": "Percent",
+      "label": "Minimum Price Margin %",
+      "default": 0,
+      "description": "Minimum profit margin to maintain for this channel (guardrail)"
+    },
+    {
+      "fieldname": "column_break_margins",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "fulfillment_fee",
+      "fieldtype": "Currency",
+      "label": "Fulfillment Fee",
+      "description": "Fixed fulfillment/shipping fee per order"
+    },
+    {
+      "fieldname": "handling_fee_percent",
+      "fieldtype": "Percent",
+      "label": "Handling Fee %",
+      "default": 0,
+      "description": "Variable handling fee as percentage of order value"
+    },
+    {
+      "fieldname": "section_break_guardrails",
+      "fieldtype": "Section Break",
+      "label": "Price Guardrails",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "min_price",
+      "fieldtype": "Currency",
+      "label": "Minimum Price",
+      "description": "Minimum allowed price on this channel (0 = no minimum)"
+    },
+    {
+      "fieldname": "max_price",
+      "fieldtype": "Currency",
+      "label": "Maximum Price",
+      "description": "Maximum allowed price on this channel (0 = no maximum)"
+    },
+    {
+      "fieldname": "column_break_guardrails",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enforce_map",
+      "fieldtype": "Check",
+      "label": "Enforce MAP",
+      "default": 0,
+      "description": "Enforce Minimum Advertised Price policy"
+    },
+    {
+      "fieldname": "allow_below_cost",
+      "fieldtype": "Check",
+      "label": "Allow Below Cost",
+      "default": 0,
+      "description": "Allow pricing below product cost (loss leader)"
+    },
+    {
+      "fieldname": "section_break_integration",
+      "fieldtype": "Section Break",
+      "label": "Integration Settings",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "integration_type",
+      "fieldtype": "Select",
+      "label": "Integration Type",
+      "options": "\nAPI\nFTP\nEmail\nManual",
+      "description": "How products are synced to this channel"
+    },
+    {
+      "fieldname": "api_endpoint",
+      "fieldtype": "Data",
+      "label": "API Endpoint",
+      "depends_on": "eval:doc.integration_type=='API'",
+      "description": "Base URL for channel API"
+    },
+    {
+      "fieldname": "column_break_integration",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "api_key_field",
+      "fieldtype": "Password",
+      "label": "API Key",
+      "depends_on": "eval:doc.integration_type=='API'",
+      "description": "API authentication key (stored encrypted)"
+    },
+    {
+      "fieldname": "last_sync_date",
+      "fieldtype": "Datetime",
+      "label": "Last Sync Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "\nPending\nSyncing\nSynced\nFailed",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_marketplace",
+      "fieldtype": "Section Break",
+      "label": "Marketplace Settings",
+      "collapsible": 1,
+      "depends_on": "eval:doc.channel_type=='Marketplace'"
+    },
+    {
+      "fieldname": "marketplace_name",
+      "fieldtype": "Select",
+      "label": "Marketplace",
+      "options": "\nAmazon\neBay\nShopify\nTrendyol\nHepsiburada\nN11\nGittigidiyor\nEtsy\nWalmart\nAlibaba\nOther",
+      "description": "Predefined marketplace integration"
+    },
+    {
+      "fieldname": "seller_id",
+      "fieldtype": "Data",
+      "label": "Seller ID",
+      "description": "Marketplace seller/merchant identifier"
+    },
+    {
+      "fieldname": "column_break_marketplace",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "store_name",
+      "fieldtype": "Data",
+      "label": "Store Name",
+      "description": "Store/shop name on the marketplace"
+    },
+    {
+      "fieldname": "store_url",
+      "fieldtype": "Data",
+      "label": "Store URL",
+      "description": "URL to store on marketplace"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

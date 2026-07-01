@@ -1,0 +1,228 @@
+{
+  "doctype": "DocType",
+  "name": "Taxonomy",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:taxonomy_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "taxonomy_name",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "taxonomy_name",
+      "fieldtype": "Data",
+      "label": "Taxonomy Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the taxonomy (e.g., UNSPSC v24.0)"
+    },
+    {
+      "fieldname": "taxonomy_code",
+      "fieldtype": "Data",
+      "label": "Taxonomy Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: unspsc-v24, gs1-gpc, eclass-13"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "standard",
+      "fieldtype": "Select",
+      "label": "Standard",
+      "options": "\nGS1\nUNSPSC\nECLASS\nETIM\nCustom",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Classification standard type"
+    },
+    {
+      "fieldname": "version",
+      "fieldtype": "Data",
+      "label": "Version",
+      "description": "Version number of the standard (e.g., 24.0, 13.0, 8.0)"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this taxonomy for classification"
+    },
+    {
+      "fieldname": "section_break_structure",
+      "fieldtype": "Section Break",
+      "label": "Structure Configuration"
+    },
+    {
+      "fieldname": "max_levels",
+      "fieldtype": "Int",
+      "label": "Maximum Levels",
+      "default": 10,
+      "description": "Maximum depth of hierarchy levels (up to 20 supported)"
+    },
+    {
+      "fieldname": "node_code_pattern",
+      "fieldtype": "Data",
+      "label": "Node Code Pattern",
+      "description": "Regex pattern for node codes. Example: ^[0-9]{8}$ for UNSPSC 8-digit codes"
+    },
+    {
+      "fieldname": "column_break_structure",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "code_separator",
+      "fieldtype": "Data",
+      "label": "Level Separator",
+      "description": "Separator between hierarchy levels in codes. Example: - (hyphen), . (dot)"
+    },
+    {
+      "fieldname": "level_names",
+      "fieldtype": "Small Text",
+      "label": "Level Names",
+      "description": "Comma-separated names for each level. Example: Segment,Family,Class,Commodity for UNSPSC"
+    },
+    {
+      "fieldname": "section_break_details",
+      "fieldtype": "Section Break",
+      "label": "Details"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description of the taxonomy and its use cases"
+    },
+    {
+      "fieldname": "section_break_reference",
+      "fieldtype": "Section Break",
+      "label": "Reference",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "reference_url",
+      "fieldtype": "Data",
+      "label": "Reference URL",
+      "options": "URL",
+      "description": "URL to official standard documentation"
+    },
+    {
+      "fieldname": "column_break_reference",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "publisher",
+      "fieldtype": "Data",
+      "label": "Publisher",
+      "description": "Organization publishing the standard (e.g., GS1, UNSPSC Inc.)"
+    },
+    {
+      "fieldname": "release_date",
+      "fieldtype": "Date",
+      "label": "Release Date",
+      "description": "Date this version was released"
+    },
+    {
+      "fieldname": "section_break_etim",
+      "fieldtype": "Section Break",
+      "label": "ETIM Configuration",
+      "depends_on": "eval:doc.standard=='ETIM'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "etim_feature_doctype",
+      "fieldtype": "Link",
+      "label": "ETIM Feature DocType",
+      "options": "DocType",
+      "description": "DocType used for ETIM feature definitions"
+    },
+    {
+      "fieldname": "etim_value_doctype",
+      "fieldtype": "Link",
+      "label": "ETIM Value DocType",
+      "options": "DocType",
+      "description": "DocType used for ETIM value definitions"
+    },
+    {
+      "fieldname": "section_break_gs1",
+      "fieldtype": "Section Break",
+      "label": "GS1 Configuration",
+      "depends_on": "eval:doc.standard=='GS1'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "gtin_validation",
+      "fieldtype": "Check",
+      "label": "Enable GTIN Validation",
+      "default": 1,
+      "description": "Validate check digits for GTIN codes"
+    },
+    {
+      "fieldname": "supported_gtin_formats",
+      "fieldtype": "Select",
+      "label": "Supported GTIN Formats",
+      "options": "All\nGTIN-8\nGTIN-12\nGTIN-13\nGTIN-14",
+      "default": "All",
+      "description": "Allowed GTIN formats for this taxonomy"
+    },
+    {
+      "fieldname": "section_break_stats",
+      "fieldtype": "Section Break",
+      "label": "Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "total_nodes",
+      "fieldtype": "Int",
+      "label": "Total Nodes",
+      "read_only": 1,
+      "description": "Total number of taxonomy nodes (auto-calculated)"
+    },
+    {
+      "fieldname": "column_break_stats",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "products_classified",
+      "fieldtype": "Int",
+      "label": "Products Classified",
+      "read_only": 1,
+      "description": "Number of products using this taxonomy (auto-calculated)"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

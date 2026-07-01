@@ -1,0 +1,335 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Bundle",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:bundle_code",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "bundle_name",
+      "fieldtype": "Data",
+      "label": "Bundle Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the bundle"
+    },
+    {
+      "fieldname": "bundle_code",
+      "fieldtype": "Data",
+      "label": "Bundle Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier for the bundle (URL-safe)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "bundle_type",
+      "fieldtype": "Select",
+      "label": "Bundle Type",
+      "options": "Static\nConfigurable\nDynamic\nBuild Your Own",
+      "reqd": 1,
+      "default": "Static",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Static: Fixed products. Configurable: Customer selects from slot options. Dynamic: Rule-based. BYO: Customer builds from categories"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nInactive\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "short_description",
+      "fieldtype": "Small Text",
+      "label": "Short Description",
+      "translatable": 1,
+      "description": "Brief summary for listings"
+    },
+    {
+      "fieldname": "long_description",
+      "fieldtype": "Text Editor",
+      "label": "Long Description",
+      "translatable": 1
+    },
+    {
+      "fieldname": "main_image",
+      "fieldtype": "Attach Image",
+      "label": "Bundle Image"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing"
+    },
+    {
+      "fieldname": "pricing_method",
+      "fieldtype": "Select",
+      "label": "Pricing Method",
+      "options": "Sum of Components\nFixed Price\nFixed Discount\nPercentage Discount\nTiered Pricing",
+      "default": "Sum of Components",
+      "reqd": 1,
+      "description": "How the bundle price is calculated"
+    },
+    {
+      "fieldname": "base_price",
+      "fieldtype": "Currency",
+      "label": "Base Price",
+      "description": "Used for Fixed Price method or as reference for discounts"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "discount_type",
+      "fieldtype": "Select",
+      "label": "Discount Type",
+      "options": "\nPercentage\nFixed Amount",
+      "description": "Type of discount applied to component total"
+    },
+    {
+      "fieldname": "discount_value",
+      "fieldtype": "Float",
+      "label": "Discount Value",
+      "description": "Discount amount (percentage or fixed) applied to bundle"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "description": "Currency for price values"
+    },
+    {
+      "fieldname": "section_break_slots",
+      "fieldtype": "Section Break",
+      "label": "Bundle Slots"
+    },
+    {
+      "fieldname": "slots",
+      "fieldtype": "Table",
+      "label": "Slots",
+      "options": "PIM Bundle Slot",
+      "description": "Components/slots in this bundle"
+    },
+    {
+      "fieldname": "section_break_tiered",
+      "fieldtype": "Section Break",
+      "label": "Tiered Pricing",
+      "collapsible": 1,
+      "depends_on": "eval:doc.pricing_method=='Tiered Pricing'"
+    },
+    {
+      "fieldname": "tiered_pricing",
+      "fieldtype": "Table",
+      "label": "Tiered Pricing Rules",
+      "options": "PIM Bundle Tier",
+      "description": "Volume-based pricing tiers"
+    },
+    {
+      "fieldname": "section_break_rules",
+      "fieldtype": "Section Break",
+      "label": "Rules & Dependencies",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "min_items",
+      "fieldtype": "Int",
+      "label": "Minimum Items",
+      "default": 0,
+      "description": "Minimum number of items required in bundle (for BYO bundles)"
+    },
+    {
+      "fieldname": "max_items",
+      "fieldtype": "Int",
+      "label": "Maximum Items",
+      "default": 0,
+      "description": "Maximum number of items allowed in bundle (0 = unlimited)"
+    },
+    {
+      "fieldname": "column_break_rules",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "allow_duplicates",
+      "fieldtype": "Check",
+      "label": "Allow Duplicate Products",
+      "default": 0,
+      "description": "Allow same product to be added multiple times"
+    },
+    {
+      "fieldname": "require_all_slots",
+      "fieldtype": "Check",
+      "label": "Require All Slots",
+      "default": 1,
+      "description": "All slots must be filled for bundle to be valid"
+    },
+    {
+      "fieldname": "section_break_dynamic",
+      "fieldtype": "Section Break",
+      "label": "Dynamic Rules",
+      "collapsible": 1,
+      "depends_on": "eval:doc.bundle_type=='Dynamic'"
+    },
+    {
+      "fieldname": "filter_category",
+      "fieldtype": "Link",
+      "label": "Filter by Category",
+      "options": "Category",
+      "description": "Include products from this category only"
+    },
+    {
+      "fieldname": "filter_product_type",
+      "fieldtype": "Link",
+      "label": "Filter by Product Type",
+      "options": "PIM Product Type",
+      "description": "Include products of this type only"
+    },
+    {
+      "fieldname": "filter_brand",
+      "fieldtype": "Link",
+      "label": "Filter by Brand",
+      "options": "Brand",
+      "description": "Include products from this brand only"
+    },
+    {
+      "fieldname": "section_break_channels",
+      "fieldtype": "Section Break",
+      "label": "Channel Availability"
+    },
+    {
+      "fieldname": "available_channels",
+      "fieldtype": "Table MultiSelect",
+      "label": "Available Channels",
+      "options": "Bundle Channel"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Bundle available from this date"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "Bundle available until this date"
+    },
+    {
+      "fieldname": "section_break_erp",
+      "fieldtype": "Section Break",
+      "label": "ERP Integration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "erp_product_bundle",
+      "fieldtype": "Link",
+      "label": "ERP Product Bundle",
+      "options": "Product Bundle",
+      "read_only": 1,
+      "description": "Linked ERPNext Product Bundle"
+    },
+    {
+      "fieldname": "auto_sync_to_erp",
+      "fieldtype": "Check",
+      "label": "Auto Sync to ERP",
+      "default": 1
+    },
+    {
+      "fieldname": "column_break_erp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_sync_date",
+      "fieldtype": "Datetime",
+      "label": "Last Sync Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "\nPending\nSynced\nFailed",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_metadata",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "total_items",
+      "fieldtype": "Int",
+      "label": "Total Items",
+      "read_only": 1,
+      "description": "Total number of items in the bundle"
+    },
+    {
+      "fieldname": "calculated_price",
+      "fieldtype": "Currency",
+      "label": "Calculated Price",
+      "read_only": 1,
+      "description": "Current calculated price based on pricing method"
+    },
+    {
+      "fieldname": "column_break_metadata",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "savings_amount",
+      "fieldtype": "Currency",
+      "label": "Savings Amount",
+      "read_only": 1,
+      "description": "Amount saved compared to individual purchase"
+    },
+    {
+      "fieldname": "savings_percent",
+      "fieldtype": "Percent",
+      "label": "Savings Percentage",
+      "read_only": 1,
+      "description": "Percentage saved compared to individual purchase"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1, "export": 1
+    }
+  ]
+}

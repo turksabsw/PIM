@@ -1,0 +1,118 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Product Type",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:type_name",
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "editable_grid": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "is_virtual": 0,
+
+  "fields": [
+    {
+      "fieldname": "type_name",
+      "fieldtype": "Data",
+      "label": "Type Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "type_code",
+      "fieldtype": "Data",
+      "label": "Type Code",
+      "description": "URL-safe identifier (auto-generated from type name if empty)",
+      "unique": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "section_variant_config",
+      "fieldtype": "Section Break",
+      "label": "Variant Configuration"
+    },
+    {
+      "fieldname": "allow_variants",
+      "fieldtype": "Check",
+      "label": "Allow Variants",
+      "default": 0,
+      "description": "Enable this to allow products of this type to have variants"
+    },
+    {
+      "fieldname": "default_attribute_template",
+      "fieldtype": "Data",
+      "label": "Default Attribute Template",
+      "description": "Default attribute template to apply to products of this type",
+      "depends_on": "allow_variants"
+    },
+    {
+      "fieldname": "section_type_fields",
+      "fieldtype": "Section Break",
+      "label": "Custom Fields"
+    },
+    {
+      "fieldname": "type_fields",
+      "fieldtype": "Table",
+      "label": "Type Fields",
+      "options": "Product Type Field",
+      "description": "Custom fields defined for this product type"
+    },
+    {
+      "fieldname": "section_allowed_families",
+      "fieldtype": "Section Break",
+      "label": "Allowed Families"
+    },
+    {
+      "fieldname": "allowed_families_text",
+      "fieldtype": "Small Text",
+      "label": "Allowed Families",
+      "description": "Comma-separated list of allowed Product Family names. Leave empty to allow all families."
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ],
+
+  "actions": [],
+  "links": [],
+  "modified": "2026-01-23 16:20:00.000000",
+  "modified_by": "Administrator",
+  "owner": "Administrator"
+}

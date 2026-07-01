@@ -1,0 +1,163 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Attribute Type",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:type_code",
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "type_name",
+      "fieldtype": "Data",
+      "label": "Type Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1
+    },
+    {
+      "fieldname": "type_code",
+      "fieldtype": "Data",
+      "label": "Type Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "URL-safe identifier (lowercase, underscores only)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "base_type",
+      "fieldtype": "Select",
+      "label": "Base Type",
+      "options": "String\nInteger\nFloat\nBoolean\nDate\nDatetime\nJSON",
+      "reqd": 1,
+      "default": "String",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_standard",
+      "fieldtype": "Check",
+      "label": "Is Standard",
+      "default": 0,
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_options",
+      "fieldtype": "Section Break",
+      "label": "Options"
+    },
+    {
+      "fieldname": "has_options",
+      "fieldtype": "Check",
+      "label": "Has Options",
+      "default": 0,
+      "description": "If checked, values must come from predefined options"
+    },
+    {
+      "fieldname": "supports_unit",
+      "fieldtype": "Check",
+      "label": "Supports Unit",
+      "default": 0,
+      "description": "If checked, values can have unit of measurement"
+    },
+    {
+      "fieldname": "default_unit",
+      "fieldtype": "Data",
+      "label": "Default Unit",
+      "depends_on": "supports_unit"
+    },
+    {
+      "fieldname": "section_break_validation",
+      "fieldtype": "Section Break",
+      "label": "Validation"
+    },
+    {
+      "fieldname": "validation_regex",
+      "fieldtype": "Data",
+      "label": "Validation Regex"
+    },
+    {
+      "fieldname": "validation_message",
+      "fieldtype": "Data",
+      "label": "Validation Message",
+      "translatable": 1
+    },
+    {
+      "fieldname": "min_value",
+      "fieldtype": "Float",
+      "label": "Min Value",
+      "depends_on": "eval:['Integer','Float'].includes(doc.base_type)"
+    },
+    {
+      "fieldname": "max_value",
+      "fieldtype": "Float",
+      "label": "Max Value",
+      "depends_on": "eval:['Integer','Float'].includes(doc.base_type)"
+    },
+    {
+      "fieldname": "max_length",
+      "fieldtype": "Int",
+      "label": "Max Length",
+      "depends_on": "eval:doc.base_type=='String'"
+    },
+    {
+      "fieldname": "section_break_ui",
+      "fieldtype": "Section Break",
+      "label": "UI Configuration"
+    },
+    {
+      "fieldname": "input_component",
+      "fieldtype": "Data",
+      "label": "Input Component",
+      "description": "Vue component name for input"
+    },
+    {
+      "fieldname": "display_component",
+      "fieldtype": "Data",
+      "label": "Display Component",
+      "description": "Vue component name for display"
+    },
+    {
+      "fieldname": "icon",
+      "fieldtype": "Data",
+      "label": "Icon",
+      "description": "FontAwesome icon class"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

@@ -1,0 +1,491 @@
+{
+  "doctype": "DocType",
+  "name": "Market Insight",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "MI-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Brief title summarizing the market insight"
+    },
+    {
+      "fieldname": "insight_type",
+      "fieldtype": "Select",
+      "label": "Insight Type",
+      "reqd": 1,
+      "options": "Market Trend\nConsumer Trend\nIndustry News\nCompetitive Intelligence\nTechnology Change\nRegulatory Update\nSeasonal Trend\nEconomic Factor\nSupply Chain\nPricing Trend\nDemographic Shift\nOther",
+      "default": "Market Trend",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of market insight"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "reqd": 1,
+      "options": "Draft\nActive\nUnder Review\nActionable\nMonitoring\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the insight"
+    },
+    {
+      "fieldname": "impact_level",
+      "fieldtype": "Select",
+      "label": "Impact Level",
+      "options": "Low\nMedium\nHigh\nCritical",
+      "default": "Medium",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Potential impact on business"
+    },
+    {
+      "fieldname": "section_break_links",
+      "fieldtype": "Section Break",
+      "label": "Product & Category Links"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Linked Product",
+      "options": "Product Master",
+      "in_standard_filter": 1,
+      "description": "Specific product this insight relates to"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Linked Product Family",
+      "options": "Product Family",
+      "in_standard_filter": 1,
+      "description": "Product family this insight relates to"
+    },
+    {
+      "fieldname": "column_break_links",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Linked Category",
+      "options": "Product Category",
+      "in_standard_filter": 1,
+      "description": "Product category this insight relates to"
+    },
+    {
+      "fieldname": "linked_brand",
+      "fieldtype": "Link",
+      "label": "Linked Brand",
+      "options": "Brand",
+      "in_standard_filter": 1,
+      "description": "Brand this insight relates to"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Scope & Timeframe"
+    },
+    {
+      "fieldname": "geographic_scope",
+      "fieldtype": "Select",
+      "label": "Geographic Scope",
+      "options": "Global\nRegional\nNational\nLocal",
+      "default": "National",
+      "description": "Geographic area affected by this insight"
+    },
+    {
+      "fieldname": "affected_regions",
+      "fieldtype": "Small Text",
+      "label": "Affected Regions",
+      "description": "Specific regions/countries affected (comma-separated)"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "trend_direction",
+      "fieldtype": "Select",
+      "label": "Trend Direction",
+      "options": "Upward\nDownward\nStable\nVolatile\nEmerging\nDeclining",
+      "description": "Direction of the market trend"
+    },
+    {
+      "fieldname": "confidence_level",
+      "fieldtype": "Select",
+      "label": "Confidence Level",
+      "options": "Low\nMedium\nHigh\nVerified",
+      "default": "Medium",
+      "description": "Confidence in the accuracy of this insight"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "When this insight becomes relevant"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "When this insight expires or should be reviewed"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "next_review_date",
+      "fieldtype": "Date",
+      "label": "Next Review Date",
+      "description": "When to review this insight for updates"
+    },
+    {
+      "fieldname": "last_verified_date",
+      "fieldtype": "Date",
+      "label": "Last Verified Date",
+      "read_only": 1,
+      "description": "When this insight was last verified"
+    },
+    {
+      "fieldname": "section_break_content",
+      "fieldtype": "Section Break",
+      "label": "Insight Details"
+    },
+    {
+      "fieldname": "summary",
+      "fieldtype": "Small Text",
+      "label": "Summary",
+      "description": "Brief summary of the insight (2-3 sentences)"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Full Description",
+      "description": "Detailed description of the market insight"
+    },
+    {
+      "fieldname": "section_break_evidence",
+      "fieldtype": "Section Break",
+      "label": "Evidence & Sources"
+    },
+    {
+      "fieldname": "data_source",
+      "fieldtype": "Select",
+      "label": "Primary Data Source",
+      "options": "Internal Research\nMarket Research Report\nIndustry Publication\nGovernment Data\nCompetitor Analysis\nCustomer Feedback\nSocial Media\nTrade Association\nNews Media\nSales Data\nOther",
+      "description": "Primary source of this insight"
+    },
+    {
+      "fieldname": "source_reference",
+      "fieldtype": "Data",
+      "label": "Source Reference",
+      "description": "Reference number or citation"
+    },
+    {
+      "fieldname": "source_url",
+      "fieldtype": "Data",
+      "label": "Source URL",
+      "options": "URL",
+      "description": "Link to source material"
+    },
+    {
+      "fieldname": "column_break_evidence",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "supporting_data",
+      "fieldtype": "Small Text",
+      "label": "Supporting Data",
+      "description": "Key statistics or data points supporting this insight"
+    },
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Attach",
+      "label": "Attachments",
+      "description": "Supporting documents, reports, or images"
+    },
+    {
+      "fieldname": "section_break_impact",
+      "fieldtype": "Section Break",
+      "label": "Business Impact"
+    },
+    {
+      "fieldname": "potential_opportunities",
+      "fieldtype": "Text Editor",
+      "label": "Potential Opportunities",
+      "description": "Business opportunities arising from this insight"
+    },
+    {
+      "fieldname": "potential_threats",
+      "fieldtype": "Text Editor",
+      "label": "Potential Threats",
+      "description": "Risks or threats identified by this insight"
+    },
+    {
+      "fieldname": "section_break_metrics",
+      "fieldtype": "Section Break",
+      "label": "Quantitative Metrics"
+    },
+    {
+      "fieldname": "market_size_value",
+      "fieldtype": "Currency",
+      "label": "Market Size Value",
+      "description": "Relevant market size if applicable"
+    },
+    {
+      "fieldname": "market_growth_rate",
+      "fieldtype": "Percent",
+      "label": "Market Growth Rate",
+      "description": "Annual growth rate percentage"
+    },
+    {
+      "fieldname": "column_break_metrics",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "estimated_impact_value",
+      "fieldtype": "Currency",
+      "label": "Estimated Impact Value",
+      "description": "Potential financial impact on business"
+    },
+    {
+      "fieldname": "impact_timeframe",
+      "fieldtype": "Select",
+      "label": "Impact Timeframe",
+      "options": "Immediate (0-3 months)\nShort-term (3-12 months)\nMedium-term (1-3 years)\nLong-term (3+ years)",
+      "description": "Expected timeframe for impact"
+    },
+    {
+      "fieldname": "section_break_action",
+      "fieldtype": "Section Break",
+      "label": "Actions & Recommendations"
+    },
+    {
+      "fieldname": "recommended_actions",
+      "fieldtype": "Text Editor",
+      "label": "Recommended Actions",
+      "description": "Suggested actions to take based on this insight"
+    },
+    {
+      "fieldname": "action_priority",
+      "fieldtype": "Select",
+      "label": "Action Priority",
+      "options": "Low\nMedium\nHigh\nUrgent",
+      "default": "Medium",
+      "description": "Priority for taking action on this insight"
+    },
+    {
+      "fieldname": "column_break_action",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "action_status",
+      "fieldtype": "Select",
+      "label": "Action Status",
+      "options": "Not Started\nIn Progress\nCompleted\nDeferred\nNot Applicable",
+      "default": "Not Started",
+      "description": "Status of recommended actions"
+    },
+    {
+      "fieldname": "action_notes",
+      "fieldtype": "Small Text",
+      "label": "Action Notes",
+      "description": "Notes on actions taken or planned"
+    },
+    {
+      "fieldname": "section_break_ownership",
+      "fieldtype": "Section Break",
+      "label": "Ownership & Assignment"
+    },
+    {
+      "fieldname": "assigned_to",
+      "fieldtype": "Link",
+      "label": "Assigned To",
+      "options": "User",
+      "in_standard_filter": 1,
+      "description": "User responsible for monitoring this insight"
+    },
+    {
+      "fieldname": "assigned_team",
+      "fieldtype": "Data",
+      "label": "Assigned Team",
+      "description": "Team or department responsible"
+    },
+    {
+      "fieldname": "column_break_ownership",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "created_by_user",
+      "fieldtype": "Link",
+      "label": "Created By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who created this insight"
+    },
+    {
+      "fieldname": "stakeholders",
+      "fieldtype": "Small Text",
+      "label": "Key Stakeholders",
+      "description": "Users who should be notified about this insight"
+    },
+    {
+      "fieldname": "section_break_related",
+      "fieldtype": "Section Break",
+      "label": "Related Insights",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "related_insights",
+      "fieldtype": "Small Text",
+      "label": "Related Insights",
+      "description": "Names of related Market Insight records (comma-separated)"
+    },
+    {
+      "fieldname": "competitor_connection",
+      "fieldtype": "Link",
+      "label": "Related Competitor Analysis",
+      "options": "Competitor Analysis",
+      "description": "Link to related competitor analysis"
+    },
+    {
+      "fieldname": "column_break_related",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "feedback_connection",
+      "fieldtype": "Link",
+      "label": "Related Product Feedback",
+      "options": "Product Feedback",
+      "description": "Link to related product feedback"
+    },
+    {
+      "fieldname": "section_break_internal",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Notes visible only to internal team"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization and search"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "title",
+    "insight_type",
+    "column_break_basic",
+    "status",
+    "impact_level",
+    "section_break_links",
+    "linked_product",
+    "linked_product_family",
+    "column_break_links",
+    "linked_category",
+    "linked_brand",
+    "section_break_scope",
+    "geographic_scope",
+    "affected_regions",
+    "column_break_scope",
+    "trend_direction",
+    "confidence_level",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "next_review_date",
+    "last_verified_date",
+    "section_break_content",
+    "summary",
+    "description",
+    "section_break_evidence",
+    "data_source",
+    "source_reference",
+    "source_url",
+    "column_break_evidence",
+    "supporting_data",
+    "attachments",
+    "section_break_impact",
+    "potential_opportunities",
+    "potential_threats",
+    "section_break_metrics",
+    "market_size_value",
+    "market_growth_rate",
+    "column_break_metrics",
+    "estimated_impact_value",
+    "impact_timeframe",
+    "section_break_action",
+    "recommended_actions",
+    "action_priority",
+    "column_break_action",
+    "action_status",
+    "action_notes",
+    "section_break_ownership",
+    "assigned_to",
+    "assigned_team",
+    "column_break_ownership",
+    "created_by_user",
+    "stakeholders",
+    "section_break_related",
+    "related_insights",
+    "competitor_connection",
+    "column_break_related",
+    "feedback_connection",
+    "section_break_internal",
+    "internal_notes",
+    "tags"
+  ]
+}

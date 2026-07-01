@@ -1,0 +1,134 @@
+"""
+PIM Product Type Controller
+Tree-structured product type categorization for product hierarchy
+"""
+
+# Defer frappe import to function level for module import without Frappe context
+
+
+class PIMProductType:
+    """PIM Product Type DocType controller stub
+
+    This is a minimal controller that allows the module to be imported
+    without Frappe context. Full functionality is provided when running
+    within Frappe framework via _get_controller().
+    """
+    pass
+
+
+def _get_controller():
+    """Get the full controller class with Frappe dependencies"""
+    import frappe
+    from frappe import _
+    from frappe.model.document import Document
+    import re
+
+    class PIMProductTypeController(Document):
+        def validate(self):
+            self.validate_type_code()
+            self.validate_parent()
+
+        def validate_type_code(self):
+            """Ensure type_code is URL-safe slug"""
+            if not self.type_code:
+                self.type_code = frappe.scrub(self.type_name)
+
+            if not re.match(r'^[a-z][a-z0-9_]*$', self.type_code):
+                frappe.throw(
+                    _("Type Code must start with a letter and contain only lowercase letters, numbers, and underscores"),
+                    title=_("Invalid Type Code")
+                )
+
+        def validate_parent(self):
+            """Prevent circular references in type hierarchy"""
+            if not self.parent_type:
+                return
+
+            if self.parent_type == self.name:
+                frappe.throw(
+                    _("A product type cannot be its own parent"),
+                    title=_("Invalid Parent")
+                )
+
+            visited = set([self.name])
+            current = self.parent_type
+
+            while current:
+                if current in visited:
+                    frappe.throw(
+                        _("Circular reference detected in product type hierarchy"),
+                        title=_("Invalid Parent")
+                    )
+                visited.add(current)
+                parent = frappe.db.get_value("PIM Product Type", current, "parent_type")
+                current = parent
+
+        def on_update(self):
+            """Invalidate cache on update"""
+            self._invalidate_cache()
+
+        def on_trash(self):
+            """Prevent deletion if type has families or children"""
+            family_count = frappe.db.count("Product Family", {"product_type": self.name})
+            if family_count > 0:
+                frappe.throw(
+                    _("Cannot delete product type '{0}' as it has {1} product family(ies)").format(
+                        self.type_name, family_count
+                    ),
+                    title=_("Product Type In Use")
+                )
+
+            child_count = frappe.db.count("PIM Product Type", {"parent_type": self.name})
+            if child_count > 0:
+                frappe.throw(
+                    _("Cannot delete product type '{0}' as it has {1} child types").format(
+                        self.type_name, child_count
+                    ),
+                    title=_("Product Type Has Children")
+                )
+
+        def _invalidate_cache(self):
+            """Invalidate product type-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_product_type_cache
+                invalidate_product_type_cache(self, None)
+            except (ImportError, AttributeError):
+                pass
+
+    return PIMProductTypeController
+
+
+def get_product_type_tree():
+    """Get the complete product type tree structure"""
+    import frappe
+
+    if not frappe.has_permission("PIM Product Type", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    types = frappe.get_all("PIM Product Type",
+        fields=["name", "type_name", "type_code", "parent_type", "is_active"],
+        order_by="lft")
+
+    type_map = {t.name: {**t, "children": []} for t in types}
+    tree = []
+
+    for ptype in types:
+        if ptype.parent_type and ptype.parent_type in type_map:
+            type_map[ptype.parent_type]["children"].append(type_map[ptype.name])
+        else:
+            tree.append(type_map[ptype.name])
+
+    return tree
+
+
+def get_active_product_types():
+    """Get all active product types"""
+    import frappe
+
+    if not frappe.has_permission("PIM Product Type", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    return frappe.get_all("PIM Product Type",
+        filters={"is_active": 1},
+        fields=["name", "type_name", "type_code", "parent_type"],
+        order_by="type_name")

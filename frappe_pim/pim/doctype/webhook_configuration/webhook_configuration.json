@@ -1,0 +1,586 @@
+{
+  "doctype": "DocType",
+  "name": "Webhook Configuration",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:webhook_name",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "webhook_name",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "webhook_name",
+      "fieldtype": "Data",
+      "label": "Webhook Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Unique name for this webhook configuration"
+    },
+    {
+      "fieldname": "webhook_url",
+      "fieldtype": "Data",
+      "label": "Webhook URL",
+      "options": "URL",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "The URL to send webhook payloads to"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this webhook"
+    },
+    {
+      "fieldname": "http_method",
+      "fieldtype": "Select",
+      "label": "HTTP Method",
+      "options": "POST\nPUT\nPATCH",
+      "default": "POST",
+      "reqd": 1,
+      "description": "HTTP method to use for webhook requests"
+    },
+    {
+      "fieldname": "content_type",
+      "fieldtype": "Select",
+      "label": "Content Type",
+      "options": "application/json\napplication/x-www-form-urlencoded\ntext/plain",
+      "default": "application/json",
+      "reqd": 1,
+      "description": "Content-Type header for webhook requests"
+    },
+    {
+      "fieldname": "section_break_events",
+      "fieldtype": "Section Break",
+      "label": "Event Triggers"
+    },
+    {
+      "fieldname": "trigger_on_product_created",
+      "fieldtype": "Check",
+      "label": "Product Created",
+      "default": 1,
+      "description": "Trigger webhook when a product is created"
+    },
+    {
+      "fieldname": "trigger_on_product_updated",
+      "fieldtype": "Check",
+      "label": "Product Updated",
+      "default": 1,
+      "description": "Trigger webhook when a product is updated"
+    },
+    {
+      "fieldname": "trigger_on_product_deleted",
+      "fieldtype": "Check",
+      "label": "Product Deleted",
+      "default": 0,
+      "description": "Trigger webhook when a product is deleted"
+    },
+    {
+      "fieldname": "column_break_events",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "trigger_on_product_published",
+      "fieldtype": "Check",
+      "label": "Product Published",
+      "default": 1,
+      "description": "Trigger webhook when a product is published to a channel"
+    },
+    {
+      "fieldname": "trigger_on_product_unpublished",
+      "fieldtype": "Check",
+      "label": "Product Unpublished",
+      "default": 0,
+      "description": "Trigger webhook when a product is unpublished"
+    },
+    {
+      "fieldname": "trigger_on_asset_created",
+      "fieldtype": "Check",
+      "label": "Asset Created",
+      "default": 0,
+      "description": "Trigger webhook when a digital asset is created"
+    },
+    {
+      "fieldname": "column_break_events_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "trigger_on_golden_record_merged",
+      "fieldtype": "Check",
+      "label": "Golden Record Merged",
+      "default": 0,
+      "description": "Trigger webhook when records are merged into a golden record"
+    },
+    {
+      "fieldname": "trigger_on_taxonomy_changed",
+      "fieldtype": "Check",
+      "label": "Taxonomy Changed",
+      "default": 0,
+      "description": "Trigger webhook when taxonomy classifications change"
+    },
+    {
+      "fieldname": "trigger_on_custom_event",
+      "fieldtype": "Check",
+      "label": "Custom Events",
+      "default": 0,
+      "description": "Trigger webhook for custom events specified in event_types"
+    },
+    {
+      "fieldname": "custom_event_types",
+      "fieldtype": "Small Text",
+      "label": "Custom Event Types",
+      "depends_on": "eval:doc.trigger_on_custom_event",
+      "description": "Comma-separated list of custom event type codes to trigger on"
+    },
+    {
+      "fieldname": "section_break_filters",
+      "fieldtype": "Section Break",
+      "label": "Event Filters",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "filter_by_channel",
+      "fieldtype": "Check",
+      "label": "Filter by Channel",
+      "default": 0,
+      "description": "Only trigger for events related to specific channels"
+    },
+    {
+      "fieldname": "channels",
+      "fieldtype": "Small Text",
+      "label": "Channels",
+      "depends_on": "eval:doc.filter_by_channel",
+      "description": "Comma-separated list of channel codes to filter on"
+    },
+    {
+      "fieldname": "column_break_filters",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "filter_by_product_type",
+      "fieldtype": "Check",
+      "label": "Filter by Product Type",
+      "default": 0,
+      "description": "Only trigger for events related to specific product types"
+    },
+    {
+      "fieldname": "product_types",
+      "fieldtype": "Small Text",
+      "label": "Product Types",
+      "depends_on": "eval:doc.filter_by_product_type",
+      "description": "Comma-separated list of product type codes to filter on"
+    },
+    {
+      "fieldname": "filter_by_product_family",
+      "fieldtype": "Check",
+      "label": "Filter by Product Family",
+      "default": 0,
+      "description": "Only trigger for events related to specific product families"
+    },
+    {
+      "fieldname": "product_families",
+      "fieldtype": "Small Text",
+      "label": "Product Families",
+      "depends_on": "eval:doc.filter_by_product_family",
+      "description": "Comma-separated list of product family codes to filter on"
+    },
+    {
+      "fieldname": "section_break_auth",
+      "fieldtype": "Section Break",
+      "label": "Authentication"
+    },
+    {
+      "fieldname": "auth_type",
+      "fieldtype": "Select",
+      "label": "Authentication Type",
+      "options": "\nNone\nAPI Key\nBearer Token\nBasic Auth\nHMAC Signature",
+      "default": "None",
+      "in_list_view": 1,
+      "description": "Method to authenticate webhook requests"
+    },
+    {
+      "fieldname": "api_key_header",
+      "fieldtype": "Data",
+      "label": "API Key Header Name",
+      "depends_on": "eval:doc.auth_type=='API Key'",
+      "default": "X-API-Key",
+      "description": "Header name for API key (e.g., X-API-Key, Authorization)"
+    },
+    {
+      "fieldname": "api_key",
+      "fieldtype": "Password",
+      "label": "API Key / Token",
+      "depends_on": "eval:['API Key', 'Bearer Token'].includes(doc.auth_type)",
+      "description": "API key or bearer token (stored encrypted)"
+    },
+    {
+      "fieldname": "column_break_auth",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "basic_auth_username",
+      "fieldtype": "Data",
+      "label": "Username",
+      "depends_on": "eval:doc.auth_type=='Basic Auth'",
+      "description": "Username for Basic Authentication"
+    },
+    {
+      "fieldname": "basic_auth_password",
+      "fieldtype": "Password",
+      "label": "Password",
+      "depends_on": "eval:doc.auth_type=='Basic Auth'",
+      "description": "Password for Basic Authentication (stored encrypted)"
+    },
+    {
+      "fieldname": "hmac_secret",
+      "fieldtype": "Password",
+      "label": "HMAC Secret",
+      "depends_on": "eval:doc.auth_type=='HMAC Signature'",
+      "description": "Secret key for HMAC signature generation (stored encrypted)"
+    },
+    {
+      "fieldname": "hmac_algorithm",
+      "fieldtype": "Select",
+      "label": "HMAC Algorithm",
+      "options": "SHA256\nSHA384\nSHA512",
+      "default": "SHA256",
+      "depends_on": "eval:doc.auth_type=='HMAC Signature'",
+      "description": "Hash algorithm for HMAC signature"
+    },
+    {
+      "fieldname": "hmac_header",
+      "fieldtype": "Data",
+      "label": "HMAC Header Name",
+      "depends_on": "eval:doc.auth_type=='HMAC Signature'",
+      "default": "X-Webhook-Signature",
+      "description": "Header name for HMAC signature"
+    },
+    {
+      "fieldname": "section_break_headers",
+      "fieldtype": "Section Break",
+      "label": "Custom Headers",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "custom_headers",
+      "fieldtype": "Code",
+      "label": "Custom Headers",
+      "options": "JSON",
+      "description": "JSON object of custom headers to include in webhook requests. Example: {\"X-Custom-Header\": \"value\"}"
+    },
+    {
+      "fieldname": "section_break_payload",
+      "fieldtype": "Section Break",
+      "label": "Payload Configuration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "payload_format",
+      "fieldtype": "Select",
+      "label": "Payload Format",
+      "options": "Standard\nCustom Template\nRaw Event Data",
+      "default": "Standard",
+      "description": "How to format the webhook payload"
+    },
+    {
+      "fieldname": "include_full_document",
+      "fieldtype": "Check",
+      "label": "Include Full Document",
+      "default": 1,
+      "depends_on": "eval:doc.payload_format=='Standard'",
+      "description": "Include the full document data in the payload"
+    },
+    {
+      "fieldname": "include_changed_fields_only",
+      "fieldtype": "Check",
+      "label": "Include Changed Fields Only",
+      "default": 0,
+      "depends_on": "eval:doc.payload_format=='Standard'",
+      "description": "For update events, only include fields that changed"
+    },
+    {
+      "fieldname": "column_break_payload",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "include_metadata",
+      "fieldtype": "Check",
+      "label": "Include Metadata",
+      "default": 1,
+      "depends_on": "eval:doc.payload_format=='Standard'",
+      "description": "Include event metadata (timestamp, event type, user, etc.)"
+    },
+    {
+      "fieldname": "include_related_data",
+      "fieldtype": "Check",
+      "label": "Include Related Data",
+      "default": 0,
+      "depends_on": "eval:doc.payload_format=='Standard'",
+      "description": "Include related data (attributes, classifications, assets)"
+    },
+    {
+      "fieldname": "payload_template",
+      "fieldtype": "Code",
+      "label": "Payload Template",
+      "options": "Jinja",
+      "depends_on": "eval:doc.payload_format=='Custom Template'",
+      "description": "Jinja2 template for custom payload format. Available variables: event, document, user, timestamp"
+    },
+    {
+      "fieldname": "section_break_retry",
+      "fieldtype": "Section Break",
+      "label": "Retry Configuration"
+    },
+    {
+      "fieldname": "max_retries",
+      "fieldtype": "Int",
+      "label": "Max Retries",
+      "default": 3,
+      "description": "Maximum number of retry attempts for failed deliveries"
+    },
+    {
+      "fieldname": "retry_strategy",
+      "fieldtype": "Select",
+      "label": "Retry Strategy",
+      "options": "Exponential Backoff\nLinear Backoff\nFixed Interval",
+      "default": "Exponential Backoff",
+      "description": "Strategy for timing retry attempts"
+    },
+    {
+      "fieldname": "initial_retry_delay",
+      "fieldtype": "Int",
+      "label": "Initial Retry Delay (seconds)",
+      "default": 60,
+      "description": "Delay before first retry attempt"
+    },
+    {
+      "fieldname": "column_break_retry",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "max_retry_delay",
+      "fieldtype": "Int",
+      "label": "Max Retry Delay (seconds)",
+      "default": 3600,
+      "description": "Maximum delay between retries (for exponential backoff)"
+    },
+    {
+      "fieldname": "backoff_multiplier",
+      "fieldtype": "Float",
+      "label": "Backoff Multiplier",
+      "default": 2.0,
+      "depends_on": "eval:doc.retry_strategy=='Exponential Backoff'",
+      "description": "Multiplier for exponential backoff (e.g., 2.0 means delays double each retry)"
+    },
+    {
+      "fieldname": "timeout_seconds",
+      "fieldtype": "Int",
+      "label": "Request Timeout (seconds)",
+      "default": 30,
+      "description": "Timeout for webhook HTTP requests"
+    },
+    {
+      "fieldname": "section_break_error_handling",
+      "fieldtype": "Section Break",
+      "label": "Error Handling",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "retry_on_status_codes",
+      "fieldtype": "Data",
+      "label": "Retry on Status Codes",
+      "default": "408,429,500,502,503,504",
+      "description": "Comma-separated HTTP status codes that should trigger retry"
+    },
+    {
+      "fieldname": "success_status_codes",
+      "fieldtype": "Data",
+      "label": "Success Status Codes",
+      "default": "200,201,202,204",
+      "description": "Comma-separated HTTP status codes considered successful"
+    },
+    {
+      "fieldname": "column_break_error",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "disable_on_consecutive_failures",
+      "fieldtype": "Int",
+      "label": "Disable After Consecutive Failures",
+      "default": 10,
+      "description": "Automatically disable webhook after this many consecutive failures (0 to disable)"
+    },
+    {
+      "fieldname": "alert_on_failure",
+      "fieldtype": "Check",
+      "label": "Send Alert on Failure",
+      "default": 1,
+      "description": "Send notification when webhook delivery fails"
+    },
+    {
+      "fieldname": "alert_email",
+      "fieldtype": "Data",
+      "label": "Alert Email",
+      "options": "Email",
+      "depends_on": "eval:doc.alert_on_failure",
+      "description": "Email address to send failure alerts to"
+    },
+    {
+      "fieldname": "section_break_stats",
+      "fieldtype": "Section Break",
+      "label": "Delivery Statistics"
+    },
+    {
+      "fieldname": "total_deliveries",
+      "fieldtype": "Int",
+      "label": "Total Deliveries",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of webhook delivery attempts"
+    },
+    {
+      "fieldname": "successful_deliveries",
+      "fieldtype": "Int",
+      "label": "Successful Deliveries",
+      "read_only": 1,
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Number of successful webhook deliveries"
+    },
+    {
+      "fieldname": "failed_deliveries",
+      "fieldtype": "Int",
+      "label": "Failed Deliveries",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of failed webhook deliveries"
+    },
+    {
+      "fieldname": "column_break_stats",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "consecutive_failures",
+      "fieldtype": "Int",
+      "label": "Consecutive Failures",
+      "read_only": 1,
+      "default": 0,
+      "description": "Current count of consecutive failures"
+    },
+    {
+      "fieldname": "success_rate",
+      "fieldtype": "Percent",
+      "label": "Success Rate",
+      "read_only": 1,
+      "description": "Percentage of successful deliveries"
+    },
+    {
+      "fieldname": "average_response_time",
+      "fieldtype": "Float",
+      "label": "Avg Response Time (ms)",
+      "read_only": 1,
+      "description": "Average response time for successful deliveries"
+    },
+    {
+      "fieldname": "section_break_last_delivery",
+      "fieldtype": "Section Break",
+      "label": "Last Delivery",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "last_delivery_at",
+      "fieldtype": "Datetime",
+      "label": "Last Delivery At",
+      "read_only": 1,
+      "description": "Timestamp of last delivery attempt"
+    },
+    {
+      "fieldname": "last_delivery_status",
+      "fieldtype": "Select",
+      "label": "Last Delivery Status",
+      "options": "\nPending\nSuccess\nFailed\nRetrying",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Status of last delivery attempt"
+    },
+    {
+      "fieldname": "last_status_code",
+      "fieldtype": "Int",
+      "label": "Last Status Code",
+      "read_only": 1,
+      "description": "HTTP status code from last delivery attempt"
+    },
+    {
+      "fieldname": "column_break_last",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_response_time",
+      "fieldtype": "Float",
+      "label": "Last Response Time (ms)",
+      "read_only": 1,
+      "description": "Response time from last delivery attempt"
+    },
+    {
+      "fieldname": "last_error_message",
+      "fieldtype": "Small Text",
+      "label": "Last Error Message",
+      "read_only": 1,
+      "description": "Error message from last failed delivery"
+    },
+    {
+      "fieldname": "last_event_id",
+      "fieldtype": "Data",
+      "label": "Last Event ID",
+      "read_only": 1,
+      "description": "ID of the last event that triggered this webhook"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description and notes about this webhook configuration"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

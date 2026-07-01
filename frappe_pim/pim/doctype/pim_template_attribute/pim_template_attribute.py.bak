@@ -1,0 +1,28 @@
+"""
+PIM Template Attribute Controller
+Child table for PIM Attribute Template - defines attributes within a template
+"""
+
+# Defer frappe import to function level for module import without Frappe context
+
+
+class PIMTemplateAttribute:
+    """PIM Template Attribute DocType controller stub
+
+    This is a minimal controller that allows the module to be imported
+    without Frappe context. Full functionality is provided when running
+    within Frappe framework via _get_controller().
+    """
+    pass
+
+
+def _get_controller():
+    """Get the full controller class with Frappe dependencies"""
+    from frappe.model.document import Document
+
+    class PIMTemplateAttributeController(Document):
+        # Child tables typically don't need much validation
+        # as they are validated at the parent level
+        pass
+
+    return PIMTemplateAttributeController

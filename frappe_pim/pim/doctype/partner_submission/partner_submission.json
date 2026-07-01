@@ -1,0 +1,433 @@
+{
+  "doctype": "DocType",
+  "name": "Partner Submission",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "format:SUB-{YYYY}-{#####}",
+  "is_submittable": 1,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "portal_user",
+      "fieldtype": "Link",
+      "label": "Portal User",
+      "options": "Brand Portal User",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Portal user who submitted this product"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "fetch_from": "portal_user.brand",
+      "read_only": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "submission_status",
+      "fieldtype": "Select",
+      "label": "Submission Status",
+      "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected\nNeeds Revision",
+      "default": "Draft",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the submission"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "submission_date",
+      "fieldtype": "Datetime",
+      "label": "Submission Date",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Date when the submission was made"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Low\nMedium\nHigh\nUrgent",
+      "default": "Medium",
+      "description": "Submission priority for review"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Information"
+    },
+    {
+      "fieldname": "product_name",
+      "fieldtype": "Data",
+      "label": "Product Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "translatable": 1,
+      "description": "Name of the product"
+    },
+    {
+      "fieldname": "product_code",
+      "fieldtype": "Data",
+      "label": "Product Code / SKU",
+      "reqd": 1,
+      "unique": 1,
+      "description": "Unique product identifier"
+    },
+    {
+      "fieldname": "barcode",
+      "fieldtype": "Data",
+      "label": "Barcode / GTIN",
+      "description": "UPC, EAN, or GTIN barcode"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_type",
+      "fieldtype": "Link",
+      "label": "Product Type",
+      "options": "PIM Product Type",
+      "description": "Product classification type"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "description": "Product family for attribute inheritance"
+    },
+    {
+      "fieldname": "item_group",
+      "fieldtype": "Link",
+      "label": "Item Group",
+      "options": "Item Group",
+      "description": "ERPNext item group category"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "short_description",
+      "fieldtype": "Small Text",
+      "label": "Short Description",
+      "translatable": 1,
+      "description": "Brief product description (max 500 chars)"
+    },
+    {
+      "fieldname": "full_description",
+      "fieldtype": "Text Editor",
+      "label": "Full Description",
+      "translatable": 1,
+      "description": "Detailed product description with HTML formatting"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing"
+    },
+    {
+      "fieldname": "standard_price",
+      "fieldtype": "Currency",
+      "label": "Standard Price",
+      "description": "Standard selling price"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "default": "USD",
+      "description": "Price currency"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "msrp",
+      "fieldtype": "Currency",
+      "label": "MSRP",
+      "description": "Manufacturer's Suggested Retail Price"
+    },
+    {
+      "fieldname": "cost_price",
+      "fieldtype": "Currency",
+      "label": "Cost Price",
+      "description": "Product cost (wholesale)"
+    },
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Attributes"
+    },
+    {
+      "fieldname": "attributes_json",
+      "fieldtype": "JSON",
+      "label": "Attributes",
+      "description": "Product attributes in JSON format"
+    },
+    {
+      "fieldname": "section_break_media",
+      "fieldtype": "Section Break",
+      "label": "Media"
+    },
+    {
+      "fieldname": "primary_image",
+      "fieldtype": "Attach Image",
+      "label": "Primary Image",
+      "description": "Main product image"
+    },
+    {
+      "fieldname": "additional_images",
+      "fieldtype": "Attach",
+      "label": "Additional Images",
+      "description": "Additional product images (comma-separated URLs)"
+    },
+    {
+      "fieldname": "column_break_media",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "video_url",
+      "fieldtype": "Data",
+      "label": "Video URL",
+      "options": "URL",
+      "description": "Product video URL (YouTube, Vimeo)"
+    },
+    {
+      "fieldname": "documents",
+      "fieldtype": "Attach",
+      "label": "Documents",
+      "description": "Product documents (PDF, spec sheets)"
+    },
+    {
+      "fieldname": "section_break_dimensions",
+      "fieldtype": "Section Break",
+      "label": "Dimensions & Weight",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "weight",
+      "fieldtype": "Float",
+      "label": "Weight",
+      "precision": 3,
+      "description": "Product weight"
+    },
+    {
+      "fieldname": "weight_uom",
+      "fieldtype": "Link",
+      "label": "Weight UOM",
+      "options": "UOM",
+      "default": "Kg",
+      "description": "Weight unit of measure"
+    },
+    {
+      "fieldname": "column_break_dimensions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "length",
+      "fieldtype": "Float",
+      "label": "Length",
+      "precision": 2,
+      "description": "Product length"
+    },
+    {
+      "fieldname": "width",
+      "fieldtype": "Float",
+      "label": "Width",
+      "precision": 2,
+      "description": "Product width"
+    },
+    {
+      "fieldname": "height",
+      "fieldtype": "Float",
+      "label": "Height",
+      "precision": 2,
+      "description": "Product height"
+    },
+    {
+      "fieldname": "dimension_uom",
+      "fieldtype": "Link",
+      "label": "Dimension UOM",
+      "options": "UOM",
+      "default": "Centimeter",
+      "description": "Dimension unit of measure"
+    },
+    {
+      "fieldname": "section_break_review",
+      "fieldtype": "Section Break",
+      "label": "Review",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "reviewer",
+      "fieldtype": "Link",
+      "label": "Reviewer",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who reviewed the submission"
+    },
+    {
+      "fieldname": "reviewed_on",
+      "fieldtype": "Datetime",
+      "label": "Reviewed On",
+      "read_only": 1,
+      "description": "Date when the submission was reviewed"
+    },
+    {
+      "fieldname": "column_break_review",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "review_notes",
+      "fieldtype": "Text",
+      "label": "Review Notes",
+      "description": "Notes from the reviewer"
+    },
+    {
+      "fieldname": "rejection_reason",
+      "fieldtype": "Small Text",
+      "label": "Rejection Reason",
+      "depends_on": "eval:doc.submission_status=='Rejected'",
+      "description": "Reason for rejection"
+    },
+    {
+      "fieldname": "revision_requested",
+      "fieldtype": "Text",
+      "label": "Revision Requested",
+      "depends_on": "eval:doc.submission_status=='Needs Revision'",
+      "description": "Changes requested by reviewer"
+    },
+    {
+      "fieldname": "section_break_result",
+      "fieldtype": "Section Break",
+      "label": "Result",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "created_item",
+      "fieldtype": "Link",
+      "label": "Created Item",
+      "options": "Item",
+      "read_only": 1,
+      "description": "Item created from this submission"
+    },
+    {
+      "fieldname": "created_product",
+      "fieldtype": "Link",
+      "label": "Created Product",
+      "options": "Product Master",
+      "read_only": 1,
+      "description": "Product Master created from this submission"
+    },
+    {
+      "fieldname": "column_break_result",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "item_created_on",
+      "fieldtype": "Datetime",
+      "label": "Item Created On",
+      "read_only": 1,
+      "description": "Date when the Item was created"
+    },
+    {
+      "fieldname": "section_break_internal",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text",
+      "label": "Internal Notes",
+      "description": "Internal notes (not visible to partner)"
+    },
+    {
+      "fieldname": "quality_score",
+      "fieldtype": "Percent",
+      "label": "Quality Score",
+      "read_only": 1,
+      "description": "Auto-calculated quality score"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "Brand Portal User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+
+  "states": [
+    {
+      "title": "Draft",
+      "color": "gray"
+    },
+    {
+      "title": "Submitted",
+      "color": "blue"
+    },
+    {
+      "title": "Under Review",
+      "color": "yellow"
+    },
+    {
+      "title": "Approved",
+      "color": "green"
+    },
+    {
+      "title": "Rejected",
+      "color": "red"
+    },
+    {
+      "title": "Needs Revision",
+      "color": "orange"
+    }
+  ]
+}

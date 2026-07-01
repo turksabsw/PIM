@@ -1,0 +1,267 @@
+{
+  "doctype": "DocType",
+  "name": "Data Quality Rule",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "rule_name",
+      "fieldtype": "Data",
+      "label": "Rule Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Descriptive name for this validation rule"
+    },
+    {
+      "fieldname": "rule_type",
+      "fieldtype": "Select",
+      "label": "Rule Type",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "options": "Required Field\nField Length\nFormat Validation\nValue Range\nAllowed Values\nRegex Pattern\nUnique Value\nConditional Required\nImage Dimension\nFile Size\nCustom Script",
+      "default": "Required Field",
+      "description": "Type of validation to perform"
+    },
+    {
+      "fieldname": "target_field",
+      "fieldtype": "Data",
+      "label": "Target Field",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Field name to validate (e.g., product_name, short_description)"
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "label": "Severity",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 1,
+      "options": "Error\nWarning\nInfo",
+      "default": "Error",
+      "description": "Severity level when rule fails"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Enable or disable this rule"
+    },
+    {
+      "fieldname": "section_break_config",
+      "fieldtype": "Section Break",
+      "label": "Rule Configuration"
+    },
+    {
+      "fieldname": "min_length",
+      "fieldtype": "Int",
+      "label": "Minimum Length",
+      "depends_on": "eval:doc.rule_type == 'Field Length'",
+      "description": "Minimum character length for the field"
+    },
+    {
+      "fieldname": "max_length",
+      "fieldtype": "Int",
+      "label": "Maximum Length",
+      "depends_on": "eval:doc.rule_type == 'Field Length'",
+      "description": "Maximum character length for the field"
+    },
+    {
+      "fieldname": "column_break_length",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_value",
+      "fieldtype": "Float",
+      "label": "Minimum Value",
+      "depends_on": "eval:doc.rule_type == 'Value Range'",
+      "description": "Minimum numeric value for the field"
+    },
+    {
+      "fieldname": "max_value",
+      "fieldtype": "Float",
+      "label": "Maximum Value",
+      "depends_on": "eval:doc.rule_type == 'Value Range'",
+      "description": "Maximum numeric value for the field"
+    },
+    {
+      "fieldname": "section_break_format",
+      "fieldtype": "Section Break",
+      "label": "Format & Pattern",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "format_type",
+      "fieldtype": "Select",
+      "label": "Format Type",
+      "depends_on": "eval:doc.rule_type == 'Format Validation'",
+      "options": "\nEmail\nURL\nPhone\nGTIN\nSKU\nDate\nCurrency\nPostal Code",
+      "description": "Predefined format to validate against"
+    },
+    {
+      "fieldname": "regex_pattern",
+      "fieldtype": "Data",
+      "label": "Regex Pattern",
+      "depends_on": "eval:doc.rule_type == 'Regex Pattern'",
+      "description": "Regular expression pattern for validation"
+    },
+    {
+      "fieldname": "column_break_format",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "allowed_values",
+      "fieldtype": "Small Text",
+      "label": "Allowed Values",
+      "depends_on": "eval:doc.rule_type == 'Allowed Values'",
+      "description": "Comma-separated list of allowed values"
+    },
+    {
+      "fieldname": "section_break_conditional",
+      "fieldtype": "Section Break",
+      "label": "Conditional Rule",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "condition_field",
+      "fieldtype": "Data",
+      "label": "Condition Field",
+      "depends_on": "eval:doc.rule_type == 'Conditional Required'",
+      "description": "Field to check for condition"
+    },
+    {
+      "fieldname": "condition_operator",
+      "fieldtype": "Select",
+      "label": "Condition Operator",
+      "depends_on": "eval:doc.rule_type == 'Conditional Required'",
+      "options": "\nEquals\nNot Equals\nIn\nNot In\nIs Set\nIs Not Set",
+      "description": "Operator for the condition"
+    },
+    {
+      "fieldname": "condition_value",
+      "fieldtype": "Data",
+      "label": "Condition Value",
+      "depends_on": "eval:doc.rule_type == 'Conditional Required' && ['Equals', 'Not Equals', 'In', 'Not In'].includes(doc.condition_operator)",
+      "description": "Value to compare against (comma-separated for In/Not In)"
+    },
+    {
+      "fieldname": "section_break_image",
+      "fieldtype": "Section Break",
+      "label": "Image Validation",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "min_width",
+      "fieldtype": "Int",
+      "label": "Minimum Width (px)",
+      "depends_on": "eval:doc.rule_type == 'Image Dimension'",
+      "description": "Minimum image width in pixels"
+    },
+    {
+      "fieldname": "min_height",
+      "fieldtype": "Int",
+      "label": "Minimum Height (px)",
+      "depends_on": "eval:doc.rule_type == 'Image Dimension'",
+      "description": "Minimum image height in pixels"
+    },
+    {
+      "fieldname": "column_break_image",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "max_width",
+      "fieldtype": "Int",
+      "label": "Maximum Width (px)",
+      "depends_on": "eval:doc.rule_type == 'Image Dimension'",
+      "description": "Maximum image width in pixels"
+    },
+    {
+      "fieldname": "max_height",
+      "fieldtype": "Int",
+      "label": "Maximum Height (px)",
+      "depends_on": "eval:doc.rule_type == 'Image Dimension'",
+      "description": "Maximum image height in pixels"
+    },
+    {
+      "fieldname": "section_break_file",
+      "fieldtype": "Section Break",
+      "label": "File Validation",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "max_file_size_mb",
+      "fieldtype": "Float",
+      "label": "Max File Size (MB)",
+      "depends_on": "eval:doc.rule_type == 'File Size'",
+      "description": "Maximum file size in megabytes"
+    },
+    {
+      "fieldname": "allowed_extensions",
+      "fieldtype": "Data",
+      "label": "Allowed Extensions",
+      "depends_on": "eval:doc.rule_type == 'File Size'",
+      "description": "Comma-separated list of allowed file extensions (e.g., jpg,png,webp)"
+    },
+    {
+      "fieldname": "section_break_custom",
+      "fieldtype": "Section Break",
+      "label": "Custom Script",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "custom_script",
+      "fieldtype": "Code",
+      "label": "Custom Validation Script",
+      "depends_on": "eval:doc.rule_type == 'Custom Script'",
+      "options": "Python",
+      "description": "Python code that returns True/False. Available variables: doc, field_value"
+    },
+    {
+      "fieldname": "section_break_message",
+      "fieldtype": "Section Break",
+      "label": "Error Messages"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Custom Error Message",
+      "description": "Custom error message to display when validation fails"
+    },
+    {
+      "fieldname": "remediation_hint",
+      "fieldtype": "Small Text",
+      "label": "Remediation Hint",
+      "description": "Guidance for fixing the validation error"
+    },
+    {
+      "fieldname": "section_break_weight",
+      "fieldtype": "Section Break",
+      "label": "Scoring"
+    },
+    {
+      "fieldname": "weight",
+      "fieldtype": "Float",
+      "label": "Weight",
+      "default": 1.0,
+      "description": "Weight of this rule in quality score calculation (1.0 = normal)"
+    },
+    {
+      "fieldname": "affects_completeness",
+      "fieldtype": "Check",
+      "label": "Affects Completeness Score",
+      "default": 1,
+      "description": "Whether this rule affects the product completeness score"
+    }
+  ],
+
+  "permissions": []
+}

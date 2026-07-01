@@ -1,0 +1,446 @@
+{
+  "doctype": "DocType",
+  "name": "Target Segment",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:segment_code",
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "display_order",
+  "sort_order": "ASC",
+  "fields": [
+    {
+      "fieldname": "segment_name",
+      "fieldtype": "Data",
+      "label": "Segment Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the market segment"
+    },
+    {
+      "fieldname": "segment_code",
+      "fieldtype": "Data",
+      "label": "Segment Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: fishing-enthusiasts, premium-buyers"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "segment_type",
+      "fieldtype": "Select",
+      "label": "Segment Type",
+      "reqd": 1,
+      "options": "Demographics\nInterests\nGeographic\nBehavioral\nPsychographic\nIndustry\nProfession\nLifestyle\nTechnology\nOther",
+      "default": "Demographics",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of market segmentation"
+    },
+    {
+      "fieldname": "parent_segment",
+      "fieldtype": "Link",
+      "label": "Parent Segment",
+      "options": "Target Segment",
+      "in_standard_filter": 1,
+      "description": "Optional parent segment for hierarchical organization"
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Image",
+      "description": "Representative image or icon for this segment"
+    },
+    {
+      "fieldname": "section_break_settings",
+      "fieldtype": "Section Break",
+      "label": "Settings"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this segment for product tagging"
+    },
+    {
+      "fieldname": "display_order",
+      "fieldtype": "Int",
+      "label": "Display Order",
+      "default": 0,
+      "description": "Order in which segments appear (lower = first)"
+    },
+    {
+      "fieldname": "column_break_settings",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Segment Priority",
+      "options": "High\nMedium\nLow",
+      "default": "Medium",
+      "in_standard_filter": 1,
+      "description": "Business priority of this segment"
+    },
+    {
+      "fieldname": "color",
+      "fieldtype": "Color",
+      "label": "Color",
+      "description": "Display color for UI highlighting"
+    },
+    {
+      "fieldname": "section_break_demographics",
+      "fieldtype": "Section Break",
+      "label": "Demographics Criteria",
+      "depends_on": "eval:doc.segment_type=='Demographics'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "age_range_start",
+      "fieldtype": "Int",
+      "label": "Age Range Start",
+      "description": "Minimum age (e.g., 18)"
+    },
+    {
+      "fieldname": "age_range_end",
+      "fieldtype": "Int",
+      "label": "Age Range End",
+      "description": "Maximum age (e.g., 35)"
+    },
+    {
+      "fieldname": "column_break_demographics",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "gender",
+      "fieldtype": "Select",
+      "label": "Gender",
+      "options": "\nAll\nMale\nFemale\nOther",
+      "default": "All",
+      "description": "Target gender for this segment"
+    },
+    {
+      "fieldname": "income_level",
+      "fieldtype": "Select",
+      "label": "Income Level",
+      "options": "\nAll\nLow\nMiddle\nHigh\nPremium",
+      "description": "Target income bracket"
+    },
+    {
+      "fieldname": "education_level",
+      "fieldtype": "Select",
+      "label": "Education Level",
+      "options": "\nAll\nHigh School\nBachelor\nMaster\nDoctorate\nProfessional",
+      "description": "Target education level"
+    },
+    {
+      "fieldname": "section_break_geographic",
+      "fieldtype": "Section Break",
+      "label": "Geographic Criteria",
+      "depends_on": "eval:doc.segment_type=='Geographic'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "countries",
+      "fieldtype": "Small Text",
+      "label": "Target Countries",
+      "description": "Comma-separated list of target countries"
+    },
+    {
+      "fieldname": "regions",
+      "fieldtype": "Small Text",
+      "label": "Target Regions",
+      "description": "Comma-separated list of target regions/states"
+    },
+    {
+      "fieldname": "column_break_geographic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "urban_rural",
+      "fieldtype": "Select",
+      "label": "Urban/Rural",
+      "options": "\nAll\nUrban\nSuburban\nRural",
+      "description": "Target urban/rural classification"
+    },
+    {
+      "fieldname": "climate_zone",
+      "fieldtype": "Select",
+      "label": "Climate Zone",
+      "options": "\nAll\nTropical\nTemperate\nCold\nArid\nMediterranean",
+      "description": "Target climate zone"
+    },
+    {
+      "fieldname": "section_break_interests",
+      "fieldtype": "Section Break",
+      "label": "Interests & Behavioral Criteria",
+      "depends_on": "eval:in_list(['Interests', 'Behavioral', 'Lifestyle'], doc.segment_type)",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "interests",
+      "fieldtype": "Small Text",
+      "label": "Interests",
+      "description": "Comma-separated list of interests (e.g., fishing, hiking, photography)"
+    },
+    {
+      "fieldname": "hobbies",
+      "fieldtype": "Small Text",
+      "label": "Hobbies",
+      "description": "Comma-separated list of hobbies"
+    },
+    {
+      "fieldname": "column_break_interests",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "purchase_behavior",
+      "fieldtype": "Select",
+      "label": "Purchase Behavior",
+      "options": "\nAll\nImpulse Buyer\nResearch-Oriented\nBrand Loyal\nPrice Sensitive\nQuality Focused\nEarly Adopter\nLate Adopter",
+      "description": "Typical purchasing behavior"
+    },
+    {
+      "fieldname": "lifestyle",
+      "fieldtype": "Select",
+      "label": "Lifestyle",
+      "options": "\nAll\nActive/Sporty\nOutdoors\nTech-Savvy\nFamily-Oriented\nCareer-Focused\nEco-Conscious\nLuxury/Premium\nBudget-Conscious\nMinimalist",
+      "description": "Lifestyle classification"
+    },
+    {
+      "fieldname": "section_break_technology",
+      "fieldtype": "Section Break",
+      "label": "Technology Criteria",
+      "depends_on": "eval:doc.segment_type=='Technology'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "device_preference",
+      "fieldtype": "Select",
+      "label": "Device Preference",
+      "options": "\nAll\niOS/Apple\nAndroid\nWindows\nMac\nLinux",
+      "description": "Primary device/platform preference"
+    },
+    {
+      "fieldname": "tech_adoption",
+      "fieldtype": "Select",
+      "label": "Tech Adoption Level",
+      "options": "\nAll\nInnovators\nEarly Adopters\nEarly Majority\nLate Majority\nLaggards",
+      "description": "Technology adoption curve position"
+    },
+    {
+      "fieldname": "column_break_technology",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "online_activity",
+      "fieldtype": "Select",
+      "label": "Online Activity Level",
+      "options": "\nAll\nHeavy User\nModerate User\nLight User\nMinimal",
+      "description": "Level of online/digital activity"
+    },
+    {
+      "fieldname": "social_media_usage",
+      "fieldtype": "Select",
+      "label": "Social Media Usage",
+      "options": "\nAll\nHeavy\nModerate\nLight\nNone",
+      "description": "Social media engagement level"
+    },
+    {
+      "fieldname": "section_break_industry",
+      "fieldtype": "Section Break",
+      "label": "Industry/Professional Criteria",
+      "depends_on": "eval:in_list(['Industry', 'Profession'], doc.segment_type)",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "industries",
+      "fieldtype": "Small Text",
+      "label": "Target Industries",
+      "description": "Comma-separated list of target industries (e.g., Agriculture, Automotive, Healthcare)"
+    },
+    {
+      "fieldname": "company_sizes",
+      "fieldtype": "Select",
+      "label": "Company Size",
+      "options": "\nAll\nEnterprise (1000+)\nMid-Market (100-999)\nSmall Business (10-99)\nMicro (1-9)\nSolopreneur",
+      "description": "Target company size"
+    },
+    {
+      "fieldname": "column_break_industry",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "professions",
+      "fieldtype": "Small Text",
+      "label": "Target Professions",
+      "description": "Comma-separated list of target professions (e.g., Engineer, Doctor, Farmer)"
+    },
+    {
+      "fieldname": "job_levels",
+      "fieldtype": "Select",
+      "label": "Job Level",
+      "options": "\nAll\nC-Level\nDirector/VP\nManager\nIndividual Contributor\nEntry Level",
+      "description": "Target job level"
+    },
+    {
+      "fieldname": "section_break_keywords",
+      "fieldtype": "Section Break",
+      "label": "Keywords & Tags"
+    },
+    {
+      "fieldname": "keywords",
+      "fieldtype": "Small Text",
+      "label": "Keywords",
+      "description": "Comma-separated keywords for search and matching"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization"
+    },
+    {
+      "fieldname": "section_break_market_size",
+      "fieldtype": "Section Break",
+      "label": "Market Size & Potential",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "estimated_size",
+      "fieldtype": "Int",
+      "label": "Estimated Segment Size",
+      "description": "Estimated number of people/companies in this segment"
+    },
+    {
+      "fieldname": "market_potential",
+      "fieldtype": "Currency",
+      "label": "Market Potential",
+      "description": "Estimated market value potential for this segment"
+    },
+    {
+      "fieldname": "column_break_market_size",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "growth_rate",
+      "fieldtype": "Percent",
+      "label": "Growth Rate",
+      "description": "Estimated annual growth rate of this segment"
+    },
+    {
+      "fieldname": "penetration_rate",
+      "fieldtype": "Percent",
+      "label": "Current Penetration",
+      "description": "Current market penetration percentage"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "translatable": 1,
+      "description": "Detailed description of this market segment"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Internal Notes",
+      "description": "Internal notes and comments (not for export)"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ],
+  "actions": [],
+  "links": [],
+  "states": [],
+  "field_order": [
+    "segment_name",
+    "segment_code",
+    "column_break_basic",
+    "segment_type",
+    "parent_segment",
+    "image",
+    "section_break_settings",
+    "is_active",
+    "display_order",
+    "column_break_settings",
+    "priority",
+    "color",
+    "section_break_demographics",
+    "age_range_start",
+    "age_range_end",
+    "column_break_demographics",
+    "gender",
+    "income_level",
+    "education_level",
+    "section_break_geographic",
+    "countries",
+    "regions",
+    "column_break_geographic",
+    "urban_rural",
+    "climate_zone",
+    "section_break_interests",
+    "interests",
+    "hobbies",
+    "column_break_interests",
+    "purchase_behavior",
+    "lifestyle",
+    "section_break_technology",
+    "device_preference",
+    "tech_adoption",
+    "column_break_technology",
+    "online_activity",
+    "social_media_usage",
+    "section_break_industry",
+    "industries",
+    "company_sizes",
+    "column_break_industry",
+    "professions",
+    "job_levels",
+    "section_break_keywords",
+    "keywords",
+    "tags",
+    "section_break_market_size",
+    "estimated_size",
+    "market_potential",
+    "column_break_market_size",
+    "growth_rate",
+    "penetration_rate",
+    "section_break_description",
+    "description",
+    "notes"
+  ]
+}

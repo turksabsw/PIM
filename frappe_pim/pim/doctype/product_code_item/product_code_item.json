@@ -1,0 +1,87 @@
+{
+  "doctype": "DocType",
+  "name": "Product Code Item",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "fields": [
+    {
+      "fieldname": "code_type",
+      "fieldtype": "Select",
+      "label": "Code Type",
+      "options": "Product Code\nSupplier Code\nCustomer Code\nManufacturer Code\nInternal Code\nOther",
+      "default": "Product Code",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "code",
+      "fieldtype": "Data",
+      "label": "Code",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "code_description",
+      "fieldtype": "Data",
+      "label": "Description",
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "is_primary",
+      "fieldtype": "Check",
+      "label": "Is Primary",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "supplier",
+      "fieldtype": "Link",
+      "label": "Supplier",
+      "options": "Supplier",
+      "description": "Link to supplier if this is a supplier code",
+      "depends_on": "eval:doc.code_type=='Supplier Code'"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "description": "Link to customer if this is a customer code",
+      "depends_on": "eval:doc.code_type=='Customer Code'"
+    },
+    {
+      "fieldname": "manufacturer",
+      "fieldtype": "Link",
+      "label": "Manufacturer",
+      "options": "Manufacturer",
+      "description": "Link to manufacturer if this is a manufacturer code",
+      "depends_on": "eval:doc.code_type=='Manufacturer Code'"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To"
+    }
+  ],
+  "field_order": [
+    "code_type",
+    "code",
+    "code_description",
+    "is_primary",
+    "supplier",
+    "customer",
+    "manufacturer",
+    "valid_from",
+    "valid_to"
+  ]
+}

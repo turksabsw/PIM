@@ -1,0 +1,387 @@
+"""
+PIM Sales Channel Controller
+Sales channel definition for multi-channel pricing support
+"""
+
+import frappe
+from frappe import _
+from frappe.model.document import Document
+
+# Defer frappe import to function level for module import without Frappe context
+
+class PIMSalesChannel(Document):
+
+        def validate(self):
+            self.validate_channel_code()
+            self.validate_margins()
+            self.validate_guardrails()
+            self.validate_integration()
+
+        def validate_channel_code(self):
+            """Ensure channel_code is URL-safe slug"""
+            if not self.channel_code:
+                self.channel_code = frappe.scrub(self.channel_name)
+
+            if not re.match(r'^[a-z][a-z0-9_-]*$', self.channel_code):
+                frappe.throw(
+                    _("Channel Code must start with a letter and contain only lowercase letters, numbers, underscores, and hyphens"),
+                    title=_("Invalid Channel Code")
+                )
+
+        def validate_margins(self):
+            """Validate margin and commission configurations"""
+            if self.commission_rate and self.commission_rate < 0:
+                frappe.throw(
+                    _("Commission Rate cannot be negative"),
+                    title=_("Invalid Commission Rate")
+                )
+
+            if self.commission_rate and self.commission_rate > 100:
+                frappe.throw(
+                    _("Commission Rate cannot exceed 100%"),
+                    title=_("Invalid Commission Rate")
+                )
+
+            if self.min_price_margin and self.min_price_margin < 0:
+                frappe.throw(
+                    _("Minimum Price Margin cannot be negative"),
+                    title=_("Invalid Margin")
+                )
+
+            if self.price_markup_percent and self.price_markup_percent < -100:
+                frappe.throw(
+                    _("Price Markup cannot be less than -100%"),
+                    title=_("Invalid Markup")
+                )
+
+        def validate_guardrails(self):
+            """Validate price guardrail configurations"""
+            if self.min_price and self.max_price:
+                if self.min_price > self.max_price:
+                    frappe.throw(
+                        _("Minimum Price cannot exceed Maximum Price"),
+                        title=_("Invalid Price Guardrails")
+                    )
+
+            if self.min_price and self.min_price < 0:
+                frappe.throw(
+                    _("Minimum Price cannot be negative"),
+                    title=_("Invalid Minimum Price")
+                )
+
+        def validate_integration(self):
+            """Validate integration settings"""
+            if self.integration_type == "API" and not self.api_endpoint:
+                frappe.msgprint(
+                    _("API Endpoint is recommended when Integration Type is API"),
+                    indicator="orange"
+                )
+
+            if self.channel_type == "Marketplace" and not self.marketplace_name:
+                frappe.msgprint(
+                    _("Consider selecting a Marketplace for better integration support"),
+                    indicator="blue"
+                )
+
+        def before_save(self):
+            """Update calculated fields before save"""
+            self.update_defaults()
+
+        def update_defaults(self):
+            """Set default values based on channel type"""
+            # Set currency from company default if not specified
+            if not self.currency:
+                default_currency = frappe.db.get_single_value("Global Defaults", "default_currency")
+                if default_currency:
+                    self.currency = default_currency
+
+        def on_update(self):
+            """Actions after save"""
+            self._invalidate_cache()
+
+        def on_trash(self):
+            """Prevent deletion if channel is in use"""
+            # Check for marketplace listings using this channel
+            listings_count = frappe.db.count("PIM Marketplace Listing", {"sales_channel": self.name})
+            if listings_count > 0:
+                frappe.throw(
+                    _("Cannot delete channel '{0}' as it has {1} marketplace listings").format(
+                        self.channel_name, listings_count
+                    ),
+                    title=_("Channel In Use")
+                )
+
+            # Check for contract prices using this channel
+            # Note: Contract prices may reference channel indirectly through listings
+
+        def _invalidate_cache(self):
+            """Invalidate channel-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("pim_sales_channel", self.name)
+            except (ImportError, AttributeError):
+                pass
+
+        def get_effective_price(self, base_price, cost=None):
+            """Calculate effective price for this channel
+
+            Args:
+                base_price: The base price to adjust
+                cost: Product cost for margin validation (optional)
+
+            Returns:
+                dict with adjusted_price, is_valid, applied_adjustments
+            """
+            adjusted_price = base_price
+            adjustments = []
+
+            # Apply markup
+            if self.price_markup_percent:
+                markup_amount = base_price * (self.price_markup_percent / 100)
+                adjusted_price += markup_amount
+                adjustments.append({
+                    "type": "markup",
+                    "percent": self.price_markup_percent,
+                    "amount": markup_amount
+                })
+
+            # Apply rounding
+            if self.price_rounding and self.price_rounding != "None":
+                rounded_price = self._apply_rounding(adjusted_price)
+                if rounded_price != adjusted_price:
+                    adjustments.append({
+                        "type": "rounding",
+                        "method": self.price_rounding,
+                        "original": adjusted_price,
+                        "rounded": rounded_price
+                    })
+                    adjusted_price = rounded_price
+
+            # Validate against guardrails
+            is_valid = True
+            warnings = []
+
+            if self.min_price and adjusted_price < self.min_price:
+                if self.enforce_map:
+                    adjusted_price = self.min_price
+                    adjustments.append({
+                        "type": "map_enforced",
+                        "min_price": self.min_price
+                    })
+                else:
+                    warnings.append("Price below minimum")
+                    is_valid = False
+
+            if self.max_price and adjusted_price > self.max_price:
+                warnings.append("Price above maximum")
+                is_valid = False
+
+            # Check margin if cost provided
+            if cost and cost > 0:
+                margin = ((adjusted_price - cost) / cost) * 100
+                if self.min_price_margin and margin < self.min_price_margin:
+                    if not self.allow_below_cost:
+                        warnings.append(f"Margin {margin:.2f}% below minimum {self.min_price_margin}%")
+                        is_valid = False
+                elif adjusted_price < cost and not self.allow_below_cost:
+                    warnings.append("Price below cost")
+                    is_valid = False
+
+            return {
+                "base_price": base_price,
+                "adjusted_price": adjusted_price,
+                "is_valid": is_valid,
+                "adjustments": adjustments,
+                "warnings": warnings,
+                "currency": self.currency
+            }
+
+        def _apply_rounding(self, price):
+            """Apply configured price rounding"""
+            import math
+
+            if self.price_rounding == "Nearest 0.01":
+                return round(price, 2)
+            elif self.price_rounding == "Nearest 0.05":
+                return round(price * 20) / 20
+            elif self.price_rounding == "Nearest 0.10":
+                return round(price * 10) / 10
+            elif self.price_rounding == "Nearest 0.50":
+                return round(price * 2) / 2
+            elif self.price_rounding == "Nearest 1.00":
+                return round(price)
+            elif self.price_rounding == "Nearest 5.00":
+                return round(price / 5) * 5
+            elif self.price_rounding == "Nearest 10.00":
+                return round(price / 10) * 10
+            elif self.price_rounding == "Up to .99":
+                return math.floor(price) + 0.99
+            elif self.price_rounding == "Up to .95":
+                return math.floor(price) + 0.95
+            return price
+
+        def get_net_price(self, selling_price):
+            """Calculate net price after deducting channel fees
+
+            Args:
+                selling_price: The selling price on this channel
+
+            Returns:
+                dict with net_price, deductions breakdown
+            """
+            net_price = selling_price
+            deductions = []
+
+            # Deduct commission
+            if self.commission_rate:
+                commission = selling_price * (self.commission_rate / 100)
+                net_price -= commission
+                deductions.append({
+                    "type": "commission",
+                    "rate": self.commission_rate,
+                    "amount": commission
+                })
+
+            # Deduct handling fee
+            if self.handling_fee_percent:
+                handling = selling_price * (self.handling_fee_percent / 100)
+                net_price -= handling
+                deductions.append({
+                    "type": "handling_fee",
+                    "rate": self.handling_fee_percent,
+                    "amount": handling
+                })
+
+            # Deduct fulfillment fee
+            if self.fulfillment_fee:
+                net_price -= self.fulfillment_fee
+                deductions.append({
+                    "type": "fulfillment_fee",
+                    "amount": self.fulfillment_fee
+                })
+
+            return {
+                "selling_price": selling_price,
+                "net_price": net_price,
+                "total_fees": selling_price - net_price,
+                "deductions": deductions,
+                "currency": self.currency
+            }
+def get_active_channels(channel_type=None):
+    """Get all active sales channels
+
+    Args:
+        channel_type: Optional filter by channel type
+
+    Returns:
+        List of channel dicts
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Sales Channel", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    filters = {"is_active": 1}
+
+    if channel_type:
+        filters["channel_type"] = channel_type
+
+    return frappe.get_all(
+        "PIM Sales Channel",
+        filters=filters,
+        fields=[
+            "name", "channel_name", "channel_code", "channel_type",
+            "currency", "commission_rate", "erp_price_list",
+            "marketplace_name"
+        ],
+        order_by="channel_name"
+    )
+
+def get_channel_by_code(channel_code):
+    """Get a sales channel by its code
+
+    Args:
+        channel_code: The channel code to look up
+
+    Returns:
+        Channel document or None
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Sales Channel", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    if not frappe.db.exists("PIM Sales Channel", channel_code):
+        return None
+
+    return frappe.get_doc("PIM Sales Channel", channel_code)
+
+def calculate_channel_price(channel_code, base_price, cost=None):
+    """Calculate the effective price for a channel
+
+    Args:
+        channel_code: Channel code or name
+        base_price: Base price to adjust
+        cost: Product cost for margin validation
+
+    Returns:
+        dict with price calculation results
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Sales Channel", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    channel = frappe.get_doc("PIM Sales Channel", channel_code)
+    return channel.get_effective_price(base_price, cost)
+
+def get_channels_for_price_list(price_list):
+    """Get all channels linked to a specific price list
+
+    Args:
+        price_list: ERPNext Price List name
+
+    Returns:
+        List of channel names
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Sales Channel", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    return frappe.get_all(
+        "PIM Sales Channel",
+        filters={
+            "erp_price_list": price_list,
+            "is_active": 1
+        },
+        pluck="name"
+    )
+
+def get_default_channel():
+    """Get the default sales channel (usually Direct or first active)
+
+    Returns:
+        Channel name or None
+    """
+    import frappe
+
+    # Try to find a 'default' or 'direct' channel first
+    default = frappe.db.get_value(
+        "PIM Sales Channel",
+        {"channel_code": ["in", ["default", "direct"]], "is_active": 1},
+        "name"
+    )
+
+    if default:
+        return default
+
+    # Return first active channel
+    channels = frappe.get_all(
+        "PIM Sales Channel",
+        filters={"is_active": 1},
+        limit=1,
+        pluck="name"
+    )
+
+    return channels[0] if channels else None

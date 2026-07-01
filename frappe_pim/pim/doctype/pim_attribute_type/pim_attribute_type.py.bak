@@ -1,0 +1,310 @@
+"""
+PIM Attribute Type Controller
+Defines attribute data types for the PIM system with validation rules
+"""
+
+import frappe
+from frappe import _
+
+
+class PIMAttributeType:
+    """PIM Attribute Type DocType controller stub
+
+    This is a minimal controller that allows the module to be imported
+    without Frappe context. Full functionality is provided when running
+    within Frappe framework via _get_controller().
+    """
+    pass
+
+
+def _get_controller():
+    """Get the full controller class with Frappe dependencies"""
+    import frappe
+    from frappe import _
+    from frappe.model.document import Document
+    import re
+
+    class PIMAttributeTypeController(Document):
+        def validate(self):
+            self.validate_type_code()
+            self.validate_constraints()
+            self.validate_regex()
+
+        def validate_type_code(self):
+            """Ensure type_code is URL-safe slug"""
+            if not self.type_code:
+                self.type_code = frappe.scrub(self.type_name)
+
+            if not re.match(r'^[a-z][a-z0-9_]*$', self.type_code):
+                frappe.throw(
+                    _("Type Code must start with a letter and contain only lowercase letters, numbers, and underscores"),
+                    title=_("Invalid Type Code")
+                )
+
+        def validate_constraints(self):
+            """Validate min/max value constraints"""
+            if self.min_value is not None and self.max_value is not None:
+                if self.min_value > self.max_value:
+                    frappe.throw(
+                        _("Minimum value cannot be greater than maximum value"),
+                        title=_("Invalid Constraints")
+                    )
+
+            # Only numeric base types should have min/max values
+            if self.base_type not in ['Integer', 'Float']:
+                if self.min_value is not None or self.max_value is not None:
+                    frappe.msgprint(
+                        _("Min/Max values are only applicable to numeric types. They will be ignored."),
+                        indicator="orange"
+                    )
+
+        def validate_regex(self):
+            """Validate the regex pattern if provided"""
+            if self.validation_regex:
+                try:
+                    re.compile(self.validation_regex)
+                except re.error as e:
+                    frappe.throw(
+                        _("Invalid validation regex pattern: {0}").format(str(e)),
+                        title=_("Invalid Regex")
+                    )
+
+        def before_save(self):
+            """Clean up fields based on base type"""
+            # Clear irrelevant fields based on base type
+            if self.base_type not in ['Integer', 'Float']:
+                self.min_value = None
+                self.max_value = None
+
+            if self.base_type not in ['String']:
+                self.max_length = None
+
+            if not self.supports_unit:
+                self.default_unit = None
+
+        def on_update(self):
+            """Invalidate cache on update"""
+            self._invalidate_cache()
+
+        def on_trash(self):
+            """Prevent deletion of standard or in-use attribute types"""
+            if self.is_standard:
+                frappe.throw(
+                    _("Standard attribute types cannot be deleted"),
+                    title=_("Cannot Delete")
+                )
+
+            # Check if attribute type is used by any attributes
+            usage_count = frappe.db.count("PIM Attribute", {"attribute_type": self.name})
+            if usage_count > 0:
+                frappe.throw(
+                    _("Cannot delete attribute type '{0}' as it is used by {1} attribute(s)").format(
+                        self.type_name, usage_count
+                    ),
+                    title=_("Attribute Type In Use")
+                )
+
+        def _invalidate_cache(self):
+            """Invalidate attribute type-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("attribute_type", self.name)
+            except (ImportError, AttributeError):
+                pass
+
+        def validate_value(self, value):
+            """Validate a value against this attribute type's constraints
+
+            Args:
+                value: The value to validate
+
+            Returns:
+                dict with 'valid' (bool) and 'errors' (list of error messages)
+            """
+            errors = []
+
+            if value is None or value == '':
+                return {"valid": True, "errors": []}
+
+            # Regex validation
+            if self.validation_regex:
+                if not re.match(self.validation_regex, str(value)):
+                    msg = self.validation_message or _("Value does not match required format")
+                    errors.append(msg)
+
+            # Type-specific validation
+            if self.base_type == 'Integer':
+                try:
+                    int_val = int(value)
+                    if self.min_value is not None and int_val < self.min_value:
+                        errors.append(_("Value must be at least {0}").format(self.min_value))
+                    if self.max_value is not None and int_val > self.max_value:
+                        errors.append(_("Value must be at most {0}").format(self.max_value))
+                except (ValueError, TypeError):
+                    errors.append(_("Value must be an integer"))
+
+            elif self.base_type == 'Float':
+                try:
+                    float_val = float(value)
+                    if self.min_value is not None and float_val < self.min_value:
+                        errors.append(_("Value must be at least {0}").format(self.min_value))
+                    if self.max_value is not None and float_val > self.max_value:
+                        errors.append(_("Value must be at most {0}").format(self.max_value))
+                except (ValueError, TypeError):
+                    errors.append(_("Value must be a number"))
+
+            elif self.base_type == 'String':
+                if self.max_length and len(str(value)) > self.max_length:
+                    errors.append(_("Value exceeds maximum length of {0}").format(self.max_length))
+
+            elif self.base_type == 'Boolean':
+                if str(value).lower() not in ['true', 'false', '1', '0', 'yes', 'no']:
+                    errors.append(_("Value must be a boolean (true/false)"))
+
+            return {
+                "valid": len(errors) == 0,
+                "errors": errors
+            }
+
+    return PIMAttributeTypeController
+
+
+@frappe.whitelist()
+def get_attribute_types():
+    """Get all active attribute types"""
+    import frappe
+
+    if not frappe.has_permission("PIM Attribute Type", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    return frappe.get_all("PIM Attribute Type",
+        filters={"is_active": 1},
+        fields=["name", "type_name", "type_code", "base_type", "has_options", "supports_unit"],
+        order_by="type_name")
+
+
+@frappe.whitelist()
+def validate_value_for_type(attribute_type, value):
+    """Validate a value against an attribute type's constraints
+
+    Args:
+        attribute_type: Name of the PIM Attribute Type
+        value: The value to validate
+
+    Returns:
+        dict with 'valid' (bool) and 'errors' (list of error messages)
+    """
+    import frappe
+
+    doc = frappe.get_doc("PIM Attribute Type", attribute_type)
+    controller = _get_controller()
+
+    # Create instance and call validate_value
+    instance = controller.__new__(controller)
+    for field in doc.meta.fields:
+        setattr(instance, field.fieldname, doc.get(field.fieldname))
+
+    return instance.validate_value(value)
+
+
+def get_standard_attribute_types():
+    """Get the standard attribute types that should be installed by default
+
+    Returns:
+        List of dicts with attribute type definitions
+    """
+    return [
+        {
+            "type_name": "Text",
+            "type_code": "text",
+            "base_type": "String",
+            "is_standard": 1,
+            "input_component": "text-input",
+            "icon": "fa fa-font"
+        },
+        {
+            "type_name": "Long Text",
+            "type_code": "long_text",
+            "base_type": "String",
+            "is_standard": 1,
+            "input_component": "textarea",
+            "icon": "fa fa-align-left"
+        },
+        {
+            "type_name": "Number",
+            "type_code": "number",
+            "base_type": "Float",
+            "is_standard": 1,
+            "input_component": "number-input",
+            "icon": "fa fa-hashtag"
+        },
+        {
+            "type_name": "Integer",
+            "type_code": "integer",
+            "base_type": "Integer",
+            "is_standard": 1,
+            "input_component": "number-input",
+            "icon": "fa fa-hashtag"
+        },
+        {
+            "type_name": "Select",
+            "type_code": "select",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 1,
+            "input_component": "select",
+            "icon": "fa fa-list"
+        },
+        {
+            "type_name": "Multi Select",
+            "type_code": "multiselect",
+            "base_type": "JSON",
+            "has_options": 1,
+            "is_standard": 1,
+            "input_component": "multiselect",
+            "icon": "fa fa-list-ul"
+        },
+        {
+            "type_name": "Color",
+            "type_code": "color",
+            "base_type": "String",
+            "is_standard": 1,
+            "validation_regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+            "validation_message": "Color must be a valid hex code (e.g., #FF0000)",
+            "input_component": "color-picker",
+            "icon": "fa fa-palette"
+        },
+        {
+            "type_name": "Boolean",
+            "type_code": "boolean",
+            "base_type": "Boolean",
+            "is_standard": 1,
+            "input_component": "checkbox",
+            "icon": "fa fa-toggle-on"
+        },
+        {
+            "type_name": "Date",
+            "type_code": "date",
+            "base_type": "Date",
+            "is_standard": 1,
+            "input_component": "date-picker",
+            "icon": "fa fa-calendar"
+        },
+        {
+            "type_name": "Datetime",
+            "type_code": "datetime",
+            "base_type": "Datetime",
+            "is_standard": 1,
+            "input_component": "datetime-picker",
+            "icon": "fa fa-clock"
+        },
+        {
+            "type_name": "Measurement",
+            "type_code": "measurement",
+            "base_type": "Float",
+            "supports_unit": 1,
+            "is_standard": 1,
+            "input_component": "measurement-input",
+            "icon": "fa fa-ruler"
+        }
+    ]

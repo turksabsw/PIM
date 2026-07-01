@@ -1,0 +1,1217 @@
+{
+    "archetype": "electronics",
+    "version": "1.0",
+    "label": "Electronics & Technology",
+    "description": "Industry archetype for consumer electronics, computing hardware, mobile devices, and electronic components. Includes product types for devices, accessories, and components with technical attributes for connectivity, power, display specifications, and regulatory compliance (FCC, CE, RoHS, WEEE).",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Technical Specifications",
+            "group_code": "tech_specs",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-microchip",
+            "description": "Core technical specifications: processor, memory, storage, and performance metrics"
+        },
+        {
+            "group_name": "Display & Audio",
+            "group_code": "display_audio",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-tv",
+            "description": "Display resolution, panel type, refresh rate, and audio specifications"
+        },
+        {
+            "group_name": "Connectivity",
+            "group_code": "connectivity",
+            "sort_order": 100,
+            "is_standard": 0,
+            "icon": "fa fa-wifi",
+            "description": "Wireless, wired, and I/O connectivity options including WiFi, Bluetooth, USB, and ports"
+        },
+        {
+            "group_name": "Power & Battery",
+            "group_code": "power_battery",
+            "sort_order": 110,
+            "is_standard": 0,
+            "icon": "fa fa-battery-full",
+            "description": "Power consumption, battery capacity, charging specifications, and energy ratings"
+        },
+        {
+            "group_name": "Compliance & Certification",
+            "group_code": "compliance_certification",
+            "sort_order": 120,
+            "is_standard": 0,
+            "icon": "fa fa-shield-alt",
+            "description": "Regulatory certifications, safety standards, and environmental compliance (FCC, CE, RoHS, WEEE)"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "Storage Capacity",
+            "type_code": "storage_capacity",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "select",
+            "display_component": "badge-display",
+            "icon": "fa fa-hdd"
+        },
+        {
+            "type_name": "Resolution",
+            "type_code": "resolution",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "select",
+            "display_component": "badge-display",
+            "icon": "fa fa-expand"
+        },
+        {
+            "type_name": "Frequency",
+            "type_code": "frequency",
+            "base_type": "Float",
+            "supports_unit": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "input_component": "measurement-input",
+            "display_component": "measurement-display",
+            "icon": "fa fa-wave-square"
+        },
+        {
+            "type_name": "Certification Badge",
+            "type_code": "cert_badge",
+            "base_type": "JSON",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "multiselect",
+            "display_component": "tags-display",
+            "icon": "fa fa-certificate"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Processor",
+            "attribute_code": "processor",
+            "attribute_group": "tech_specs",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 200,
+            "sort_order": 10,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Processor/chipset model (e.g., Apple M3, Intel Core i7-14700K, Snapdragon 8 Gen 3)"
+        },
+        {
+            "attribute_name": "RAM",
+            "attribute_code": "ram",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "1 GB, 2 GB, 4 GB, 6 GB, 8 GB, 12 GB, 16 GB, 32 GB, 64 GB, 128 GB, 256 GB",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 20,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Installed RAM / memory capacity"
+        },
+        {
+            "attribute_name": "Storage",
+            "attribute_code": "storage",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "16 GB, 32 GB, 64 GB, 128 GB, 256 GB, 512 GB, 1 TB, 2 TB, 4 TB, 8 TB",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 30,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Internal storage capacity (SSD, HDD, or flash storage)"
+        },
+        {
+            "attribute_name": "Storage Type",
+            "attribute_code": "storage_type",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "SSD, NVMe SSD, HDD, eMMC, UFS, Hybrid (SSD + HDD)",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 35,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Type of internal storage technology"
+        },
+        {
+            "attribute_name": "Operating System",
+            "attribute_code": "operating_system",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "Windows 11, Windows 10, macOS, iOS, Android, iPadOS, Chrome OS, Linux, None (Firmware)",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 40,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Pre-installed operating system"
+        },
+        {
+            "attribute_name": "Screen Size",
+            "attribute_code": "screen_size",
+            "attribute_group": "display_audio",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "min_value": 0,
+            "value_suffix": "\"",
+            "sort_order": 50,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Diagonal screen size in inches"
+        },
+        {
+            "attribute_name": "Display Resolution",
+            "attribute_code": "display_resolution",
+            "attribute_group": "display_audio",
+            "data_type": "Select",
+            "options": "HD (1280x720), Full HD (1920x1080), QHD (2560x1440), 4K UHD (3840x2160), 5K (5120x2880), 8K (7680x4320), Retina, WQXGA (2560x1600)",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 55,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Native display resolution"
+        },
+        {
+            "attribute_name": "Panel Type",
+            "attribute_code": "panel_type",
+            "attribute_group": "display_audio",
+            "data_type": "Select",
+            "options": "IPS, OLED, AMOLED, TN, VA, Mini-LED, Micro-LED, E-Ink",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 57,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Display panel technology"
+        },
+        {
+            "attribute_name": "Refresh Rate",
+            "attribute_code": "refresh_rate",
+            "attribute_group": "display_audio",
+            "data_type": "Select",
+            "options": "60 Hz, 90 Hz, 120 Hz, 144 Hz, 165 Hz, 240 Hz, 360 Hz",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 59,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Display refresh rate in Hertz"
+        },
+        {
+            "attribute_name": "WiFi Standard",
+            "attribute_code": "wifi_standard",
+            "attribute_group": "connectivity",
+            "data_type": "Select",
+            "options": "WiFi 5 (802.11ac), WiFi 6 (802.11ax), WiFi 6E, WiFi 7 (802.11be), None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 60,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "WiFi connectivity standard"
+        },
+        {
+            "attribute_name": "Bluetooth Version",
+            "attribute_code": "bluetooth_version",
+            "attribute_group": "connectivity",
+            "data_type": "Select",
+            "options": "Bluetooth 4.2, Bluetooth 5.0, Bluetooth 5.1, Bluetooth 5.2, Bluetooth 5.3, None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 65,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Bluetooth connectivity version"
+        },
+        {
+            "attribute_name": "Ports",
+            "attribute_code": "ports",
+            "attribute_group": "connectivity",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 500,
+            "sort_order": 70,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Available ports and connectors (e.g., 2x USB-C, 1x HDMI 2.1, 1x 3.5mm audio)"
+        },
+        {
+            "attribute_name": "Cellular",
+            "attribute_code": "cellular",
+            "attribute_group": "connectivity",
+            "data_type": "Select",
+            "options": "5G, 4G LTE, 3G, None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 75,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Cellular connectivity capability"
+        },
+        {
+            "attribute_name": "Battery Capacity",
+            "attribute_code": "battery_capacity",
+            "attribute_group": "power_battery",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 80,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Battery capacity (e.g., 5000 mAh, 100 Wh)"
+        },
+        {
+            "attribute_name": "Charging",
+            "attribute_code": "charging",
+            "attribute_group": "power_battery",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 200,
+            "sort_order": 85,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Charging specifications (e.g., 65W USB-C PD, Qi wireless charging)"
+        },
+        {
+            "attribute_name": "Power Consumption",
+            "attribute_code": "power_consumption",
+            "attribute_group": "power_battery",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 100,
+            "sort_order": 87,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Typical and max power consumption (e.g., 45W typical, 120W max)"
+        },
+        {
+            "attribute_name": "Energy Rating",
+            "attribute_code": "energy_rating",
+            "attribute_group": "power_battery",
+            "data_type": "Select",
+            "options": "A+++, A++, A+, A, B, C, D, E, F, G",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 89,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "EU energy efficiency rating label"
+        },
+        {
+            "attribute_name": "Color",
+            "attribute_code": "elec_color",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "Black, White, Silver, Space Grey, Gold, Blue, Red, Green, Purple, Rose Gold, Midnight, Starlight",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 90,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Product color or finish for variant generation"
+        },
+        {
+            "attribute_name": "Certification",
+            "attribute_code": "elec_certification",
+            "attribute_group": "compliance_certification",
+            "data_type": "Select",
+            "options": "FCC, CE, UL, RoHS, WEEE, Energy Star, Wi-Fi Certified, MFi, IP67, IP68, MIL-STD-810",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 95,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary regulatory certification or safety standard"
+        },
+        {
+            "attribute_name": "Warranty Period",
+            "attribute_code": "warranty_period",
+            "attribute_group": "compliance_certification",
+            "data_type": "Select",
+            "options": "6 Months, 1 Year, 2 Years, 3 Years, 5 Years, Limited Lifetime",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 100,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Manufacturer warranty period"
+        },
+        {
+            "attribute_name": "Water Resistance",
+            "attribute_code": "water_resistance",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "None, IPX4 (Splash), IPX5 (Jet), IPX7 (Immersion), IPX8 (Submersion), IP67, IP68",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 105,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Water and dust resistance rating per IEC 60529"
+        },
+        {
+            "attribute_name": "Camera",
+            "attribute_code": "camera",
+            "attribute_group": "tech_specs",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 300,
+            "sort_order": 110,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Camera specifications (e.g., 48MP main + 12MP ultrawide, 1080p webcam)"
+        },
+        {
+            "attribute_name": "Biometric",
+            "attribute_code": "biometric",
+            "attribute_group": "tech_specs",
+            "data_type": "Select",
+            "options": "Fingerprint (In-Display), Fingerprint (Side), Fingerprint (Rear), Face ID, Iris Scanner, None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 115,
+            "weight_in_completeness": 0,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Biometric authentication method"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "Smartphone",
+            "type_code": "smartphone",
+            "description": "Mobile phones and phablets. Supports Color/Storage variant axes with cellular and camera specifications.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Laptop",
+            "type_code": "laptop",
+            "description": "Notebooks, ultrabooks, and 2-in-1 convertible laptops. Supports RAM/Storage/Color variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Tablet",
+            "type_code": "tablet",
+            "description": "Tablets and e-readers. Supports Storage/Color/Connectivity variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Desktop & Monitor",
+            "type_code": "desktop_monitor",
+            "description": "Desktop computers, all-in-one PCs, and standalone monitors. Supports configuration-based variants.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Accessory",
+            "type_code": "elec_accessory",
+            "description": "Electronic accessories: chargers, cables, cases, screen protectors, and peripherals. Some support color variants.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Wearable",
+            "type_code": "wearable",
+            "description": "Smartwatches, fitness trackers, and smart rings. Supports Color/Size variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Audio Device",
+            "type_code": "audio_device",
+            "description": "Headphones, earbuds, speakers, and soundbars. Supports Color variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Electronics",
+            "family_code": "electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Root family for all electronics and technology products"
+        },
+        {
+            "family_name": "Mobile Devices",
+            "family_code": "mobile_devices",
+            "parent_family": "Electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MOB-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Smartphones, tablets, and mobile computing devices",
+            "attributes": [
+                {"attribute": "processor", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "ram", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "storage", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "operating_system", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "screen_size", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "display_resolution", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "panel_type", "is_required_in_family": 0, "sort_order": 57},
+                {"attribute": "battery_capacity", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "elec_color", "is_required_in_family": 1, "sort_order": 70},
+                {"attribute": "wifi_standard", "is_required_in_family": 0, "sort_order": 80},
+                {"attribute": "bluetooth_version", "is_required_in_family": 0, "sort_order": 85},
+                {"attribute": "camera", "is_required_in_family": 0, "sort_order": 90},
+                {"attribute": "water_resistance", "is_required_in_family": 0, "sort_order": 95},
+                {"attribute": "biometric", "is_required_in_family": 0, "sort_order": 100}
+            ],
+            "variant_attributes": [
+                {"attribute": "elec_color", "sort_order": 10},
+                {"attribute": "storage", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Smartphones",
+            "family_code": "smartphones",
+            "parent_family": "Mobile Devices",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "PHN-",
+            "required_media_types": "Main Image, Gallery, Detail Shot",
+            "min_images": 4,
+            "completeness_threshold": 90,
+            "description": "Smartphones and phablets with cellular connectivity"
+        },
+        {
+            "family_name": "Tablets",
+            "family_code": "tablets",
+            "parent_family": "Mobile Devices",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TAB-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Tablets, e-readers, and mobile computing slates"
+        },
+        {
+            "family_name": "Computers",
+            "family_code": "computers",
+            "parent_family": "Electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "CMP-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Laptops, desktops, and all-in-one computers",
+            "attributes": [
+                {"attribute": "processor", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "ram", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "storage", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "storage_type", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "operating_system", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "screen_size", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "display_resolution", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "panel_type", "is_required_in_family": 0, "sort_order": 57},
+                {"attribute": "refresh_rate", "is_required_in_family": 0, "sort_order": 59},
+                {"attribute": "ports", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "wifi_standard", "is_required_in_family": 0, "sort_order": 65},
+                {"attribute": "bluetooth_version", "is_required_in_family": 0, "sort_order": 67},
+                {"attribute": "battery_capacity", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "charging", "is_required_in_family": 0, "sort_order": 75},
+                {"attribute": "elec_color", "is_required_in_family": 1, "sort_order": 80}
+            ],
+            "variant_attributes": [
+                {"attribute": "ram", "sort_order": 10},
+                {"attribute": "storage", "sort_order": 20},
+                {"attribute": "elec_color", "sort_order": 30}
+            ]
+        },
+        {
+            "family_name": "Laptops",
+            "family_code": "laptops",
+            "parent_family": "Computers",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "LPT-",
+            "required_media_types": "Main Image, Gallery, Lifestyle Shot",
+            "min_images": 4,
+            "completeness_threshold": 90,
+            "description": "Notebooks, ultrabooks, and 2-in-1 convertibles"
+        },
+        {
+            "family_name": "Desktops",
+            "family_code": "desktops",
+            "parent_family": "Computers",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "DSK-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Desktop towers, all-in-one PCs, and mini PCs"
+        },
+        {
+            "family_name": "Monitors",
+            "family_code": "monitors",
+            "parent_family": "Computers",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MON-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Standalone monitors, gaming displays, and professional screens"
+        },
+        {
+            "family_name": "Wearables",
+            "family_code": "wearables",
+            "parent_family": "Electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "WRB-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "Smartwatches, fitness trackers, and wearable tech",
+            "attributes": [
+                {"attribute": "processor", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "storage", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "screen_size", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "display_resolution", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "battery_capacity", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "water_resistance", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "wifi_standard", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "bluetooth_version", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "cellular", "is_required_in_family": 0, "sort_order": 65},
+                {"attribute": "biometric", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "elec_color", "is_required_in_family": 1, "sort_order": 80}
+            ],
+            "variant_attributes": [
+                {"attribute": "elec_color", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Smartwatches",
+            "family_code": "smartwatches",
+            "parent_family": "Wearables",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SWT-",
+            "required_media_types": "Main Image, Gallery, Lifestyle Shot",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Smartwatches with full app ecosystems and health tracking"
+        },
+        {
+            "family_name": "Fitness Trackers",
+            "family_code": "fitness_trackers",
+            "parent_family": "Wearables",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FIT-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Fitness bands, activity trackers, and health monitors"
+        },
+        {
+            "family_name": "Audio",
+            "family_code": "audio",
+            "parent_family": "Electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "AUD-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Headphones, earbuds, speakers, and audio equipment",
+            "attributes": [
+                {"attribute": "bluetooth_version", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "battery_capacity", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "charging", "is_required_in_family": 0, "sort_order": 25},
+                {"attribute": "water_resistance", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "wifi_standard", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "elec_color", "is_required_in_family": 1, "sort_order": 40}
+            ],
+            "variant_attributes": [
+                {"attribute": "elec_color", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Headphones & Earbuds",
+            "family_code": "headphones_earbuds",
+            "parent_family": "Audio",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "HDP-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Over-ear headphones, in-ear earbuds, and wireless buds"
+        },
+        {
+            "family_name": "Speakers",
+            "family_code": "speakers",
+            "parent_family": "Audio",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SPK-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Portable speakers, smart speakers, and soundbars"
+        },
+        {
+            "family_name": "Accessories",
+            "family_code": "elec_accessories",
+            "parent_family": "Electronics",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "ACC-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Electronic accessories: chargers, cables, cases, and peripherals",
+            "attributes": [
+                {"attribute": "elec_color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "elec_certification", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "warranty_period", "is_required_in_family": 0, "sort_order": 30}
+            ],
+            "variant_attributes": [
+                {"attribute": "elec_color", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Cases & Protection",
+            "family_code": "cases_protection",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "CAS-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 75,
+            "description": "Phone cases, laptop sleeves, screen protectors, and protective accessories"
+        },
+        {
+            "family_name": "Chargers & Cables",
+            "family_code": "chargers_cables",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "CHG-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Power adapters, charging cables, wireless chargers, and power banks"
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All electronics and technology products"
+        },
+        {
+            "category_name": "Smartphones",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Mobile phones and phablets"
+        },
+        {
+            "category_name": "Android Phones",
+            "parent_category": "Smartphones",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Android smartphones from Samsung, Google, OnePlus, and more"
+        },
+        {
+            "category_name": "iPhones",
+            "parent_category": "Smartphones",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Apple iPhone models and editions"
+        },
+        {
+            "category_name": "Computers",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Laptops, desktops, and computing devices"
+        },
+        {
+            "category_name": "Laptops",
+            "parent_category": "Computers",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Notebooks, ultrabooks, and 2-in-1 convertibles"
+        },
+        {
+            "category_name": "Desktops & All-in-Ones",
+            "parent_category": "Computers",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Desktop towers, all-in-one PCs, and mini PCs"
+        },
+        {
+            "category_name": "Monitors",
+            "parent_category": "Computers",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Computer monitors, gaming displays, and professional screens"
+        },
+        {
+            "category_name": "Tablets & E-Readers",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Tablets, iPads, and e-readers"
+        },
+        {
+            "category_name": "iPads",
+            "parent_category": "Tablets & E-Readers",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Apple iPad models and editions"
+        },
+        {
+            "category_name": "Android Tablets",
+            "parent_category": "Tablets & E-Readers",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Android tablets from Samsung, Lenovo, and more"
+        },
+        {
+            "category_name": "Wearables",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Smartwatches, fitness trackers, and wearable tech"
+        },
+        {
+            "category_name": "Smartwatches",
+            "parent_category": "Wearables",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Apple Watch, Samsung Galaxy Watch, and other smartwatches"
+        },
+        {
+            "category_name": "Fitness Trackers",
+            "parent_category": "Wearables",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Fitness bands and activity trackers"
+        },
+        {
+            "category_name": "Audio",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Headphones, speakers, and audio equipment"
+        },
+        {
+            "category_name": "Headphones & Earbuds",
+            "parent_category": "Audio",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Over-ear headphones, earbuds, and noise-cancelling models"
+        },
+        {
+            "category_name": "Speakers",
+            "parent_category": "Audio",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Bluetooth speakers, smart speakers, and soundbars"
+        },
+        {
+            "category_name": "Accessories",
+            "parent_category": "Electronics",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Electronic accessories and peripherals"
+        },
+        {
+            "category_name": "Cases & Protection",
+            "parent_category": "Accessories",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Phone cases, laptop sleeves, and screen protectors"
+        },
+        {
+            "category_name": "Chargers & Power",
+            "parent_category": "Accessories",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Chargers, cables, power banks, and adapters"
+        },
+        {
+            "category_name": "New Arrivals",
+            "parent_category": "Electronics",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Latest electronics and tech product releases"
+        },
+        {
+            "category_name": "Deals & Offers",
+            "parent_category": "Electronics",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Discounted electronics and special promotions"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "elec_req_processor",
+            "rule_name": "Processor Required for Computing Devices",
+            "rule_type": "required_field",
+            "target_attribute": "processor",
+            "severity": "error",
+            "weight": 10,
+            "message": "Computing devices must specify the processor or chipset",
+            "description": "Processor is a key differentiator and purchase criterion for electronics"
+        },
+        {
+            "rule_code": "elec_req_storage",
+            "rule_name": "Storage Required",
+            "rule_type": "required_field",
+            "target_attribute": "storage",
+            "severity": "error",
+            "weight": 8,
+            "message": "Electronic devices must specify storage capacity",
+            "description": "Storage capacity is essential for customer decision-making and variant differentiation"
+        },
+        {
+            "rule_code": "elec_req_screen",
+            "rule_name": "Screen Size Required for Display Devices",
+            "rule_type": "required_field",
+            "target_attribute": "screen_size",
+            "severity": "error",
+            "weight": 8,
+            "message": "Devices with displays must specify the screen size",
+            "description": "Screen size is a primary search and filter criterion in electronics"
+        },
+        {
+            "rule_code": "elec_req_battery",
+            "rule_name": "Battery Capacity Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "battery_capacity",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Portable devices should specify battery capacity",
+            "description": "Battery life information helps customers compare mobile and portable devices"
+        },
+        {
+            "rule_code": "elec_req_certification",
+            "rule_name": "Certification Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "elec_certification",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Products should list regulatory certifications (FCC, CE, etc.)",
+            "description": "Regulatory certifications are required for legal sale in most markets"
+        },
+        {
+            "rule_code": "elec_req_warranty",
+            "rule_name": "Warranty Period Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "warranty_period",
+            "severity": "info",
+            "weight": 3,
+            "message": "Specifying warranty period builds customer confidence",
+            "description": "Warranty information is a key trust factor in electronics purchases"
+        },
+        {
+            "rule_code": "elec_req_connectivity",
+            "rule_name": "WiFi Standard Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "wifi_standard",
+            "severity": "info",
+            "weight": 3,
+            "message": "Connected devices should specify WiFi standard",
+            "description": "WiFi standard helps customers assess network compatibility"
+        },
+        {
+            "rule_code": "elec_min_images",
+            "rule_name": "Electronics Minimum Images",
+            "rule_type": "media_presence",
+            "min_images": 3,
+            "severity": "warning",
+            "weight": 7,
+            "message": "Electronics products should have at least 3 images (front, back, ports/detail)",
+            "description": "Multiple angles help customers evaluate build quality and connectivity options"
+        },
+        {
+            "rule_code": "elec_screen_positive",
+            "rule_name": "Screen Size Must Be Positive",
+            "rule_type": "value_constraint",
+            "target_attribute": "screen_size",
+            "min_value": 0.1,
+            "severity": "error",
+            "weight": 5,
+            "message": "Screen size must be a positive number",
+            "description": "Zero or negative screen size values indicate data entry errors"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "ProBook Ultra 14\" Laptop",
+            "product_code": "LPT-PROBOOK-001",
+            "product_type": "Laptop",
+            "product_family": "laptops",
+            "description": "Lightweight 14-inch ultrabook with latest-gen processor, all-day battery life, and stunning OLED display. Perfect for professionals on the go.",
+            "attributes": {
+                "processor": "Intel Core Ultra 7 155H",
+                "ram": "16 GB",
+                "storage": "512 GB",
+                "storage_type": "NVMe SSD",
+                "operating_system": "Windows 11",
+                "screen_size": 14.0,
+                "display_resolution": "QHD (2560x1440)",
+                "panel_type": "OLED",
+                "refresh_rate": "120 Hz",
+                "ports": "2x USB-C (Thunderbolt 4), 1x USB-A 3.2, 1x HDMI 2.1, 1x 3.5mm audio",
+                "wifi_standard": "WiFi 6E",
+                "bluetooth_version": "Bluetooth 5.3",
+                "battery_capacity": "72 Wh",
+                "charging": "65W USB-C PD",
+                "elec_color": "Space Grey",
+                "elec_certification": "FCC",
+                "warranty_period": "2 Years"
+            },
+            "variants": [
+                {"ram": "16 GB", "storage": "512 GB", "elec_color": "Space Grey"},
+                {"ram": "16 GB", "storage": "512 GB", "elec_color": "Silver"},
+                {"ram": "32 GB", "storage": "1 TB", "elec_color": "Space Grey"},
+                {"ram": "32 GB", "storage": "1 TB", "elec_color": "Silver"}
+            ]
+        },
+        {
+            "product_name": "Galaxy S25 Ultra Smartphone",
+            "product_code": "PHN-GS25U-001",
+            "product_type": "Smartphone",
+            "product_family": "smartphones",
+            "description": "Flagship smartphone with titanium frame, 200MP camera system, and S Pen support. Features a stunning Dynamic AMOLED display and all-day battery.",
+            "attributes": {
+                "processor": "Snapdragon 8 Elite",
+                "ram": "12 GB",
+                "storage": "256 GB",
+                "operating_system": "Android",
+                "screen_size": 6.9,
+                "display_resolution": "QHD (2560x1440)",
+                "panel_type": "AMOLED",
+                "refresh_rate": "120 Hz",
+                "wifi_standard": "WiFi 7 (802.11be)",
+                "bluetooth_version": "Bluetooth 5.3",
+                "cellular": "5G",
+                "battery_capacity": "5000 mAh",
+                "charging": "45W Wired, 15W Qi Wireless",
+                "camera": "200MP Main + 50MP Telephoto + 12MP Ultrawide + 10MP Periscope",
+                "water_resistance": "IP68",
+                "biometric": "Fingerprint (In-Display)",
+                "elec_color": "Titanium Black",
+                "elec_certification": "FCC",
+                "warranty_period": "1 Year"
+            },
+            "variants": [
+                {"elec_color": "Titanium Black", "storage": "256 GB"},
+                {"elec_color": "Titanium Black", "storage": "512 GB"},
+                {"elec_color": "Silver", "storage": "256 GB"},
+                {"elec_color": "Silver", "storage": "512 GB"},
+                {"elec_color": "Blue", "storage": "256 GB"}
+            ]
+        },
+        {
+            "product_name": "AirPods Pro 3 Wireless Earbuds",
+            "product_code": "HDP-APP3-001",
+            "product_type": "Audio Device",
+            "product_family": "headphones_earbuds",
+            "description": "Premium wireless earbuds with adaptive noise cancellation, spatial audio, and up to 30 hours total battery life with charging case.",
+            "attributes": {
+                "bluetooth_version": "Bluetooth 5.3",
+                "battery_capacity": "5.5h (buds) + 24h (case)",
+                "charging": "MagSafe, Qi, USB-C",
+                "water_resistance": "IPX4 (Splash)",
+                "elec_color": "White",
+                "elec_certification": "FCC",
+                "warranty_period": "1 Year"
+            },
+            "variants": [
+                {"elec_color": "White"},
+                {"elec_color": "Black"}
+            ]
+        },
+        {
+            "product_name": "SmartWatch Pro Series 3",
+            "product_code": "SWT-PRO3-001",
+            "product_type": "Wearable",
+            "product_family": "smartwatches",
+            "description": "Advanced smartwatch with always-on AMOLED display, comprehensive health monitoring, and 5-day battery life.",
+            "attributes": {
+                "processor": "Exynos W1000",
+                "storage": "32 GB",
+                "screen_size": 1.5,
+                "display_resolution": "Full HD (1920x1080)",
+                "panel_type": "AMOLED",
+                "battery_capacity": "590 mAh",
+                "water_resistance": "IP68",
+                "wifi_standard": "WiFi 5 (802.11ac)",
+                "bluetooth_version": "Bluetooth 5.3",
+                "cellular": "4G LTE",
+                "biometric": "Fingerprint (Side)",
+                "elec_color": "Black",
+                "elec_certification": "CE",
+                "warranty_period": "2 Years"
+            },
+            "variants": [
+                {"elec_color": "Black"},
+                {"elec_color": "Silver"},
+                {"elec_color": "Gold"}
+            ]
+        },
+        {
+            "product_name": "USB-C 65W GaN Charger",
+            "product_code": "CHG-GAN65-001",
+            "product_type": "Accessory",
+            "product_family": "chargers_cables",
+            "description": "Compact GaN USB-C charger with 65W Power Delivery. Compatible with laptops, tablets, and smartphones.",
+            "attributes": {
+                "elec_color": "White",
+                "elec_certification": "UL",
+                "warranty_period": "1 Year"
+            }
+        }
+    ]
+}

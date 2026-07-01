@@ -1,0 +1,677 @@
+{
+  "doctype": "DocType",
+  "name": "Nutrition Facts",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:nutrition_facts_name",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "nutrition_facts_name",
+      "fieldtype": "Data",
+      "label": "Nutrition Facts Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier for this nutrition facts record"
+    },
+    {
+      "fieldname": "product",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Product this nutrition information belongs to"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nDeprecated\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "target_market",
+      "fieldtype": "Link",
+      "label": "Target Market",
+      "options": "Country",
+      "description": "Target market/country for this nutrition information (regulations vary by country)"
+    },
+    {
+      "fieldname": "section_break_serving",
+      "fieldtype": "Section Break",
+      "label": "Serving Information"
+    },
+    {
+      "fieldname": "serving_size",
+      "fieldtype": "Float",
+      "label": "Serving Size",
+      "description": "The measurement serving size"
+    },
+    {
+      "fieldname": "serving_size_uom",
+      "fieldtype": "Select",
+      "label": "Serving Size UOM",
+      "options": "g\nml\noz\ncup\ntbsp\ntsp\npiece\nserving",
+      "default": "g",
+      "description": "Unit of measure for serving size"
+    },
+    {
+      "fieldname": "servings_per_container",
+      "fieldtype": "Float",
+      "label": "Servings Per Container",
+      "description": "Number of servings per package"
+    },
+    {
+      "fieldname": "column_break_serving",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "serving_size_description",
+      "fieldtype": "Data",
+      "label": "Serving Size Description",
+      "translatable": 1,
+      "description": "Text description of serving size (e.g., '1 cup (240ml)', '3 cookies (30g)')"
+    },
+    {
+      "fieldname": "reference_quantity",
+      "fieldtype": "Select",
+      "label": "Reference Quantity",
+      "options": "Per 100g\nPer 100ml\nPer serving\nPer package",
+      "default": "Per 100g",
+      "description": "GS1 nutrient basis quantity for nutrition values"
+    },
+    {
+      "fieldname": "section_break_energy",
+      "fieldtype": "Section Break",
+      "label": "Energy"
+    },
+    {
+      "fieldname": "energy_kj",
+      "fieldtype": "Float",
+      "label": "Energy (kJ)",
+      "description": "Energy in kilojoules"
+    },
+    {
+      "fieldname": "energy_kcal",
+      "fieldtype": "Float",
+      "label": "Energy (kcal)",
+      "in_list_view": 1,
+      "description": "Energy in kilocalories (Calories)"
+    },
+    {
+      "fieldname": "column_break_energy",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "energy_from_fat_kcal",
+      "fieldtype": "Float",
+      "label": "Calories from Fat (kcal)",
+      "description": "Energy from fat in kilocalories"
+    },
+    {
+      "fieldname": "section_break_fat",
+      "fieldtype": "Section Break",
+      "label": "Fat"
+    },
+    {
+      "fieldname": "total_fat",
+      "fieldtype": "Float",
+      "label": "Total Fat (g)",
+      "in_list_view": 1,
+      "description": "Total fat content in grams"
+    },
+    {
+      "fieldname": "saturated_fat",
+      "fieldtype": "Float",
+      "label": "Saturated Fat (g)",
+      "description": "Saturated fatty acids"
+    },
+    {
+      "fieldname": "trans_fat",
+      "fieldtype": "Float",
+      "label": "Trans Fat (g)",
+      "description": "Trans fatty acids"
+    },
+    {
+      "fieldname": "column_break_fat",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "polyunsaturated_fat",
+      "fieldtype": "Float",
+      "label": "Polyunsaturated Fat (g)",
+      "description": "Polyunsaturated fatty acids"
+    },
+    {
+      "fieldname": "monounsaturated_fat",
+      "fieldtype": "Float",
+      "label": "Monounsaturated Fat (g)",
+      "description": "Monounsaturated fatty acids"
+    },
+    {
+      "fieldname": "cholesterol",
+      "fieldtype": "Float",
+      "label": "Cholesterol (mg)",
+      "description": "Cholesterol in milligrams"
+    },
+    {
+      "fieldname": "section_break_carbs",
+      "fieldtype": "Section Break",
+      "label": "Carbohydrates"
+    },
+    {
+      "fieldname": "total_carbohydrate",
+      "fieldtype": "Float",
+      "label": "Total Carbohydrate (g)",
+      "in_list_view": 1,
+      "description": "Total carbohydrate content in grams"
+    },
+    {
+      "fieldname": "dietary_fiber",
+      "fieldtype": "Float",
+      "label": "Dietary Fiber (g)",
+      "description": "Fiber content in grams"
+    },
+    {
+      "fieldname": "column_break_carbs",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "total_sugars",
+      "fieldtype": "Float",
+      "label": "Total Sugars (g)",
+      "description": "Total sugars content"
+    },
+    {
+      "fieldname": "added_sugars",
+      "fieldtype": "Float",
+      "label": "Added Sugars (g)",
+      "description": "Added sugars (FDA requirement)"
+    },
+    {
+      "fieldname": "sugar_alcohol",
+      "fieldtype": "Float",
+      "label": "Sugar Alcohol (g)",
+      "description": "Sugar alcohol content"
+    },
+    {
+      "fieldname": "section_break_protein",
+      "fieldtype": "Section Break",
+      "label": "Protein & Sodium"
+    },
+    {
+      "fieldname": "protein",
+      "fieldtype": "Float",
+      "label": "Protein (g)",
+      "in_list_view": 1,
+      "description": "Protein content in grams"
+    },
+    {
+      "fieldname": "column_break_protein",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sodium",
+      "fieldtype": "Float",
+      "label": "Sodium (mg)",
+      "description": "Sodium in milligrams"
+    },
+    {
+      "fieldname": "salt",
+      "fieldtype": "Float",
+      "label": "Salt (g)",
+      "description": "Salt content in grams (EU labeling requirement)"
+    },
+    {
+      "fieldname": "section_break_vitamins",
+      "fieldtype": "Section Break",
+      "label": "Vitamins & Minerals",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "vitamin_a",
+      "fieldtype": "Float",
+      "label": "Vitamin A (mcg RAE)",
+      "description": "Vitamin A in micrograms RAE"
+    },
+    {
+      "fieldname": "vitamin_c",
+      "fieldtype": "Float",
+      "label": "Vitamin C (mg)",
+      "description": "Vitamin C (Ascorbic acid) in milligrams"
+    },
+    {
+      "fieldname": "vitamin_d",
+      "fieldtype": "Float",
+      "label": "Vitamin D (mcg)",
+      "description": "Vitamin D in micrograms"
+    },
+    {
+      "fieldname": "vitamin_e",
+      "fieldtype": "Float",
+      "label": "Vitamin E (mg)",
+      "description": "Vitamin E in milligrams"
+    },
+    {
+      "fieldname": "vitamin_k",
+      "fieldtype": "Float",
+      "label": "Vitamin K (mcg)",
+      "description": "Vitamin K in micrograms"
+    },
+    {
+      "fieldname": "column_break_vitamins",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "thiamin",
+      "fieldtype": "Float",
+      "label": "Thiamin/B1 (mg)",
+      "description": "Vitamin B1 in milligrams"
+    },
+    {
+      "fieldname": "riboflavin",
+      "fieldtype": "Float",
+      "label": "Riboflavin/B2 (mg)",
+      "description": "Vitamin B2 in milligrams"
+    },
+    {
+      "fieldname": "niacin",
+      "fieldtype": "Float",
+      "label": "Niacin/B3 (mg)",
+      "description": "Vitamin B3 in milligrams NE"
+    },
+    {
+      "fieldname": "vitamin_b6",
+      "fieldtype": "Float",
+      "label": "Vitamin B6 (mg)",
+      "description": "Vitamin B6 in milligrams"
+    },
+    {
+      "fieldname": "vitamin_b12",
+      "fieldtype": "Float",
+      "label": "Vitamin B12 (mcg)",
+      "description": "Vitamin B12 in micrograms"
+    },
+    {
+      "fieldname": "section_break_minerals",
+      "fieldtype": "Section Break",
+      "label": "Minerals",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "calcium",
+      "fieldtype": "Float",
+      "label": "Calcium (mg)",
+      "description": "Calcium in milligrams"
+    },
+    {
+      "fieldname": "iron",
+      "fieldtype": "Float",
+      "label": "Iron (mg)",
+      "description": "Iron in milligrams"
+    },
+    {
+      "fieldname": "potassium",
+      "fieldtype": "Float",
+      "label": "Potassium (mg)",
+      "description": "Potassium in milligrams (FDA mandatory)"
+    },
+    {
+      "fieldname": "zinc",
+      "fieldtype": "Float",
+      "label": "Zinc (mg)",
+      "description": "Zinc in milligrams"
+    },
+    {
+      "fieldname": "column_break_minerals",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "magnesium",
+      "fieldtype": "Float",
+      "label": "Magnesium (mg)",
+      "description": "Magnesium in milligrams"
+    },
+    {
+      "fieldname": "phosphorus",
+      "fieldtype": "Float",
+      "label": "Phosphorus (mg)",
+      "description": "Phosphorus in milligrams"
+    },
+    {
+      "fieldname": "selenium",
+      "fieldtype": "Float",
+      "label": "Selenium (mcg)",
+      "description": "Selenium in micrograms"
+    },
+    {
+      "fieldname": "copper",
+      "fieldtype": "Float",
+      "label": "Copper (mg)",
+      "description": "Copper in milligrams"
+    },
+    {
+      "fieldname": "section_break_other",
+      "fieldtype": "Section Break",
+      "label": "Other Nutrients",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "folate",
+      "fieldtype": "Float",
+      "label": "Folate (mcg DFE)",
+      "description": "Folate in micrograms DFE"
+    },
+    {
+      "fieldname": "folic_acid",
+      "fieldtype": "Float",
+      "label": "Folic Acid (mcg)",
+      "description": "Folic acid in micrograms"
+    },
+    {
+      "fieldname": "biotin",
+      "fieldtype": "Float",
+      "label": "Biotin (mcg)",
+      "description": "Biotin in micrograms"
+    },
+    {
+      "fieldname": "pantothenic_acid",
+      "fieldtype": "Float",
+      "label": "Pantothenic Acid (mg)",
+      "description": "Vitamin B5 in milligrams"
+    },
+    {
+      "fieldname": "column_break_other",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "choline",
+      "fieldtype": "Float",
+      "label": "Choline (mg)",
+      "description": "Choline in milligrams"
+    },
+    {
+      "fieldname": "omega_3_fatty_acids",
+      "fieldtype": "Float",
+      "label": "Omega-3 Fatty Acids (g)",
+      "description": "Omega-3 fatty acids in grams"
+    },
+    {
+      "fieldname": "omega_6_fatty_acids",
+      "fieldtype": "Float",
+      "label": "Omega-6 Fatty Acids (g)",
+      "description": "Omega-6 fatty acids in grams"
+    },
+    {
+      "fieldname": "caffeine",
+      "fieldtype": "Float",
+      "label": "Caffeine (mg)",
+      "description": "Caffeine content in milligrams"
+    },
+    {
+      "fieldname": "section_break_allergens",
+      "fieldtype": "Section Break",
+      "label": "Allergens"
+    },
+    {
+      "fieldname": "has_allergens",
+      "fieldtype": "Check",
+      "label": "Contains Allergens",
+      "default": 0,
+      "description": "Indicates if product contains any allergens"
+    },
+    {
+      "fieldname": "allergens",
+      "fieldtype": "Table",
+      "label": "Allergen Information",
+      "options": "Allergen Item",
+      "description": "GS1-compliant allergen declarations"
+    },
+    {
+      "fieldname": "allergen_statement",
+      "fieldtype": "Text",
+      "label": "Combined Allergen Statement",
+      "translatable": 1,
+      "description": "Complete allergen statement for product labeling"
+    },
+    {
+      "fieldname": "section_break_dietary",
+      "fieldtype": "Section Break",
+      "label": "Dietary Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "is_organic",
+      "fieldtype": "Check",
+      "label": "Organic",
+      "default": 0,
+      "description": "Product is certified organic"
+    },
+    {
+      "fieldname": "is_vegetarian",
+      "fieldtype": "Check",
+      "label": "Vegetarian",
+      "default": 0,
+      "description": "Suitable for vegetarians"
+    },
+    {
+      "fieldname": "is_vegan",
+      "fieldtype": "Check",
+      "label": "Vegan",
+      "default": 0,
+      "description": "Suitable for vegans"
+    },
+    {
+      "fieldname": "is_halal",
+      "fieldtype": "Check",
+      "label": "Halal",
+      "default": 0,
+      "description": "Halal certified"
+    },
+    {
+      "fieldname": "is_kosher",
+      "fieldtype": "Check",
+      "label": "Kosher",
+      "default": 0,
+      "description": "Kosher certified"
+    },
+    {
+      "fieldname": "column_break_dietary",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_gluten_free",
+      "fieldtype": "Check",
+      "label": "Gluten Free",
+      "default": 0,
+      "description": "Product is gluten-free"
+    },
+    {
+      "fieldname": "is_lactose_free",
+      "fieldtype": "Check",
+      "label": "Lactose Free",
+      "default": 0,
+      "description": "Product is lactose-free"
+    },
+    {
+      "fieldname": "is_sugar_free",
+      "fieldtype": "Check",
+      "label": "Sugar Free",
+      "default": 0,
+      "description": "Product contains no added sugar"
+    },
+    {
+      "fieldname": "is_low_sodium",
+      "fieldtype": "Check",
+      "label": "Low Sodium",
+      "default": 0,
+      "description": "Product is low in sodium"
+    },
+    {
+      "fieldname": "dietary_certifications",
+      "fieldtype": "Small Text",
+      "label": "Dietary Certifications",
+      "description": "List of dietary certifications and their certification bodies"
+    },
+    {
+      "fieldname": "section_break_gs1",
+      "fieldtype": "Section Break",
+      "label": "GS1/GDSN Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "nutrient_basis_quantity",
+      "fieldtype": "Float",
+      "label": "Nutrient Basis Quantity",
+      "default": 100,
+      "description": "GS1 nutrient basis quantity value"
+    },
+    {
+      "fieldname": "nutrient_basis_quantity_uom",
+      "fieldtype": "Select",
+      "label": "Basis Quantity UOM",
+      "options": "GRM\nMLT\nONZ\nLBR\nKGM\nLTR",
+      "default": "GRM",
+      "description": "GS1 unit of measure code for basis quantity"
+    },
+    {
+      "fieldname": "preparation_state_code",
+      "fieldtype": "Select",
+      "label": "Preparation State",
+      "options": "UNPREPARED\nPREPARED\nRECONSTITUTED\nAS_SOLD",
+      "default": "UNPREPARED",
+      "description": "GS1 preparation state code for nutrition values"
+    },
+    {
+      "fieldname": "column_break_gs1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "daily_value_intake_reference",
+      "fieldtype": "Data",
+      "label": "Daily Value Reference",
+      "description": "Reference used for % Daily Value calculations (e.g., 'US FDA 2020')"
+    },
+    {
+      "fieldname": "gdsn_publication_date",
+      "fieldtype": "Date",
+      "label": "GDSN Publication Date",
+      "description": "Date when published to GDSN data pool"
+    },
+    {
+      "fieldname": "gdsn_publication_status",
+      "fieldtype": "Select",
+      "label": "GDSN Publication Status",
+      "options": "Not Published\nPublished\nPending Sync\nSync Error",
+      "default": "Not Published"
+    },
+    {
+      "fieldname": "section_break_validation",
+      "fieldtype": "Section Break",
+      "label": "Validation"
+    },
+    {
+      "fieldname": "validation_status",
+      "fieldtype": "Select",
+      "label": "Validation Status",
+      "options": "Not Validated\nValid\nInvalid",
+      "default": "Not Validated",
+      "read_only": 1,
+      "description": "Nutrition data validation status"
+    },
+    {
+      "fieldname": "validation_errors",
+      "fieldtype": "Small Text",
+      "label": "Validation Errors",
+      "read_only": 1,
+      "depends_on": "eval:doc.validation_status=='Invalid'"
+    },
+    {
+      "fieldname": "column_break_validation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "completeness_score",
+      "fieldtype": "Percent",
+      "label": "Completeness Score",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Percentage of required nutrition fields completed"
+    },
+    {
+      "fieldname": "last_validated",
+      "fieldtype": "Datetime",
+      "label": "Last Validated",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Additional Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "ingredient_statement",
+      "fieldtype": "Text",
+      "label": "Ingredient Statement",
+      "translatable": 1,
+      "description": "Complete ingredient list for labeling"
+    },
+    {
+      "fieldname": "nutrition_claim",
+      "fieldtype": "Small Text",
+      "label": "Nutrition Claims",
+      "translatable": 1,
+      "description": "Approved nutrition claims (e.g., 'High in Fiber', 'Low Fat')"
+    },
+    {
+      "fieldname": "column_break_notes",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Internal Notes"
+    },
+    {
+      "fieldname": "effective_date",
+      "fieldtype": "Date",
+      "label": "Effective Date",
+      "description": "Date from which this nutrition info is effective"
+    },
+    {
+      "fieldname": "discontinue_date",
+      "fieldtype": "Date",
+      "label": "Discontinue Date",
+      "description": "Date when this nutrition info will be discontinued"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1, "export": 1
+    }
+  ]
+}

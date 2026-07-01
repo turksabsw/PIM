@@ -1,0 +1,274 @@
+{
+    "archetype": "custom",
+    "version": "1.0",
+    "label": "Custom / Blank Slate",
+    "description": "Minimal blank-slate template for businesses that do not fit a predefined industry archetype. Provides a generic product structure with basic attribute groups and a flat category tree that you can customise entirely during onboarding and post-setup.",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Product Details",
+            "group_code": "product_details",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-box",
+            "description": "General product attributes such as colour, material, and size"
+        },
+        {
+            "group_name": "Specifications",
+            "group_code": "specifications",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-list-alt",
+            "description": "Technical or measurable specifications for the product"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "Generic Select",
+            "type_code": "generic_select",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "select",
+            "display_component": "badge-display",
+            "icon": "fa fa-list"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Colour",
+            "attribute_code": "custom_colour",
+            "attribute_group": "product_details",
+            "data_type": "Select",
+            "options": "Black, White, Red, Blue, Green, Grey, Brown, Yellow, Orange, Purple, Pink, Multi",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 10,
+            "weight_in_completeness": 2,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Primary colour of the product"
+        },
+        {
+            "attribute_name": "Size",
+            "attribute_code": "custom_size",
+            "attribute_group": "product_details",
+            "data_type": "Select",
+            "options": "XS, S, M, L, XL, XXL, One Size",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 20,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Generic size classification for the product"
+        },
+        {
+            "attribute_name": "Material",
+            "attribute_code": "custom_material",
+            "attribute_group": "product_details",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 200,
+            "sort_order": 30,
+            "weight_in_completeness": 1,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Primary material or composition of the product"
+        },
+        {
+            "attribute_name": "Brand",
+            "attribute_code": "custom_brand",
+            "attribute_group": "product_details",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 100,
+            "sort_order": 40,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Brand or manufacturer name"
+        },
+        {
+            "attribute_name": "Model Number",
+            "attribute_code": "custom_model_number",
+            "attribute_group": "specifications",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 1,
+            "max_length": 100,
+            "sort_order": 50,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Manufacturer model or part number"
+        },
+        {
+            "attribute_name": "Weight",
+            "attribute_code": "custom_weight",
+            "attribute_group": "specifications",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "min_value": 0,
+            "value_suffix": " kg",
+            "sort_order": 60,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Product weight in kilograms"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "Standard Product",
+            "type_code": "standard_product",
+            "description": "General-purpose product type suitable for any merchandise. Supports optional variants.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Service",
+            "type_code": "service",
+            "description": "Non-physical service or subscription offering. Variants are typically not used.",
+            "is_active": 1,
+            "allow_variants": 0
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Products",
+            "family_code": "products",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Root family for all products"
+        },
+        {
+            "family_name": "General",
+            "family_code": "general",
+            "parent_family": "Products",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "GEN-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "General-purpose product family for uncategorised items",
+            "attributes": [
+                {"attribute": "custom_colour", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "custom_size", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "custom_material", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "custom_brand", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "custom_model_number", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "custom_weight", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "custom_colour", "sort_order": 10},
+                {"attribute": "custom_size", "sort_order": 20}
+            ]
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All products"
+        },
+        {
+            "category_name": "Category 1",
+            "parent_category": "Products",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Rename this category to match your product line"
+        },
+        {
+            "category_name": "Category 2",
+            "parent_category": "Products",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Rename this category to match your product line"
+        },
+        {
+            "category_name": "Category 3",
+            "parent_category": "Products",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Rename this category to match your product line"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "custom_min_images",
+            "rule_name": "Minimum Product Image",
+            "rule_type": "media_presence",
+            "min_images": 1,
+            "severity": "warning",
+            "weight": 5,
+            "message": "Products should have at least one image",
+            "description": "A product image is essential for online catalogue presentation"
+        },
+        {
+            "rule_code": "custom_req_brand",
+            "rule_name": "Brand Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "custom_brand",
+            "severity": "info",
+            "weight": 3,
+            "message": "Specifying a brand helps with search and filtering",
+            "description": "Brand information improves discoverability and customer trust"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "Sample Product",
+            "product_code": "GEN-SAMPLE-001",
+            "product_type": "Standard Product",
+            "product_family": "general",
+            "description": "This is a sample product to demonstrate the data structure. Replace or delete it once you have added your own products.",
+            "attributes": {
+                "custom_colour": "Black",
+                "custom_size": "M",
+                "custom_brand": "Your Brand",
+                "custom_model_number": "ABC-123"
+            },
+            "variants": [
+                {"custom_colour": "Black", "custom_size": "S"},
+                {"custom_colour": "Black", "custom_size": "M"},
+                {"custom_colour": "Black", "custom_size": "L"},
+                {"custom_colour": "White", "custom_size": "S"},
+                {"custom_colour": "White", "custom_size": "M"},
+                {"custom_colour": "White", "custom_size": "L"}
+            ]
+        }
+    ]
+}

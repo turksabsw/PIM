@@ -1,0 +1,491 @@
+{
+  "doctype": "DocType",
+  "name": "Export Profile",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:profile_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "sort_order",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "profile_name",
+      "fieldtype": "Data",
+      "label": "Profile Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the export profile"
+    },
+    {
+      "fieldname": "profile_code",
+      "fieldtype": "Data",
+      "label": "Profile Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: bmecat_standard, csv_full_export"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "export_format",
+      "fieldtype": "Select",
+      "label": "Export Format",
+      "reqd": 1,
+      "options": "BMEcat 2005\nBMEcat 1.2\nCSV\nJSON\nXML\nExcel",
+      "default": "CSV",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Output format for the export"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this export profile"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Order in which profiles appear (lower = first)"
+    },
+    {
+      "fieldname": "section_break_channel",
+      "fieldtype": "Section Break",
+      "label": "Channel Settings"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "description": "Distribution channel for this export (optional)"
+    },
+    {
+      "fieldname": "export_language",
+      "fieldtype": "Link",
+      "label": "Export Language",
+      "options": "Language",
+      "description": "Language for exported product data"
+    },
+    {
+      "fieldname": "column_break_channel",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "export_currency",
+      "fieldtype": "Link",
+      "label": "Export Currency",
+      "options": "Currency",
+      "description": "Currency for price exports"
+    },
+    {
+      "fieldname": "include_prices",
+      "fieldtype": "Check",
+      "label": "Include Prices",
+      "default": 1,
+      "description": "Include pricing information in export"
+    },
+    {
+      "fieldname": "section_break_filter",
+      "fieldtype": "Section Break",
+      "label": "Product Filter"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "description": "Only export products from this family (leave empty for all)"
+    },
+    {
+      "fieldname": "status_filter",
+      "fieldtype": "Select",
+      "label": "Status Filter",
+      "options": "\nDraft\nActive\nInactive\nArchived",
+      "description": "Only export products with this status (leave empty for all)"
+    },
+    {
+      "fieldname": "column_break_filter",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "completeness_threshold",
+      "fieldtype": "Percent",
+      "label": "Minimum Completeness",
+      "default": 0,
+      "description": "Only export products with completeness score >= this value"
+    },
+    {
+      "fieldname": "include_variants",
+      "fieldtype": "Check",
+      "label": "Include Variants",
+      "default": 1,
+      "description": "Include product variants in export"
+    },
+    {
+      "fieldname": "include_media",
+      "fieldtype": "Check",
+      "label": "Include Media URLs",
+      "default": 1,
+      "description": "Include product image and media URLs"
+    },
+    {
+      "fieldname": "section_break_format",
+      "fieldtype": "Section Break",
+      "label": "Format Options"
+    },
+    {
+      "fieldname": "csv_delimiter",
+      "fieldtype": "Select",
+      "label": "CSV Delimiter",
+      "options": "Comma (,)\nSemicolon (;)\nTab\nPipe (|)",
+      "default": "Comma (,)",
+      "depends_on": "eval:doc.export_format === 'CSV'",
+      "description": "Field delimiter for CSV exports"
+    },
+    {
+      "fieldname": "csv_encoding",
+      "fieldtype": "Select",
+      "label": "CSV Encoding",
+      "options": "UTF-8\nUTF-8-BOM\nISO-8859-1\nWindows-1252",
+      "default": "UTF-8",
+      "depends_on": "eval:doc.export_format === 'CSV'",
+      "description": "Character encoding for CSV exports"
+    },
+    {
+      "fieldname": "column_break_format",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "xml_root_element",
+      "fieldtype": "Data",
+      "label": "XML Root Element",
+      "default": "products",
+      "depends_on": "eval:['XML', 'BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "description": "Root element name for XML exports"
+    },
+    {
+      "fieldname": "pretty_print",
+      "fieldtype": "Check",
+      "label": "Pretty Print",
+      "default": 1,
+      "depends_on": "eval:['XML', 'JSON', 'BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "description": "Format output with indentation for readability"
+    },
+    {
+      "fieldname": "section_break_bmecat",
+      "fieldtype": "Section Break",
+      "label": "BMEcat Settings",
+      "depends_on": "eval:['BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)"
+    },
+    {
+      "fieldname": "bmecat_supplier_id",
+      "fieldtype": "Data",
+      "label": "Supplier ID",
+      "depends_on": "eval:['BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "description": "SUPPLIER_ID element in BMEcat catalog"
+    },
+    {
+      "fieldname": "bmecat_supplier_name",
+      "fieldtype": "Data",
+      "label": "Supplier Name",
+      "depends_on": "eval:['BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "description": "SUPPLIER_NAME element in BMEcat catalog"
+    },
+    {
+      "fieldname": "column_break_bmecat",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "bmecat_catalog_id",
+      "fieldtype": "Data",
+      "label": "Catalog ID",
+      "depends_on": "eval:['BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "description": "CATALOG_ID element in BMEcat catalog"
+    },
+    {
+      "fieldname": "bmecat_catalog_version",
+      "fieldtype": "Data",
+      "label": "Catalog Version",
+      "depends_on": "eval:['BMEcat 2005', 'BMEcat 1.2'].includes(doc.export_format)",
+      "default": "1.0",
+      "description": "CATALOG_VERSION element in BMEcat catalog"
+    },
+    {
+      "fieldname": "section_break_schedule",
+      "fieldtype": "Section Break",
+      "label": "Scheduling"
+    },
+    {
+      "fieldname": "is_scheduled",
+      "fieldtype": "Check",
+      "label": "Scheduled Export",
+      "default": 0,
+      "description": "Enable automatic scheduled exports"
+    },
+    {
+      "fieldname": "schedule_frequency",
+      "fieldtype": "Select",
+      "label": "Frequency",
+      "options": "Daily\nWeekly\nMonthly",
+      "default": "Daily",
+      "depends_on": "eval:doc.is_scheduled",
+      "description": "How often to run the scheduled export"
+    },
+    {
+      "fieldname": "column_break_schedule",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "schedule_time",
+      "fieldtype": "Time",
+      "label": "Time",
+      "depends_on": "eval:doc.is_scheduled",
+      "description": "Time of day to run the export (server time)"
+    },
+    {
+      "fieldname": "last_export",
+      "fieldtype": "Datetime",
+      "label": "Last Export",
+      "read_only": 1,
+      "description": "Timestamp of last export run"
+    },
+    {
+      "fieldname": "section_break_output",
+      "fieldtype": "Section Break",
+      "label": "Output Settings"
+    },
+    {
+      "fieldname": "output_filename",
+      "fieldtype": "Data",
+      "label": "Output Filename",
+      "description": "Filename pattern. Use {date}, {time}, {profile} as placeholders. Example: products_{date}.csv"
+    },
+    {
+      "fieldname": "compress_output",
+      "fieldtype": "Check",
+      "label": "Compress Output",
+      "default": 0,
+      "description": "Compress output file as ZIP archive"
+    },
+    {
+      "fieldname": "column_break_output",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "upload_to_channel",
+      "fieldtype": "Check",
+      "label": "Upload to Channel",
+      "default": 0,
+      "depends_on": "eval:doc.channel",
+      "description": "Automatically upload export file to the linked channel"
+    },
+    {
+      "fieldname": "last_file",
+      "fieldtype": "Attach",
+      "label": "Last Export File",
+      "read_only": 1,
+      "description": "Most recent exported file"
+    },
+    {
+      "fieldname": "section_break_delivery",
+      "fieldtype": "Section Break",
+      "label": "Delivery Settings"
+    },
+    {
+      "fieldname": "delivery_method",
+      "fieldtype": "Select",
+      "label": "Delivery Method",
+      "options": "Local Only\nSFTP\nFTP\nS3",
+      "default": "Local Only",
+      "description": "How to deliver the exported file"
+    },
+    {
+      "fieldname": "column_break_delivery",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "deliver_after_export",
+      "fieldtype": "Check",
+      "label": "Deliver After Export",
+      "default": 0,
+      "depends_on": "eval:doc.delivery_method !== 'Local Only'",
+      "description": "Automatically deliver file after export completes"
+    },
+    {
+      "fieldname": "section_break_sftp",
+      "fieldtype": "Section Break",
+      "label": "SFTP Settings",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'"
+    },
+    {
+      "fieldname": "sftp_host",
+      "fieldtype": "Data",
+      "label": "SFTP Host",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "SFTP server hostname or IP address"
+    },
+    {
+      "fieldname": "sftp_port",
+      "fieldtype": "Int",
+      "label": "SFTP Port",
+      "default": 22,
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "SFTP server port (default: 22)"
+    },
+    {
+      "fieldname": "column_break_sftp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sftp_username",
+      "fieldtype": "Data",
+      "label": "SFTP Username",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "Username for SFTP authentication"
+    },
+    {
+      "fieldname": "sftp_password",
+      "fieldtype": "Password",
+      "label": "SFTP Password",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "Password for SFTP authentication (use key-based auth when possible)"
+    },
+    {
+      "fieldname": "sftp_private_key",
+      "fieldtype": "Attach",
+      "label": "Private Key File",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "SSH private key file for key-based authentication"
+    },
+    {
+      "fieldname": "sftp_remote_path",
+      "fieldtype": "Data",
+      "label": "Remote Path",
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "Remote directory path on SFTP server. Example: /uploads/feeds"
+    },
+    {
+      "fieldname": "sftp_host_key_check",
+      "fieldtype": "Check",
+      "label": "Verify Host Key",
+      "default": 1,
+      "depends_on": "eval:doc.delivery_method === 'SFTP'",
+      "description": "Verify SFTP server host key (recommended for security)"
+    },
+    {
+      "fieldname": "section_break_delivery_status",
+      "fieldtype": "Section Break",
+      "label": "Delivery Status",
+      "depends_on": "eval:doc.delivery_method !== 'Local Only'"
+    },
+    {
+      "fieldname": "last_delivery",
+      "fieldtype": "Datetime",
+      "label": "Last Delivery",
+      "read_only": 1,
+      "description": "Timestamp of last successful delivery"
+    },
+    {
+      "fieldname": "delivery_status",
+      "fieldtype": "Select",
+      "label": "Delivery Status",
+      "options": "Not Delivered\nDelivering\nDelivered\nFailed",
+      "default": "Not Delivered",
+      "read_only": 1,
+      "description": "Status of the last delivery attempt"
+    },
+    {
+      "fieldname": "column_break_delivery_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "delivery_error",
+      "fieldtype": "Small Text",
+      "label": "Delivery Error",
+      "read_only": 1,
+      "description": "Error details if last delivery failed"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Status"
+    },
+    {
+      "fieldname": "export_status",
+      "fieldtype": "Select",
+      "label": "Export Status",
+      "options": "Never Run\nRunning\nCompleted\nFailed",
+      "default": "Never Run",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Status of the last export"
+    },
+    {
+      "fieldname": "last_product_count",
+      "fieldtype": "Int",
+      "label": "Products Exported",
+      "read_only": 1,
+      "description": "Number of products in the last export"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Error Message",
+      "read_only": 1,
+      "description": "Error details if last export failed"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description and notes about this export profile"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

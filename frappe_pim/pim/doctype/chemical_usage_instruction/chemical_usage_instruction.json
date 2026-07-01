@@ -1,0 +1,819 @@
+{
+  "doctype": "DocType",
+  "name": "Chemical Usage Instruction",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "CUI-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "instruction_title",
+      "fieldtype": "Data",
+      "label": "Instruction Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Descriptive title for the usage instruction"
+    },
+    {
+      "fieldname": "instruction_code",
+      "fieldtype": "Data",
+      "label": "Instruction Code",
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique code for this instruction (auto-generated if empty)"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "reqd": 1,
+      "options": "Draft\nActive\nUnder Review\nApproved\nDeprecated\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the instruction"
+    },
+    {
+      "fieldname": "instruction_type",
+      "fieldtype": "Select",
+      "label": "Instruction Type",
+      "reqd": 1,
+      "options": "General Use\nAgricultural Application\nIndustrial Application\nDomestic Use\nProfessional Use\nDilution Guide\nMixing Guide\nSafety Protocol\nEmergency Procedure\nStorage Guideline\nOther",
+      "default": "General Use",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of usage instruction"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Links"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Linked Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_standard_filter": 1,
+      "description": "Primary product this instruction applies to"
+    },
+    {
+      "fieldname": "linked_variant",
+      "fieldtype": "Link",
+      "label": "Linked Variant",
+      "options": "Product Variant",
+      "in_standard_filter": 1,
+      "description": "Specific variant this instruction applies to (if applicable)"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "description": "Product family this instruction applies to"
+    },
+    {
+      "fieldname": "applies_to_all_variants",
+      "fieldtype": "Check",
+      "label": "Applies to All Variants",
+      "default": 1,
+      "description": "Whether this instruction applies to all variants of the product"
+    },
+    {
+      "fieldname": "section_break_scenario",
+      "fieldtype": "Section Break",
+      "label": "Usage Scenario"
+    },
+    {
+      "fieldname": "usage_scenario",
+      "fieldtype": "Data",
+      "label": "Usage Scenario",
+      "reqd": 1,
+      "translatable": 1,
+      "description": "Brief description of the usage scenario (e.g., 'Pre-emergence weed control')"
+    },
+    {
+      "fieldname": "target_application",
+      "fieldtype": "Select",
+      "label": "Target Application",
+      "options": "\nCrop Protection\nPest Control\nWeed Control\nFungicide Treatment\nFertilization\nSoil Treatment\nSeed Treatment\nPost-Harvest Treatment\nCleaning\nDisinfection\nSurface Treatment\nOther",
+      "in_standard_filter": 1,
+      "description": "Primary target application area"
+    },
+    {
+      "fieldname": "column_break_scenario",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "target_pests",
+      "fieldtype": "Small Text",
+      "label": "Target Pests/Organisms",
+      "translatable": 1,
+      "description": "Comma-separated list of target pests, weeds, fungi, etc."
+    },
+    {
+      "fieldname": "target_crops",
+      "fieldtype": "Small Text",
+      "label": "Target Crops/Surfaces",
+      "translatable": 1,
+      "description": "Comma-separated list of target crops or surfaces"
+    },
+    {
+      "fieldname": "section_break_mixing",
+      "fieldtype": "Section Break",
+      "label": "Mixing Ratios"
+    },
+    {
+      "fieldname": "mixing_ratio_description",
+      "fieldtype": "Small Text",
+      "label": "Mixing Ratio Description",
+      "translatable": 1,
+      "description": "Human-readable description of mixing ratio"
+    },
+    {
+      "fieldname": "product_quantity",
+      "fieldtype": "Float",
+      "label": "Product Quantity",
+      "precision": 4,
+      "description": "Amount of product to use"
+    },
+    {
+      "fieldname": "product_quantity_uom",
+      "fieldtype": "Link",
+      "label": "Product Quantity UOM",
+      "options": "UOM",
+      "description": "Unit of measure for product quantity"
+    },
+    {
+      "fieldname": "column_break_mixing_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "diluent_type",
+      "fieldtype": "Select",
+      "label": "Diluent Type",
+      "options": "\nWater\nOil\nSolvent\nCarrier Oil\nWater + Surfactant\nOther",
+      "default": "Water",
+      "description": "Type of liquid used for dilution"
+    },
+    {
+      "fieldname": "diluent_quantity",
+      "fieldtype": "Float",
+      "label": "Diluent Quantity",
+      "precision": 4,
+      "description": "Amount of water/solvent to mix with"
+    },
+    {
+      "fieldname": "diluent_quantity_uom",
+      "fieldtype": "Link",
+      "label": "Diluent Quantity UOM",
+      "options": "UOM",
+      "description": "Unit of measure for diluent"
+    },
+    {
+      "fieldname": "section_break_mixing_2",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "concentration_percentage",
+      "fieldtype": "Percent",
+      "label": "Concentration Percentage",
+      "description": "Final concentration as percentage"
+    },
+    {
+      "fieldname": "dilution_ratio",
+      "fieldtype": "Data",
+      "label": "Dilution Ratio",
+      "description": "e.g., 1:100, 1:500"
+    },
+    {
+      "fieldname": "column_break_mixing_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "minimum_concentration",
+      "fieldtype": "Percent",
+      "label": "Minimum Concentration",
+      "description": "Minimum effective concentration"
+    },
+    {
+      "fieldname": "maximum_concentration",
+      "fieldtype": "Percent",
+      "label": "Maximum Concentration",
+      "description": "Maximum safe concentration"
+    },
+    {
+      "fieldname": "section_break_application",
+      "fieldtype": "Section Break",
+      "label": "Application Details"
+    },
+    {
+      "fieldname": "application_rate",
+      "fieldtype": "Float",
+      "label": "Application Rate",
+      "precision": 4,
+      "description": "Amount to apply per unit area"
+    },
+    {
+      "fieldname": "application_rate_uom",
+      "fieldtype": "Data",
+      "label": "Application Rate UOM",
+      "description": "e.g., L/ha, kg/ha, ml/m2"
+    },
+    {
+      "fieldname": "coverage_area",
+      "fieldtype": "Float",
+      "label": "Coverage Area",
+      "precision": 2,
+      "description": "Area covered by prepared mixture"
+    },
+    {
+      "fieldname": "coverage_area_uom",
+      "fieldtype": "Data",
+      "label": "Coverage Area UOM",
+      "description": "e.g., hectare, m2, acre"
+    },
+    {
+      "fieldname": "column_break_application",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "application_method",
+      "fieldtype": "Select",
+      "label": "Application Method",
+      "options": "\nSpray\nFoliar Spray\nSoil Drench\nSeed Treatment\nBroadcast\nBand Application\nDrip Irrigation\nFertigation\nInjection\nDipping\nBrushing\nWiping\nFogging\nOther",
+      "translatable": 1,
+      "description": "How to apply the prepared mixture"
+    },
+    {
+      "fieldname": "equipment_required",
+      "fieldtype": "Small Text",
+      "label": "Equipment Required",
+      "translatable": 1,
+      "description": "List of equipment needed for application"
+    },
+    {
+      "fieldname": "application_timing",
+      "fieldtype": "Data",
+      "label": "Application Timing",
+      "translatable": 1,
+      "description": "Best time for application (e.g., 'Early morning', 'Pre-emergence')"
+    },
+    {
+      "fieldname": "section_break_conditions",
+      "fieldtype": "Section Break",
+      "label": "Application Conditions"
+    },
+    {
+      "fieldname": "min_temperature_celsius",
+      "fieldtype": "Float",
+      "label": "Min Temperature (C)",
+      "precision": 1,
+      "description": "Minimum application temperature"
+    },
+    {
+      "fieldname": "max_temperature_celsius",
+      "fieldtype": "Float",
+      "label": "Max Temperature (C)",
+      "precision": 1,
+      "description": "Maximum application temperature"
+    },
+    {
+      "fieldname": "ideal_temperature_range",
+      "fieldtype": "Data",
+      "label": "Ideal Temperature Range",
+      "description": "e.g., 15-25 C"
+    },
+    {
+      "fieldname": "column_break_conditions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "humidity_requirements",
+      "fieldtype": "Data",
+      "label": "Humidity Requirements",
+      "description": "Humidity conditions for application"
+    },
+    {
+      "fieldname": "wind_conditions",
+      "fieldtype": "Data",
+      "label": "Wind Conditions",
+      "description": "e.g., 'Calm to light breeze, max 10 km/h'"
+    },
+    {
+      "fieldname": "weather_restrictions",
+      "fieldtype": "Small Text",
+      "label": "Weather Restrictions",
+      "translatable": 1,
+      "description": "Weather conditions to avoid"
+    },
+    {
+      "fieldname": "section_break_frequency",
+      "fieldtype": "Section Break",
+      "label": "Frequency & Intervals"
+    },
+    {
+      "fieldname": "application_frequency",
+      "fieldtype": "Data",
+      "label": "Application Frequency",
+      "translatable": 1,
+      "description": "How often to apply (e.g., 'Every 14 days', 'As needed')"
+    },
+    {
+      "fieldname": "max_applications_per_season",
+      "fieldtype": "Int",
+      "label": "Max Applications per Season",
+      "description": "Maximum number of applications allowed per season"
+    },
+    {
+      "fieldname": "column_break_frequency",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_interval_days",
+      "fieldtype": "Int",
+      "label": "Min Interval (Days)",
+      "description": "Minimum days between applications"
+    },
+    {
+      "fieldname": "pre_harvest_interval_days",
+      "fieldtype": "Int",
+      "label": "Pre-Harvest Interval (Days)",
+      "description": "Days before harvest to stop application"
+    },
+    {
+      "fieldname": "re_entry_interval_hours",
+      "fieldtype": "Float",
+      "label": "Re-Entry Interval (Hours)",
+      "precision": 1,
+      "description": "Hours to wait before re-entering treated area"
+    },
+    {
+      "fieldname": "section_break_warnings",
+      "fieldtype": "Section Break",
+      "label": "Warnings & Safety"
+    },
+    {
+      "fieldname": "hazard_level",
+      "fieldtype": "Select",
+      "label": "Hazard Level",
+      "options": "\nLow\nModerate\nHigh\nVery High\nExtreme",
+      "default": "Moderate",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Overall hazard level for this usage"
+    },
+    {
+      "fieldname": "hazard_symbols",
+      "fieldtype": "Small Text",
+      "label": "Hazard Symbols",
+      "description": "GHS hazard pictogram codes (comma-separated, e.g., GHS02, GHS07)"
+    },
+    {
+      "fieldname": "signal_word",
+      "fieldtype": "Select",
+      "label": "Signal Word",
+      "options": "\nCaution\nWarning\nDanger",
+      "description": "GHS signal word"
+    },
+    {
+      "fieldname": "column_break_warnings",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "primary_hazards",
+      "fieldtype": "Small Text",
+      "label": "Primary Hazards",
+      "translatable": 1,
+      "description": "Main hazards associated with this usage (comma-separated)"
+    },
+    {
+      "fieldname": "ppe_required",
+      "fieldtype": "Small Text",
+      "label": "PPE Required",
+      "translatable": 1,
+      "description": "Personal protective equipment required"
+    },
+    {
+      "fieldname": "section_break_warnings_detail",
+      "fieldtype": "Section Break",
+      "label": "Detailed Warnings"
+    },
+    {
+      "fieldname": "safety_warnings",
+      "fieldtype": "Text Editor",
+      "label": "Safety Warnings",
+      "translatable": 1,
+      "description": "Detailed safety warnings and precautions"
+    },
+    {
+      "fieldname": "first_aid_instructions",
+      "fieldtype": "Text Editor",
+      "label": "First Aid Instructions",
+      "translatable": 1,
+      "description": "First aid measures in case of exposure"
+    },
+    {
+      "fieldname": "section_break_restrictions",
+      "fieldtype": "Section Break",
+      "label": "Restrictions & Prohibitions"
+    },
+    {
+      "fieldname": "usage_restrictions",
+      "fieldtype": "Text Editor",
+      "label": "Usage Restrictions",
+      "translatable": 1,
+      "description": "Conditions where use is restricted or prohibited"
+    },
+    {
+      "fieldname": "incompatible_products",
+      "fieldtype": "Small Text",
+      "label": "Incompatible Products",
+      "translatable": 1,
+      "description": "Products that should NOT be mixed with"
+    },
+    {
+      "fieldname": "column_break_restrictions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "do_not_use_if",
+      "fieldtype": "Small Text",
+      "label": "Do Not Use If",
+      "translatable": 1,
+      "description": "Conditions that prohibit use"
+    },
+    {
+      "fieldname": "buffer_zone_meters",
+      "fieldtype": "Float",
+      "label": "Buffer Zone (Meters)",
+      "precision": 1,
+      "description": "Required buffer zone from water bodies, etc."
+    },
+    {
+      "fieldname": "section_break_environmental",
+      "fieldtype": "Section Break",
+      "label": "Environmental Considerations"
+    },
+    {
+      "fieldname": "environmental_hazards",
+      "fieldtype": "Text Editor",
+      "label": "Environmental Hazards",
+      "translatable": 1,
+      "description": "Environmental impact and precautions"
+    },
+    {
+      "fieldname": "disposal_instructions",
+      "fieldtype": "Text Editor",
+      "label": "Disposal Instructions",
+      "translatable": 1,
+      "description": "How to dispose of unused mixture and containers"
+    },
+    {
+      "fieldname": "section_break_storage",
+      "fieldtype": "Section Break",
+      "label": "Storage of Prepared Mixture"
+    },
+    {
+      "fieldname": "prepared_mixture_shelf_life",
+      "fieldtype": "Data",
+      "label": "Prepared Mixture Shelf Life",
+      "translatable": 1,
+      "description": "How long the prepared mixture remains effective"
+    },
+    {
+      "fieldname": "storage_conditions",
+      "fieldtype": "Small Text",
+      "label": "Storage Conditions",
+      "translatable": 1,
+      "description": "How to store the prepared mixture"
+    },
+    {
+      "fieldname": "column_break_storage",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "agitation_required",
+      "fieldtype": "Check",
+      "label": "Agitation Required",
+      "default": 0,
+      "description": "Whether continuous agitation is needed"
+    },
+    {
+      "fieldname": "use_immediately",
+      "fieldtype": "Check",
+      "label": "Use Immediately After Mixing",
+      "default": 0,
+      "description": "Mixture must be used immediately"
+    },
+    {
+      "fieldname": "section_break_regulatory",
+      "fieldtype": "Section Break",
+      "label": "Regulatory & Compliance",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "registration_number",
+      "fieldtype": "Data",
+      "label": "Registration Number",
+      "description": "Product registration number for this use"
+    },
+    {
+      "fieldname": "approved_countries",
+      "fieldtype": "Small Text",
+      "label": "Approved Countries",
+      "description": "Countries where this usage is approved (comma-separated)"
+    },
+    {
+      "fieldname": "column_break_regulatory",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "regulatory_classification",
+      "fieldtype": "Data",
+      "label": "Regulatory Classification",
+      "description": "Classification category (e.g., 'Restricted Use Pesticide')"
+    },
+    {
+      "fieldname": "certification_required",
+      "fieldtype": "Check",
+      "label": "Applicator Certification Required",
+      "default": 0,
+      "description": "Whether certified applicator is required"
+    },
+    {
+      "fieldname": "section_break_instructions",
+      "fieldtype": "Section Break",
+      "label": "Detailed Instructions"
+    },
+    {
+      "fieldname": "mixing_instructions",
+      "fieldtype": "Text Editor",
+      "label": "Mixing Instructions",
+      "translatable": 1,
+      "description": "Step-by-step instructions for preparing the mixture"
+    },
+    {
+      "fieldname": "application_instructions",
+      "fieldtype": "Text Editor",
+      "label": "Application Instructions",
+      "translatable": 1,
+      "description": "Step-by-step instructions for applying the mixture"
+    },
+    {
+      "fieldname": "additional_notes",
+      "fieldtype": "Text Editor",
+      "label": "Additional Notes",
+      "translatable": 1,
+      "description": "Any other important information"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity & Review",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "When this instruction becomes valid"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "When this instruction expires"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_review_date",
+      "fieldtype": "Date",
+      "label": "Last Review Date",
+      "read_only": 1,
+      "description": "When this instruction was last reviewed"
+    },
+    {
+      "fieldname": "next_review_date",
+      "fieldtype": "Date",
+      "label": "Next Review Date",
+      "description": "When this instruction should be reviewed"
+    },
+    {
+      "fieldname": "reviewed_by",
+      "fieldtype": "Link",
+      "label": "Reviewed By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who last reviewed this instruction"
+    },
+    {
+      "fieldname": "section_break_ownership",
+      "fieldtype": "Section Break",
+      "label": "Ownership",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "created_by_user",
+      "fieldtype": "Link",
+      "label": "Created By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who created this instruction"
+    },
+    {
+      "fieldname": "approved_by",
+      "fieldtype": "Link",
+      "label": "Approved By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who approved this instruction"
+    },
+    {
+      "fieldname": "column_break_ownership",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "approval_date",
+      "fieldtype": "Date",
+      "label": "Approval Date",
+      "read_only": 1,
+      "description": "When this instruction was approved"
+    },
+    {
+      "fieldname": "version",
+      "fieldtype": "Int",
+      "label": "Version",
+      "default": 1,
+      "description": "Version number of this instruction"
+    },
+    {
+      "fieldname": "section_break_internal",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Notes visible only to internal team"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization and search"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "instruction_title",
+    "instruction_code",
+    "column_break_basic",
+    "status",
+    "instruction_type",
+    "section_break_product",
+    "linked_product",
+    "linked_variant",
+    "column_break_product",
+    "linked_product_family",
+    "applies_to_all_variants",
+    "section_break_scenario",
+    "usage_scenario",
+    "target_application",
+    "column_break_scenario",
+    "target_pests",
+    "target_crops",
+    "section_break_mixing",
+    "mixing_ratio_description",
+    "product_quantity",
+    "product_quantity_uom",
+    "column_break_mixing_1",
+    "diluent_type",
+    "diluent_quantity",
+    "diluent_quantity_uom",
+    "section_break_mixing_2",
+    "concentration_percentage",
+    "dilution_ratio",
+    "column_break_mixing_2",
+    "minimum_concentration",
+    "maximum_concentration",
+    "section_break_application",
+    "application_rate",
+    "application_rate_uom",
+    "coverage_area",
+    "coverage_area_uom",
+    "column_break_application",
+    "application_method",
+    "equipment_required",
+    "application_timing",
+    "section_break_conditions",
+    "min_temperature_celsius",
+    "max_temperature_celsius",
+    "ideal_temperature_range",
+    "column_break_conditions",
+    "humidity_requirements",
+    "wind_conditions",
+    "weather_restrictions",
+    "section_break_frequency",
+    "application_frequency",
+    "max_applications_per_season",
+    "column_break_frequency",
+    "min_interval_days",
+    "pre_harvest_interval_days",
+    "re_entry_interval_hours",
+    "section_break_warnings",
+    "hazard_level",
+    "hazard_symbols",
+    "signal_word",
+    "column_break_warnings",
+    "primary_hazards",
+    "ppe_required",
+    "section_break_warnings_detail",
+    "safety_warnings",
+    "first_aid_instructions",
+    "section_break_restrictions",
+    "usage_restrictions",
+    "incompatible_products",
+    "column_break_restrictions",
+    "do_not_use_if",
+    "buffer_zone_meters",
+    "section_break_environmental",
+    "environmental_hazards",
+    "disposal_instructions",
+    "section_break_storage",
+    "prepared_mixture_shelf_life",
+    "storage_conditions",
+    "column_break_storage",
+    "agitation_required",
+    "use_immediately",
+    "section_break_regulatory",
+    "registration_number",
+    "approved_countries",
+    "column_break_regulatory",
+    "regulatory_classification",
+    "certification_required",
+    "section_break_instructions",
+    "mixing_instructions",
+    "application_instructions",
+    "additional_notes",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "last_review_date",
+    "next_review_date",
+    "reviewed_by",
+    "section_break_ownership",
+    "created_by_user",
+    "approved_by",
+    "column_break_ownership",
+    "approval_date",
+    "version",
+    "section_break_internal",
+    "internal_notes",
+    "tags"
+  ]
+}

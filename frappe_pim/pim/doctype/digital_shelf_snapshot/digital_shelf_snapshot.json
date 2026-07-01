@@ -1,0 +1,623 @@
+{
+  "doctype": "DocType",
+  "name": "Digital Shelf Snapshot",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "DSS-.YYYY.-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "snapshot_timestamp",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "product",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "Product this snapshot is for"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Marketplace/channel where the snapshot was taken"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "snapshot_timestamp",
+      "fieldtype": "Datetime",
+      "label": "Snapshot Timestamp",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "When this snapshot was captured"
+    },
+    {
+      "fieldname": "snapshot_type",
+      "fieldtype": "Select",
+      "label": "Snapshot Type",
+      "options": "Scheduled\nManual\nEvent Triggered\nAlert Response",
+      "default": "Scheduled",
+      "in_standard_filter": 1,
+      "description": "How this snapshot was triggered"
+    },
+    {
+      "fieldname": "external_product_id",
+      "fieldtype": "Data",
+      "label": "External Product ID",
+      "description": "Product ID on the external channel (ASIN, SKU, etc.)"
+    },
+    {
+      "fieldname": "section_break_pdp",
+      "fieldtype": "Section Break",
+      "label": "Product Detail Page (PDP) Content"
+    },
+    {
+      "fieldname": "pdp_title",
+      "fieldtype": "Data",
+      "label": "PDP Title",
+      "description": "Product title as displayed on the channel"
+    },
+    {
+      "fieldname": "pdp_brand",
+      "fieldtype": "Data",
+      "label": "PDP Brand",
+      "description": "Brand name as displayed on the channel"
+    },
+    {
+      "fieldname": "pdp_url",
+      "fieldtype": "Data",
+      "label": "PDP URL",
+      "options": "URL",
+      "description": "Direct URL to the product detail page"
+    },
+    {
+      "fieldname": "column_break_pdp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "pdp_category",
+      "fieldtype": "Data",
+      "label": "PDP Category",
+      "description": "Category path as displayed on the channel"
+    },
+    {
+      "fieldname": "pdp_bullet_count",
+      "fieldtype": "Int",
+      "label": "Bullet Points Count",
+      "description": "Number of bullet points/features displayed"
+    },
+    {
+      "fieldname": "pdp_image_count",
+      "fieldtype": "Int",
+      "label": "Image Count",
+      "description": "Number of images displayed on the PDP"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description Content"
+    },
+    {
+      "fieldname": "pdp_short_description",
+      "fieldtype": "Small Text",
+      "label": "Short Description",
+      "description": "Short description/summary as displayed"
+    },
+    {
+      "fieldname": "pdp_long_description",
+      "fieldtype": "Text",
+      "label": "Long Description",
+      "description": "Full product description as displayed"
+    },
+    {
+      "fieldname": "pdp_bullet_points",
+      "fieldtype": "Text",
+      "label": "Bullet Points",
+      "description": "Product features/bullet points (newline separated)"
+    },
+    {
+      "fieldname": "section_break_price",
+      "fieldtype": "Section Break",
+      "label": "Pricing Information"
+    },
+    {
+      "fieldname": "current_price",
+      "fieldtype": "Currency",
+      "label": "Current Price",
+      "in_list_view": 1,
+      "description": "Current selling price on the channel"
+    },
+    {
+      "fieldname": "list_price",
+      "fieldtype": "Currency",
+      "label": "List Price / MSRP",
+      "description": "Original/list price if discounted"
+    },
+    {
+      "fieldname": "price_currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "description": "Currency of the prices"
+    },
+    {
+      "fieldname": "column_break_price",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "discount_percentage",
+      "fieldtype": "Percent",
+      "label": "Discount Percentage",
+      "description": "Current discount as percentage"
+    },
+    {
+      "fieldname": "price_per_unit",
+      "fieldtype": "Currency",
+      "label": "Price Per Unit",
+      "description": "Unit price if applicable (e.g., per oz, per kg)"
+    },
+    {
+      "fieldname": "price_unit",
+      "fieldtype": "Data",
+      "label": "Price Unit",
+      "description": "Unit for price per unit (oz, kg, each, etc.)"
+    },
+    {
+      "fieldname": "has_promotion",
+      "fieldtype": "Check",
+      "label": "Has Active Promotion",
+      "description": "Whether the product has an active promotion"
+    },
+    {
+      "fieldname": "promotion_details",
+      "fieldtype": "Small Text",
+      "label": "Promotion Details",
+      "depends_on": "eval:doc.has_promotion",
+      "description": "Details of the active promotion"
+    },
+    {
+      "fieldname": "section_break_availability",
+      "fieldtype": "Section Break",
+      "label": "Availability & Buy Box"
+    },
+    {
+      "fieldname": "in_stock",
+      "fieldtype": "Check",
+      "label": "In Stock",
+      "in_list_view": 1,
+      "description": "Whether the product is currently in stock"
+    },
+    {
+      "fieldname": "stock_status",
+      "fieldtype": "Select",
+      "label": "Stock Status",
+      "options": "In Stock\nOut of Stock\nLimited Stock\nBackorder\nPreorder\nDiscontinued\nUnknown",
+      "default": "Unknown",
+      "in_standard_filter": 1,
+      "description": "Detailed stock status"
+    },
+    {
+      "fieldname": "estimated_delivery",
+      "fieldtype": "Data",
+      "label": "Estimated Delivery",
+      "description": "Estimated delivery timeframe as displayed"
+    },
+    {
+      "fieldname": "column_break_availability",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "has_buy_box",
+      "fieldtype": "Check",
+      "label": "Owns Buy Box",
+      "in_list_view": 1,
+      "description": "Whether we own the buy box/featured offer"
+    },
+    {
+      "fieldname": "buy_box_seller",
+      "fieldtype": "Data",
+      "label": "Buy Box Seller",
+      "description": "Name of the seller who owns the buy box"
+    },
+    {
+      "fieldname": "buy_box_price",
+      "fieldtype": "Currency",
+      "label": "Buy Box Price",
+      "description": "Price of the buy box offer"
+    },
+    {
+      "fieldname": "total_offers",
+      "fieldtype": "Int",
+      "label": "Total Offers",
+      "description": "Total number of seller offers for this product"
+    },
+    {
+      "fieldname": "fulfillment_type",
+      "fieldtype": "Select",
+      "label": "Fulfillment Type",
+      "options": "\nFBA\nFBM\nPrime\nFulfilled by Channel\nSeller Fulfilled\nDropship",
+      "description": "How the buy box offer is fulfilled"
+    },
+    {
+      "fieldname": "section_break_ratings",
+      "fieldtype": "Section Break",
+      "label": "Ratings & Reviews"
+    },
+    {
+      "fieldname": "average_rating",
+      "fieldtype": "Float",
+      "label": "Average Rating",
+      "in_list_view": 1,
+      "precision": "1",
+      "description": "Average star rating (typically 1-5)"
+    },
+    {
+      "fieldname": "total_reviews",
+      "fieldtype": "Int",
+      "label": "Total Reviews",
+      "description": "Total number of customer reviews"
+    },
+    {
+      "fieldname": "total_ratings",
+      "fieldtype": "Int",
+      "label": "Total Ratings",
+      "description": "Total number of ratings (may differ from reviews)"
+    },
+    {
+      "fieldname": "column_break_ratings",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "rating_5_star",
+      "fieldtype": "Int",
+      "label": "5 Star Count",
+      "description": "Number of 5-star ratings"
+    },
+    {
+      "fieldname": "rating_4_star",
+      "fieldtype": "Int",
+      "label": "4 Star Count",
+      "description": "Number of 4-star ratings"
+    },
+    {
+      "fieldname": "rating_3_star",
+      "fieldtype": "Int",
+      "label": "3 Star Count",
+      "description": "Number of 3-star ratings"
+    },
+    {
+      "fieldname": "rating_2_star",
+      "fieldtype": "Int",
+      "label": "2 Star Count",
+      "description": "Number of 2-star ratings"
+    },
+    {
+      "fieldname": "rating_1_star",
+      "fieldtype": "Int",
+      "label": "1 Star Count",
+      "description": "Number of 1-star ratings"
+    },
+    {
+      "fieldname": "recent_reviews_summary",
+      "fieldtype": "Text",
+      "label": "Recent Reviews Summary",
+      "description": "Summary of recent reviews (JSON format)"
+    },
+    {
+      "fieldname": "section_break_search",
+      "fieldtype": "Section Break",
+      "label": "Search Rankings"
+    },
+    {
+      "fieldname": "primary_keyword",
+      "fieldtype": "Data",
+      "label": "Primary Keyword",
+      "description": "Main search keyword tracked"
+    },
+    {
+      "fieldname": "primary_keyword_rank",
+      "fieldtype": "Int",
+      "label": "Primary Keyword Rank",
+      "description": "Search rank for primary keyword"
+    },
+    {
+      "fieldname": "primary_keyword_page",
+      "fieldtype": "Int",
+      "label": "Primary Keyword Page",
+      "description": "Search result page number"
+    },
+    {
+      "fieldname": "column_break_search",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "category_rank",
+      "fieldtype": "Int",
+      "label": "Category Rank",
+      "description": "Rank within the product's category"
+    },
+    {
+      "fieldname": "category_for_rank",
+      "fieldtype": "Data",
+      "label": "Category for Rank",
+      "description": "Category name for the ranking"
+    },
+    {
+      "fieldname": "best_seller_rank",
+      "fieldtype": "Int",
+      "label": "Best Seller Rank",
+      "description": "Overall best seller rank if available"
+    },
+    {
+      "fieldname": "search_rankings_json",
+      "fieldtype": "JSON",
+      "label": "All Search Rankings",
+      "description": "Full search ranking data for multiple keywords (JSON)"
+    },
+    {
+      "fieldname": "section_break_content_quality",
+      "fieldtype": "Section Break",
+      "label": "Content Quality Metrics"
+    },
+    {
+      "fieldname": "content_score",
+      "fieldtype": "Percent",
+      "label": "Content Score",
+      "in_list_view": 1,
+      "description": "Overall content quality/completeness score"
+    },
+    {
+      "fieldname": "title_length",
+      "fieldtype": "Int",
+      "label": "Title Length",
+      "description": "Character count of the title"
+    },
+    {
+      "fieldname": "description_length",
+      "fieldtype": "Int",
+      "label": "Description Length",
+      "description": "Character count of the description"
+    },
+    {
+      "fieldname": "column_break_content_quality",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "has_a_plus_content",
+      "fieldtype": "Check",
+      "label": "Has A+ / Enhanced Content",
+      "description": "Whether enhanced brand content is present"
+    },
+    {
+      "fieldname": "has_video",
+      "fieldtype": "Check",
+      "label": "Has Video",
+      "description": "Whether the listing has video content"
+    },
+    {
+      "fieldname": "has_size_guide",
+      "fieldtype": "Check",
+      "label": "Has Size Guide",
+      "description": "Whether a size guide is present"
+    },
+    {
+      "fieldname": "has_comparison_chart",
+      "fieldtype": "Check",
+      "label": "Has Comparison Chart",
+      "description": "Whether a comparison chart is present"
+    },
+    {
+      "fieldname": "content_issues",
+      "fieldtype": "Small Text",
+      "label": "Content Issues",
+      "read_only": 1,
+      "description": "Detected content quality issues"
+    },
+    {
+      "fieldname": "section_break_competitors",
+      "fieldtype": "Section Break",
+      "label": "Competitor Intelligence",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "competitor_count",
+      "fieldtype": "Int",
+      "label": "Competitor Count",
+      "description": "Number of competing products identified"
+    },
+    {
+      "fieldname": "lowest_competitor_price",
+      "fieldtype": "Currency",
+      "label": "Lowest Competitor Price",
+      "description": "Lowest price among competitors"
+    },
+    {
+      "fieldname": "highest_competitor_price",
+      "fieldtype": "Currency",
+      "label": "Highest Competitor Price",
+      "description": "Highest price among competitors"
+    },
+    {
+      "fieldname": "column_break_competitors",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "avg_competitor_price",
+      "fieldtype": "Currency",
+      "label": "Average Competitor Price",
+      "description": "Average price among competitors"
+    },
+    {
+      "fieldname": "price_position",
+      "fieldtype": "Select",
+      "label": "Price Position",
+      "options": "\nLowest\nBelow Average\nAverage\nAbove Average\nHighest",
+      "description": "Our price position relative to competitors"
+    },
+    {
+      "fieldname": "competitor_data_json",
+      "fieldtype": "JSON",
+      "label": "Competitor Data",
+      "description": "Detailed competitor data (JSON format)"
+    },
+    {
+      "fieldname": "section_break_changes",
+      "fieldtype": "Section Break",
+      "label": "Change Detection",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "has_changes",
+      "fieldtype": "Check",
+      "label": "Has Changes from Previous",
+      "read_only": 1,
+      "description": "Whether changes were detected from the previous snapshot"
+    },
+    {
+      "fieldname": "previous_snapshot",
+      "fieldtype": "Link",
+      "label": "Previous Snapshot",
+      "options": "Digital Shelf Snapshot",
+      "read_only": 1,
+      "description": "Link to the previous snapshot for this product/channel"
+    },
+    {
+      "fieldname": "column_break_changes",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "price_change",
+      "fieldtype": "Currency",
+      "label": "Price Change",
+      "read_only": 1,
+      "description": "Price difference from previous snapshot"
+    },
+    {
+      "fieldname": "price_change_pct",
+      "fieldtype": "Percent",
+      "label": "Price Change %",
+      "read_only": 1,
+      "description": "Price change as percentage"
+    },
+    {
+      "fieldname": "rank_change",
+      "fieldtype": "Int",
+      "label": "Rank Change",
+      "read_only": 1,
+      "description": "Search rank change from previous (negative = improvement)"
+    },
+    {
+      "fieldname": "rating_change",
+      "fieldtype": "Float",
+      "label": "Rating Change",
+      "read_only": 1,
+      "precision": "2",
+      "description": "Rating change from previous snapshot"
+    },
+    {
+      "fieldname": "changes_summary",
+      "fieldtype": "Small Text",
+      "label": "Changes Summary",
+      "read_only": 1,
+      "description": "Summary of detected changes"
+    },
+    {
+      "fieldname": "section_break_raw",
+      "fieldtype": "Section Break",
+      "label": "Raw Data",
+      "collapsible": 1,
+      "collapsible_depends_on": "eval:!doc.raw_html"
+    },
+    {
+      "fieldname": "raw_html",
+      "fieldtype": "Code",
+      "label": "Raw HTML",
+      "options": "HTML",
+      "description": "Raw HTML of the product detail page (if captured)"
+    },
+    {
+      "fieldname": "raw_api_response",
+      "fieldtype": "JSON",
+      "label": "Raw API Response",
+      "description": "Raw API response data (JSON format)"
+    },
+    {
+      "fieldname": "section_break_meta",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "capture_method",
+      "fieldtype": "Select",
+      "label": "Capture Method",
+      "options": "API\nWeb Scraping\nBrowser Automation\nManual Entry\nChannel Feed",
+      "default": "API",
+      "description": "How this snapshot was captured"
+    },
+    {
+      "fieldname": "capture_duration_ms",
+      "fieldtype": "Int",
+      "label": "Capture Duration (ms)",
+      "description": "Time taken to capture this snapshot in milliseconds"
+    },
+    {
+      "fieldname": "column_break_meta",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "capture_errors",
+      "fieldtype": "Small Text",
+      "label": "Capture Errors",
+      "read_only": 1,
+      "description": "Any errors encountered during capture"
+    },
+    {
+      "fieldname": "data_completeness",
+      "fieldtype": "Percent",
+      "label": "Data Completeness",
+      "read_only": 1,
+      "description": "Percentage of snapshot fields successfully captured"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "export": 1
+    }
+  ]
+}

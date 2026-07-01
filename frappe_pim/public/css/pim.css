@@ -1,0 +1,274 @@
+/**
+ * Frappe PIM Styles
+ *
+ * Custom styles for the Product Information Management application.
+ * These styles are loaded globally via hooks.py app_include_css.
+ */
+
+/* =============================================================================
+ * Completeness Badge Styles
+ * ============================================================================= */
+
+.pim-completeness-badge {
+    display: inline-block;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.pim-badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.pim-badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.pim-badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.pim-badge-sm {
+    font-size: 10px;
+    padding: 2px 6px;
+}
+
+.pim-badge-md {
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+.pim-badge-lg {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+/* =============================================================================
+ * Status Badge Styles
+ * ============================================================================= */
+
+.pim-status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* =============================================================================
+ * Completeness Progress Bar Styles
+ * ============================================================================= */
+
+.pim-completeness-progress {
+    display: flex;
+    align-items: center;
+}
+
+.pim-completeness-progress .progress-bar {
+    flex: 1;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.pim-completeness-progress .progress-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* =============================================================================
+ * Attribute Grid Styles
+ * ============================================================================= */
+
+.pim-attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.pim-attribute-group {
+    border: 1px solid var(--border-color, #d1d8dd);
+    border-radius: 8px;
+    padding: 16px;
+    background: var(--card-bg, white);
+}
+
+.pim-attribute-group-header {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color, #d1d8dd);
+}
+
+.pim-attribute-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+}
+
+.pim-attribute-label {
+    color: var(--text-muted, #6c757d);
+}
+
+.pim-attribute-value {
+    font-weight: 500;
+}
+
+/* =============================================================================
+ * Product List Styles
+ * ============================================================================= */
+
+.pim-product-card {
+    border: 1px solid var(--border-color, #d1d8dd);
+    border-radius: 8px;
+    padding: 16px;
+    background: var(--card-bg, white);
+    transition: box-shadow 0.2s ease;
+}
+
+.pim-product-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pim-product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.pim-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.pim-product-code {
+    color: var(--text-muted, #6c757d);
+    font-size: 12px;
+    font-family: var(--font-mono, monospace);
+}
+
+/* =============================================================================
+ * Family Tree Styles
+ * ============================================================================= */
+
+.pim-family-tree {
+    padding-left: 0;
+    list-style: none;
+}
+
+.pim-family-tree ul {
+    padding-left: 24px;
+    list-style: none;
+}
+
+.pim-family-item {
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pim-family-item:hover {
+    background-color: var(--bg-light-gray, #f4f5f6);
+}
+
+.pim-family-item.active {
+    background-color: var(--primary-light, #e3f2fd);
+    color: var(--primary, #2196f3);
+}
+
+/* =============================================================================
+ * EAV Table Styles
+ * ============================================================================= */
+
+.pim-eav-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pim-eav-table th,
+.pim-eav-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color, #d1d8dd);
+}
+
+.pim-eav-table th {
+    background-color: var(--bg-light-gray, #f4f5f6);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* =============================================================================
+ * Form Enhancements
+ * ============================================================================= */
+
+.pim-required-indicator::after {
+    content: " *";
+    color: var(--red, #e24c4c);
+}
+
+.pim-field-help {
+    font-size: 12px;
+    color: var(--text-muted, #6c757d);
+    margin-top: 4px;
+}
+
+/* =============================================================================
+ * Export Profile Styles
+ * ============================================================================= */
+
+.pim-export-format-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.pim-export-format-bmecat {
+    background-color: #0066cc;
+    color: white;
+}
+
+.pim-export-format-csv {
+    background-color: #28a745;
+    color: white;
+}
+
+.pim-export-format-json {
+    background-color: #f7df1e;
+    color: #323330;
+}
+
+.pim-export-format-xml {
+    background-color: #e34c26;
+    color: white;
+}
+
+/* =============================================================================
+ * Dark Mode Support (follows Frappe's dark mode)
+ * ============================================================================= */
+
+[data-theme="dark"] .pim-attribute-group,
+[data-theme="dark"] .pim-product-card {
+    background: var(--card-bg, #1c1c1c);
+    border-color: var(--border-color, #3a3a3a);
+}
+
+[data-theme="dark"] .pim-eav-table th {
+    background-color: var(--bg-light-gray, #2a2a2a);
+}

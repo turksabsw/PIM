@@ -1,0 +1,1155 @@
+{
+    "archetype": "fashion",
+    "version": "1.0",
+    "label": "Fashion & Apparel",
+    "description": "Industry archetype for fashion, apparel, footwear, and accessories retailers. Includes product types for clothing categories, variant axes for color/size, seasonal collections, and a merchandising-oriented category tree.",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Fashion",
+            "group_code": "fashion",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-tshirt",
+            "description": "Fashion-specific attributes such as season, collection, style, and fit"
+        },
+        {
+            "group_name": "Sizing",
+            "group_code": "sizing",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-ruler-horizontal",
+            "description": "Size charts, fit guides, and measurement-related attributes"
+        },
+        {
+            "group_name": "Care & Composition",
+            "group_code": "care_composition",
+            "sort_order": 100,
+            "is_standard": 0,
+            "icon": "fa fa-hand-sparkles",
+            "description": "Fabric composition, care instructions, and material properties"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "Color Swatch",
+            "type_code": "color_swatch",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "color-swatch-picker",
+            "display_component": "color-swatch",
+            "icon": "fa fa-palette"
+        },
+        {
+            "type_name": "Size",
+            "type_code": "size",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "size-selector",
+            "display_component": "badge-display",
+            "icon": "fa fa-ruler"
+        },
+        {
+            "type_name": "Season",
+            "type_code": "season",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "select",
+            "display_component": "badge-display",
+            "icon": "fa fa-snowflake"
+        },
+        {
+            "type_name": "Percentage",
+            "type_code": "percentage",
+            "base_type": "Float",
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "max_value": 100,
+            "validation_regex": "^([0-9]|[1-9][0-9]|100)(\\.\\d{1,2})?$",
+            "validation_message": "Value must be a percentage between 0 and 100",
+            "input_component": "number-input",
+            "display_component": "percentage-display",
+            "icon": "fa fa-percent"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Color",
+            "attribute_code": "color",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Black, White, Red, Blue, Navy, Green, Grey, Beige, Brown, Pink, Yellow, Orange, Purple, Burgundy, Olive, Teal, Coral, Ivory, Gold, Silver, Multi",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 10,
+            "weight_in_completeness": 3,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Primary color of the product used for variant generation and filtering"
+        },
+        {
+            "attribute_name": "Size",
+            "attribute_code": "size",
+            "attribute_group": "sizing",
+            "data_type": "Select",
+            "options": "XXS, XS, S, M, L, XL, XXL, 3XL, 4XL, One Size",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 20,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Apparel size for variant generation (use Shoe Size for footwear)"
+        },
+        {
+            "attribute_name": "Shoe Size",
+            "attribute_code": "shoe_size",
+            "attribute_group": "sizing",
+            "data_type": "Select",
+            "options": "35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 25,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "EU shoe size for footwear variant generation"
+        },
+        {
+            "attribute_name": "Fabric Composition",
+            "attribute_code": "fabric_composition",
+            "attribute_group": "care_composition",
+            "data_type": "Text",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 500,
+            "sort_order": 30,
+            "weight_in_completeness": 3,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Full fabric composition breakdown (e.g., 95% Cotton, 5% Elastane)"
+        },
+        {
+            "attribute_name": "Season",
+            "attribute_code": "season",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Spring/Summer, Autumn/Winter, Pre-Spring, Pre-Fall, Resort, Cruise, Year-Round",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 40,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Fashion season or collection period the product belongs to"
+        },
+        {
+            "attribute_name": "Gender",
+            "attribute_code": "gender",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Men, Women, Unisex, Boys, Girls, Kids",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 50,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Target gender demographic for the product"
+        },
+        {
+            "attribute_name": "Collection",
+            "attribute_code": "collection",
+            "attribute_group": "fashion",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 200,
+            "sort_order": 60,
+            "weight_in_completeness": 1,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Named collection or capsule the product belongs to (e.g., Essentials 2025)"
+        },
+        {
+            "attribute_name": "Style",
+            "attribute_code": "style",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Casual, Formal, Sporty, Streetwear, Bohemian, Classic, Contemporary, Minimalist, Vintage, Athleisure",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 70,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Fashion style category for merchandising and filtering"
+        },
+        {
+            "attribute_name": "Fit",
+            "attribute_code": "fit",
+            "attribute_group": "sizing",
+            "data_type": "Select",
+            "options": "Slim, Regular, Relaxed, Oversized, Skinny, Loose, Tailored, Cropped",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 80,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Garment fit type for sizing guidance"
+        },
+        {
+            "attribute_name": "Sleeve Length",
+            "attribute_code": "sleeve_length",
+            "attribute_group": "sizing",
+            "data_type": "Select",
+            "options": "Sleeveless, Short Sleeve, 3/4 Sleeve, Long Sleeve, Cap Sleeve",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 85,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Sleeve length classification for tops and outerwear"
+        },
+        {
+            "attribute_name": "Neckline",
+            "attribute_code": "neckline",
+            "attribute_group": "sizing",
+            "data_type": "Select",
+            "options": "Crew Neck, V-Neck, Round Neck, Polo, Turtle Neck, Boat Neck, Off-Shoulder, Scoop Neck, Henley",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 87,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Neckline style for tops and dresses"
+        },
+        {
+            "attribute_name": "Pattern",
+            "attribute_code": "pattern",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Solid, Striped, Checked, Plaid, Floral, Geometric, Abstract, Animal Print, Paisley, Polka Dot, Camouflage",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 90,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Fabric pattern or print type"
+        },
+        {
+            "attribute_name": "Occasion",
+            "attribute_code": "occasion",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Everyday, Work, Party, Wedding, Beach, Sport, Travel, Date Night, Lounge",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 95,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Suitable occasion for wearing the garment"
+        },
+        {
+            "attribute_name": "Care Instructions",
+            "attribute_code": "care_instructions",
+            "attribute_group": "care_composition",
+            "data_type": "Long Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 100,
+            "weight_in_completeness": 2,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Washing, drying, and ironing instructions (e.g., Machine wash 30°C, Do not bleach)"
+        },
+        {
+            "attribute_name": "Lining Material",
+            "attribute_code": "lining_material",
+            "attribute_group": "care_composition",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 200,
+            "sort_order": 110,
+            "weight_in_completeness": 1,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Lining material composition if applicable"
+        },
+        {
+            "attribute_name": "Closure Type",
+            "attribute_code": "closure_type",
+            "attribute_group": "fashion",
+            "data_type": "Select",
+            "options": "Button, Zipper, Snap, Hook and Eye, Tie, Velcro, Pull-On, Belt, Buckle, Lace-Up",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 120,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Type of closure or fastening mechanism"
+        },
+        {
+            "attribute_name": "Heel Height",
+            "attribute_code": "heel_height",
+            "attribute_group": "sizing",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "min_value": 0,
+            "value_suffix": " cm",
+            "sort_order": 130,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Heel height in centimeters for footwear"
+        },
+        {
+            "attribute_name": "Sole Material",
+            "attribute_code": "sole_material",
+            "attribute_group": "care_composition",
+            "data_type": "Select",
+            "options": "Rubber, Leather, EVA, TPU, PVC, Synthetic, Cork, Crepe, Wood",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 140,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Sole material for footwear products"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "Apparel",
+            "type_code": "apparel",
+            "description": "Clothing items including tops, bottoms, dresses, outerwear, and activewear. Supports Color/Size variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Footwear",
+            "type_code": "footwear",
+            "description": "Shoes, boots, sandals, and sneakers. Supports Color/Shoe Size variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Accessories",
+            "type_code": "accessories",
+            "description": "Bags, belts, hats, scarves, jewelry, and other fashion accessories. Some items support color variants.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Underwear & Loungewear",
+            "type_code": "underwear_loungewear",
+            "description": "Undergarments, sleepwear, and lounge clothing. Supports Color/Size variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Swimwear",
+            "type_code": "swimwear",
+            "description": "Bikinis, swimsuits, boardshorts, and swim accessories. Supports Color/Size variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Fashion",
+            "family_code": "fashion",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Root family for all fashion and apparel products"
+        },
+        {
+            "family_name": "Tops",
+            "family_code": "tops",
+            "parent_family": "Fashion",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TOP-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "Upper body garments: t-shirts, shirts, blouses, sweaters, and hoodies",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fabric_composition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "fit", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "sleeve_length", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "neckline", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "pattern", "is_required_in_family": 0, "sort_order": 80},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 90}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10},
+                {"attribute": "size", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "T-Shirts",
+            "family_code": "tshirts",
+            "parent_family": "Tops",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TSH-",
+            "required_media_types": "Main Image, Gallery, Model Shot",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "T-shirts, polo shirts, and casual tops"
+        },
+        {
+            "family_name": "Shirts & Blouses",
+            "family_code": "shirts_blouses",
+            "parent_family": "Tops",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SHR-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Formal and casual shirts, blouses, and button-downs"
+        },
+        {
+            "family_name": "Sweaters & Knitwear",
+            "family_code": "sweaters_knitwear",
+            "parent_family": "Tops",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SWT-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Sweaters, cardigans, pullovers, and knitted tops"
+        },
+        {
+            "family_name": "Bottoms",
+            "family_code": "bottoms",
+            "parent_family": "Fashion",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BTM-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "Lower body garments: trousers, jeans, skirts, and shorts",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fabric_composition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "fit", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "closure_type", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "pattern", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 80}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10},
+                {"attribute": "size", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Jeans",
+            "family_code": "jeans",
+            "parent_family": "Bottoms",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "JNS-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Denim jeans in all fits and washes"
+        },
+        {
+            "family_name": "Trousers & Chinos",
+            "family_code": "trousers_chinos",
+            "parent_family": "Bottoms",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TRS-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Formal and casual trousers, chinos, and dress pants"
+        },
+        {
+            "family_name": "Skirts",
+            "family_code": "skirts",
+            "parent_family": "Bottoms",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SKT-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Skirts of all lengths and styles"
+        },
+        {
+            "family_name": "Dresses",
+            "family_code": "dresses",
+            "parent_family": "Fashion",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "DRS-",
+            "required_media_types": "Main Image, Gallery, Model Shot",
+            "min_images": 4,
+            "completeness_threshold": 85,
+            "description": "Dresses, jumpsuits, and one-piece garments",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fabric_composition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "fit", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "neckline", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "sleeve_length", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "occasion", "is_required_in_family": 0, "sort_order": 80},
+                {"attribute": "pattern", "is_required_in_family": 0, "sort_order": 90},
+                {"attribute": "closure_type", "is_required_in_family": 0, "sort_order": 100},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 110}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10},
+                {"attribute": "size", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Outerwear",
+            "family_code": "outerwear",
+            "parent_family": "Fashion",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "OTW-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "Jackets, coats, blazers, and outerwear",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fabric_composition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "fit", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "closure_type", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "lining_material", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 80}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10},
+                {"attribute": "size", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Shoes",
+            "family_code": "shoes",
+            "parent_family": "Fashion",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SHO-",
+            "required_media_types": "Main Image, Gallery, Detail Shot",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "All footwear categories: sneakers, boots, heels, sandals, and flats",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "shoe_size", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fabric_composition", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "sole_material", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "heel_height", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "closure_type", "is_required_in_family": 0, "sort_order": 70},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 80}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10},
+                {"attribute": "shoe_size", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Sneakers",
+            "family_code": "sneakers",
+            "parent_family": "Shoes",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SNK-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Athletic and casual sneakers"
+        },
+        {
+            "family_name": "Boots",
+            "family_code": "boots",
+            "parent_family": "Shoes",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BTS-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Ankle boots, knee-high boots, and winter boots"
+        },
+        {
+            "family_name": "Sandals & Flats",
+            "family_code": "sandals_flats",
+            "parent_family": "Shoes",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SND-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Open-toe sandals, flats, espadrilles, and mules"
+        },
+        {
+            "family_name": "Accessories",
+            "family_code": "accessories",
+            "parent_family": "Fashion",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "ACC-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 75,
+            "description": "Fashion accessories: bags, belts, scarves, hats, and jewelry",
+            "attributes": [
+                {"attribute": "color", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "fabric_composition", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "gender", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "pattern", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "closure_type", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "care_instructions", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "color", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Bags",
+            "family_code": "bags",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BAG-",
+            "required_media_types": "Main Image, Gallery, Detail Shot",
+            "min_images": 3,
+            "completeness_threshold": 80,
+            "description": "Handbags, backpacks, clutches, and tote bags"
+        },
+        {
+            "family_name": "Belts & Scarves",
+            "family_code": "belts_scarves",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BLT-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Belts, scarves, ties, and neckwear"
+        },
+        {
+            "family_name": "Hats & Headwear",
+            "family_code": "hats_headwear",
+            "parent_family": "Accessories",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "HAT-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 70,
+            "description": "Hats, caps, beanies, and headbands"
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Fashion",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All fashion and apparel products"
+        },
+        {
+            "category_name": "Women",
+            "parent_category": "Fashion",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Women's fashion and clothing"
+        },
+        {
+            "category_name": "Women's Tops",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's t-shirts, blouses, shirts, and sweaters"
+        },
+        {
+            "category_name": "Women's Bottoms",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's jeans, trousers, skirts, and shorts"
+        },
+        {
+            "category_name": "Women's Dresses",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's dresses, jumpsuits, and rompers"
+        },
+        {
+            "category_name": "Women's Outerwear",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's jackets, coats, and blazers"
+        },
+        {
+            "category_name": "Women's Shoes",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's heels, flats, boots, and sneakers"
+        },
+        {
+            "category_name": "Women's Accessories",
+            "parent_category": "Women",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's bags, jewelry, scarves, and accessories"
+        },
+        {
+            "category_name": "Men",
+            "parent_category": "Fashion",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Men's fashion and clothing"
+        },
+        {
+            "category_name": "Men's Tops",
+            "parent_category": "Men",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's t-shirts, shirts, and sweaters"
+        },
+        {
+            "category_name": "Men's Bottoms",
+            "parent_category": "Men",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's jeans, trousers, chinos, and shorts"
+        },
+        {
+            "category_name": "Men's Outerwear",
+            "parent_category": "Men",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's jackets, coats, and blazers"
+        },
+        {
+            "category_name": "Men's Shoes",
+            "parent_category": "Men",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's sneakers, boots, loafers, and formal shoes"
+        },
+        {
+            "category_name": "Men's Accessories",
+            "parent_category": "Men",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's bags, belts, wallets, and accessories"
+        },
+        {
+            "category_name": "Kids",
+            "parent_category": "Fashion",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Children's fashion and clothing"
+        },
+        {
+            "category_name": "Boys' Clothing",
+            "parent_category": "Kids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Boys' tops, bottoms, and outerwear"
+        },
+        {
+            "category_name": "Girls' Clothing",
+            "parent_category": "Kids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Girls' tops, bottoms, dresses, and outerwear"
+        },
+        {
+            "category_name": "Kids' Shoes",
+            "parent_category": "Kids",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Children's sneakers, boots, and sandals"
+        },
+        {
+            "category_name": "New Arrivals",
+            "parent_category": "Fashion",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Latest fashion arrivals and new-in products"
+        },
+        {
+            "category_name": "Sale",
+            "parent_category": "Fashion",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Discounted and clearance fashion items"
+        },
+        {
+            "category_name": "Collections",
+            "parent_category": "Fashion",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Seasonal and curated fashion collections"
+        },
+        {
+            "category_name": "Spring/Summer Collection",
+            "parent_category": "Collections",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Spring and summer seasonal collection"
+        },
+        {
+            "category_name": "Autumn/Winter Collection",
+            "parent_category": "Collections",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Autumn and winter seasonal collection"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "fashion_req_color",
+            "rule_name": "Color Required for Fashion",
+            "rule_type": "required_field",
+            "target_attribute": "color",
+            "severity": "error",
+            "weight": 10,
+            "message": "Fashion products must specify a color",
+            "description": "Color is essential for fashion product identification and variant creation"
+        },
+        {
+            "rule_code": "fashion_req_gender",
+            "rule_name": "Gender Required",
+            "rule_type": "required_field",
+            "target_attribute": "gender",
+            "severity": "error",
+            "weight": 8,
+            "message": "Fashion products must specify a target gender",
+            "description": "Gender classification is required for proper merchandising and navigation"
+        },
+        {
+            "rule_code": "fashion_req_composition",
+            "rule_name": "Fabric Composition Required",
+            "rule_type": "required_field",
+            "target_attribute": "fabric_composition",
+            "severity": "error",
+            "weight": 8,
+            "message": "Fabric composition must be specified for regulatory compliance",
+            "description": "EU and US textile regulations require fabric composition disclosure on product labels"
+        },
+        {
+            "rule_code": "fashion_req_care",
+            "rule_name": "Care Instructions Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "care_instructions",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Products should include care and washing instructions",
+            "description": "Care instructions help customers maintain the product and reduce returns"
+        },
+        {
+            "rule_code": "fashion_req_season",
+            "rule_name": "Season Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "season",
+            "severity": "info",
+            "weight": 3,
+            "message": "Assigning a season helps with collection management and markdown planning",
+            "description": "Season classification enables seasonal merchandising and inventory planning"
+        },
+        {
+            "rule_code": "fashion_req_fit",
+            "rule_name": "Fit Recommended for Apparel",
+            "rule_type": "required_field",
+            "target_attribute": "fit",
+            "severity": "warning",
+            "weight": 4,
+            "message": "Specifying fit type helps customers choose the right size",
+            "description": "Fit information reduces size-related returns and improves customer satisfaction"
+        },
+        {
+            "rule_code": "fashion_min_images",
+            "rule_name": "Fashion Minimum Images",
+            "rule_type": "media_presence",
+            "min_images": 3,
+            "severity": "warning",
+            "weight": 7,
+            "message": "Fashion products should have at least 3 images (front, back, detail)",
+            "description": "Multiple product images significantly reduce return rates in fashion e-commerce"
+        },
+        {
+            "rule_code": "fashion_composition_format",
+            "rule_name": "Fabric Composition Format",
+            "rule_type": "value_constraint",
+            "target_attribute": "fabric_composition",
+            "min_length": 5,
+            "max_length": 500,
+            "severity": "warning",
+            "weight": 3,
+            "message": "Fabric composition should include percentages (e.g., 95% Cotton, 5% Elastane)",
+            "description": "Standardized composition format ensures regulatory compliance and customer clarity"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "Classic Cotton T-Shirt",
+            "product_code": "TSH-CLASSIC-001",
+            "product_type": "Apparel",
+            "product_family": "tshirts",
+            "description": "Essential crew neck t-shirt in premium organic cotton. Comfortable everyday fit with reinforced neckline.",
+            "attributes": {
+                "gender": "Men",
+                "fabric_composition": "100% Organic Cotton",
+                "fit": "Regular",
+                "sleeve_length": "Short Sleeve",
+                "neckline": "Crew Neck",
+                "pattern": "Solid",
+                "season": "Year-Round",
+                "style": "Casual",
+                "care_instructions": "Machine wash at 30°C. Do not bleach. Tumble dry low. Iron medium heat."
+            },
+            "variants": [
+                {"color": "White", "size": "S"},
+                {"color": "White", "size": "M"},
+                {"color": "White", "size": "L"},
+                {"color": "White", "size": "XL"},
+                {"color": "Black", "size": "S"},
+                {"color": "Black", "size": "M"},
+                {"color": "Black", "size": "L"},
+                {"color": "Black", "size": "XL"},
+                {"color": "Navy", "size": "S"},
+                {"color": "Navy", "size": "M"},
+                {"color": "Navy", "size": "L"},
+                {"color": "Navy", "size": "XL"}
+            ]
+        },
+        {
+            "product_name": "Slim Fit Chino Trouser",
+            "product_code": "TRS-CHINO-001",
+            "product_type": "Apparel",
+            "product_family": "trousers_chinos",
+            "description": "Versatile slim-fit chino trouser in stretch cotton twill. Perfect for office or weekend wear.",
+            "attributes": {
+                "gender": "Men",
+                "fabric_composition": "98% Cotton, 2% Elastane",
+                "fit": "Slim",
+                "closure_type": "Button",
+                "pattern": "Solid",
+                "season": "Year-Round",
+                "style": "Classic",
+                "care_instructions": "Machine wash at 40°C. Do not bleach. Tumble dry low. Iron medium heat."
+            },
+            "variants": [
+                {"color": "Beige", "size": "S"},
+                {"color": "Beige", "size": "M"},
+                {"color": "Beige", "size": "L"},
+                {"color": "Navy", "size": "S"},
+                {"color": "Navy", "size": "M"},
+                {"color": "Navy", "size": "L"},
+                {"color": "Olive", "size": "M"},
+                {"color": "Olive", "size": "L"}
+            ]
+        },
+        {
+            "product_name": "Floral Wrap Dress",
+            "product_code": "DRS-WRAP-001",
+            "product_type": "Apparel",
+            "product_family": "dresses",
+            "description": "Elegant wrap dress with allover floral print. Flattering silhouette with adjustable tie waist.",
+            "attributes": {
+                "gender": "Women",
+                "fabric_composition": "100% Viscose",
+                "fit": "Regular",
+                "neckline": "V-Neck",
+                "sleeve_length": "3/4 Sleeve",
+                "pattern": "Floral",
+                "occasion": "Date Night",
+                "season": "Spring/Summer",
+                "style": "Bohemian",
+                "closure_type": "Tie",
+                "care_instructions": "Hand wash cold. Do not bleach. Hang dry. Iron low heat."
+            },
+            "variants": [
+                {"color": "Blue", "size": "XS"},
+                {"color": "Blue", "size": "S"},
+                {"color": "Blue", "size": "M"},
+                {"color": "Blue", "size": "L"},
+                {"color": "Red", "size": "XS"},
+                {"color": "Red", "size": "S"},
+                {"color": "Red", "size": "M"},
+                {"color": "Red", "size": "L"}
+            ]
+        },
+        {
+            "product_name": "Leather Ankle Boot",
+            "product_code": "BTS-ANKL-001",
+            "product_type": "Footwear",
+            "product_family": "boots",
+            "description": "Premium full-grain leather ankle boot with cushioned insole and durable rubber sole.",
+            "attributes": {
+                "gender": "Women",
+                "fabric_composition": "Full-grain Leather Upper",
+                "sole_material": "Rubber",
+                "heel_height": 5.5,
+                "closure_type": "Zipper",
+                "season": "Autumn/Winter",
+                "style": "Classic",
+                "care_instructions": "Clean with damp cloth. Apply leather conditioner regularly. Store with shoe trees."
+            },
+            "variants": [
+                {"color": "Black", "shoe_size": "36"},
+                {"color": "Black", "shoe_size": "37"},
+                {"color": "Black", "shoe_size": "38"},
+                {"color": "Black", "shoe_size": "39"},
+                {"color": "Black", "shoe_size": "40"},
+                {"color": "Brown", "shoe_size": "36"},
+                {"color": "Brown", "shoe_size": "37"},
+                {"color": "Brown", "shoe_size": "38"},
+                {"color": "Brown", "shoe_size": "39"},
+                {"color": "Brown", "shoe_size": "40"}
+            ]
+        },
+        {
+            "product_name": "Canvas Tote Bag",
+            "product_code": "BAG-TOTE-001",
+            "product_type": "Accessories",
+            "product_family": "bags",
+            "description": "Spacious canvas tote bag with interior zip pocket and reinforced handles. Perfect for everyday use.",
+            "attributes": {
+                "gender": "Unisex",
+                "fabric_composition": "100% Recycled Canvas",
+                "closure_type": "Snap",
+                "pattern": "Solid",
+                "season": "Year-Round",
+                "style": "Casual",
+                "care_instructions": "Spot clean with damp cloth. Air dry."
+            },
+            "variants": [
+                {"color": "Beige"},
+                {"color": "Black"},
+                {"color": "Navy"},
+                {"color": "Olive"}
+            ]
+        }
+    ]
+}

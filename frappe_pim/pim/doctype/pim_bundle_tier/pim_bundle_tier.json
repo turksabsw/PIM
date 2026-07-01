@@ -1,0 +1,43 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Bundle Tier",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "fields": [
+    {
+      "fieldname": "min_qty",
+      "fieldtype": "Int",
+      "label": "Minimum Quantity",
+      "in_list_view": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "max_qty",
+      "fieldtype": "Int",
+      "label": "Maximum Quantity",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "discount_type",
+      "fieldtype": "Select",
+      "label": "Discount Type",
+      "options": "\nPercentage\nFixed Amount",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "discount_value",
+      "fieldtype": "Float",
+      "label": "Discount Value",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "price",
+      "fieldtype": "Currency",
+      "label": "Tier Price",
+      "in_list_view": 1
+    }
+  ],
+  "permissions": []
+}

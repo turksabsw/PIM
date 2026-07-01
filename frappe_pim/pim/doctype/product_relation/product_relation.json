@@ -1,0 +1,50 @@
+{
+  "doctype": "DocType",
+  "name": "Product Relation",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  
+  "fields": [
+    {
+      "fieldname": "related_product",
+      "fieldtype": "Link",
+      "label": "Related Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 4
+    },
+    {
+      "fieldname": "relation_type",
+      "fieldtype": "Select",
+      "label": "Relation Type",
+      "options": "Cross-Sell\nUp-Sell\nAccessory\nSpare Part\nReplacement\nBundle Component\nSimilar Product\nFrequently Bought Together",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "is_bidirectional",
+      "fieldtype": "Check",
+      "label": "Bidirectional",
+      "description": "Create reverse relation on related product",
+      "default": 1,
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ]
+}

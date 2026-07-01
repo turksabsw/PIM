@@ -1,0 +1,848 @@
+{
+  "doctype": "DocType",
+  "name": "Price Rule",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:rule_code",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "priority",
+  "sort_order": "ASC",
+  "fields": [
+    {
+      "fieldname": "tab_basic",
+      "fieldtype": "Tab Break",
+      "label": "Basic Information"
+    },
+    {
+      "fieldname": "rule_name",
+      "fieldtype": "Data",
+      "label": "Rule Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Descriptive name for this pricing rule"
+    },
+    {
+      "fieldname": "rule_code",
+      "fieldtype": "Data",
+      "label": "Rule Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "no_copy": 1,
+      "description": "Unique identifier code for this rule (e.g., PR-SUMMER2024)"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "rule_type",
+      "fieldtype": "Select",
+      "label": "Rule Type",
+      "reqd": 1,
+      "options": "Campaign\nDealer\nWholesale\nRetail\nPromotional\nSeasonal\nVolume Discount\nBundle\nLoyalty\nClearance\nNew Customer\nCustomer Specific\nChannel Specific\nOther",
+      "default": "Campaign",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of pricing rule"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this pricing rule"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 100,
+      "in_list_view": 1,
+      "description": "Rule priority (lower number = higher priority, applied first)"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "translatable": 1,
+      "description": "Detailed description of the pricing rule and its purpose"
+    },
+    {
+      "fieldname": "tab_applicability",
+      "fieldtype": "Tab Break",
+      "label": "Applicability"
+    },
+    {
+      "fieldname": "section_break_product_scope",
+      "fieldtype": "Section Break",
+      "label": "Product Scope"
+    },
+    {
+      "fieldname": "apply_to",
+      "fieldtype": "Select",
+      "label": "Apply To",
+      "options": "All Products\nSpecific Product\nProduct Family\nProduct Category\nBrand\nProduct Collection\nProduct Series\nPackage Variant",
+      "default": "All Products",
+      "reqd": 1,
+      "description": "Scope of products this rule applies to"
+    },
+    {
+      "fieldname": "product_master",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "depends_on": "eval:doc.apply_to == 'Specific Product'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Specific Product'",
+      "description": "Specific product this rule applies to"
+    },
+    {
+      "fieldname": "product_variant",
+      "fieldtype": "Link",
+      "label": "Product Variant",
+      "options": "Product Variant",
+      "depends_on": "eval:doc.apply_to == 'Specific Product'",
+      "description": "Specific product variant (optional)"
+    },
+    {
+      "fieldname": "column_break_product_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "depends_on": "eval:doc.apply_to == 'Product Family'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Product Family'",
+      "description": "Product family this rule applies to"
+    },
+    {
+      "fieldname": "product_category",
+      "fieldtype": "Link",
+      "label": "Product Category",
+      "options": "Category",
+      "depends_on": "eval:doc.apply_to == 'Product Category'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Product Category'",
+      "description": "Product category this rule applies to"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "depends_on": "eval:doc.apply_to == 'Brand'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Brand'",
+      "description": "Brand this rule applies to"
+    },
+    {
+      "fieldname": "product_collection",
+      "fieldtype": "Link",
+      "label": "Product Collection",
+      "options": "Product Collection",
+      "depends_on": "eval:doc.apply_to == 'Product Collection'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Product Collection'",
+      "description": "Product collection this rule applies to"
+    },
+    {
+      "fieldname": "product_series",
+      "fieldtype": "Link",
+      "label": "Product Series",
+      "options": "Product Series",
+      "depends_on": "eval:doc.apply_to == 'Product Series'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Product Series'",
+      "description": "Product series this rule applies to"
+    },
+    {
+      "fieldname": "package_variant",
+      "fieldtype": "Link",
+      "label": "Package Variant",
+      "options": "Package Variant",
+      "depends_on": "eval:doc.apply_to == 'Package Variant'",
+      "mandatory_depends_on": "eval:doc.apply_to == 'Package Variant'",
+      "description": "Package variant this rule applies to"
+    },
+    {
+      "fieldname": "section_break_customer_scope",
+      "fieldtype": "Section Break",
+      "label": "Customer Scope"
+    },
+    {
+      "fieldname": "customer_applicability",
+      "fieldtype": "Select",
+      "label": "Customer Applicability",
+      "options": "All Customers\nSpecific Customer\nCustomer Group\nTerritory\nCustomer Type",
+      "default": "All Customers",
+      "description": "Scope of customers this rule applies to"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "depends_on": "eval:doc.customer_applicability == 'Specific Customer'",
+      "mandatory_depends_on": "eval:doc.customer_applicability == 'Specific Customer'",
+      "description": "Specific customer this rule applies to"
+    },
+    {
+      "fieldname": "column_break_customer_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer_group",
+      "fieldtype": "Link",
+      "label": "Customer Group",
+      "options": "Customer Group",
+      "depends_on": "eval:doc.customer_applicability == 'Customer Group'",
+      "mandatory_depends_on": "eval:doc.customer_applicability == 'Customer Group'",
+      "description": "Customer group this rule applies to"
+    },
+    {
+      "fieldname": "territory",
+      "fieldtype": "Link",
+      "label": "Territory",
+      "options": "Territory",
+      "depends_on": "eval:doc.customer_applicability == 'Territory'",
+      "mandatory_depends_on": "eval:doc.customer_applicability == 'Territory'",
+      "description": "Territory this rule applies to"
+    },
+    {
+      "fieldname": "customer_type",
+      "fieldtype": "Select",
+      "label": "Customer Type",
+      "options": "\nB2B\nB2C\nWholesale\nRetail\nDistributor\nDealer\nReseller\nEnd User",
+      "depends_on": "eval:doc.customer_applicability == 'Customer Type'",
+      "mandatory_depends_on": "eval:doc.customer_applicability == 'Customer Type'",
+      "description": "Type of customer this rule applies to"
+    },
+    {
+      "fieldname": "section_break_channel_scope",
+      "fieldtype": "Section Break",
+      "label": "Channel Scope"
+    },
+    {
+      "fieldname": "apply_to_channels",
+      "fieldtype": "Select",
+      "label": "Apply to Channels",
+      "options": "All Channels\nSpecific Channel",
+      "default": "All Channels",
+      "description": "Channels this rule applies to"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "depends_on": "eval:doc.apply_to_channels == 'Specific Channel'",
+      "mandatory_depends_on": "eval:doc.apply_to_channels == 'Specific Channel'",
+      "description": "Specific sales channel this rule applies to"
+    },
+    {
+      "fieldname": "tab_conditions",
+      "fieldtype": "Tab Break",
+      "label": "Conditions"
+    },
+    {
+      "fieldname": "section_break_quantity_conditions",
+      "fieldtype": "Section Break",
+      "label": "Quantity Conditions"
+    },
+    {
+      "fieldname": "has_quantity_condition",
+      "fieldtype": "Check",
+      "label": "Has Quantity Condition",
+      "default": 0,
+      "description": "Apply based on quantity purchased"
+    },
+    {
+      "fieldname": "min_quantity",
+      "fieldtype": "Float",
+      "label": "Minimum Quantity",
+      "depends_on": "eval:doc.has_quantity_condition",
+      "description": "Minimum quantity required to trigger this rule"
+    },
+    {
+      "fieldname": "max_quantity",
+      "fieldtype": "Float",
+      "label": "Maximum Quantity",
+      "depends_on": "eval:doc.has_quantity_condition",
+      "description": "Maximum quantity this rule applies to (blank = unlimited)"
+    },
+    {
+      "fieldname": "column_break_quantity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quantity_uom",
+      "fieldtype": "Link",
+      "label": "Quantity UOM",
+      "options": "UOM",
+      "depends_on": "eval:doc.has_quantity_condition",
+      "description": "Unit of measure for quantity conditions"
+    },
+    {
+      "fieldname": "quantity_type",
+      "fieldtype": "Select",
+      "label": "Quantity Type",
+      "options": "Per Item\nPer Transaction\nPer Order",
+      "default": "Per Item",
+      "depends_on": "eval:doc.has_quantity_condition",
+      "description": "How quantity is calculated"
+    },
+    {
+      "fieldname": "section_break_value_conditions",
+      "fieldtype": "Section Break",
+      "label": "Value Conditions"
+    },
+    {
+      "fieldname": "has_value_condition",
+      "fieldtype": "Check",
+      "label": "Has Value Condition",
+      "default": 0,
+      "description": "Apply based on order/item value"
+    },
+    {
+      "fieldname": "min_value",
+      "fieldtype": "Currency",
+      "label": "Minimum Value",
+      "depends_on": "eval:doc.has_value_condition",
+      "description": "Minimum value required to trigger this rule"
+    },
+    {
+      "fieldname": "max_value",
+      "fieldtype": "Currency",
+      "label": "Maximum Value",
+      "depends_on": "eval:doc.has_value_condition",
+      "description": "Maximum value this rule applies to (blank = unlimited)"
+    },
+    {
+      "fieldname": "column_break_value",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "value_type",
+      "fieldtype": "Select",
+      "label": "Value Type",
+      "options": "Item Value\nOrder Value\nCart Value",
+      "default": "Item Value",
+      "depends_on": "eval:doc.has_value_condition",
+      "description": "How value is calculated"
+    },
+    {
+      "fieldname": "section_break_time_conditions",
+      "fieldtype": "Section Break",
+      "label": "Time-Based Conditions"
+    },
+    {
+      "fieldname": "has_time_condition",
+      "fieldtype": "Check",
+      "label": "Has Time Condition",
+      "default": 0,
+      "description": "Apply only during specific times"
+    },
+    {
+      "fieldname": "valid_days",
+      "fieldtype": "MultiSelect",
+      "label": "Valid Days",
+      "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+      "depends_on": "eval:doc.has_time_condition",
+      "description": "Days of the week this rule applies"
+    },
+    {
+      "fieldname": "column_break_time",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "valid_from_time",
+      "fieldtype": "Time",
+      "label": "Valid From Time",
+      "depends_on": "eval:doc.has_time_condition",
+      "description": "Start time for rule applicability"
+    },
+    {
+      "fieldname": "valid_to_time",
+      "fieldtype": "Time",
+      "label": "Valid To Time",
+      "depends_on": "eval:doc.has_time_condition",
+      "description": "End time for rule applicability"
+    },
+    {
+      "fieldname": "section_break_other_conditions",
+      "fieldtype": "Section Break",
+      "label": "Other Conditions",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "requires_coupon",
+      "fieldtype": "Check",
+      "label": "Requires Coupon Code",
+      "default": 0,
+      "description": "Rule requires a coupon code to apply"
+    },
+    {
+      "fieldname": "coupon_code",
+      "fieldtype": "Data",
+      "label": "Coupon Code",
+      "depends_on": "eval:doc.requires_coupon",
+      "mandatory_depends_on": "eval:doc.requires_coupon",
+      "description": "Required coupon code"
+    },
+    {
+      "fieldname": "column_break_other",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "first_order_only",
+      "fieldtype": "Check",
+      "label": "First Order Only",
+      "default": 0,
+      "description": "Apply only to customer's first order"
+    },
+    {
+      "fieldname": "max_usage_count",
+      "fieldtype": "Int",
+      "label": "Max Usage Count",
+      "default": 0,
+      "description": "Maximum number of times rule can be used (0 = unlimited)"
+    },
+    {
+      "fieldname": "max_usage_per_customer",
+      "fieldtype": "Int",
+      "label": "Max Usage Per Customer",
+      "default": 0,
+      "description": "Maximum times per customer (0 = unlimited)"
+    },
+    {
+      "fieldname": "tab_pricing",
+      "fieldtype": "Tab Break",
+      "label": "Pricing Action"
+    },
+    {
+      "fieldname": "pricing_action",
+      "fieldtype": "Select",
+      "label": "Pricing Action",
+      "reqd": 1,
+      "options": "Discount Percentage\nFixed Discount\nFixed Price\nPrice Markup\nMarkup Percentage\nFree Items\nBuy X Get Y",
+      "default": "Discount Percentage",
+      "in_standard_filter": 1,
+      "description": "Type of pricing adjustment"
+    },
+    {
+      "fieldname": "discount_percentage",
+      "fieldtype": "Percent",
+      "label": "Discount Percentage",
+      "depends_on": "eval:doc.pricing_action == 'Discount Percentage'",
+      "mandatory_depends_on": "eval:doc.pricing_action == 'Discount Percentage'",
+      "description": "Percentage discount to apply"
+    },
+    {
+      "fieldname": "fixed_discount",
+      "fieldtype": "Currency",
+      "label": "Fixed Discount Amount",
+      "depends_on": "eval:doc.pricing_action == 'Fixed Discount'",
+      "mandatory_depends_on": "eval:doc.pricing_action == 'Fixed Discount'",
+      "description": "Fixed amount to discount"
+    },
+    {
+      "fieldname": "column_break_pricing_action",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "fixed_price",
+      "fieldtype": "Currency",
+      "label": "Fixed Price",
+      "depends_on": "eval:doc.pricing_action == 'Fixed Price'",
+      "mandatory_depends_on": "eval:doc.pricing_action == 'Fixed Price'",
+      "description": "Fixed price to set"
+    },
+    {
+      "fieldname": "markup_percentage",
+      "fieldtype": "Percent",
+      "label": "Markup Percentage",
+      "depends_on": "eval:doc.pricing_action == 'Markup Percentage'",
+      "mandatory_depends_on": "eval:doc.pricing_action == 'Markup Percentage'",
+      "description": "Percentage markup to apply"
+    },
+    {
+      "fieldname": "price_markup",
+      "fieldtype": "Currency",
+      "label": "Price Markup Amount",
+      "depends_on": "eval:doc.pricing_action == 'Price Markup'",
+      "mandatory_depends_on": "eval:doc.pricing_action == 'Price Markup'",
+      "description": "Fixed amount to add to price"
+    },
+    {
+      "fieldname": "section_break_free_items",
+      "fieldtype": "Section Break",
+      "label": "Free Items / BOGO",
+      "depends_on": "eval:['Free Items', 'Buy X Get Y'].includes(doc.pricing_action)"
+    },
+    {
+      "fieldname": "buy_quantity",
+      "fieldtype": "Int",
+      "label": "Buy Quantity",
+      "depends_on": "eval:doc.pricing_action == 'Buy X Get Y'",
+      "description": "Quantity customer must buy"
+    },
+    {
+      "fieldname": "get_quantity",
+      "fieldtype": "Int",
+      "label": "Get Quantity",
+      "depends_on": "eval:['Free Items', 'Buy X Get Y'].includes(doc.pricing_action)",
+      "description": "Quantity customer gets free or at discount"
+    },
+    {
+      "fieldname": "column_break_free",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "free_item_product",
+      "fieldtype": "Link",
+      "label": "Free Item Product",
+      "options": "Product Master",
+      "depends_on": "eval:['Free Items', 'Buy X Get Y'].includes(doc.pricing_action)",
+      "description": "Specific product for free items (blank = same product)"
+    },
+    {
+      "fieldname": "free_item_discount",
+      "fieldtype": "Percent",
+      "label": "Free Item Discount %",
+      "default": 100,
+      "depends_on": "eval:['Free Items', 'Buy X Get Y'].includes(doc.pricing_action)",
+      "description": "Discount on free items (100% = completely free)"
+    },
+    {
+      "fieldname": "section_break_limits",
+      "fieldtype": "Section Break",
+      "label": "Discount Limits"
+    },
+    {
+      "fieldname": "max_discount_amount",
+      "fieldtype": "Currency",
+      "label": "Maximum Discount Amount",
+      "description": "Cap on total discount amount (blank = no limit)"
+    },
+    {
+      "fieldname": "max_discount_percentage",
+      "fieldtype": "Percent",
+      "label": "Maximum Discount %",
+      "description": "Cap on discount percentage (blank = no limit)"
+    },
+    {
+      "fieldname": "column_break_limits",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_margin_percentage",
+      "fieldtype": "Percent",
+      "label": "Minimum Margin %",
+      "description": "Ensure minimum profit margin is maintained"
+    },
+    {
+      "fieldname": "round_to",
+      "fieldtype": "Float",
+      "label": "Round To",
+      "description": "Round final price to nearest value (e.g., 0.99, 0.50)"
+    },
+    {
+      "fieldname": "tab_validity",
+      "fieldtype": "Tab Break",
+      "label": "Validity"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Date from which this rule is active"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "Date until which this rule is active"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nPaused\nExpired\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the pricing rule"
+    },
+    {
+      "fieldname": "auto_expire",
+      "fieldtype": "Check",
+      "label": "Auto Expire",
+      "default": 1,
+      "description": "Automatically set status to Expired when valid_to date passes"
+    },
+    {
+      "fieldname": "section_break_usage",
+      "fieldtype": "Section Break",
+      "label": "Usage Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "usage_count",
+      "fieldtype": "Int",
+      "label": "Usage Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this rule has been applied"
+    },
+    {
+      "fieldname": "total_discount_given",
+      "fieldtype": "Currency",
+      "label": "Total Discount Given",
+      "default": 0,
+      "read_only": 1,
+      "description": "Total amount discounted through this rule"
+    },
+    {
+      "fieldname": "column_break_usage",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_used_date",
+      "fieldtype": "Date",
+      "label": "Last Used Date",
+      "read_only": 1,
+      "description": "Date when this rule was last applied"
+    },
+    {
+      "fieldname": "unique_customers",
+      "fieldtype": "Int",
+      "label": "Unique Customers",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of unique customers who used this rule"
+    },
+    {
+      "fieldname": "tab_combinations",
+      "fieldtype": "Tab Break",
+      "label": "Combinations"
+    },
+    {
+      "fieldname": "can_combine",
+      "fieldtype": "Check",
+      "label": "Can Combine with Other Rules",
+      "default": 1,
+      "description": "Allow this rule to be combined with other pricing rules"
+    },
+    {
+      "fieldname": "combination_mode",
+      "fieldtype": "Select",
+      "label": "Combination Mode",
+      "options": "Apply All\nApply Best\nApply First Match\nApply Sequentially",
+      "default": "Apply Best",
+      "depends_on": "eval:doc.can_combine",
+      "description": "How to combine with other applicable rules"
+    },
+    {
+      "fieldname": "column_break_combinations",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "exclusive_rule",
+      "fieldtype": "Check",
+      "label": "Exclusive Rule",
+      "default": 0,
+      "description": "If applied, no other rules can be applied"
+    },
+    {
+      "fieldname": "exclude_from_combined",
+      "fieldtype": "Check",
+      "label": "Exclude from Combined Discounts",
+      "default": 0,
+      "description": "Products with this rule cannot receive additional discounts"
+    },
+    {
+      "fieldname": "section_break_exclusions",
+      "fieldtype": "Section Break",
+      "label": "Rule Exclusions",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "exclude_rule_types",
+      "fieldtype": "MultiSelect",
+      "label": "Exclude Rule Types",
+      "options": "Campaign\nDealer\nWholesale\nRetail\nPromotional\nSeasonal\nVolume Discount\nBundle\nLoyalty\nClearance\nNew Customer\nCustomer Specific\nChannel Specific\nOther",
+      "description": "Rule types that cannot be combined with this rule"
+    },
+    {
+      "fieldname": "tab_notes",
+      "fieldtype": "Tab Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Internal notes about this pricing rule (not visible to customers)"
+    },
+    {
+      "fieldname": "section_break_terms",
+      "fieldtype": "Section Break",
+      "label": "Terms & Conditions"
+    },
+    {
+      "fieldname": "terms_and_conditions",
+      "fieldtype": "Text Editor",
+      "label": "Terms & Conditions",
+      "translatable": 1,
+      "description": "Terms and conditions for this pricing rule"
+    },
+    {
+      "fieldname": "display_message",
+      "fieldtype": "Data",
+      "label": "Display Message",
+      "translatable": 1,
+      "description": "Message to display when rule is applied"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "tab_basic",
+    "rule_name",
+    "rule_code",
+    "column_break_basic",
+    "rule_type",
+    "enabled",
+    "priority",
+    "section_break_description",
+    "description",
+    "tab_applicability",
+    "section_break_product_scope",
+    "apply_to",
+    "product_master",
+    "product_variant",
+    "column_break_product_scope",
+    "product_family",
+    "product_category",
+    "brand",
+    "product_collection",
+    "product_series",
+    "package_variant",
+    "section_break_customer_scope",
+    "customer_applicability",
+    "customer",
+    "column_break_customer_scope",
+    "customer_group",
+    "territory",
+    "customer_type",
+    "section_break_channel_scope",
+    "apply_to_channels",
+    "channel",
+    "tab_conditions",
+    "section_break_quantity_conditions",
+    "has_quantity_condition",
+    "min_quantity",
+    "max_quantity",
+    "column_break_quantity",
+    "quantity_uom",
+    "quantity_type",
+    "section_break_value_conditions",
+    "has_value_condition",
+    "min_value",
+    "max_value",
+    "column_break_value",
+    "value_type",
+    "section_break_time_conditions",
+    "has_time_condition",
+    "valid_days",
+    "column_break_time",
+    "valid_from_time",
+    "valid_to_time",
+    "section_break_other_conditions",
+    "requires_coupon",
+    "coupon_code",
+    "column_break_other",
+    "first_order_only",
+    "max_usage_count",
+    "max_usage_per_customer",
+    "tab_pricing",
+    "pricing_action",
+    "discount_percentage",
+    "fixed_discount",
+    "column_break_pricing_action",
+    "fixed_price",
+    "markup_percentage",
+    "price_markup",
+    "section_break_free_items",
+    "buy_quantity",
+    "get_quantity",
+    "column_break_free",
+    "free_item_product",
+    "free_item_discount",
+    "section_break_limits",
+    "max_discount_amount",
+    "max_discount_percentage",
+    "column_break_limits",
+    "min_margin_percentage",
+    "round_to",
+    "tab_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "status",
+    "auto_expire",
+    "section_break_usage",
+    "usage_count",
+    "total_discount_given",
+    "column_break_usage",
+    "last_used_date",
+    "unique_customers",
+    "tab_combinations",
+    "can_combine",
+    "combination_mode",
+    "column_break_combinations",
+    "exclusive_rule",
+    "exclude_from_combined",
+    "section_break_exclusions",
+    "exclude_rule_types",
+    "tab_notes",
+    "internal_notes",
+    "section_break_terms",
+    "terms_and_conditions",
+    "display_message"
+  ]
+}

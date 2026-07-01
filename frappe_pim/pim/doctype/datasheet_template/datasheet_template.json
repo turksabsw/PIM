@@ -1,0 +1,880 @@
+{
+  "doctype": "DocType",
+  "name": "Datasheet Template",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:template_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "sort_order",
+  "sort_order": "ASC",
+  "description": "Template for generating product datasheets with customizable layouts",
+
+  "fields": [
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for this datasheet template"
+    },
+    {
+      "fieldname": "template_code",
+      "fieldtype": "Data",
+      "label": "Template Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: standard_datasheet, technical_spec"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this template"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Default Template",
+      "default": 0,
+      "description": "Use as the default template for datasheet generation"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Order in which templates appear (lower = first)"
+    },
+
+    {
+      "fieldname": "section_break_page",
+      "fieldtype": "Section Break",
+      "label": "Page Layout"
+    },
+    {
+      "fieldname": "page_size",
+      "fieldtype": "Select",
+      "label": "Page Size",
+      "options": "A4\nLetter\nLegal\nA3\nA5\nCustom",
+      "default": "A4",
+      "in_list_view": 1,
+      "description": "Paper size for the datasheet"
+    },
+    {
+      "fieldname": "page_orientation",
+      "fieldtype": "Select",
+      "label": "Page Orientation",
+      "options": "Portrait\nLandscape",
+      "default": "Portrait",
+      "description": "Page orientation (portrait or landscape)"
+    },
+    {
+      "fieldname": "column_break_page",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "custom_width_mm",
+      "fieldtype": "Float",
+      "label": "Custom Width (mm)",
+      "depends_on": "eval:doc.page_size === 'Custom'",
+      "description": "Custom page width in millimeters"
+    },
+    {
+      "fieldname": "custom_height_mm",
+      "fieldtype": "Float",
+      "label": "Custom Height (mm)",
+      "depends_on": "eval:doc.page_size === 'Custom'",
+      "description": "Custom page height in millimeters"
+    },
+    {
+      "fieldname": "columns",
+      "fieldtype": "Select",
+      "label": "Columns",
+      "options": "1\n2\n3",
+      "default": "1",
+      "description": "Number of content columns per page"
+    },
+
+    {
+      "fieldname": "section_break_margins",
+      "fieldtype": "Section Break",
+      "label": "Margins",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "margin_top_mm",
+      "fieldtype": "Float",
+      "label": "Top Margin (mm)",
+      "default": 15,
+      "description": "Top margin in millimeters"
+    },
+    {
+      "fieldname": "margin_bottom_mm",
+      "fieldtype": "Float",
+      "label": "Bottom Margin (mm)",
+      "default": 15,
+      "description": "Bottom margin in millimeters"
+    },
+    {
+      "fieldname": "column_break_margins",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "margin_left_mm",
+      "fieldtype": "Float",
+      "label": "Left Margin (mm)",
+      "default": 15,
+      "description": "Left margin in millimeters"
+    },
+    {
+      "fieldname": "margin_right_mm",
+      "fieldtype": "Float",
+      "label": "Right Margin (mm)",
+      "default": 15,
+      "description": "Right margin in millimeters"
+    },
+
+    {
+      "fieldname": "section_break_header",
+      "fieldtype": "Section Break",
+      "label": "Header Configuration"
+    },
+    {
+      "fieldname": "show_header",
+      "fieldtype": "Check",
+      "label": "Show Header",
+      "default": 1,
+      "description": "Display header on each page"
+    },
+    {
+      "fieldname": "header_logo",
+      "fieldtype": "Attach Image",
+      "label": "Header Logo",
+      "depends_on": "eval:doc.show_header",
+      "description": "Company logo for the header"
+    },
+    {
+      "fieldname": "header_logo_position",
+      "fieldtype": "Select",
+      "label": "Logo Position",
+      "options": "Left\nCenter\nRight",
+      "default": "Left",
+      "depends_on": "eval:doc.show_header && doc.header_logo",
+      "description": "Position of the logo in header"
+    },
+    {
+      "fieldname": "column_break_header",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "header_logo_width_mm",
+      "fieldtype": "Float",
+      "label": "Logo Width (mm)",
+      "default": 40,
+      "depends_on": "eval:doc.show_header && doc.header_logo",
+      "description": "Width of the header logo"
+    },
+    {
+      "fieldname": "header_text",
+      "fieldtype": "Data",
+      "label": "Header Text",
+      "depends_on": "eval:doc.show_header",
+      "translatable": 1,
+      "description": "Optional text to display in header. Use {company} for company name"
+    },
+    {
+      "fieldname": "header_height_mm",
+      "fieldtype": "Float",
+      "label": "Header Height (mm)",
+      "default": 20,
+      "depends_on": "eval:doc.show_header",
+      "description": "Height of the header area"
+    },
+
+    {
+      "fieldname": "section_break_footer",
+      "fieldtype": "Section Break",
+      "label": "Footer Configuration"
+    },
+    {
+      "fieldname": "show_footer",
+      "fieldtype": "Check",
+      "label": "Show Footer",
+      "default": 1,
+      "description": "Display footer on each page"
+    },
+    {
+      "fieldname": "show_page_numbers",
+      "fieldtype": "Check",
+      "label": "Show Page Numbers",
+      "default": 1,
+      "depends_on": "eval:doc.show_footer",
+      "description": "Display page numbers in footer"
+    },
+    {
+      "fieldname": "page_number_format",
+      "fieldtype": "Select",
+      "label": "Page Number Format",
+      "options": "Page X\nPage X of Y\nX/Y\nX",
+      "default": "Page X of Y",
+      "depends_on": "eval:doc.show_footer && doc.show_page_numbers",
+      "description": "Format for page numbers"
+    },
+    {
+      "fieldname": "column_break_footer",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "footer_text",
+      "fieldtype": "Data",
+      "label": "Footer Text",
+      "depends_on": "eval:doc.show_footer",
+      "translatable": 1,
+      "description": "Optional text for footer. Use {date} for current date, {product_code} for product code"
+    },
+    {
+      "fieldname": "show_generation_date",
+      "fieldtype": "Check",
+      "label": "Show Generation Date",
+      "default": 1,
+      "depends_on": "eval:doc.show_footer",
+      "description": "Display document generation date in footer"
+    },
+    {
+      "fieldname": "footer_height_mm",
+      "fieldtype": "Float",
+      "label": "Footer Height (mm)",
+      "default": 15,
+      "depends_on": "eval:doc.show_footer",
+      "description": "Height of the footer area"
+    },
+
+    {
+      "fieldname": "section_break_product_header",
+      "fieldtype": "Section Break",
+      "label": "Product Header Section"
+    },
+    {
+      "fieldname": "show_product_header",
+      "fieldtype": "Check",
+      "label": "Show Product Header",
+      "default": 1,
+      "description": "Display product name and code as a header section"
+    },
+    {
+      "fieldname": "product_header_style",
+      "fieldtype": "Select",
+      "label": "Header Style",
+      "options": "Simple\nBanner\nCentered\nSidebar",
+      "default": "Simple",
+      "depends_on": "eval:doc.show_product_header",
+      "description": "Visual style for the product header"
+    },
+    {
+      "fieldname": "show_product_code",
+      "fieldtype": "Check",
+      "label": "Show Product Code",
+      "default": 1,
+      "depends_on": "eval:doc.show_product_header",
+      "description": "Display product code/SKU in header"
+    },
+    {
+      "fieldname": "column_break_product_header",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_product_status",
+      "fieldtype": "Check",
+      "label": "Show Product Status",
+      "default": 0,
+      "depends_on": "eval:doc.show_product_header",
+      "description": "Display product status badge"
+    },
+    {
+      "fieldname": "show_barcode",
+      "fieldtype": "Check",
+      "label": "Show Barcode",
+      "default": 1,
+      "depends_on": "eval:doc.show_product_header",
+      "description": "Display product barcode (GTIN/EAN)"
+    },
+    {
+      "fieldname": "barcode_type",
+      "fieldtype": "Select",
+      "label": "Barcode Type",
+      "options": "EAN-13\nUPC-A\nCode 128\nQR Code",
+      "default": "EAN-13",
+      "depends_on": "eval:doc.show_product_header && doc.show_barcode",
+      "description": "Type of barcode to generate"
+    },
+
+    {
+      "fieldname": "section_break_images",
+      "fieldtype": "Section Break",
+      "label": "Product Images Section"
+    },
+    {
+      "fieldname": "show_images",
+      "fieldtype": "Check",
+      "label": "Show Product Images",
+      "default": 1,
+      "description": "Include product images in the datasheet"
+    },
+    {
+      "fieldname": "image_layout",
+      "fieldtype": "Select",
+      "label": "Image Layout",
+      "options": "Single Large\nGrid 2x2\nGallery Strip\nMain with Thumbnails",
+      "default": "Main with Thumbnails",
+      "depends_on": "eval:doc.show_images",
+      "description": "How to arrange product images"
+    },
+    {
+      "fieldname": "max_images",
+      "fieldtype": "Int",
+      "label": "Maximum Images",
+      "default": 4,
+      "depends_on": "eval:doc.show_images",
+      "description": "Maximum number of images to include"
+    },
+    {
+      "fieldname": "column_break_images",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "main_image_width_percent",
+      "fieldtype": "Percent",
+      "label": "Main Image Width (%)",
+      "default": 40,
+      "depends_on": "eval:doc.show_images",
+      "description": "Width of main image as percentage of content area"
+    },
+    {
+      "fieldname": "image_border",
+      "fieldtype": "Check",
+      "label": "Show Image Border",
+      "default": 0,
+      "depends_on": "eval:doc.show_images",
+      "description": "Add border around images"
+    },
+    {
+      "fieldname": "image_caption",
+      "fieldtype": "Check",
+      "label": "Show Image Captions",
+      "default": 0,
+      "depends_on": "eval:doc.show_images",
+      "description": "Display captions below images"
+    },
+
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description Section"
+    },
+    {
+      "fieldname": "show_description",
+      "fieldtype": "Check",
+      "label": "Show Description",
+      "default": 1,
+      "description": "Include product description"
+    },
+    {
+      "fieldname": "description_heading",
+      "fieldtype": "Data",
+      "label": "Description Heading",
+      "default": "Product Description",
+      "depends_on": "eval:doc.show_description",
+      "translatable": 1,
+      "description": "Heading text for description section"
+    },
+    {
+      "fieldname": "column_break_description",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "truncate_description",
+      "fieldtype": "Check",
+      "label": "Truncate Long Description",
+      "default": 0,
+      "depends_on": "eval:doc.show_description",
+      "description": "Truncate description if too long"
+    },
+    {
+      "fieldname": "max_description_chars",
+      "fieldtype": "Int",
+      "label": "Max Description Characters",
+      "default": 1000,
+      "depends_on": "eval:doc.show_description && doc.truncate_description",
+      "description": "Maximum characters before truncation"
+    },
+
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Attributes Section"
+    },
+    {
+      "fieldname": "show_attributes",
+      "fieldtype": "Check",
+      "label": "Show Attributes",
+      "default": 1,
+      "description": "Include product attributes table"
+    },
+    {
+      "fieldname": "attributes_heading",
+      "fieldtype": "Data",
+      "label": "Attributes Heading",
+      "default": "Specifications",
+      "depends_on": "eval:doc.show_attributes",
+      "translatable": 1,
+      "description": "Heading text for attributes section"
+    },
+    {
+      "fieldname": "attributes_layout",
+      "fieldtype": "Select",
+      "label": "Attributes Layout",
+      "options": "Table\nTwo Column List\nGrouped by Category\nInline",
+      "default": "Table",
+      "depends_on": "eval:doc.show_attributes",
+      "description": "How to display attributes"
+    },
+    {
+      "fieldname": "column_break_attributes",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "attribute_selection",
+      "fieldtype": "Select",
+      "label": "Attribute Selection",
+      "options": "All Attributes\nSelected Attributes\nAttribute Groups",
+      "default": "All Attributes",
+      "depends_on": "eval:doc.show_attributes",
+      "description": "Which attributes to include"
+    },
+    {
+      "fieldname": "selected_attributes",
+      "fieldtype": "Small Text",
+      "label": "Selected Attributes",
+      "depends_on": "eval:doc.show_attributes && doc.attribute_selection === 'Selected Attributes'",
+      "description": "Comma-separated list of attribute codes to include"
+    },
+    {
+      "fieldname": "selected_attribute_groups",
+      "fieldtype": "Small Text",
+      "label": "Selected Attribute Groups",
+      "depends_on": "eval:doc.show_attributes && doc.attribute_selection === 'Attribute Groups'",
+      "description": "Comma-separated list of attribute group codes to include"
+    },
+    {
+      "fieldname": "hide_empty_attributes",
+      "fieldtype": "Check",
+      "label": "Hide Empty Attributes",
+      "default": 1,
+      "depends_on": "eval:doc.show_attributes",
+      "description": "Don't show attributes without values"
+    },
+
+    {
+      "fieldname": "section_break_dimensions",
+      "fieldtype": "Section Break",
+      "label": "Dimensions & Weight Section"
+    },
+    {
+      "fieldname": "show_dimensions",
+      "fieldtype": "Check",
+      "label": "Show Dimensions",
+      "default": 1,
+      "description": "Include product dimensions and weight"
+    },
+    {
+      "fieldname": "dimensions_heading",
+      "fieldtype": "Data",
+      "label": "Dimensions Heading",
+      "default": "Dimensions & Weight",
+      "depends_on": "eval:doc.show_dimensions",
+      "translatable": 1,
+      "description": "Heading for dimensions section"
+    },
+    {
+      "fieldname": "column_break_dimensions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_packaging_dimensions",
+      "fieldtype": "Check",
+      "label": "Show Packaging Dimensions",
+      "default": 0,
+      "depends_on": "eval:doc.show_dimensions",
+      "description": "Include package dimensions separately"
+    },
+    {
+      "fieldname": "dimension_units",
+      "fieldtype": "Select",
+      "label": "Dimension Units",
+      "options": "mm\ncm\nin",
+      "default": "mm",
+      "depends_on": "eval:doc.show_dimensions",
+      "description": "Units for dimension display"
+    },
+    {
+      "fieldname": "weight_units",
+      "fieldtype": "Select",
+      "label": "Weight Units",
+      "options": "g\nkg\nlb\noz",
+      "default": "kg",
+      "depends_on": "eval:doc.show_dimensions",
+      "description": "Units for weight display"
+    },
+
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing Section"
+    },
+    {
+      "fieldname": "show_pricing",
+      "fieldtype": "Check",
+      "label": "Show Pricing",
+      "default": 0,
+      "description": "Include product pricing information"
+    },
+    {
+      "fieldname": "pricing_heading",
+      "fieldtype": "Data",
+      "label": "Pricing Heading",
+      "default": "Pricing",
+      "depends_on": "eval:doc.show_pricing",
+      "translatable": 1,
+      "description": "Heading for pricing section"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "price_list",
+      "fieldtype": "Link",
+      "label": "Price List",
+      "options": "Price List",
+      "depends_on": "eval:doc.show_pricing",
+      "description": "Price list to use for pricing data"
+    },
+    {
+      "fieldname": "show_currency_symbol",
+      "fieldtype": "Check",
+      "label": "Show Currency Symbol",
+      "default": 1,
+      "depends_on": "eval:doc.show_pricing",
+      "description": "Display currency symbol with prices"
+    },
+
+    {
+      "fieldname": "section_break_gs1",
+      "fieldtype": "Section Break",
+      "label": "GS1/Compliance Section"
+    },
+    {
+      "fieldname": "show_gs1_info",
+      "fieldtype": "Check",
+      "label": "Show GS1 Information",
+      "default": 0,
+      "description": "Include GS1 identifiers (GTIN, GLN)"
+    },
+    {
+      "fieldname": "show_certifications",
+      "fieldtype": "Check",
+      "label": "Show Certifications",
+      "default": 0,
+      "description": "Include product certifications and compliance marks"
+    },
+    {
+      "fieldname": "column_break_gs1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_country_of_origin",
+      "fieldtype": "Check",
+      "label": "Show Country of Origin",
+      "default": 1,
+      "description": "Include country of origin information"
+    },
+    {
+      "fieldname": "show_manufacturer",
+      "fieldtype": "Check",
+      "label": "Show Manufacturer",
+      "default": 1,
+      "description": "Include manufacturer information"
+    },
+
+    {
+      "fieldname": "section_break_nutrition",
+      "fieldtype": "Section Break",
+      "label": "Nutrition/Allergen Section",
+      "description": "For food and consumable products"
+    },
+    {
+      "fieldname": "show_nutrition",
+      "fieldtype": "Check",
+      "label": "Show Nutrition Facts",
+      "default": 0,
+      "description": "Include nutrition information table"
+    },
+    {
+      "fieldname": "nutrition_style",
+      "fieldtype": "Select",
+      "label": "Nutrition Label Style",
+      "options": "US FDA\nEU\nSimple Table",
+      "default": "Simple Table",
+      "depends_on": "eval:doc.show_nutrition",
+      "description": "Style of nutrition label"
+    },
+    {
+      "fieldname": "column_break_nutrition",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_allergens",
+      "fieldtype": "Check",
+      "label": "Show Allergens",
+      "default": 0,
+      "description": "Include allergen information"
+    },
+    {
+      "fieldname": "show_ingredients",
+      "fieldtype": "Check",
+      "label": "Show Ingredients",
+      "default": 0,
+      "description": "Include ingredients list"
+    },
+
+    {
+      "fieldname": "section_break_styling",
+      "fieldtype": "Section Break",
+      "label": "Visual Styling"
+    },
+    {
+      "fieldname": "primary_color",
+      "fieldtype": "Color",
+      "label": "Primary Color",
+      "default": "#1F272E",
+      "description": "Primary accent color for headings and borders"
+    },
+    {
+      "fieldname": "secondary_color",
+      "fieldtype": "Color",
+      "label": "Secondary Color",
+      "default": "#5E64FF",
+      "description": "Secondary color for highlights"
+    },
+    {
+      "fieldname": "column_break_styling",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "heading_font",
+      "fieldtype": "Select",
+      "label": "Heading Font",
+      "options": "Helvetica\nArial\nTimes New Roman\nGeorgia\nOpen Sans\nRoboto",
+      "default": "Helvetica",
+      "description": "Font family for headings"
+    },
+    {
+      "fieldname": "body_font",
+      "fieldtype": "Select",
+      "label": "Body Font",
+      "options": "Helvetica\nArial\nTimes New Roman\nGeorgia\nOpen Sans\nRoboto",
+      "default": "Helvetica",
+      "description": "Font family for body text"
+    },
+    {
+      "fieldname": "base_font_size",
+      "fieldtype": "Int",
+      "label": "Base Font Size (pt)",
+      "default": 10,
+      "description": "Base font size in points"
+    },
+
+    {
+      "fieldname": "section_break_custom_css",
+      "fieldtype": "Section Break",
+      "label": "Custom Styling",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "custom_css",
+      "fieldtype": "Code",
+      "label": "Custom CSS",
+      "options": "CSS",
+      "description": "Custom CSS for advanced styling (optional)"
+    },
+    {
+      "fieldname": "custom_html_header",
+      "fieldtype": "Code",
+      "label": "Custom HTML Header",
+      "options": "HTML",
+      "description": "Custom HTML to inject at the top of the document"
+    },
+    {
+      "fieldname": "custom_html_footer",
+      "fieldtype": "Code",
+      "label": "Custom HTML Footer",
+      "options": "HTML",
+      "description": "Custom HTML to inject at the bottom of the document"
+    },
+
+    {
+      "fieldname": "section_break_output",
+      "fieldtype": "Section Break",
+      "label": "Output Settings"
+    },
+    {
+      "fieldname": "output_format",
+      "fieldtype": "Select",
+      "label": "Output Format",
+      "options": "PDF\nHTML",
+      "default": "PDF",
+      "description": "Primary output format for datasheets"
+    },
+    {
+      "fieldname": "filename_pattern",
+      "fieldtype": "Data",
+      "label": "Filename Pattern",
+      "default": "{product_code}_datasheet_{date}",
+      "description": "Pattern for generated filenames. Use {product_code}, {product_name}, {date}"
+    },
+    {
+      "fieldname": "column_break_output",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "include_watermark",
+      "fieldtype": "Check",
+      "label": "Include Watermark",
+      "default": 0,
+      "description": "Add watermark to generated documents"
+    },
+    {
+      "fieldname": "watermark_text",
+      "fieldtype": "Data",
+      "label": "Watermark Text",
+      "depends_on": "eval:doc.include_watermark",
+      "translatable": 1,
+      "description": "Text for watermark. Use {status} for product status"
+    },
+    {
+      "fieldname": "watermark_opacity",
+      "fieldtype": "Percent",
+      "label": "Watermark Opacity",
+      "default": 15,
+      "depends_on": "eval:doc.include_watermark",
+      "description": "Opacity of watermark (0-100)"
+    },
+
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Template Scope"
+    },
+    {
+      "fieldname": "apply_to_all_products",
+      "fieldtype": "Check",
+      "label": "Apply to All Products",
+      "default": 1,
+      "description": "This template can be used for any product"
+    },
+    {
+      "fieldname": "product_families",
+      "fieldtype": "Small Text",
+      "label": "Product Families",
+      "depends_on": "eval:!doc.apply_to_all_products",
+      "description": "Comma-separated list of product family codes this template applies to"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "channels",
+      "fieldtype": "Small Text",
+      "label": "Channels",
+      "depends_on": "eval:!doc.apply_to_all_products",
+      "description": "Comma-separated list of channel codes this template is designed for"
+    },
+    {
+      "fieldname": "brands",
+      "fieldtype": "Small Text",
+      "label": "Brands",
+      "depends_on": "eval:!doc.apply_to_all_products",
+      "description": "Comma-separated list of brand codes this template applies to"
+    },
+
+    {
+      "fieldname": "section_break_preview",
+      "fieldtype": "Section Break",
+      "label": "Preview"
+    },
+    {
+      "fieldname": "preview_product",
+      "fieldtype": "Link",
+      "label": "Preview Product",
+      "options": "Product Master",
+      "description": "Select a product to preview this template"
+    },
+    {
+      "fieldname": "last_preview",
+      "fieldtype": "Datetime",
+      "label": "Last Preview",
+      "read_only": 1,
+      "description": "When the template was last previewed"
+    },
+
+    {
+      "fieldname": "section_break_info",
+      "fieldtype": "Section Break",
+      "label": "Additional Information"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Internal notes about this template"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "doctype": "DocType",
+  "name": "Product Collection",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:collection_code",
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "collection_name",
+      "fieldtype": "Data",
+      "label": "Collection Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1
+    },
+    {
+      "fieldname": "collection_code",
+      "fieldtype": "Data",
+      "label": "Collection Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier. Example: summer-2026, premium-line"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "parent_collection",
+      "fieldtype": "Link",
+      "label": "Parent Collection",
+      "options": "Product Collection",
+      "in_standard_filter": 1,
+      "description": "Optional parent collection for nested grouping"
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Image",
+      "description": "Collection thumbnail or banner image"
+    },
+    {
+      "fieldname": "section_break_settings",
+      "fieldtype": "Section Break",
+      "label": "Settings"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "display_order",
+      "fieldtype": "Int",
+      "label": "Display Order",
+      "default": 0,
+      "description": "Lower numbers appear first in listings"
+    },
+    {
+      "fieldname": "column_break_settings",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Start date for seasonal or promotional collections"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "End date for seasonal or promotional collections"
+    },
+    {
+      "fieldname": "section_break_hierarchy",
+      "fieldtype": "Section Break",
+      "label": "Hierarchy Links"
+    },
+    {
+      "fieldname": "linked_family",
+      "fieldtype": "Link",
+      "label": "Linked Family",
+      "options": "Product Family",
+      "description": "Optional link to a product family for hierarchy organization"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "translatable": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ],
+  "field_order": [
+    "collection_name",
+    "collection_code",
+    "column_break_1",
+    "parent_collection",
+    "image",
+    "section_break_settings",
+    "is_active",
+    "display_order",
+    "column_break_settings",
+    "valid_from",
+    "valid_to",
+    "section_break_hierarchy",
+    "linked_family",
+    "section_break_description",
+    "description"
+  ]
+}

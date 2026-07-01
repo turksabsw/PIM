@@ -1,0 +1,62 @@
+{
+  "doctype": "DocType",
+  "name": "Node Attribute Suggestion",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "attribute",
+      "fieldtype": "Link",
+      "label": "Attribute",
+      "options": "PIM Attribute",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Suggested attribute for products in this taxonomy node"
+    },
+    {
+      "fieldname": "is_required",
+      "fieldtype": "Check",
+      "label": "Required",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "If checked, this attribute is mandatory for products in this node"
+    },
+    {
+      "fieldname": "default_value",
+      "fieldtype": "Data",
+      "label": "Default Value",
+      "in_list_view": 1,
+      "description": "Default value for this attribute (optional)"
+    },
+    {
+      "fieldname": "etim_feature_code",
+      "fieldtype": "Data",
+      "label": "ETIM Feature Code",
+      "description": "ETIM-specific feature code (for ETIM taxonomies)"
+    },
+    {
+      "fieldname": "etim_unit",
+      "fieldtype": "Data",
+      "label": "ETIM Unit",
+      "description": "Unit of measure for ETIM feature (e.g., mm, kg)"
+    },
+    {
+      "fieldname": "allowed_values",
+      "fieldtype": "Small Text",
+      "label": "Allowed Values",
+      "description": "Comma-separated list of allowed values (for ETIM or constrained attributes)"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Display order (lower = higher priority)"
+    }
+  ],
+
+  "permissions": []
+}

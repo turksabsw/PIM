@@ -1,0 +1,302 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Category Permission",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "hash",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "section_break_main",
+      "fieldtype": "Section Break",
+      "label": "Permission Details"
+    },
+    {
+      "fieldname": "category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Category",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The category this permission applies to"
+    },
+    {
+      "fieldname": "inherit_to_children",
+      "fieldtype": "Check",
+      "label": "Inherit to Children",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "If checked, this permission applies to all child categories"
+    },
+    {
+      "fieldname": "column_break_main",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Whether this permission is currently active"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 0,
+      "description": "Higher priority permissions override lower ones (0 = lowest)"
+    },
+    {
+      "fieldname": "section_break_subject",
+      "fieldtype": "Section Break",
+      "label": "Permission Subject (Who)"
+    },
+    {
+      "fieldname": "subject_type",
+      "fieldtype": "Select",
+      "label": "Subject Type",
+      "options": "Role\nUser\nUser Group",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "default": "Role",
+      "description": "What type of subject this permission applies to"
+    },
+    {
+      "fieldname": "role",
+      "fieldtype": "Link",
+      "label": "Role",
+      "options": "Role",
+      "depends_on": "eval:doc.subject_type=='Role'",
+      "mandatory_depends_on": "eval:doc.subject_type=='Role'",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The role this permission applies to"
+    },
+    {
+      "fieldname": "column_break_subject",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User",
+      "depends_on": "eval:doc.subject_type=='User'",
+      "mandatory_depends_on": "eval:doc.subject_type=='User'",
+      "in_standard_filter": 1,
+      "description": "The specific user this permission applies to"
+    },
+    {
+      "fieldname": "user_group",
+      "fieldtype": "Link",
+      "label": "User Group",
+      "options": "User Group",
+      "depends_on": "eval:doc.subject_type=='User Group'",
+      "mandatory_depends_on": "eval:doc.subject_type=='User Group'",
+      "description": "The user group this permission applies to"
+    },
+    {
+      "fieldname": "section_break_permissions",
+      "fieldtype": "Section Break",
+      "label": "Permission Types (What)"
+    },
+    {
+      "fieldname": "permission_read",
+      "fieldtype": "Check",
+      "label": "Read",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Can view products in this category"
+    },
+    {
+      "fieldname": "permission_write",
+      "fieldtype": "Check",
+      "label": "Write",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Can edit products in this category"
+    },
+    {
+      "fieldname": "permission_create",
+      "fieldtype": "Check",
+      "label": "Create",
+      "default": 0,
+      "description": "Can create new products in this category"
+    },
+    {
+      "fieldname": "column_break_permissions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "permission_delete",
+      "fieldtype": "Check",
+      "label": "Delete",
+      "default": 0,
+      "description": "Can delete products in this category"
+    },
+    {
+      "fieldname": "permission_export",
+      "fieldtype": "Check",
+      "label": "Export",
+      "default": 0,
+      "description": "Can export products in this category"
+    },
+    {
+      "fieldname": "permission_import",
+      "fieldtype": "Check",
+      "label": "Import",
+      "default": 0,
+      "description": "Can import products into this category"
+    },
+    {
+      "fieldname": "section_break_abac",
+      "fieldtype": "Section Break",
+      "label": "Attribute-Based Conditions (ABAC)",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "use_abac_conditions",
+      "fieldtype": "Check",
+      "label": "Use ABAC Conditions",
+      "default": 0,
+      "description": "Enable attribute-based access control conditions"
+    },
+    {
+      "fieldname": "condition_field",
+      "fieldtype": "Data",
+      "label": "Condition Field",
+      "depends_on": "eval:doc.use_abac_conditions==1",
+      "description": "Field name to evaluate for ABAC condition (e.g., 'status', 'brand')"
+    },
+    {
+      "fieldname": "condition_operator",
+      "fieldtype": "Select",
+      "label": "Condition Operator",
+      "options": "\n=\n!=\nin\nnot in\n>\n<\n>=\n<=\nis_set\nis_not_set",
+      "depends_on": "eval:doc.use_abac_conditions==1",
+      "description": "Comparison operator for the condition"
+    },
+    {
+      "fieldname": "column_break_abac",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "condition_value",
+      "fieldtype": "Data",
+      "label": "Condition Value",
+      "depends_on": "eval:doc.use_abac_conditions==1 && !['is_set', 'is_not_set'].includes(doc.condition_operator)",
+      "description": "Value to compare against (comma-separated for 'in' and 'not in')"
+    },
+    {
+      "fieldname": "custom_condition",
+      "fieldtype": "Code",
+      "label": "Custom Python Condition",
+      "depends_on": "eval:doc.use_abac_conditions==1",
+      "options": "Python",
+      "description": "Custom Python expression that evaluates to True/False. Available vars: doc, user, frappe"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Permission is active from this date (leave empty for no restriction)"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "Permission is active until this date (leave empty for no restriction)"
+    },
+    {
+      "fieldname": "section_break_raci",
+      "fieldtype": "Section Break",
+      "label": "RACI Framework",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "raci_role",
+      "fieldtype": "Select",
+      "label": "RACI Role",
+      "options": "\nResponsible\nAccountable\nConsulted\nInformed",
+      "description": "RACI framework role assignment"
+    },
+    {
+      "fieldname": "raci_description",
+      "fieldtype": "Small Text",
+      "label": "RACI Description",
+      "description": "Description of responsibilities for this RACI assignment"
+    },
+    {
+      "fieldname": "section_break_audit",
+      "fieldtype": "Section Break",
+      "label": "Audit Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "created_by_user",
+      "fieldtype": "Link",
+      "label": "Created By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who created this permission"
+    },
+    {
+      "fieldname": "approved_by",
+      "fieldtype": "Link",
+      "label": "Approved By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who approved this permission"
+    },
+    {
+      "fieldname": "column_break_audit",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "approval_date",
+      "fieldtype": "Datetime",
+      "label": "Approval Date",
+      "read_only": 1,
+      "description": "When this permission was approved"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Additional notes about this permission"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

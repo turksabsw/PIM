@@ -1,0 +1,1 @@
+# PIM Attribute DocType

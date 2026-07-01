@@ -1,0 +1,73 @@
+{
+  "doctype": "DocType",
+  "name": "Channel Locale",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "PIM Locale",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Supported locale for this channel"
+    },
+    {
+      "fieldname": "is_primary",
+      "fieldtype": "Check",
+      "label": "Is Primary",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Mark as primary locale for this channel"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this locale for the channel"
+    },
+    {
+      "fieldname": "content_required",
+      "fieldtype": "Check",
+      "label": "Content Required",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "If checked, products must have content in this locale to be channel-ready"
+    },
+    {
+      "fieldname": "fallback_locale",
+      "fieldtype": "Link",
+      "label": "Fallback Locale",
+      "options": "PIM Locale",
+      "description": "Locale to use when content is not available in this locale (channel-specific override)"
+    },
+    {
+      "fieldname": "min_completeness",
+      "fieldtype": "Percent",
+      "label": "Min Completeness",
+      "default": 0,
+      "description": "Minimum completeness percentage required for this locale (0 = use channel default)"
+    },
+    {
+      "fieldname": "export_priority",
+      "fieldtype": "Int",
+      "label": "Export Priority",
+      "default": 0,
+      "description": "Priority order for locale in exports (lower = first)"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Notes about this locale configuration for the channel"
+    }
+  ],
+
+  "permissions": []
+}

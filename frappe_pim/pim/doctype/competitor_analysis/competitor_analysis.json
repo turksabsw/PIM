@@ -1,0 +1,515 @@
+{
+  "doctype": "DocType",
+  "name": "Competitor Analysis",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "CA-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Brief title for this competitor analysis"
+    },
+    {
+      "fieldname": "competitor_name",
+      "fieldtype": "Data",
+      "label": "Competitor Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Name of the competitor company"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "analysis_status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "reqd": 1,
+      "options": "Draft\nIn Progress\nCompleted\nOutdated\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of this analysis"
+    },
+    {
+      "fieldname": "analysis_date",
+      "fieldtype": "Date",
+      "label": "Analysis Date",
+      "reqd": 1,
+      "default": "Today",
+      "in_list_view": 1,
+      "description": "Date when this analysis was conducted"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Information"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Our Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Our product being compared"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "in_standard_filter": 1,
+      "description": "Product family (auto-populated from product)"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Category",
+      "in_standard_filter": 1,
+      "description": "Product category for this comparison"
+    },
+    {
+      "fieldname": "market_segment",
+      "fieldtype": "Link",
+      "label": "Market Segment",
+      "options": "Target Segment",
+      "description": "Target market segment for this analysis"
+    },
+    {
+      "fieldname": "section_break_competitor_product",
+      "fieldtype": "Section Break",
+      "label": "Competitor Product Details"
+    },
+    {
+      "fieldname": "competitor_product_name",
+      "fieldtype": "Data",
+      "label": "Competitor Product Name",
+      "reqd": 1,
+      "description": "Name of the competitor's product"
+    },
+    {
+      "fieldname": "competitor_product_code",
+      "fieldtype": "Data",
+      "label": "Competitor Product Code",
+      "description": "Product code/SKU from competitor"
+    },
+    {
+      "fieldname": "competitor_brand",
+      "fieldtype": "Data",
+      "label": "Competitor Brand",
+      "description": "Brand name of competitor product"
+    },
+    {
+      "fieldname": "column_break_competitor_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "competitor_url",
+      "fieldtype": "Data",
+      "label": "Competitor Product URL",
+      "options": "URL",
+      "description": "Link to competitor product page"
+    },
+    {
+      "fieldname": "competitor_image",
+      "fieldtype": "Attach Image",
+      "label": "Competitor Product Image",
+      "description": "Image of competitor product for reference"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing Comparison"
+    },
+    {
+      "fieldname": "our_price",
+      "fieldtype": "Currency",
+      "label": "Our Price",
+      "description": "Our product's price"
+    },
+    {
+      "fieldname": "competitor_price",
+      "fieldtype": "Currency",
+      "label": "Competitor Price",
+      "description": "Competitor's product price"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "price_difference",
+      "fieldtype": "Currency",
+      "label": "Price Difference",
+      "read_only": 1,
+      "description": "Calculated: Our price - Competitor price"
+    },
+    {
+      "fieldname": "price_difference_percent",
+      "fieldtype": "Percent",
+      "label": "Price Difference %",
+      "read_only": 1,
+      "description": "Percentage difference from competitor"
+    },
+    {
+      "fieldname": "price_position",
+      "fieldtype": "Select",
+      "label": "Price Position",
+      "options": "\nHigher\nSimilar\nLower",
+      "description": "Our price position vs competitor"
+    },
+    {
+      "fieldname": "section_break_comparison",
+      "fieldtype": "Section Break",
+      "label": "Feature Comparison"
+    },
+    {
+      "fieldname": "comparison_summary",
+      "fieldtype": "Text Editor",
+      "label": "Comparison Summary",
+      "description": "Executive summary of the competitive comparison"
+    },
+    {
+      "fieldname": "section_break_strengths",
+      "fieldtype": "Section Break",
+      "label": "Strengths & Weaknesses"
+    },
+    {
+      "fieldname": "our_strengths",
+      "fieldtype": "Text Editor",
+      "label": "Our Strengths",
+      "description": "Areas where our product excels vs competitor"
+    },
+    {
+      "fieldname": "column_break_strengths",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "our_weaknesses",
+      "fieldtype": "Text Editor",
+      "label": "Our Weaknesses",
+      "description": "Areas where competitor product has advantage"
+    },
+    {
+      "fieldname": "section_break_competitor_strengths",
+      "fieldtype": "Section Break",
+      "label": "Competitor Analysis"
+    },
+    {
+      "fieldname": "competitor_strengths",
+      "fieldtype": "Text Editor",
+      "label": "Competitor Strengths",
+      "description": "Key strengths of competitor product"
+    },
+    {
+      "fieldname": "column_break_competitor_strengths",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "competitor_weaknesses",
+      "fieldtype": "Text Editor",
+      "label": "Competitor Weaknesses",
+      "description": "Key weaknesses of competitor product"
+    },
+    {
+      "fieldname": "section_break_features",
+      "fieldtype": "Section Break",
+      "label": "Feature Ratings",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "quality_rating_ours",
+      "fieldtype": "Rating",
+      "label": "Quality (Ours)",
+      "description": "Our product quality rating"
+    },
+    {
+      "fieldname": "quality_rating_competitor",
+      "fieldtype": "Rating",
+      "label": "Quality (Competitor)",
+      "description": "Competitor product quality rating"
+    },
+    {
+      "fieldname": "column_break_features_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "value_rating_ours",
+      "fieldtype": "Rating",
+      "label": "Value for Money (Ours)",
+      "description": "Our product value rating"
+    },
+    {
+      "fieldname": "value_rating_competitor",
+      "fieldtype": "Rating",
+      "label": "Value for Money (Competitor)",
+      "description": "Competitor product value rating"
+    },
+    {
+      "fieldname": "column_break_features_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "features_rating_ours",
+      "fieldtype": "Rating",
+      "label": "Features (Ours)",
+      "description": "Our product features rating"
+    },
+    {
+      "fieldname": "features_rating_competitor",
+      "fieldtype": "Rating",
+      "label": "Features (Competitor)",
+      "description": "Competitor product features rating"
+    },
+    {
+      "fieldname": "section_break_market",
+      "fieldtype": "Section Break",
+      "label": "Market Intelligence"
+    },
+    {
+      "fieldname": "market_share_ours",
+      "fieldtype": "Percent",
+      "label": "Our Market Share",
+      "description": "Estimated market share of our product"
+    },
+    {
+      "fieldname": "market_share_competitor",
+      "fieldtype": "Percent",
+      "label": "Competitor Market Share",
+      "description": "Estimated market share of competitor"
+    },
+    {
+      "fieldname": "column_break_market",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer_perception",
+      "fieldtype": "Select",
+      "label": "Customer Perception",
+      "options": "\nMuch Better\nBetter\nSimilar\nWorse\nMuch Worse",
+      "description": "How customers perceive our product vs competitor"
+    },
+    {
+      "fieldname": "competitive_threat_level",
+      "fieldtype": "Select",
+      "label": "Threat Level",
+      "options": "Low\nMedium\nHigh\nCritical",
+      "default": "Medium",
+      "in_standard_filter": 1,
+      "description": "Level of competitive threat"
+    },
+    {
+      "fieldname": "section_break_recommendations",
+      "fieldtype": "Section Break",
+      "label": "Recommendations"
+    },
+    {
+      "fieldname": "strategic_recommendations",
+      "fieldtype": "Text Editor",
+      "label": "Strategic Recommendations",
+      "description": "Recommended actions based on this analysis"
+    },
+    {
+      "fieldname": "action_items",
+      "fieldtype": "Small Text",
+      "label": "Action Items",
+      "description": "Specific action items to address competitive challenges"
+    },
+    {
+      "fieldname": "column_break_recommendations",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "priority_actions",
+      "fieldtype": "Select",
+      "label": "Priority Action",
+      "options": "\nPrice Adjustment\nFeature Enhancement\nMarketing Campaign\nProduct Redesign\nNo Immediate Action\nMonitor Only",
+      "description": "Primary recommended action"
+    },
+    {
+      "fieldname": "follow_up_date",
+      "fieldtype": "Date",
+      "label": "Follow-up Date",
+      "description": "When to revisit this analysis"
+    },
+    {
+      "fieldname": "section_break_sources",
+      "fieldtype": "Section Break",
+      "label": "Data Sources",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "data_sources",
+      "fieldtype": "Small Text",
+      "label": "Data Sources",
+      "description": "Sources of competitive intelligence (websites, reports, etc.)"
+    },
+    {
+      "fieldname": "source_reliability",
+      "fieldtype": "Select",
+      "label": "Source Reliability",
+      "options": "High\nMedium\nLow\nUnverified",
+      "default": "Medium",
+      "description": "Reliability of data sources"
+    },
+    {
+      "fieldname": "column_break_sources",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_verified_date",
+      "fieldtype": "Date",
+      "label": "Last Verified Date",
+      "description": "When competitor data was last verified"
+    },
+    {
+      "fieldname": "analyst",
+      "fieldtype": "Link",
+      "label": "Analyst",
+      "options": "User",
+      "description": "User who conducted this analysis"
+    },
+    {
+      "fieldname": "section_break_attachments",
+      "fieldtype": "Section Break",
+      "label": "Attachments",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Attach",
+      "label": "Attachments",
+      "description": "Supporting documents, screenshots, reports"
+    },
+    {
+      "fieldname": "section_break_internal",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Notes visible only to internal team"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "title",
+    "competitor_name",
+    "column_break_basic",
+    "analysis_status",
+    "analysis_date",
+    "section_break_product",
+    "linked_product",
+    "linked_product_family",
+    "column_break_product",
+    "linked_category",
+    "market_segment",
+    "section_break_competitor_product",
+    "competitor_product_name",
+    "competitor_product_code",
+    "competitor_brand",
+    "column_break_competitor_product",
+    "competitor_url",
+    "competitor_image",
+    "section_break_pricing",
+    "our_price",
+    "competitor_price",
+    "column_break_pricing",
+    "price_difference",
+    "price_difference_percent",
+    "price_position",
+    "section_break_comparison",
+    "comparison_summary",
+    "section_break_strengths",
+    "our_strengths",
+    "column_break_strengths",
+    "our_weaknesses",
+    "section_break_competitor_strengths",
+    "competitor_strengths",
+    "column_break_competitor_strengths",
+    "competitor_weaknesses",
+    "section_break_features",
+    "quality_rating_ours",
+    "quality_rating_competitor",
+    "column_break_features_1",
+    "value_rating_ours",
+    "value_rating_competitor",
+    "column_break_features_2",
+    "features_rating_ours",
+    "features_rating_competitor",
+    "section_break_market",
+    "market_share_ours",
+    "market_share_competitor",
+    "column_break_market",
+    "customer_perception",
+    "competitive_threat_level",
+    "section_break_recommendations",
+    "strategic_recommendations",
+    "action_items",
+    "column_break_recommendations",
+    "priority_actions",
+    "follow_up_date",
+    "section_break_sources",
+    "data_sources",
+    "source_reliability",
+    "column_break_sources",
+    "last_verified_date",
+    "analyst",
+    "section_break_attachments",
+    "attachments",
+    "section_break_internal",
+    "internal_notes",
+    "tags"
+  ]
+}

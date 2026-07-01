@@ -1,0 +1,277 @@
+{
+  "doctype": "DocType",
+  "name": "Social Media Link",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:link_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "sort_order",
+  "sort_order": "ASC",
+  "fields": [
+    {
+      "fieldname": "link_name",
+      "fieldtype": "Data",
+      "label": "Link Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for this social media link"
+    },
+    {
+      "fieldname": "link_code",
+      "fieldtype": "Data",
+      "label": "Link Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: facebook-main, instagram-shop"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "platform",
+      "fieldtype": "Select",
+      "label": "Platform",
+      "reqd": 1,
+      "options": "Facebook\nInstagram\nTwitter/X\nLinkedIn\nYouTube\nTikTok\nPinterest\nSnapchat\nWhatsApp\nTelegram\nWeChat\nLine\nReddit\nDiscord\nOther",
+      "default": "Facebook",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Social media platform"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this social media link"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Order in which links appear (lower = first)"
+    },
+    {
+      "fieldname": "section_break_url",
+      "fieldtype": "Section Break",
+      "label": "URL and Profile"
+    },
+    {
+      "fieldname": "url",
+      "fieldtype": "Data",
+      "label": "URL",
+      "reqd": 1,
+      "options": "URL",
+      "description": "Full URL to the social media profile or page"
+    },
+    {
+      "fieldname": "profile_handle",
+      "fieldtype": "Data",
+      "label": "Profile Handle",
+      "description": "Username or handle (without @). Example: mycompany"
+    },
+    {
+      "fieldname": "column_break_url",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "profile_id",
+      "fieldtype": "Data",
+      "label": "Profile/Page ID",
+      "description": "Platform-specific ID for API integration"
+    },
+    {
+      "fieldname": "follower_count",
+      "fieldtype": "Int",
+      "label": "Follower Count",
+      "description": "Number of followers (manually updated or via API)"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Association"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Linked Product",
+      "options": "Product Master",
+      "in_standard_filter": 1,
+      "description": "Product this social media link is associated with (optional)"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Linked Product Family",
+      "options": "Product Family",
+      "description": "Product family this social media link is associated with (optional)"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Linked Category",
+      "options": "Category",
+      "description": "Category this social media link is associated with (optional)"
+    },
+    {
+      "fieldname": "is_company_account",
+      "fieldtype": "Check",
+      "label": "Is Company Account",
+      "default": 0,
+      "description": "Check if this is a company-wide account (not product-specific)"
+    },
+    {
+      "fieldname": "section_break_tracking",
+      "fieldtype": "Section Break",
+      "label": "Tracking and Analytics"
+    },
+    {
+      "fieldname": "utm_source",
+      "fieldtype": "Data",
+      "label": "UTM Source",
+      "description": "UTM source parameter for tracking"
+    },
+    {
+      "fieldname": "utm_medium",
+      "fieldtype": "Data",
+      "label": "UTM Medium",
+      "description": "UTM medium parameter for tracking"
+    },
+    {
+      "fieldname": "utm_campaign",
+      "fieldtype": "Data",
+      "label": "UTM Campaign",
+      "description": "UTM campaign parameter for tracking"
+    },
+    {
+      "fieldname": "column_break_tracking",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_post_date",
+      "fieldtype": "Date",
+      "label": "Last Post Date",
+      "description": "Date of last post on this channel"
+    },
+    {
+      "fieldname": "engagement_rate",
+      "fieldtype": "Float",
+      "label": "Engagement Rate (%)",
+      "precision": 2,
+      "description": "Average engagement rate on this channel"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Status"
+    },
+    {
+      "fieldname": "verification_status",
+      "fieldtype": "Select",
+      "label": "Verification Status",
+      "options": "Not Verified\nVerified\nPending Verification\nVerification Failed",
+      "default": "Not Verified",
+      "in_list_view": 1,
+      "description": "Account verification status"
+    },
+    {
+      "fieldname": "last_verified_date",
+      "fieldtype": "Date",
+      "label": "Last Verified Date",
+      "read_only": 1,
+      "description": "When the link was last verified"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Error Message",
+      "read_only": 1,
+      "description": "Last error message if verification failed"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed notes about this social media link"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "link_name",
+    "link_code",
+    "column_break_basic",
+    "platform",
+    "enabled",
+    "sort_order",
+    "section_break_url",
+    "url",
+    "profile_handle",
+    "column_break_url",
+    "profile_id",
+    "follower_count",
+    "section_break_product",
+    "linked_product",
+    "linked_product_family",
+    "column_break_product",
+    "linked_category",
+    "is_company_account",
+    "section_break_tracking",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "column_break_tracking",
+    "last_post_date",
+    "engagement_rate",
+    "section_break_status",
+    "verification_status",
+    "last_verified_date",
+    "column_break_status",
+    "error_message",
+    "section_break_description",
+    "description"
+  ]
+}

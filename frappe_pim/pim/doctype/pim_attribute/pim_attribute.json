@@ -1,0 +1,235 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Attribute",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:attribute_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  
+  "fields": [
+    {
+      "fieldname": "attribute_name",
+      "fieldtype": "Data",
+      "label": "Attribute Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1
+    },
+    {
+      "fieldname": "attribute_code",
+      "fieldtype": "Data",
+      "label": "Attribute Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: color, size, material"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "attribute_group",
+      "fieldtype": "Link",
+      "label": "Attribute Group",
+      "options": "PIM Attribute Group",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "data_type",
+      "fieldtype": "Select",
+      "label": "Data Type",
+      "reqd": 1,
+      "options": "Text\nLong Text\nInteger\nFloat\nSelect\nMulti Select\nBoolean\nDate\nDatetime\nLink\nImage\nFile",
+      "default": "Text",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_break_options",
+      "fieldtype": "Section Break",
+      "label": "Options Configuration",
+      "depends_on": "eval:['Select', 'Multi Select'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "options",
+      "fieldtype": "Small Text",
+      "label": "Options",
+      "description": "Comma-separated values for Select/Multi Select. Example: Red, Blue, Green"
+    },
+    {
+      "fieldname": "section_break_link",
+      "fieldtype": "Section Break",
+      "label": "Link Configuration",
+      "depends_on": "eval:doc.data_type === 'Link'"
+    },
+    {
+      "fieldname": "linked_doctype",
+      "fieldtype": "Link",
+      "label": "Linked DocType",
+      "options": "DocType",
+      "mandatory_depends_on": "eval:doc.data_type === 'Link'"
+    },
+    {
+      "fieldname": "section_break_validation",
+      "fieldtype": "Section Break",
+      "label": "Validation Rules"
+    },
+    {
+      "fieldname": "is_required",
+      "fieldtype": "Check",
+      "label": "Is Required",
+      "default": 0
+    },
+    {
+      "fieldname": "is_unique",
+      "fieldtype": "Check",
+      "label": "Is Unique",
+      "default": 0
+    },
+    {
+      "fieldname": "column_break_validation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_value",
+      "fieldtype": "Float",
+      "label": "Minimum Value",
+      "depends_on": "eval:['Integer', 'Float'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "max_value",
+      "fieldtype": "Float",
+      "label": "Maximum Value",
+      "depends_on": "eval:['Integer', 'Float'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "max_length",
+      "fieldtype": "Int",
+      "label": "Max Length",
+      "depends_on": "eval:['Text', 'Long Text'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "value_prefix",
+      "fieldtype": "Data",
+      "label": "Value Prefix",
+      "description": "Text to display before value (e.g., 'min: ', 'max: ', 'from: ')",
+      "depends_on": "eval:['Integer', 'Float'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "value_suffix",
+      "fieldtype": "Data",
+      "label": "Value Suffix",
+      "description": "Text to display after value (e.g., ' GB', ' kg', ' cm')",
+      "depends_on": "eval:['Integer', 'Float'].includes(doc.data_type)"
+    },
+    {
+      "fieldname": "section_break_display",
+      "fieldtype": "Section Break",
+      "label": "Display Settings"
+    },
+    {
+      "fieldname": "is_filterable",
+      "fieldtype": "Check",
+      "label": "Is Filterable",
+      "description": "Show in filter panel",
+      "default": 0
+    },
+    {
+      "fieldname": "is_searchable",
+      "fieldtype": "Check",
+      "label": "Is Searchable",
+      "description": "Include in full-text search",
+      "default": 0
+    },
+    {
+      "fieldname": "column_break_display",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "show_in_grid",
+      "fieldtype": "Check",
+      "label": "Show in Grid View",
+      "default": 1
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0
+    },
+    {
+      "fieldname": "section_break_completeness",
+      "fieldtype": "Section Break",
+      "label": "Completeness Score"
+    },
+    {
+      "fieldname": "weight_in_completeness",
+      "fieldtype": "Int",
+      "label": "Weight in Completeness Score",
+      "description": "Higher weight = more impact on completeness score (0 = excluded)",
+      "default": 1
+    },
+    {
+      "fieldname": "section_break_localization",
+      "fieldtype": "Section Break",
+      "label": "Localization"
+    },
+    {
+      "fieldname": "is_localizable",
+      "fieldtype": "Check",
+      "label": "Is Localizable",
+      "description": "Can have different values per language",
+      "default": 0
+    },
+    {
+      "fieldname": "section_break_meta",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "is_standard",
+      "fieldtype": "Check",
+      "label": "Is Standard",
+      "description": "System attribute, cannot be deleted",
+      "default": 0,
+      "read_only": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
+    }
+  ],
+  
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

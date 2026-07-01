@@ -1,0 +1,93 @@
+{
+  "doctype": "DocType",
+  "name": "Product Translation Item",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "fields": [
+    {
+      "fieldname": "language",
+      "fieldtype": "Link",
+      "label": "Language",
+      "options": "Language",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Target language for this translation"
+    },
+    {
+      "fieldname": "field_name",
+      "fieldtype": "Select",
+      "label": "Field",
+      "options": "Product Name\nShort Description\nLong Description\nMeta Title\nMeta Description\nMeta Keywords\nMarketing Text\nTechnical Specifications\nUsage Instructions\nWarnings\nOther",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "The product field being translated"
+    },
+    {
+      "fieldname": "translated_value",
+      "fieldtype": "Text Editor",
+      "label": "Translated Value",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 4,
+      "description": "Translated content in the target language"
+    },
+    {
+      "fieldname": "is_verified",
+      "fieldtype": "Check",
+      "label": "Verified",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Mark as verified after professional review"
+    },
+    {
+      "fieldname": "translated_by",
+      "fieldtype": "Link",
+      "label": "Translated By",
+      "options": "User",
+      "description": "User who created or last updated this translation"
+    },
+    {
+      "fieldname": "verified_by",
+      "fieldtype": "Link",
+      "label": "Verified By",
+      "options": "User",
+      "depends_on": "eval:doc.is_verified",
+      "description": "User who verified this translation"
+    },
+    {
+      "fieldname": "verified_date",
+      "fieldtype": "Date",
+      "label": "Verified Date",
+      "depends_on": "eval:doc.is_verified",
+      "description": "Date when translation was verified"
+    },
+    {
+      "fieldname": "translation_source",
+      "fieldtype": "Select",
+      "label": "Translation Source",
+      "options": "\nManual\nMachine Translation\nProfessional Agency\nCommunity",
+      "description": "How this translation was created"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Additional notes about this translation"
+    }
+  ],
+  "field_order": [
+    "language",
+    "field_name",
+    "translated_value",
+    "is_verified",
+    "translated_by",
+    "verified_by",
+    "verified_date",
+    "translation_source",
+    "notes"
+  ]
+}

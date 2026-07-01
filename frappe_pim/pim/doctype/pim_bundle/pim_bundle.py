@@ -1,0 +1,412 @@
+"""
+PIM Bundle Controller
+Bundle master definition for product bundles (Static, Configurable, Dynamic, Build Your Own)
+"""
+
+import frappe
+from frappe import _
+from frappe.model.document import Document
+
+# Defer frappe import to function level for module import without Frappe context
+
+class PIMBundle(Document):
+
+        def validate(self):
+            self.validate_bundle_code()
+            self.validate_pricing()
+            self.validate_slots()
+            self.validate_validity_dates()
+            self.validate_bundle_rules()
+
+        def validate_bundle_code(self):
+            """Ensure bundle_code is URL-safe slug"""
+            if not self.bundle_code:
+                self.bundle_code = frappe.scrub(self.bundle_name)
+
+            if not re.match(r'^[a-z][a-z0-9_-]*$', self.bundle_code):
+                frappe.throw(
+                    _("Bundle Code must start with a letter and contain only lowercase letters, numbers, underscores, and hyphens"),
+                    title=_("Invalid Bundle Code")
+                )
+
+        def validate_pricing(self):
+            """Validate pricing configuration"""
+            if self.pricing_method == "Fixed Price" and not self.base_price:
+                frappe.throw(
+                    _("Base Price is required for Fixed Price pricing method"),
+                    title=_("Missing Base Price")
+                )
+
+            if self.discount_type and not self.discount_value:
+                frappe.throw(
+                    _("Discount Value is required when Discount Type is set"),
+                    title=_("Missing Discount Value")
+                )
+
+            if self.discount_type == "Percentage" and self.discount_value:
+                if self.discount_value < 0 or self.discount_value > 100:
+                    frappe.throw(
+                        _("Discount percentage must be between 0 and 100"),
+                        title=_("Invalid Discount")
+                    )
+
+        def validate_slots(self):
+            """Validate bundle slots"""
+            if self.bundle_type == "Static" and (not self.slots or len(self.slots) == 0):
+                frappe.throw(
+                    _("Static bundles must have at least one slot/product"),
+                    title=_("No Slots Defined")
+                )
+
+        def validate_validity_dates(self):
+            """Validate validity period dates"""
+            if self.valid_from and self.valid_to:
+                if getdate(self.valid_from) > getdate(self.valid_to):
+                    frappe.throw(
+                        _("Valid From date cannot be after Valid To date"),
+                        title=_("Invalid Validity Period")
+                    )
+
+        def validate_bundle_rules(self):
+            """Validate bundle rules configuration"""
+            if self.min_items and self.max_items:
+                if self.min_items > self.max_items and self.max_items > 0:
+                    frappe.throw(
+                        _("Minimum items cannot exceed maximum items"),
+                        title=_("Invalid Item Limits")
+                    )
+
+        def before_save(self):
+            """Update calculated fields before save"""
+            self.update_calculated_fields()
+
+        def update_calculated_fields(self):
+            """Calculate total items, price, and savings"""
+            # Count total items
+            total = 0
+            component_total = 0
+
+            for slot in self.slots or []:
+                qty = slot.qty or 1
+                total += qty
+                if slot.unit_price:
+                    component_total += slot.unit_price * qty
+
+            self.total_items = total
+
+            # Calculate bundle price based on pricing method
+            if self.pricing_method == "Sum of Components":
+                self.calculated_price = component_total
+                if self.discount_type == "Percentage" and self.discount_value:
+                    self.calculated_price = component_total * (1 - self.discount_value / 100)
+                elif self.discount_type == "Fixed Amount" and self.discount_value:
+                    self.calculated_price = max(0, component_total - self.discount_value)
+
+            elif self.pricing_method == "Fixed Price":
+                self.calculated_price = self.base_price or 0
+
+            elif self.pricing_method == "Fixed Discount":
+                self.calculated_price = max(0, component_total - (self.base_price or 0))
+
+            elif self.pricing_method == "Percentage Discount":
+                discount_pct = self.discount_value or 0
+                self.calculated_price = component_total * (1 - discount_pct / 100)
+
+            # Calculate savings
+            if component_total > 0:
+                self.savings_amount = max(0, component_total - (self.calculated_price or 0))
+                self.savings_percent = (self.savings_amount / component_total) * 100
+            else:
+                self.savings_amount = 0
+                self.savings_percent = 0
+
+        def on_update(self):
+            """Actions after save"""
+            self._invalidate_cache()
+            if self.auto_sync_to_erp and self.status == "Active":
+                self._queue_erp_sync()
+
+        def on_trash(self):
+            """Prevent deletion if bundle is in use or synced to ERP"""
+            if self.erp_product_bundle:
+                frappe.throw(
+                    _("Cannot delete bundle '{0}' as it is linked to ERPNext Product Bundle '{1}'").format(
+                        self.bundle_name, self.erp_product_bundle
+                    ),
+                    title=_("Bundle In Use")
+                )
+
+        def _invalidate_cache(self):
+            """Invalidate bundle-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("pim_bundle", self.name)
+            except (ImportError, AttributeError):
+                pass
+
+        def _queue_erp_sync(self):
+            """Queue sync to ERPNext"""
+            try:
+                from frappe_pim.pim.utils.erp_sync import queue_sync_entry
+                queue_sync_entry(
+                    doctype_name="PIM Bundle",
+                    document_name=self.name,
+                    sync_direction="PIM to ERP"
+                )
+            except (ImportError, AttributeError):
+                # erp_sync module may not be available yet
+                pass
+
+        def is_valid_today(self):
+            """Check if bundle is valid for today's date"""
+            if self.status != "Active":
+                return False
+
+            current_date = getdate(today())
+
+            if self.valid_from and getdate(self.valid_from) > current_date:
+                return False
+
+            if self.valid_to and getdate(self.valid_to) < current_date:
+                return False
+
+            return True
+
+        def get_bundle_price(self, channel=None, customer=None, qty=1):
+            """Get the final bundle price with optional channel/customer adjustments
+
+            Args:
+                channel: Sales channel for channel-specific pricing
+                customer: Customer for contract pricing
+                qty: Quantity for tiered pricing
+
+            Returns:
+                dict with price details
+            """
+            base_price = self.calculated_price or 0
+
+            # Apply tiered pricing if applicable
+            if self.pricing_method == "Tiered Pricing" and self.tiered_pricing:
+                for tier in sorted(self.tiered_pricing, key=lambda x: x.min_qty, reverse=True):
+                    if qty >= tier.min_qty:
+                        if tier.tier_type == "Fixed":
+                            base_price = tier.tier_price
+                        elif tier.tier_type == "Discount Percent":
+                            base_price = base_price * (1 - tier.discount_percent / 100)
+                        break
+
+            return {
+                "bundle_price": base_price,
+                "original_price": self.base_price or self.calculated_price,
+                "savings_amount": self.savings_amount,
+                "savings_percent": self.savings_percent,
+                "currency": self.currency,
+                "pricing_method": self.pricing_method
+            }
+
+        def get_slot_products(self):
+            """Get all products in the bundle slots
+
+            Returns:
+                List of product variant details
+            """
+            products = []
+            for slot in self.slots or []:
+                if slot.product_variant:
+                    products.append({
+                        "slot_name": slot.slot_name,
+                        "product_variant": slot.product_variant,
+                        "qty": slot.qty or 1,
+                        "is_required": slot.is_required,
+                        "is_configurable": slot.is_configurable
+                    })
+            return products
+def get_active_bundles(channel=None, bundle_type=None, include_expired=False):
+    """Get all active bundles with optional filtering
+
+    Args:
+        channel: Filter by sales channel
+        bundle_type: Filter by bundle type (Static, Configurable, Dynamic, BYO)
+        include_expired: Include bundles past their validity date
+
+    Returns:
+        List of bundle dicts
+    """
+    import frappe
+    from frappe.utils import today
+
+    if not frappe.has_permission("PIM Bundle", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    filters = {"status": "Active"}
+
+    if bundle_type:
+        filters["bundle_type"] = bundle_type
+
+    if not include_expired:
+        current_date = today()
+        filters["valid_from"] = ["<=", current_date]
+        filters["valid_to"] = [">=", current_date]
+
+    bundles = frappe.get_all(
+        "PIM Bundle",
+        filters=filters,
+        fields=[
+            "name", "bundle_name", "bundle_code", "bundle_type",
+            "calculated_price", "savings_percent", "total_items",
+            "main_image", "short_description"
+        ],
+        order_by="bundle_name"
+    )
+
+    # Filter by channel if specified
+    if channel:
+        filtered_bundles = []
+        for bundle in bundles:
+            channels = frappe.get_all(
+                "Bundle Channel",
+                filters={"parent": bundle.name},
+                pluck="channel"
+            )
+            if not channels or channel in channels:
+                filtered_bundles.append(bundle)
+        return filtered_bundles
+
+    return bundles
+
+def calculate_bundle_price(bundle_name, qty=1, channel=None, customer=None):
+    """Calculate the final price for a bundle
+
+    Args:
+        bundle_name: Name of the PIM Bundle
+        qty: Quantity
+        channel: Sales channel
+        customer: Customer for contract pricing
+
+    Returns:
+        dict with price details
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Bundle", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    bundle = frappe.get_doc("PIM Bundle", bundle_name)
+    return bundle.get_bundle_price(channel=channel, customer=customer, qty=qty)
+
+def validate_bundle_configuration(bundle_name, selected_products):
+    """Validate a customer's bundle configuration (for Configurable/BYO bundles)
+
+    Args:
+        bundle_name: Name of the PIM Bundle
+        selected_products: List of dicts with slot_name and product_variant
+
+    Returns:
+        dict with is_valid, errors, and calculated_price
+    """
+    import frappe
+    from frappe import _
+
+    if not frappe.has_permission("PIM Bundle", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    bundle = frappe.get_doc("PIM Bundle", bundle_name)
+    errors = []
+
+    # Check if bundle is valid
+    if not bundle.is_valid_today():
+        errors.append(_("Bundle is not currently available"))
+        return {"is_valid": False, "errors": errors}
+
+    # Check required slots
+    if bundle.require_all_slots:
+        required_slots = [s.slot_name for s in bundle.slots if s.is_required]
+        filled_slots = [p.get("slot_name") for p in selected_products]
+        missing = [s for s in required_slots if s not in filled_slots]
+        if missing:
+            errors.append(_("Missing required slots: {0}").format(", ".join(missing)))
+
+    # Check item limits
+    total_items = sum(p.get("qty", 1) for p in selected_products)
+    if bundle.min_items and total_items < bundle.min_items:
+        errors.append(_("Minimum {0} items required").format(bundle.min_items))
+    if bundle.max_items and bundle.max_items > 0 and total_items > bundle.max_items:
+        errors.append(_("Maximum {0} items allowed").format(bundle.max_items))
+
+    # Check for duplicates
+    if not bundle.allow_duplicates:
+        products = [p.get("product_variant") for p in selected_products]
+        if len(products) != len(set(products)):
+            errors.append(_("Duplicate products are not allowed in this bundle"))
+
+    is_valid = len(errors) == 0
+
+    # Calculate price if valid
+    calculated_price = 0
+    if is_valid:
+        price_info = bundle.get_bundle_price(qty=total_items)
+        calculated_price = price_info.get("bundle_price", 0)
+
+    return {
+        "is_valid": is_valid,
+        "errors": errors,
+        "calculated_price": calculated_price,
+        "total_items": total_items
+    }
+
+def sync_bundle_to_erp(bundle_name):
+    """Sync a PIM Bundle to ERPNext Product Bundle
+
+    Args:
+        bundle_name: Name of the PIM Bundle
+
+    Returns:
+        Name of created/updated ERPNext Product Bundle
+    """
+    import frappe
+    from frappe import _
+    from frappe.utils import now_datetime
+
+    if not frappe.has_permission("PIM Bundle", "write"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    bundle = frappe.get_doc("PIM Bundle", bundle_name)
+
+    if bundle.bundle_type not in ["Static"]:
+        frappe.throw(
+            _("Only Static bundles can be synced to ERPNext Product Bundle"),
+            title=_("Invalid Bundle Type")
+        )
+
+    # Get or create Product Bundle
+    if bundle.erp_product_bundle:
+        erp_bundle = frappe.get_doc("Product Bundle", bundle.erp_product_bundle)
+    else:
+        erp_bundle = frappe.new_doc("Product Bundle")
+        erp_bundle.new_item_code = bundle.bundle_code
+
+    # Clear existing items
+    erp_bundle.items = []
+
+    # Add bundle items
+    for slot in bundle.slots:
+        if slot.product_variant:
+            # Get the ERP item code from Product Variant
+            variant = frappe.get_doc("Product Variant", slot.product_variant)
+            if variant.erp_item:
+                erp_bundle.append("items", {
+                    "item_code": variant.erp_item,
+                    "qty": slot.qty or 1,
+                    "description": slot.slot_name
+                })
+
+    erp_bundle.save()
+
+    # Update PIM Bundle with link
+    frappe.db.set_value("PIM Bundle", bundle_name, {
+        "erp_product_bundle": erp_bundle.name,
+        "last_sync_date": now_datetime(),
+        "sync_status": "Synced"
+    })
+
+    return erp_bundle.name

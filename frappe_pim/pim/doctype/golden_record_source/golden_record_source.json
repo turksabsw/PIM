@@ -1,0 +1,88 @@
+{
+  "doctype": "DocType",
+  "name": "Golden Record Source",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "source_product",
+      "fieldtype": "Link",
+      "label": "Source Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Product Master that contributes to this golden record"
+    },
+    {
+      "fieldname": "source_system",
+      "fieldtype": "Select",
+      "label": "Source System",
+      "options": "ERP\nPIM\nImport\nAPI\nManual\nExternal",
+      "default": "PIM",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "System that provided this source record"
+    },
+    {
+      "fieldname": "confidence_score",
+      "fieldtype": "Percent",
+      "label": "Confidence",
+      "default": 50,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Confidence score for data from this source (0-100)"
+    },
+    {
+      "fieldname": "is_primary",
+      "fieldtype": "Check",
+      "label": "Primary Source",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Mark as the primary/authoritative source"
+    },
+    {
+      "fieldname": "is_winning",
+      "fieldtype": "Check",
+      "label": "Winning Source",
+      "default": 0,
+      "read_only": 1,
+      "columns": 1,
+      "description": "Indicates this source won based on survivorship rules"
+    },
+    {
+      "fieldname": "added_at",
+      "fieldtype": "Datetime",
+      "label": "Added At",
+      "read_only": 1,
+      "description": "When this source was added to the golden record"
+    },
+    {
+      "fieldname": "last_synced_at",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "in_list_view": 1,
+      "columns": 2,
+      "read_only": 1,
+      "description": "Last time data was synced from this source"
+    },
+    {
+      "fieldname": "external_id",
+      "fieldtype": "Data",
+      "label": "External ID",
+      "description": "ID from external source system for mapping"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Notes about this source record"
+    }
+  ],
+
+  "permissions": []
+}

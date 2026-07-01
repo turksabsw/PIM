@@ -1,0 +1,168 @@
+{
+  "doctype": "DocType",
+  "name": "Product Variant",
+  "module": "PIM",
+  "engine": "InnoDB",
+  "custom": 0,
+  "editable_grid": 1,
+  "track_changes": 1,
+  "autoname": "field:variant_code",
+  "naming_rule": "By fieldname",
+  "fields": [
+    {
+      "fieldname": "variant_name",
+      "fieldtype": "Data",
+      "label": "Variant Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "variant_code",
+      "fieldtype": "Data",
+      "label": "Variant Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "parent_product",
+      "fieldtype": "Link",
+      "label": "Parent Product",
+      "options": "Item",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Select the parent product (Item) for this variant"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nIn Review\nApproved\nPublished\nEnd of Life\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "variant_level",
+      "fieldtype": "Int",
+      "label": "Variant Level",
+      "default": 1,
+      "description": "Nesting level (max 3 levels deep)",
+      "read_only": 1
+    },
+    {
+      "fieldname": "completeness_score",
+      "fieldtype": "Percent",
+      "label": "Completeness Score",
+      "read_only": 1
+    },
+    {
+      "fieldname": "erp_item",
+      "fieldtype": "Link",
+      "label": "ERP Item",
+      "options": "Item",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_axis_values",
+      "fieldtype": "Section Break",
+      "label": "Variant Axis Values"
+    },
+    {
+      "fieldname": "axis_values",
+      "fieldtype": "Table",
+      "label": "Axis Values",
+      "options": "Product Variant Axis Value",
+      "description": "Attribute values that define this variant (e.g., Size: Large, Color: Red)"
+    },
+    {
+      "fieldname": "section_inherited",
+      "fieldtype": "Section Break",
+      "label": "Inherited Attributes"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand"
+    },
+    {
+      "fieldname": "manufacturer",
+      "fieldtype": "Link",
+      "label": "Manufacturer",
+      "options": "Manufacturer"
+    },
+    {
+      "fieldname": "section_sync",
+      "fieldtype": "Section Break",
+      "label": "Sync Settings",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "sync_enabled",
+      "fieldtype": "Check",
+      "label": "Sync Enabled",
+      "default": 1
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 0,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "variant_name"
+}

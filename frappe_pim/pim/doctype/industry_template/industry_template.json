@@ -1,0 +1,190 @@
+{
+  "doctype": "DocType",
+  "name": "Industry Template",
+  "module": "PIM",
+  "issingle": 0,
+  "is_submittable": 0,
+  "track_changes": 1,
+  "autoname": "format:{template_code}-v{version}",
+
+  "fields": [
+    {
+      "fieldname": "section_break_identity",
+      "fieldtype": "Section Break",
+      "label": "Template Identity"
+    },
+    {
+      "fieldname": "template_code",
+      "fieldtype": "Data",
+      "label": "Template Code",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Unique sector identifier (e.g., fashion, industrial, food, electronics, health_beauty, automotive, custom)"
+    },
+    {
+      "fieldname": "display_name",
+      "fieldtype": "Data",
+      "label": "Display Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Human-readable template name (e.g., Fashion & Apparel)"
+    },
+    {
+      "fieldname": "column_break_identity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "version",
+      "fieldtype": "Data",
+      "label": "Version",
+      "reqd": 1,
+      "default": "1.0",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Template version (e.g., 1.0, 2.0). Unique together with template_code."
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Active Version",
+      "default": 0,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Only one version per template_code should be active at a time. Active version is used for new onboardings."
+    },
+    {
+      "fieldname": "section_break_details",
+      "fieldtype": "Section Break",
+      "label": "Template Details"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description",
+      "description": "Brief description of the industry template and its target audience"
+    },
+    {
+      "fieldname": "column_break_details",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "estimated_setup_minutes",
+      "fieldtype": "Int",
+      "label": "Est. Setup Time (minutes)",
+      "default": 15,
+      "description": "Estimated time in minutes for a user to complete onboarding with this template"
+    },
+    {
+      "fieldname": "quality_threshold",
+      "fieldtype": "Int",
+      "label": "Default Quality Threshold",
+      "default": 70,
+      "description": "Default product quality score threshold for this industry (0-100)"
+    },
+    {
+      "fieldname": "section_break_product_config",
+      "fieldtype": "Section Break",
+      "label": "Product Configuration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "attribute_groups",
+      "fieldtype": "JSON",
+      "label": "Attribute Groups Data",
+      "description": "JSON array of attribute group definitions with their attributes for this industry"
+    },
+    {
+      "fieldname": "product_families",
+      "fieldtype": "JSON",
+      "label": "Product Families Data",
+      "description": "JSON array of product family definitions and hierarchy for this industry"
+    },
+    {
+      "fieldname": "section_break_channels",
+      "fieldtype": "Section Break",
+      "label": "Channels & Distribution",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "default_channels",
+      "fieldtype": "JSON",
+      "label": "Default Channels",
+      "description": "JSON array of default sales channels for this industry (e.g., Shopify, Amazon, Trendyol)"
+    },
+    {
+      "fieldname": "coming_soon_channels",
+      "fieldtype": "JSON",
+      "label": "Coming Soon Channels",
+      "description": "JSON array of channels that are planned but not yet available"
+    },
+    {
+      "fieldname": "section_break_compliance",
+      "fieldtype": "Section Break",
+      "label": "Compliance & Quality",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "compliance_modules",
+      "fieldtype": "JSON",
+      "label": "Compliance Modules",
+      "description": "JSON array of compliance/regulatory modules relevant to this industry"
+    },
+    {
+      "fieldname": "scoring_weights",
+      "fieldtype": "JSON",
+      "label": "Scoring Weights",
+      "description": "JSON object defining quality scoring weight distribution for this industry"
+    },
+    {
+      "fieldname": "section_break_taxonomy",
+      "fieldtype": "Section Break",
+      "label": "Taxonomy & Localization",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "category_tree",
+      "fieldtype": "JSON",
+      "label": "Category Tree Structure",
+      "description": "JSON tree structure defining the default category hierarchy for this industry"
+    },
+    {
+      "fieldname": "default_languages",
+      "fieldtype": "JSON",
+      "label": "Default Languages",
+      "description": "JSON array of default languages for this industry (e.g., [\"en\", \"tr\"])"
+    },
+    {
+      "fieldname": "section_break_demo",
+      "fieldtype": "Section Break",
+      "label": "Demo Data",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "demo_products",
+      "fieldtype": "JSON",
+      "label": "Demo Product Definitions",
+      "description": "JSON array of sample product definitions used during onboarding preview and first data entry"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

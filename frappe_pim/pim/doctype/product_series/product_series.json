@@ -1,0 +1,185 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:series_code",
+ "creation": "2026-01-07 10:45:32.606138",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "series_name",
+  "series_code",
+  "column_break_1",
+  "parent_series",
+  "image",
+  "section_break_settings",
+  "is_active",
+  "display_order",
+  "column_break_settings",
+  "valid_from",
+  "valid_to",
+  "section_break_hierarchy",
+  "linked_collection",
+  "linked_family",
+  "section_break_description",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "series_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Series Name",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "description": "Unique identifier. Example: pro-series, eco-line",
+   "fieldname": "series_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Series Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Optional parent series for nested grouping",
+   "fieldname": "parent_series",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Parent Series",
+   "options": "Product Series"
+  },
+  {
+   "description": "Series thumbnail or banner image",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "section_break_settings",
+   "fieldtype": "Section Break",
+   "label": "Settings"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Active"
+  },
+  {
+   "default": "0",
+   "description": "Lower numbers appear first in listings",
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "label": "Display Order"
+  },
+  {
+   "fieldname": "column_break_settings",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Start date for seasonal or promotional series",
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "description": "End date for seasonal or promotional series",
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  },
+  {
+   "fieldname": "section_break_hierarchy",
+   "fieldtype": "Section Break",
+   "label": "Hierarchy Links"
+  },
+  {
+   "description": "Optional link to a product collection for hierarchy organization",
+   "fieldname": "linked_collection",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Linked Collection",
+   "options": "Product Collection"
+  },
+  {
+   "description": "Optional link to a product family for hierarchy organization",
+   "fieldname": "linked_family",
+   "fieldtype": "Link",
+   "label": "Linked Family",
+   "options": "Product Family"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_description",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description",
+   "translatable": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-07 11:36:01.781183",
+ "modified_by": "Administrator",
+ "module": "PIM",
+ "name": "Product Series",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "PIM Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "PIM User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

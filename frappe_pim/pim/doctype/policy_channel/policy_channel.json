@@ -1,0 +1,21 @@
+{
+  "doctype": "DocType",
+  "name": "Policy Channel",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "reqd": 1,
+      "in_list_view": 1
+    }
+  ],
+
+  "permissions": []
+}

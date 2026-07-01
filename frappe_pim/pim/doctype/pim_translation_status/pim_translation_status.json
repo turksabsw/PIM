@@ -1,0 +1,251 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Translation Status",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "hash",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "section_break_main",
+      "fieldtype": "Section Break",
+      "label": "Translation Details"
+    },
+    {
+      "fieldname": "source_doctype",
+      "fieldtype": "Link",
+      "label": "Source DocType",
+      "options": "DocType",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The DocType containing the translatable content"
+    },
+    {
+      "fieldname": "source_name",
+      "fieldtype": "Dynamic Link",
+      "label": "Source Document",
+      "options": "source_doctype",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The specific document containing the translatable content"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "language",
+      "fieldtype": "Link",
+      "label": "Language",
+      "options": "Language",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Target language for translation"
+    },
+    {
+      "fieldname": "field_name",
+      "fieldtype": "Data",
+      "label": "Field Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Name of the field being translated"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Translation Status"
+    },
+    {
+      "fieldname": "is_translated",
+      "fieldtype": "Check",
+      "label": "Is Translated",
+      "default": 0,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Whether this field has been translated"
+    },
+    {
+      "fieldname": "translation_status",
+      "fieldtype": "Select",
+      "label": "Translation Status",
+      "options": "Pending\nIn Progress\nTranslated\nNeeds Review\nApproved\nRejected",
+      "default": "Pending",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the translation"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "translation_score",
+      "fieldtype": "Percent",
+      "label": "Translation Score",
+      "default": 0,
+      "read_only": 1,
+      "description": "Quality/completeness score for this translation (0-100%)"
+    },
+    {
+      "fieldname": "translation_method",
+      "fieldtype": "Select",
+      "label": "Translation Method",
+      "options": "\nManual\nMachine Translation\nAI Assisted\nMemory Match\nImported",
+      "description": "How the translation was created"
+    },
+    {
+      "fieldname": "section_break_content",
+      "fieldtype": "Section Break",
+      "label": "Content"
+    },
+    {
+      "fieldname": "source_value",
+      "fieldtype": "Long Text",
+      "label": "Source Value",
+      "read_only": 1,
+      "description": "Original content in the source language"
+    },
+    {
+      "fieldname": "translated_value",
+      "fieldtype": "Long Text",
+      "label": "Translated Value",
+      "description": "Translated content in the target language"
+    },
+    {
+      "fieldname": "section_break_hash",
+      "fieldtype": "Section Break",
+      "label": "Change Detection",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "source_hash",
+      "fieldtype": "Data",
+      "label": "Source Hash",
+      "read_only": 1,
+      "description": "Hash of source value to detect changes"
+    },
+    {
+      "fieldname": "needs_update",
+      "fieldtype": "Check",
+      "label": "Needs Update",
+      "default": 0,
+      "read_only": 1,
+      "description": "Set when source content has changed since last translation"
+    },
+    {
+      "fieldname": "column_break_hash",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "source_modified",
+      "fieldtype": "Datetime",
+      "label": "Source Modified",
+      "read_only": 1,
+      "description": "When the source content was last modified"
+    },
+    {
+      "fieldname": "translation_modified",
+      "fieldtype": "Datetime",
+      "label": "Translation Modified",
+      "read_only": 1,
+      "description": "When the translation was last modified"
+    },
+    {
+      "fieldname": "section_break_review",
+      "fieldtype": "Section Break",
+      "label": "Review & Approval",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "translated_by",
+      "fieldtype": "Link",
+      "label": "Translated By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who created/updated the translation"
+    },
+    {
+      "fieldname": "reviewed_by",
+      "fieldtype": "Link",
+      "label": "Reviewed By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who reviewed the translation"
+    },
+    {
+      "fieldname": "column_break_review",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "review_date",
+      "fieldtype": "Datetime",
+      "label": "Review Date",
+      "read_only": 1,
+      "description": "When the translation was reviewed"
+    },
+    {
+      "fieldname": "review_notes",
+      "fieldtype": "Small Text",
+      "label": "Review Notes",
+      "description": "Notes from the reviewer"
+    },
+    {
+      "fieldname": "section_break_frappe",
+      "fieldtype": "Section Break",
+      "label": "Frappe Translation Integration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "frappe_translation_name",
+      "fieldtype": "Data",
+      "label": "Frappe Translation Name",
+      "read_only": 1,
+      "description": "Reference to Frappe's built-in Translation entry"
+    },
+    {
+      "fieldname": "use_frappe_translation",
+      "fieldtype": "Check",
+      "label": "Use Frappe Translation",
+      "default": 1,
+      "description": "Whether to sync with Frappe's built-in Translation system"
+    },
+    {
+      "fieldname": "column_break_frappe",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "read_only": 1,
+      "description": "When this status was last synced with Frappe Translation"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1
+    },
+    {
+      "role": "Translator",
+      "read": 1, "write": 1, "create": 1
+    }
+  ]
+}

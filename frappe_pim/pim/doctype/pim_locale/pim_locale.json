@@ -1,0 +1,223 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Locale",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:locale_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "locale_name",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "locale_name",
+      "fieldtype": "Data",
+      "label": "Locale Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the locale (e.g., English (United States), French (France))"
+    },
+    {
+      "fieldname": "locale_code",
+      "fieldtype": "Data",
+      "label": "Locale Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "BCP 47 locale code. Example: en_US, fr_FR, de_DE, zh_CN"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this locale for PIM content"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default Locale",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Mark as default locale for fallback resolution"
+    },
+    {
+      "fieldname": "section_break_language",
+      "fieldtype": "Section Break",
+      "label": "Language & Region"
+    },
+    {
+      "fieldname": "language_code",
+      "fieldtype": "Data",
+      "label": "Language Code",
+      "reqd": 1,
+      "in_standard_filter": 1,
+      "description": "ISO 639-1 two-letter language code. Example: en, fr, de, zh"
+    },
+    {
+      "fieldname": "country_code",
+      "fieldtype": "Data",
+      "label": "Country Code",
+      "description": "ISO 3166-1 alpha-2 country code. Example: US, FR, DE, CN"
+    },
+    {
+      "fieldname": "column_break_language",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "script_code",
+      "fieldtype": "Data",
+      "label": "Script Code",
+      "description": "ISO 15924 script code for written form. Example: Latn, Hans, Hant, Arab"
+    },
+    {
+      "fieldname": "text_direction",
+      "fieldtype": "Select",
+      "label": "Text Direction",
+      "options": "LTR\nRTL",
+      "default": "LTR",
+      "description": "Text writing direction: Left-to-Right or Right-to-Left"
+    },
+    {
+      "fieldname": "section_break_format",
+      "fieldtype": "Section Break",
+      "label": "Formatting",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "date_format",
+      "fieldtype": "Data",
+      "label": "Date Format",
+      "description": "Date format pattern. Example: MM/DD/YYYY, DD.MM.YYYY, YYYY-MM-DD"
+    },
+    {
+      "fieldname": "time_format",
+      "fieldtype": "Data",
+      "label": "Time Format",
+      "description": "Time format pattern. Example: HH:mm, hh:mm a, HH:mm:ss"
+    },
+    {
+      "fieldname": "column_break_format",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "number_format",
+      "fieldtype": "Select",
+      "label": "Number Format",
+      "options": "\n#,###.##\n#.###,##\n# ###,##\n#'###.##",
+      "description": "Number format pattern for decimal and thousands separators"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Default Currency",
+      "options": "Currency",
+      "description": "Default currency for this locale"
+    },
+    {
+      "fieldname": "section_break_content",
+      "fieldtype": "Section Break",
+      "label": "Content Configuration"
+    },
+    {
+      "fieldname": "fallback_locale",
+      "fieldtype": "Link",
+      "label": "Fallback Locale",
+      "options": "PIM Locale",
+      "description": "Locale to use when content is not available in this locale"
+    },
+    {
+      "fieldname": "column_break_content",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "content_priority",
+      "fieldtype": "Int",
+      "label": "Content Priority",
+      "default": 0,
+      "description": "Priority for content resolution. Higher values take precedence."
+    },
+    {
+      "fieldname": "section_break_measurements",
+      "fieldtype": "Section Break",
+      "label": "Units & Measurements",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "measurement_system",
+      "fieldtype": "Select",
+      "label": "Measurement System",
+      "options": "\nMetric\nImperial\nUS Customary",
+      "description": "Default measurement system for this locale"
+    },
+    {
+      "fieldname": "column_break_measurements",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "temperature_unit",
+      "fieldtype": "Select",
+      "label": "Temperature Unit",
+      "options": "\nCelsius\nFahrenheit",
+      "description": "Default temperature unit for this locale"
+    },
+    {
+      "fieldname": "section_break_stats",
+      "fieldtype": "Section Break",
+      "label": "Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "products_with_content",
+      "fieldtype": "Int",
+      "label": "Products with Content",
+      "read_only": 1,
+      "description": "Number of products with content in this locale (auto-calculated)"
+    },
+    {
+      "fieldname": "column_break_stats",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "average_completeness",
+      "fieldtype": "Percent",
+      "label": "Average Completeness",
+      "read_only": 1,
+      "description": "Average content completeness for this locale (auto-calculated)"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

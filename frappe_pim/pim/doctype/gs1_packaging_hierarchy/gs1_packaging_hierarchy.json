@@ -1,0 +1,533 @@
+{
+  "doctype": "DocType",
+  "name": "GS1 Packaging Hierarchy",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:hierarchy_name",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "hierarchy_name",
+      "fieldtype": "Data",
+      "label": "Hierarchy Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier for this packaging hierarchy"
+    },
+    {
+      "fieldname": "product",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Product this packaging hierarchy belongs to"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nDeprecated\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "target_market",
+      "fieldtype": "Link",
+      "label": "Target Market",
+      "options": "Country",
+      "description": "Target market/country for this packaging configuration"
+    },
+    {
+      "fieldname": "section_break_base",
+      "fieldtype": "Section Break",
+      "label": "Base Unit (Each)"
+    },
+    {
+      "fieldname": "base_unit_gtin",
+      "fieldtype": "Data",
+      "label": "Base Unit GTIN",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "GTIN-13/14 for the base consumer unit (each)"
+    },
+    {
+      "fieldname": "base_unit_description",
+      "fieldtype": "Data",
+      "label": "Base Unit Description",
+      "description": "Description of the base consumer unit"
+    },
+    {
+      "fieldname": "column_break_base",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "base_unit_type",
+      "fieldtype": "Select",
+      "label": "Base Unit Packaging Type",
+      "options": "\nBag\nBottle\nBox\nCan\nCarton\nContainer\nEnvelope\nJar\nPack\nPouch\nSachet\nSleeve\nTray\nTube\nWrapper\nOther",
+      "description": "GS1 packaging type code for base unit"
+    },
+    {
+      "fieldname": "base_unit_content",
+      "fieldtype": "Float",
+      "label": "Base Unit Content",
+      "description": "Net content amount in the base unit"
+    },
+    {
+      "fieldname": "base_unit_content_uom",
+      "fieldtype": "Link",
+      "label": "Content UOM",
+      "options": "UOM",
+      "description": "Unit of measure for content"
+    },
+    {
+      "fieldname": "section_break_base_dims",
+      "fieldtype": "Section Break",
+      "label": "Base Unit Dimensions & Weight"
+    },
+    {
+      "fieldname": "base_unit_length",
+      "fieldtype": "Float",
+      "label": "Length (cm)",
+      "description": "Length in centimeters"
+    },
+    {
+      "fieldname": "base_unit_width",
+      "fieldtype": "Float",
+      "label": "Width (cm)",
+      "description": "Width in centimeters"
+    },
+    {
+      "fieldname": "base_unit_height",
+      "fieldtype": "Float",
+      "label": "Height (cm)",
+      "description": "Height in centimeters"
+    },
+    {
+      "fieldname": "column_break_base_weight",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "base_unit_gross_weight",
+      "fieldtype": "Float",
+      "label": "Gross Weight (kg)",
+      "description": "Gross weight including packaging in kg"
+    },
+    {
+      "fieldname": "base_unit_net_weight",
+      "fieldtype": "Float",
+      "label": "Net Weight (kg)",
+      "description": "Net weight excluding packaging in kg"
+    },
+    {
+      "fieldname": "section_break_inner",
+      "fieldtype": "Section Break",
+      "label": "Inner Pack",
+      "collapsible": 1,
+      "collapsible_depends_on": "eval:!doc.has_inner_pack"
+    },
+    {
+      "fieldname": "has_inner_pack",
+      "fieldtype": "Check",
+      "label": "Has Inner Pack",
+      "default": 0,
+      "description": "Enable inner pack level in the hierarchy"
+    },
+    {
+      "fieldname": "inner_pack_gtin",
+      "fieldtype": "Data",
+      "label": "Inner Pack GTIN",
+      "depends_on": "eval:doc.has_inner_pack",
+      "mandatory_depends_on": "eval:doc.has_inner_pack",
+      "description": "GTIN-14 for the inner pack"
+    },
+    {
+      "fieldname": "inner_pack_quantity",
+      "fieldtype": "Int",
+      "label": "Base Units per Inner Pack",
+      "depends_on": "eval:doc.has_inner_pack",
+      "mandatory_depends_on": "eval:doc.has_inner_pack",
+      "description": "Number of base units in each inner pack"
+    },
+    {
+      "fieldname": "column_break_inner",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "inner_pack_type",
+      "fieldtype": "Select",
+      "label": "Inner Pack Packaging Type",
+      "options": "\nBag\nBox\nCarton\nContainer\nPack\nShrinkwrap\nSleeve\nTray\nWrapper\nOther",
+      "depends_on": "eval:doc.has_inner_pack",
+      "description": "GS1 packaging type for inner pack"
+    },
+    {
+      "fieldname": "inner_pack_description",
+      "fieldtype": "Data",
+      "label": "Inner Pack Description",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "section_break_inner_dims",
+      "fieldtype": "Section Break",
+      "label": "Inner Pack Dimensions",
+      "depends_on": "eval:doc.has_inner_pack",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "inner_pack_length",
+      "fieldtype": "Float",
+      "label": "Length (cm)",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "inner_pack_width",
+      "fieldtype": "Float",
+      "label": "Width (cm)",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "inner_pack_height",
+      "fieldtype": "Float",
+      "label": "Height (cm)",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "column_break_inner_weight",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "inner_pack_gross_weight",
+      "fieldtype": "Float",
+      "label": "Gross Weight (kg)",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "inner_pack_net_weight",
+      "fieldtype": "Float",
+      "label": "Net Weight (kg)",
+      "depends_on": "eval:doc.has_inner_pack"
+    },
+    {
+      "fieldname": "section_break_case",
+      "fieldtype": "Section Break",
+      "label": "Case",
+      "collapsible": 1,
+      "collapsible_depends_on": "eval:!doc.has_case"
+    },
+    {
+      "fieldname": "has_case",
+      "fieldtype": "Check",
+      "label": "Has Case",
+      "default": 0,
+      "description": "Enable case level in the hierarchy"
+    },
+    {
+      "fieldname": "case_gtin",
+      "fieldtype": "Data",
+      "label": "Case GTIN",
+      "depends_on": "eval:doc.has_case",
+      "mandatory_depends_on": "eval:doc.has_case",
+      "description": "GTIN-14 for the case"
+    },
+    {
+      "fieldname": "case_quantity",
+      "fieldtype": "Int",
+      "label": "Units per Case",
+      "depends_on": "eval:doc.has_case",
+      "mandatory_depends_on": "eval:doc.has_case",
+      "description": "Number of inner packs (if has_inner_pack) or base units per case"
+    },
+    {
+      "fieldname": "column_break_case",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "case_type",
+      "fieldtype": "Select",
+      "label": "Case Packaging Type",
+      "options": "\nBox\nCarton\nCrate\nContainer\nDrum\nPail\nTray\nOther",
+      "depends_on": "eval:doc.has_case",
+      "description": "GS1 packaging type for case"
+    },
+    {
+      "fieldname": "case_description",
+      "fieldtype": "Data",
+      "label": "Case Description",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "case_indicator_digit",
+      "fieldtype": "Select",
+      "label": "Indicator Digit",
+      "options": "1\n2\n3\n4\n5\n6\n7\n8\n9",
+      "depends_on": "eval:doc.has_case",
+      "description": "GTIN-14 indicator digit (1-9) for packaging level"
+    },
+    {
+      "fieldname": "section_break_case_dims",
+      "fieldtype": "Section Break",
+      "label": "Case Dimensions",
+      "depends_on": "eval:doc.has_case",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "case_length",
+      "fieldtype": "Float",
+      "label": "Length (cm)",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "case_width",
+      "fieldtype": "Float",
+      "label": "Width (cm)",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "case_height",
+      "fieldtype": "Float",
+      "label": "Height (cm)",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "column_break_case_weight",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "case_gross_weight",
+      "fieldtype": "Float",
+      "label": "Gross Weight (kg)",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "case_net_weight",
+      "fieldtype": "Float",
+      "label": "Net Weight (kg)",
+      "depends_on": "eval:doc.has_case"
+    },
+    {
+      "fieldname": "case_ti",
+      "fieldtype": "Int",
+      "label": "TI (Cases per Layer)",
+      "depends_on": "eval:doc.has_case",
+      "description": "Number of cases per pallet layer"
+    },
+    {
+      "fieldname": "case_hi",
+      "fieldtype": "Int",
+      "label": "HI (Layers per Pallet)",
+      "depends_on": "eval:doc.has_case",
+      "description": "Number of layers per pallet"
+    },
+    {
+      "fieldname": "section_break_pallet",
+      "fieldtype": "Section Break",
+      "label": "Pallet",
+      "collapsible": 1,
+      "collapsible_depends_on": "eval:!doc.has_pallet"
+    },
+    {
+      "fieldname": "has_pallet",
+      "fieldtype": "Check",
+      "label": "Has Pallet",
+      "default": 0,
+      "description": "Enable pallet level in the hierarchy"
+    },
+    {
+      "fieldname": "pallet_gtin",
+      "fieldtype": "Data",
+      "label": "Pallet GTIN",
+      "depends_on": "eval:doc.has_pallet",
+      "description": "GTIN-14 for the pallet (optional, often uses SSCC)"
+    },
+    {
+      "fieldname": "pallet_quantity",
+      "fieldtype": "Int",
+      "label": "Cases per Pallet",
+      "depends_on": "eval:doc.has_pallet",
+      "mandatory_depends_on": "eval:doc.has_pallet",
+      "description": "Number of cases per pallet"
+    },
+    {
+      "fieldname": "column_break_pallet",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "pallet_type",
+      "fieldtype": "Select",
+      "label": "Pallet Type",
+      "options": "\nEUR Pallet (80x120)\nISO Pallet (100x120)\nUS Pallet (40x48 in)\nHalf Pallet (60x80)\nQuarter Pallet (60x40)\nOther",
+      "depends_on": "eval:doc.has_pallet",
+      "description": "Standard pallet type"
+    },
+    {
+      "fieldname": "pallet_description",
+      "fieldtype": "Data",
+      "label": "Pallet Description",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "pallet_indicator_digit",
+      "fieldtype": "Select",
+      "label": "Indicator Digit",
+      "options": "1\n2\n3\n4\n5\n6\n7\n8\n9",
+      "depends_on": "eval:doc.has_pallet",
+      "description": "GTIN-14 indicator digit for pallet level"
+    },
+    {
+      "fieldname": "section_break_pallet_dims",
+      "fieldtype": "Section Break",
+      "label": "Pallet Dimensions",
+      "depends_on": "eval:doc.has_pallet",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "pallet_length",
+      "fieldtype": "Float",
+      "label": "Length (cm)",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "pallet_width",
+      "fieldtype": "Float",
+      "label": "Width (cm)",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "pallet_height",
+      "fieldtype": "Float",
+      "label": "Height (cm)",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "column_break_pallet_weight",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "pallet_gross_weight",
+      "fieldtype": "Float",
+      "label": "Gross Weight (kg)",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "pallet_net_weight",
+      "fieldtype": "Float",
+      "label": "Net Weight (kg)",
+      "depends_on": "eval:doc.has_pallet"
+    },
+    {
+      "fieldname": "section_break_summary",
+      "fieldtype": "Section Break",
+      "label": "Hierarchy Summary"
+    },
+    {
+      "fieldname": "total_base_units_per_case",
+      "fieldtype": "Int",
+      "label": "Total Base Units per Case",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Calculated: base units per case (including inner packs)"
+    },
+    {
+      "fieldname": "total_base_units_per_pallet",
+      "fieldtype": "Int",
+      "label": "Total Base Units per Pallet",
+      "read_only": 1,
+      "description": "Calculated: total base units per pallet"
+    },
+    {
+      "fieldname": "column_break_summary",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "hierarchy_levels",
+      "fieldtype": "Int",
+      "label": "Hierarchy Levels",
+      "read_only": 1,
+      "description": "Number of packaging levels in hierarchy"
+    },
+    {
+      "fieldname": "validation_status",
+      "fieldtype": "Select",
+      "label": "Validation Status",
+      "options": "Not Validated\nValid\nInvalid",
+      "default": "Not Validated",
+      "read_only": 1,
+      "description": "GS1 validation status"
+    },
+    {
+      "fieldname": "validation_errors",
+      "fieldtype": "Small Text",
+      "label": "Validation Errors",
+      "read_only": 1,
+      "depends_on": "eval:doc.validation_status=='Invalid'"
+    },
+    {
+      "fieldname": "section_break_meta",
+      "fieldtype": "Section Break",
+      "label": "Additional Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "gdsn_publication_date",
+      "fieldtype": "Date",
+      "label": "GDSN Publication Date",
+      "description": "Date when published to GDSN data pool"
+    },
+    {
+      "fieldname": "gdsn_publication_status",
+      "fieldtype": "Select",
+      "label": "GDSN Publication Status",
+      "options": "Not Published\nPublished\nPending Sync\nSync Error",
+      "default": "Not Published"
+    },
+    {
+      "fieldname": "column_break_meta",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "effective_date",
+      "fieldtype": "Date",
+      "label": "Effective Date",
+      "description": "Date from which this hierarchy is effective"
+    },
+    {
+      "fieldname": "discontinue_date",
+      "fieldtype": "Date",
+      "label": "Discontinue Date",
+      "description": "Date when this hierarchy will be discontinued"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1, "export": 1
+    }
+  ]
+}

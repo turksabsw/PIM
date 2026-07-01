@@ -1,0 +1,56 @@
+{
+  "doctype": "DocType",
+  "name": "Allergen Item",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "allergen_type",
+      "fieldtype": "Select",
+      "label": "Allergen Type",
+      "options": "Cereals containing gluten\nCrustaceans\nEggs\nFish\nPeanuts\nSoybeans\nMilk\nTree nuts\nCelery\nMustard\nSesame seeds\nSulphur dioxide and sulphites\nLupin\nMolluscs\nOther",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "GS1 allergen type code"
+    },
+    {
+      "fieldname": "allergen_type_code",
+      "fieldtype": "Data",
+      "label": "GS1 Allergen Code",
+      "read_only": 1,
+      "hidden": 1,
+      "description": "GS1 allergen type code value"
+    },
+    {
+      "fieldname": "level_of_containment",
+      "fieldtype": "Select",
+      "label": "Level of Containment",
+      "options": "CONTAINS\nFREE_FROM\nMAY_CONTAIN\nUNDECLARED",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "GS1 allergen containment level"
+    },
+    {
+      "fieldname": "allergen_statement",
+      "fieldtype": "Small Text",
+      "label": "Allergen Statement",
+      "in_list_view": 1,
+      "columns": 3,
+      "translatable": 1,
+      "description": "Allergen declaration text for labeling"
+    },
+    {
+      "fieldname": "source_specification",
+      "fieldtype": "Data",
+      "label": "Source Specification",
+      "description": "Specific source (e.g., 'Wheat' for gluten, 'Almond' for tree nuts)"
+    }
+  ],
+
+  "permissions": []
+}

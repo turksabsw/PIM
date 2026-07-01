@@ -1,0 +1,287 @@
+{
+  "doctype": "DocType",
+  "name": "Taxonomy Node",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:node_key",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "is_tree": 1,
+  "nsm_parent_field": "parent_node",
+  "sort_field": "lft",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "taxonomy",
+      "fieldtype": "Link",
+      "label": "Taxonomy",
+      "options": "Taxonomy",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "set_only_once": 1,
+      "description": "Parent taxonomy this node belongs to"
+    },
+    {
+      "fieldname": "node_name",
+      "fieldtype": "Data",
+      "label": "Node Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the taxonomy node"
+    },
+    {
+      "fieldname": "node_code",
+      "fieldtype": "Data",
+      "label": "Node Code",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Standard code for this node (e.g., 10000000 for UNSPSC)"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "node_key",
+      "fieldtype": "Data",
+      "label": "Node Key",
+      "reqd": 1,
+      "unique": 1,
+      "read_only": 1,
+      "description": "Auto-generated unique key: {taxonomy_code}-{node_code}"
+    },
+    {
+      "fieldname": "parent_node",
+      "fieldtype": "Link",
+      "label": "Parent Node",
+      "options": "Taxonomy Node",
+      "in_standard_filter": 1,
+      "description": "Parent taxonomy node (for hierarchical structure)"
+    },
+    {
+      "fieldname": "level",
+      "fieldtype": "Int",
+      "label": "Level",
+      "default": 1,
+      "in_list_view": 1,
+      "read_only": 1,
+      "description": "Hierarchy depth level (1=root, max 20)"
+    },
+    {
+      "fieldname": "section_break_tree",
+      "fieldtype": "Section Break",
+      "label": "Tree Structure",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "lft",
+      "fieldtype": "Int",
+      "label": "Left",
+      "read_only": 1,
+      "hidden": 1,
+      "description": "Nested Set Model left value"
+    },
+    {
+      "fieldname": "rgt",
+      "fieldtype": "Int",
+      "label": "Right",
+      "read_only": 1,
+      "hidden": 1,
+      "description": "Nested Set Model right value"
+    },
+    {
+      "fieldname": "column_break_tree",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_leaf",
+      "fieldtype": "Check",
+      "label": "Is Leaf Node",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "True if this node has no children (can be used for product classification)"
+    },
+    {
+      "fieldname": "is_group",
+      "fieldtype": "Check",
+      "label": "Is Group",
+      "default": 0,
+      "description": "True if this node can have children (set automatically)"
+    },
+    {
+      "fieldname": "old_parent",
+      "fieldtype": "Link",
+      "label": "Old Parent",
+      "options": "Taxonomy Node",
+      "hidden": 1,
+      "read_only": 1,
+      "description": "Used internally for tree restructuring"
+    },
+    {
+      "fieldname": "section_break_details",
+      "fieldtype": "Section Break",
+      "label": "Details"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description of this taxonomy node"
+    },
+    {
+      "fieldname": "section_break_standard",
+      "fieldtype": "Section Break",
+      "label": "Standard-Specific Data",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "external_id",
+      "fieldtype": "Data",
+      "label": "External ID",
+      "description": "Original ID from external standard (e.g., IRDI for eCl@ss)"
+    },
+    {
+      "fieldname": "external_definition",
+      "fieldtype": "Small Text",
+      "label": "External Definition",
+      "description": "Official definition from the standard"
+    },
+    {
+      "fieldname": "column_break_standard",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "synonyms",
+      "fieldtype": "Small Text",
+      "label": "Synonyms",
+      "description": "Comma-separated alternative names/synonyms"
+    },
+    {
+      "fieldname": "keywords",
+      "fieldtype": "Small Text",
+      "label": "Keywords",
+      "description": "Comma-separated keywords for search"
+    },
+    {
+      "fieldname": "section_break_etim",
+      "fieldtype": "Section Break",
+      "label": "ETIM Features",
+      "depends_on": "eval:frappe.db.get_value('Taxonomy', doc.taxonomy, 'standard') == 'ETIM'",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "etim_features",
+      "fieldtype": "JSON",
+      "label": "ETIM Features",
+      "description": "ETIM Feature-Value definitions as JSON array"
+    },
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Suggested Attributes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "suggested_attributes",
+      "fieldtype": "Table",
+      "label": "Suggested Attributes",
+      "options": "Node Attribute Suggestion",
+      "description": "Attributes recommended for products in this node"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Status"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this node for classification"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "products_count",
+      "fieldtype": "Int",
+      "label": "Products Count",
+      "read_only": 1,
+      "description": "Number of products classified to this node (auto-calculated)"
+    },
+    {
+      "fieldname": "children_count",
+      "fieldtype": "Int",
+      "label": "Children Count",
+      "read_only": 1,
+      "description": "Number of direct child nodes (auto-calculated)"
+    },
+    {
+      "fieldname": "section_break_path",
+      "fieldtype": "Section Break",
+      "label": "Path Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "full_path",
+      "fieldtype": "Small Text",
+      "label": "Full Path",
+      "read_only": 1,
+      "description": "Full hierarchical path (auto-generated)"
+    },
+    {
+      "fieldname": "full_code_path",
+      "fieldtype": "Data",
+      "label": "Full Code Path",
+      "read_only": 1,
+      "description": "Full path using codes (auto-generated)"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ],
+
+  "links": [
+    {
+      "group": "Related",
+      "link_doctype": "Taxonomy Node",
+      "link_fieldname": "parent_node"
+    },
+    {
+      "group": "Products",
+      "link_doctype": "Product Classification",
+      "link_fieldname": "taxonomy_node"
+    }
+  ]
+}

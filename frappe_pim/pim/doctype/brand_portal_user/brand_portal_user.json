@@ -1,0 +1,340 @@
+{
+  "doctype": "DocType",
+  "name": "Brand Portal User",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "format:BPU-{####}",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "unique": 1,
+      "description": "Frappe User account linked to this portal user"
+    },
+    {
+      "fieldname": "full_name",
+      "fieldtype": "Data",
+      "label": "Full Name",
+      "fetch_from": "user.full_name",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "email",
+      "fieldtype": "Data",
+      "label": "Email",
+      "options": "Email",
+      "fetch_from": "user.email",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Active\nInactive\nSuspended\nPending Approval",
+      "default": "Pending Approval",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Portal user status"
+    },
+    {
+      "fieldname": "portal_role",
+      "fieldtype": "Select",
+      "label": "Portal Role",
+      "options": "Brand User\nBrand Manager\nBrand Admin",
+      "default": "Brand User",
+      "reqd": 1,
+      "description": "Role within the brand portal"
+    },
+    {
+      "fieldname": "section_break_brand",
+      "fieldtype": "Section Break",
+      "label": "Brand Association"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Brand this user is associated with"
+    },
+    {
+      "fieldname": "brand_name",
+      "fieldtype": "Data",
+      "label": "Brand Name",
+      "fetch_from": "brand.brand_name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_brand",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "company_name",
+      "fieldtype": "Data",
+      "label": "Company Name",
+      "description": "Company the user represents"
+    },
+    {
+      "fieldname": "company_registration",
+      "fieldtype": "Data",
+      "label": "Company Registration Number",
+      "description": "Official company registration/tax ID"
+    },
+    {
+      "fieldname": "section_break_permissions",
+      "fieldtype": "Section Break",
+      "label": "Permissions"
+    },
+    {
+      "fieldname": "can_submit_products",
+      "fieldtype": "Check",
+      "label": "Can Submit Products",
+      "default": 1,
+      "description": "Allow user to submit new product data"
+    },
+    {
+      "fieldname": "can_edit_products",
+      "fieldtype": "Check",
+      "label": "Can Edit Products",
+      "default": 1,
+      "description": "Allow user to edit their submitted products"
+    },
+    {
+      "fieldname": "can_view_analytics",
+      "fieldtype": "Check",
+      "label": "Can View Analytics",
+      "default": 0,
+      "description": "Allow user to view product analytics"
+    },
+    {
+      "fieldname": "column_break_permissions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "can_manage_media",
+      "fieldtype": "Check",
+      "label": "Can Manage Media",
+      "default": 1,
+      "description": "Allow user to upload and manage product media"
+    },
+    {
+      "fieldname": "can_approve_submissions",
+      "fieldtype": "Check",
+      "label": "Can Approve Submissions",
+      "default": 0,
+      "description": "Allow user to approve other users' submissions (Brand Manager+)"
+    },
+    {
+      "fieldname": "can_manage_users",
+      "fieldtype": "Check",
+      "label": "Can Manage Users",
+      "default": 0,
+      "description": "Allow user to manage other portal users (Brand Admin only)"
+    },
+    {
+      "fieldname": "section_break_limits",
+      "fieldtype": "Section Break",
+      "label": "Limits"
+    },
+    {
+      "fieldname": "max_submissions_per_month",
+      "fieldtype": "Int",
+      "label": "Max Submissions per Month",
+      "default": 100,
+      "description": "Maximum product submissions allowed per month (0 = unlimited)"
+    },
+    {
+      "fieldname": "current_month_submissions",
+      "fieldtype": "Int",
+      "label": "Current Month Submissions",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of submissions made this month"
+    },
+    {
+      "fieldname": "column_break_limits",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "max_media_size_mb",
+      "fieldtype": "Int",
+      "label": "Max Media Size (MB)",
+      "default": 50,
+      "description": "Maximum media upload size in MB"
+    },
+    {
+      "fieldname": "storage_used_mb",
+      "fieldtype": "Float",
+      "label": "Storage Used (MB)",
+      "default": 0,
+      "read_only": 1,
+      "precision": 2,
+      "description": "Total storage used by uploaded media"
+    },
+    {
+      "fieldname": "section_break_activity",
+      "fieldtype": "Section Break",
+      "label": "Activity",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "last_login",
+      "fieldtype": "Datetime",
+      "label": "Last Login",
+      "read_only": 1,
+      "description": "Last portal login timestamp"
+    },
+    {
+      "fieldname": "last_submission",
+      "fieldtype": "Datetime",
+      "label": "Last Submission",
+      "read_only": 1,
+      "description": "Last product submission timestamp"
+    },
+    {
+      "fieldname": "total_submissions",
+      "fieldtype": "Int",
+      "label": "Total Submissions",
+      "default": 0,
+      "read_only": 1,
+      "description": "Total number of product submissions"
+    },
+    {
+      "fieldname": "column_break_activity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "approved_submissions",
+      "fieldtype": "Int",
+      "label": "Approved Submissions",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of approved submissions"
+    },
+    {
+      "fieldname": "rejected_submissions",
+      "fieldtype": "Int",
+      "label": "Rejected Submissions",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of rejected submissions"
+    },
+    {
+      "fieldname": "pending_submissions",
+      "fieldtype": "Int",
+      "label": "Pending Submissions",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of pending submissions"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes",
+      "description": "Internal notes about this portal user"
+    },
+    {
+      "fieldname": "approval_notes",
+      "fieldtype": "Text",
+      "label": "Approval Notes",
+      "description": "Notes from the approval/rejection process"
+    },
+    {
+      "fieldname": "section_break_dates",
+      "fieldtype": "Section Break",
+      "label": "Dates",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "approved_on",
+      "fieldtype": "Datetime",
+      "label": "Approved On",
+      "read_only": 1,
+      "description": "Date when the user was approved"
+    },
+    {
+      "fieldname": "approved_by",
+      "fieldtype": "Link",
+      "label": "Approved By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who approved this portal user"
+    },
+    {
+      "fieldname": "column_break_dates",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "suspended_on",
+      "fieldtype": "Datetime",
+      "label": "Suspended On",
+      "read_only": 1,
+      "description": "Date when the user was suspended"
+    },
+    {
+      "fieldname": "suspended_by",
+      "fieldtype": "Link",
+      "label": "Suspended By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who suspended this portal user"
+    },
+    {
+      "fieldname": "suspension_reason",
+      "fieldtype": "Small Text",
+      "label": "Suspension Reason",
+      "read_only": 1,
+      "description": "Reason for suspension"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

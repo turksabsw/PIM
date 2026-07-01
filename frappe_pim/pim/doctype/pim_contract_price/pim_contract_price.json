@@ -1,0 +1,389 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Contract Price",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "PIM-CP-.#####",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "contract_name",
+      "fieldtype": "Data",
+      "label": "Contract Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Descriptive name for this contract price"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Higher priority contracts are evaluated first (higher = more important)"
+    },
+    {
+      "fieldname": "section_break_customer",
+      "fieldtype": "Section Break",
+      "label": "Customer Scope"
+    },
+    {
+      "fieldname": "apply_to",
+      "fieldtype": "Select",
+      "label": "Apply To",
+      "options": "Specific Customer\nCustomer Segment\nCustomer Group",
+      "reqd": 1,
+      "default": "Specific Customer",
+      "description": "Who this contract price applies to"
+    },
+    {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "mandatory_depends_on": "eval:doc.apply_to=='Specific Customer'",
+      "depends_on": "eval:doc.apply_to=='Specific Customer'",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Specific customer this contract applies to"
+    },
+    {
+      "fieldname": "column_break_customer",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer_segment",
+      "fieldtype": "Link",
+      "label": "Customer Segment",
+      "options": "PIM Customer Segment",
+      "mandatory_depends_on": "eval:doc.apply_to=='Customer Segment'",
+      "depends_on": "eval:doc.apply_to=='Customer Segment'",
+      "in_standard_filter": 1,
+      "description": "Customer segment this contract applies to"
+    },
+    {
+      "fieldname": "customer_group",
+      "fieldtype": "Link",
+      "label": "Customer Group",
+      "options": "Customer Group",
+      "mandatory_depends_on": "eval:doc.apply_to=='Customer Group'",
+      "depends_on": "eval:doc.apply_to=='Customer Group'",
+      "in_standard_filter": 1,
+      "description": "Customer group this contract applies to"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Scope"
+    },
+    {
+      "fieldname": "product_scope",
+      "fieldtype": "Select",
+      "label": "Product Scope",
+      "options": "Specific Variant\nProduct Master\nProduct Family\nProduct Type\nAll Products",
+      "reqd": 1,
+      "default": "Specific Variant",
+      "description": "Which products this contract price applies to"
+    },
+    {
+      "fieldname": "product_variant",
+      "fieldtype": "Link",
+      "label": "Product Variant",
+      "options": "Product Variant",
+      "mandatory_depends_on": "eval:doc.product_scope=='Specific Variant'",
+      "depends_on": "eval:doc.product_scope=='Specific Variant'",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Specific product variant for this contract"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_master",
+      "fieldtype": "Link",
+      "label": "Product Master",
+      "options": "Product Master",
+      "mandatory_depends_on": "eval:doc.product_scope=='Product Master'",
+      "depends_on": "eval:doc.product_scope=='Product Master'",
+      "in_standard_filter": 1,
+      "description": "Product master (all variants) for this contract"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "mandatory_depends_on": "eval:doc.product_scope=='Product Family'",
+      "depends_on": "eval:doc.product_scope=='Product Family'",
+      "in_standard_filter": 1,
+      "description": "Product family for this contract"
+    },
+    {
+      "fieldname": "product_type",
+      "fieldtype": "Link",
+      "label": "Product Type",
+      "options": "PIM Product Type",
+      "mandatory_depends_on": "eval:doc.product_scope=='Product Type'",
+      "depends_on": "eval:doc.product_scope=='Product Type'",
+      "in_standard_filter": 1,
+      "description": "Product type for this contract"
+    },
+    {
+      "fieldname": "section_break_channel",
+      "fieldtype": "Section Break",
+      "label": "Channel Scope"
+    },
+    {
+      "fieldname": "apply_to_all_channels",
+      "fieldtype": "Check",
+      "label": "Apply to All Channels",
+      "default": 1,
+      "description": "If unchecked, contract price only applies to specific channels"
+    },
+    {
+      "fieldname": "sales_channel",
+      "fieldtype": "Link",
+      "label": "Sales Channel",
+      "options": "PIM Sales Channel",
+      "depends_on": "eval:!doc.apply_to_all_channels",
+      "in_standard_filter": 1,
+      "description": "Specific sales channel for this contract"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing Configuration"
+    },
+    {
+      "fieldname": "pricing_type",
+      "fieldtype": "Select",
+      "label": "Pricing Type",
+      "options": "Fixed Price\nDiscount Percentage\nDiscount Amount\nPrice Override",
+      "reqd": 1,
+      "default": "Fixed Price",
+      "description": "How the contract price is calculated"
+    },
+    {
+      "fieldname": "contract_price",
+      "fieldtype": "Currency",
+      "label": "Contract Price",
+      "depends_on": "eval:doc.pricing_type=='Fixed Price' || doc.pricing_type=='Price Override'",
+      "mandatory_depends_on": "eval:doc.pricing_type=='Fixed Price' || doc.pricing_type=='Price Override'",
+      "description": "Fixed contract price or override price"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "discount_percent",
+      "fieldtype": "Percent",
+      "label": "Discount %",
+      "depends_on": "eval:doc.pricing_type=='Discount Percentage'",
+      "mandatory_depends_on": "eval:doc.pricing_type=='Discount Percentage'",
+      "description": "Discount percentage off base price"
+    },
+    {
+      "fieldname": "discount_amount",
+      "fieldtype": "Currency",
+      "label": "Discount Amount",
+      "depends_on": "eval:doc.pricing_type=='Discount Amount'",
+      "mandatory_depends_on": "eval:doc.pricing_type=='Discount Amount'",
+      "description": "Fixed discount amount off base price"
+    },
+    {
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "Currency",
+      "options": "Currency",
+      "reqd": 1,
+      "default": "USD",
+      "description": "Currency for contract prices"
+    },
+    {
+      "fieldname": "section_break_quantity",
+      "fieldtype": "Section Break",
+      "label": "Quantity Tiers",
+      "collapsible": 1,
+      "description": "Optional quantity-based pricing tiers"
+    },
+    {
+      "fieldname": "enable_quantity_tiers",
+      "fieldtype": "Check",
+      "label": "Enable Quantity Tiers",
+      "default": 0,
+      "description": "Enable tiered pricing based on quantity"
+    },
+    {
+      "fieldname": "min_qty",
+      "fieldtype": "Float",
+      "label": "Minimum Quantity",
+      "default": 1,
+      "depends_on": "eval:!doc.enable_quantity_tiers",
+      "description": "Minimum quantity for this contract price to apply"
+    },
+    {
+      "fieldname": "max_qty",
+      "fieldtype": "Float",
+      "label": "Maximum Quantity",
+      "depends_on": "eval:!doc.enable_quantity_tiers",
+      "description": "Maximum quantity for this contract price (0 = unlimited)"
+    },
+    {
+      "fieldname": "quantity_tiers",
+      "fieldtype": "Table",
+      "label": "Quantity Tiers",
+      "options": "PIM Contract Price Tier",
+      "depends_on": "eval:doc.enable_quantity_tiers",
+      "description": "Define different prices for different quantity ranges"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Start date for this contract price (leave empty for immediate)"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "End date for this contract price (leave empty for indefinite)"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "contract_reference",
+      "fieldtype": "Data",
+      "label": "Contract Reference",
+      "description": "External contract/agreement reference number"
+    },
+    {
+      "fieldname": "section_break_guardrails",
+      "fieldtype": "Section Break",
+      "label": "Price Guardrails",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "min_price_guardrail",
+      "fieldtype": "Currency",
+      "label": "Minimum Price",
+      "description": "Minimum allowed price (guardrail)"
+    },
+    {
+      "fieldname": "max_price_guardrail",
+      "fieldtype": "Currency",
+      "label": "Maximum Price",
+      "description": "Maximum allowed price (guardrail)"
+    },
+    {
+      "fieldname": "column_break_guardrails",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "allow_below_cost",
+      "fieldtype": "Check",
+      "label": "Allow Below Cost",
+      "default": 0,
+      "description": "Allow pricing below product cost"
+    },
+    {
+      "fieldname": "enforce_map",
+      "fieldtype": "Check",
+      "label": "Enforce MAP",
+      "default": 0,
+      "description": "Enforce Minimum Advertised Price policy"
+    },
+    {
+      "fieldname": "section_break_erp",
+      "fieldtype": "Section Break",
+      "label": "ERPNext Integration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "erp_pricing_rule",
+      "fieldtype": "Link",
+      "label": "ERP Pricing Rule",
+      "options": "Pricing Rule",
+      "description": "Linked ERPNext Pricing Rule"
+    },
+    {
+      "fieldname": "sync_to_erp",
+      "fieldtype": "Check",
+      "label": "Sync to ERPNext",
+      "default": 1,
+      "description": "Automatically sync this contract price to ERPNext Pricing Rule"
+    },
+    {
+      "fieldname": "column_break_erp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_sync_date",
+      "fieldtype": "Datetime",
+      "label": "Last Sync Date",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "\nPending\nSynced\nFailed",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text Editor",
+      "label": "Notes",
+      "description": "Internal notes about this contract price"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "Sales Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 0, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

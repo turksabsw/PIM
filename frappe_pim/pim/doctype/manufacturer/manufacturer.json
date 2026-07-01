@@ -1,0 +1,104 @@
+{
+  "doctype": "DocType",
+  "name": "Manufacturer",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:manufacturer_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "manufacturer_name",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "manufacturer_name",
+      "fieldtype": "Data",
+      "label": "Manufacturer Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the manufacturer"
+    },
+    {
+      "fieldname": "manufacturer_code",
+      "fieldtype": "Data",
+      "label": "Manufacturer Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: samsung, lg, sony"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this manufacturer"
+    },
+    {
+      "fieldname": "section_break_details",
+      "fieldtype": "Section Break",
+      "label": "Manufacturer Details"
+    },
+    {
+      "fieldname": "logo",
+      "fieldtype": "Attach Image",
+      "label": "Logo",
+      "description": "Manufacturer logo image"
+    },
+    {
+      "fieldname": "column_break_details",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "website",
+      "fieldtype": "Data",
+      "label": "Website",
+      "options": "URL",
+      "description": "Manufacturer website URL"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description about this manufacturer"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

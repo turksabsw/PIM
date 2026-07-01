@@ -1,0 +1,129 @@
+{
+  "doctype": "DocType",
+  "name": "Onboarding Step Log",
+  "module": "PIM",
+  "issingle": 0,
+  "is_submittable": 0,
+  "track_changes": 0,
+  "autoname": "hash",
+
+  "fields": [
+    {
+      "fieldname": "section_break_step",
+      "fieldtype": "Section Break",
+      "label": "Step Information"
+    },
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "User who performed this step action"
+    },
+    {
+      "fieldname": "step_id",
+      "fieldtype": "Data",
+      "label": "Step Identifier",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Step identifier (e.g., company_info, industry_selection)"
+    },
+    {
+      "fieldname": "step_number",
+      "fieldtype": "Int",
+      "label": "Step Number",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Step number in the wizard sequence (1-12)"
+    },
+    {
+      "fieldname": "column_break_step",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "action",
+      "fieldtype": "Select",
+      "label": "Action",
+      "options": "completed\nskipped\nsaved",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Action performed on this step"
+    },
+    {
+      "fieldname": "section_break_data",
+      "fieldtype": "Section Break",
+      "label": "Form Data",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "form_data",
+      "fieldtype": "JSON",
+      "label": "Form Data Snapshot",
+      "description": "JSON snapshot of form data submitted at this step"
+    },
+    {
+      "fieldname": "validation_errors",
+      "fieldtype": "JSON",
+      "label": "Validation Errors",
+      "description": "Validation errors encountered during this step (if any)"
+    },
+    {
+      "fieldname": "section_break_timing",
+      "fieldtype": "Section Break",
+      "label": "Timing"
+    },
+    {
+      "fieldname": "started_at",
+      "fieldtype": "Datetime",
+      "label": "Step Started At",
+      "description": "When the user started working on this step"
+    },
+    {
+      "fieldname": "column_break_timing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "completed_at",
+      "fieldtype": "Datetime",
+      "label": "Step Completed At",
+      "description": "When the step action was completed"
+    },
+    {
+      "fieldname": "time_spent_seconds",
+      "fieldtype": "Int",
+      "label": "Time Spent (seconds)",
+      "description": "Time spent on this step in seconds"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "if_owner": 1
+    }
+  ],
+
+  "sort_field": "creation",
+  "sort_order": "DESC"
+}

@@ -1,0 +1,26 @@
+{
+  "doctype": "DocType",
+  "name": "Bundle Channel",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "fields": [
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "in_list_view": 1,
+      "reqd": 1
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": []
+}

@@ -1,0 +1,263 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Settings",
+  "module": "PIM",
+  "issingle": 1,
+  "is_submittable": 0,
+  "track_changes": 1,
+
+  "fields": [
+    {
+      "fieldname": "section_break_erp",
+      "fieldtype": "Section Break",
+      "label": "ERP Integration"
+    },
+    {
+      "fieldname": "enable_erp_sync",
+      "fieldtype": "Check",
+      "label": "Enable ERP Sync",
+      "default": 1,
+      "description": "Enable synchronization between PIM and ERPNext Item DocType"
+    },
+    {
+      "fieldname": "auto_create_variant_from_item",
+      "fieldtype": "Check",
+      "label": "Auto Create Variant from Item",
+      "default": 0,
+      "description": "Automatically create PIM product variants when ERPNext Item variants are created"
+    },
+    {
+      "fieldname": "column_break_erp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sync_direction",
+      "fieldtype": "Select",
+      "label": "Sync Direction",
+      "options": "PIM to ERP\nERP to PIM\nBidirectional",
+      "default": "Bidirectional",
+      "depends_on": "eval:doc.enable_erp_sync",
+      "description": "Direction of data synchronization between PIM and ERP"
+    },
+    {
+      "fieldname": "sync_on_save",
+      "fieldtype": "Check",
+      "label": "Sync on Save",
+      "default": 1,
+      "depends_on": "eval:doc.enable_erp_sync",
+      "description": "Automatically sync data when a product is saved"
+    },
+    {
+      "fieldname": "section_break_channel",
+      "fieldtype": "Section Break",
+      "label": "Channel Settings"
+    },
+    {
+      "fieldname": "default_channel",
+      "fieldtype": "Link",
+      "label": "Default Channel",
+      "options": "Channel",
+      "description": "Default distribution channel for new products"
+    },
+    {
+      "fieldname": "auto_publish_to_default",
+      "fieldtype": "Check",
+      "label": "Auto Publish to Default Channel",
+      "default": 0,
+      "depends_on": "eval:doc.default_channel",
+      "description": "Automatically publish products to the default channel when marked as ready"
+    },
+    {
+      "fieldname": "column_break_channel",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "default_export_format",
+      "fieldtype": "Select",
+      "label": "Default Export Format",
+      "options": "JSON\nXML\nCSV\nXLSX\nBMEcat",
+      "default": "JSON",
+      "description": "Default format for product data exports"
+    },
+    {
+      "fieldname": "section_break_ai",
+      "fieldtype": "Section Break",
+      "label": "AI Enrichment"
+    },
+    {
+      "fieldname": "enable_ai_enrichment",
+      "fieldtype": "Check",
+      "label": "Enable AI Enrichment",
+      "default": 0,
+      "description": "Enable AI-powered product description generation and attribute extraction"
+    },
+    {
+      "fieldname": "ai_provider",
+      "fieldtype": "Select",
+      "label": "AI Provider",
+      "options": "\nOpenAI\nAnthropic\nGoogle Gemini\nAzure OpenAI",
+      "depends_on": "eval:doc.enable_ai_enrichment",
+      "description": "Select the AI provider for enrichment tasks"
+    },
+    {
+      "fieldname": "column_break_ai",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "ai_api_key",
+      "fieldtype": "Password",
+      "label": "AI API Key",
+      "depends_on": "eval:doc.enable_ai_enrichment && doc.ai_provider",
+      "description": "API key for the selected AI provider (stored encrypted)"
+    },
+    {
+      "fieldname": "ai_model",
+      "fieldtype": "Data",
+      "label": "AI Model",
+      "depends_on": "eval:doc.enable_ai_enrichment && doc.ai_provider",
+      "description": "Specific model to use (e.g., gpt-4, claude-3-opus)"
+    },
+    {
+      "fieldname": "ai_require_approval",
+      "fieldtype": "Check",
+      "label": "Require Approval for AI Content",
+      "default": 1,
+      "depends_on": "eval:doc.enable_ai_enrichment",
+      "description": "Require human approval before applying AI-generated content"
+    },
+    {
+      "fieldname": "section_break_quality",
+      "fieldtype": "Section Break",
+      "label": "Data Quality"
+    },
+    {
+      "fieldname": "enable_quality_scoring",
+      "fieldtype": "Check",
+      "label": "Enable Quality Scoring",
+      "default": 1,
+      "description": "Calculate and display data quality scores for products"
+    },
+    {
+      "fieldname": "minimum_quality_score",
+      "fieldtype": "Percent",
+      "label": "Minimum Quality Score",
+      "default": 60,
+      "depends_on": "eval:doc.enable_quality_scoring",
+      "description": "Minimum quality score required for publishing"
+    },
+    {
+      "fieldname": "column_break_quality",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "block_publish_below_minimum",
+      "fieldtype": "Check",
+      "label": "Block Publish Below Minimum",
+      "default": 0,
+      "depends_on": "eval:doc.enable_quality_scoring",
+      "description": "Prevent publishing products that fall below the minimum quality score"
+    },
+    {
+      "fieldname": "auto_scan_on_save",
+      "fieldtype": "Check",
+      "label": "Auto Scan on Save",
+      "default": 1,
+      "depends_on": "eval:doc.enable_quality_scoring",
+      "description": "Automatically scan for data quality issues when products are saved"
+    },
+    {
+      "fieldname": "section_break_gs1",
+      "fieldtype": "Section Break",
+      "label": "GS1/GDSN Settings"
+    },
+    {
+      "fieldname": "enable_gs1_validation",
+      "fieldtype": "Check",
+      "label": "Enable GS1 Validation",
+      "default": 0,
+      "description": "Validate GTINs and other GS1 identifiers"
+    },
+    {
+      "fieldname": "gln",
+      "fieldtype": "Data",
+      "label": "Company GLN",
+      "depends_on": "eval:doc.enable_gs1_validation",
+      "description": "Global Location Number for your organization"
+    },
+    {
+      "fieldname": "column_break_gs1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "gs1_data_pool",
+      "fieldtype": "Select",
+      "label": "GS1 Data Pool",
+      "options": "\n1WorldSync\nSA2 Worldsync\nEDITEUR\nGS1 Turkey",
+      "depends_on": "eval:doc.enable_gs1_validation",
+      "description": "GDSN data pool for product synchronization"
+    },
+    {
+      "fieldname": "data_pool_api_key",
+      "fieldtype": "Password",
+      "label": "Data Pool API Key",
+      "depends_on": "eval:doc.gs1_data_pool",
+      "description": "API key for GDSN data pool integration (stored encrypted)"
+    },
+    {
+      "fieldname": "section_break_media",
+      "fieldtype": "Section Break",
+      "label": "Media Settings"
+    },
+    {
+      "fieldname": "auto_generate_thumbnails",
+      "fieldtype": "Check",
+      "label": "Auto Generate Thumbnails",
+      "default": 1,
+      "description": "Automatically generate thumbnail images when media is uploaded"
+    },
+    {
+      "fieldname": "thumbnail_size",
+      "fieldtype": "Int",
+      "label": "Thumbnail Size (px)",
+      "default": 150,
+      "depends_on": "eval:doc.auto_generate_thumbnails",
+      "description": "Maximum dimension for generated thumbnails"
+    },
+    {
+      "fieldname": "column_break_media",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "max_image_size_mb",
+      "fieldtype": "Int",
+      "label": "Max Image Size (MB)",
+      "default": 10,
+      "description": "Maximum allowed image file size in megabytes"
+    },
+    {
+      "fieldname": "allowed_image_formats",
+      "fieldtype": "Data",
+      "label": "Allowed Image Formats",
+      "default": "jpg,jpeg,png,webp,gif",
+      "description": "Comma-separated list of allowed image file extensions"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

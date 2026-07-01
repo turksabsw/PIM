@@ -1,0 +1,693 @@
+"""
+PIM Category Permission Controller
+RBAC/ABAC permission system for category-based access control
+"""
+
+
+class PIMCategoryPermission:
+    """PIM Category Permission DocType controller stub
+
+    This is a minimal controller that allows the module to be imported
+    without Frappe context. Full functionality is provided when running
+    within Frappe framework via _get_controller().
+    """
+    pass
+
+
+def _get_controller():
+    """Get the full controller class with Frappe dependencies"""
+    import frappe
+    from frappe import _
+    from frappe.model.document import Document
+    from frappe.utils import getdate, nowdate, now_datetime
+
+    class PIMCategoryPermissionController(Document):
+        def validate(self):
+            self.validate_subject()
+            self.validate_permissions()
+            self.validate_abac_conditions()
+            self.validate_validity_dates()
+            self.validate_unique_permission()
+
+        def validate_subject(self):
+            """Validate that the correct subject field is set based on subject_type"""
+            if self.subject_type == "Role" and not self.role:
+                frappe.throw(
+                    _("Role is required when Subject Type is 'Role'"),
+                    title=_("Missing Role")
+                )
+            elif self.subject_type == "User" and not self.user:
+                frappe.throw(
+                    _("User is required when Subject Type is 'User'"),
+                    title=_("Missing User")
+                )
+            elif self.subject_type == "User Group" and not self.user_group:
+                frappe.throw(
+                    _("User Group is required when Subject Type is 'User Group'"),
+                    title=_("Missing User Group")
+                )
+
+            # Clear irrelevant fields
+            if self.subject_type != "Role":
+                self.role = None
+            if self.subject_type != "User":
+                self.user = None
+            if self.subject_type != "User Group":
+                self.user_group = None
+
+        def validate_permissions(self):
+            """Ensure at least one permission type is selected"""
+            has_permission = any([
+                self.permission_read,
+                self.permission_write,
+                self.permission_create,
+                self.permission_delete,
+                self.permission_export,
+                self.permission_import
+            ])
+
+            if not has_permission:
+                frappe.throw(
+                    _("At least one permission type must be selected"),
+                    title=_("No Permissions Selected")
+                )
+
+        def validate_abac_conditions(self):
+            """Validate ABAC condition configuration"""
+            if not self.use_abac_conditions:
+                return
+
+            if self.condition_field and self.condition_operator:
+                # Validate operator-specific requirements
+                if self.condition_operator in ["=", "!=", ">", "<", ">=", "<=", "in", "not in"]:
+                    if not self.condition_value:
+                        frappe.throw(
+                            _("Condition Value is required for operator '{0}'").format(
+                                self.condition_operator
+                            ),
+                            title=_("Invalid ABAC Condition")
+                        )
+
+            # Validate custom Python condition syntax
+            if self.custom_condition:
+                try:
+                    compile(self.custom_condition, "<string>", "eval")
+                except SyntaxError as e:
+                    frappe.throw(
+                        _("Invalid Python syntax in custom condition: {0}").format(str(e)),
+                        title=_("Invalid Custom Condition")
+                    )
+
+        def validate_validity_dates(self):
+            """Validate validity date range"""
+            if self.valid_from and self.valid_to:
+                if getdate(self.valid_from) > getdate(self.valid_to):
+                    frappe.throw(
+                        _("Valid From date cannot be after Valid To date"),
+                        title=_("Invalid Date Range")
+                    )
+
+        def validate_unique_permission(self):
+            """Ensure no duplicate permission for same category/subject combination"""
+            filters = {
+                "category": self.category,
+                "subject_type": self.subject_type,
+                "is_active": 1,
+                "name": ["!=", self.name or ""]
+            }
+
+            # Add subject-specific filter
+            if self.subject_type == "Role":
+                filters["role"] = self.role
+            elif self.subject_type == "User":
+                filters["user"] = self.user
+            elif self.subject_type == "User Group":
+                filters["user_group"] = self.user_group
+
+            existing = frappe.db.exists("PIM Category Permission", filters)
+
+            if existing and self.is_active:
+                frappe.msgprint(
+                    _("Another active permission exists for this category and subject. "
+                      "The permission with higher priority will take precedence."),
+                    title=_("Duplicate Permission Warning"),
+                    indicator="orange"
+                )
+
+        def before_insert(self):
+            """Before insert hook"""
+            self.created_by_user = frappe.session.user
+
+        def on_update(self):
+            """After update hook"""
+            self.invalidate_cache()
+
+        def on_trash(self):
+            """Before delete hook"""
+            self.invalidate_cache()
+
+        def invalidate_cache(self):
+            """Invalidate permission cache"""
+            frappe.cache().delete_key(f"pim_category_permission_{self.category}")
+            frappe.cache().delete_key("pim_category_permissions_all")
+
+            # Clear user-specific caches
+            if self.user:
+                frappe.cache().delete_key(f"pim_user_permissions_{self.user}")
+            if self.role:
+                frappe.cache().delete_key(f"pim_role_permissions_{self.role}")
+
+        def is_valid_now(self):
+            """Check if this permission is currently valid based on dates"""
+            if not self.is_active:
+                return False
+
+            today = getdate(nowdate())
+
+            if self.valid_from and getdate(self.valid_from) > today:
+                return False
+
+            if self.valid_to and getdate(self.valid_to) < today:
+                return False
+
+            return True
+
+        def evaluate_abac_condition(self, doc):
+            """Evaluate ABAC condition against a document
+
+            Args:
+                doc: The document to evaluate against
+
+            Returns:
+                bool: True if condition passes or no condition set
+            """
+            if not self.use_abac_conditions:
+                return True
+
+            # Evaluate field-based condition
+            if self.condition_field and self.condition_operator:
+                field_value = doc.get(self.condition_field)
+                condition_value = self.condition_value
+
+                if self.condition_operator == "=":
+                    if str(field_value) != str(condition_value):
+                        return False
+                elif self.condition_operator == "!=":
+                    if str(field_value) == str(condition_value):
+                        return False
+                elif self.condition_operator == "in":
+                    values = [v.strip() for v in condition_value.split(",")]
+                    if str(field_value) not in values:
+                        return False
+                elif self.condition_operator == "not in":
+                    values = [v.strip() for v in condition_value.split(",")]
+                    if str(field_value) in values:
+                        return False
+                elif self.condition_operator == ">":
+                    if not (float(field_value or 0) > float(condition_value)):
+                        return False
+                elif self.condition_operator == "<":
+                    if not (float(field_value or 0) < float(condition_value)):
+                        return False
+                elif self.condition_operator == ">=":
+                    if not (float(field_value or 0) >= float(condition_value)):
+                        return False
+                elif self.condition_operator == "<=":
+                    if not (float(field_value or 0) <= float(condition_value)):
+                        return False
+                elif self.condition_operator == "is_set":
+                    if not field_value:
+                        return False
+                elif self.condition_operator == "is_not_set":
+                    if field_value:
+                        return False
+
+            # Evaluate custom Python condition
+            if self.custom_condition:
+                try:
+                    result = frappe.safe_eval(
+                        self.custom_condition,
+                        eval_globals={"frappe": frappe},
+                        eval_locals={"doc": doc, "user": frappe.session.user}
+                    )
+                    if not result:
+                        return False
+                except Exception:
+                    # If condition evaluation fails, deny access
+                    return False
+
+            return True
+
+        def get_permission_dict(self):
+            """Get permission as a dictionary for easy comparison"""
+            return {
+                "read": self.permission_read,
+                "write": self.permission_write,
+                "create": self.permission_create,
+                "delete": self.permission_delete,
+                "export": self.permission_export,
+                "import": self.permission_import
+            }
+
+        def approve(self, notes=None):
+            """Approve this permission"""
+            self.approved_by = frappe.session.user
+            self.approval_date = now_datetime()
+            if notes:
+                self.notes = (self.notes or "") + f"\nApproval notes: {notes}"
+            self.save(ignore_permissions=True)
+
+    return PIMCategoryPermissionController
+
+
+# Module-level helper functions
+
+def get_category_permissions(category, user=None, include_inherited=True):
+    """Get all permissions for a category
+
+    Args:
+        category: Category name
+        user: Optional user to filter permissions for
+        include_inherited: Whether to include inherited permissions from parent categories
+
+    Returns:
+        List of permission dicts
+    """
+    import frappe
+    from frappe.utils import getdate, nowdate
+
+    today = getdate(nowdate())
+
+    filters = {
+        "category": category,
+        "is_active": 1
+    }
+
+    permissions = frappe.get_all(
+        "PIM Category Permission",
+        filters=filters,
+        fields=["name", "category", "subject_type", "role", "user", "user_group",
+                "permission_read", "permission_write", "permission_create",
+                "permission_delete", "permission_export", "permission_import",
+                "inherit_to_children", "priority", "valid_from", "valid_to",
+                "use_abac_conditions", "raci_role"],
+        order_by="priority desc"
+    )
+
+    # Filter by validity dates
+    valid_permissions = []
+    for perm in permissions:
+        if perm.valid_from and getdate(perm.valid_from) > today:
+            continue
+        if perm.valid_to and getdate(perm.valid_to) < today:
+            continue
+        valid_permissions.append(perm)
+
+    # Filter by user if specified
+    if user:
+        user_roles = frappe.get_roles(user)
+        user_groups = get_user_groups(user)
+
+        user_permissions = []
+        for perm in valid_permissions:
+            if perm.subject_type == "User" and perm.user == user:
+                user_permissions.append(perm)
+            elif perm.subject_type == "Role" and perm.role in user_roles:
+                user_permissions.append(perm)
+            elif perm.subject_type == "User Group" and perm.user_group in user_groups:
+                user_permissions.append(perm)
+
+        valid_permissions = user_permissions
+
+    # Include inherited permissions from parent categories
+    if include_inherited:
+        parent_category = get_parent_category(category)
+        if parent_category:
+            parent_permissions = get_category_permissions(
+                parent_category, user, include_inherited=True
+            )
+            # Only add inherited permissions that have inherit_to_children=True
+            for perm in parent_permissions:
+                if perm.get("inherit_to_children"):
+                    perm["_inherited_from"] = parent_category
+                    valid_permissions.append(perm)
+
+    return valid_permissions
+
+
+def get_user_groups(user):
+    """Get list of user groups for a user
+
+    Args:
+        user: User name
+
+    Returns:
+        List of user group names
+    """
+    import frappe
+
+    groups = frappe.get_all(
+        "User Group Member",
+        filters={"user": user},
+        fields=["parent"],
+        pluck="parent"
+    )
+
+    return groups
+
+
+def get_parent_category(category):
+    """Get parent category name
+
+    Args:
+        category: Category name
+
+    Returns:
+        Parent category name or None
+    """
+    import frappe
+
+    if not frappe.db.exists("Category", category):
+        return None
+
+    return frappe.db.get_value("Category", category, "parent_category")
+
+
+def check_category_permission(category, user, permission_type, doc=None):
+    """Check if a user has a specific permission for a category
+
+    Args:
+        category: Category name
+        user: User name
+        permission_type: Permission type (read, write, create, delete, export, import)
+        doc: Optional document for ABAC evaluation
+
+    Returns:
+        bool: True if permission is granted
+    """
+    import frappe
+
+    # System Manager always has full access
+    if "System Manager" in frappe.get_roles(user):
+        return True
+
+    permissions = get_category_permissions(category, user, include_inherited=True)
+
+    if not permissions:
+        return False
+
+    # Check each permission (highest priority first)
+    permission_field = f"permission_{permission_type}"
+
+    for perm in permissions:
+        # Check if this permission grants the requested access
+        if perm.get(permission_field):
+            # If ABAC conditions exist and doc provided, evaluate them
+            if perm.get("use_abac_conditions") and doc:
+                perm_doc = frappe.get_doc("PIM Category Permission", perm.name)
+                if not perm_doc.evaluate_abac_condition(doc):
+                    continue
+            return True
+
+    return False
+
+
+def get_user_accessible_categories(user, permission_type="read"):
+    """Get list of categories a user has access to
+
+    Args:
+        user: User name
+        permission_type: Permission type to check
+
+    Returns:
+        List of category names
+    """
+    import frappe
+
+    # System Manager can access all
+    if "System Manager" in frappe.get_roles(user):
+        return frappe.get_all("Category", pluck="name")
+
+    user_roles = frappe.get_roles(user)
+    user_groups = get_user_groups(user)
+
+    permission_field = f"permission_{permission_type}"
+
+    # Get direct permissions
+    filters = [
+        ["is_active", "=", 1],
+        [permission_field, "=", 1]
+    ]
+
+    # Build OR condition for subject matching
+    or_filters = []
+    or_filters.append(["user", "=", user])
+
+    for role in user_roles:
+        or_filters.append(["role", "=", role])
+
+    for group in user_groups:
+        or_filters.append(["user_group", "=", group])
+
+    permissions = frappe.get_all(
+        "PIM Category Permission",
+        filters=filters,
+        or_filters=or_filters,
+        fields=["category", "inherit_to_children"],
+        distinct=True
+    )
+
+    categories = set()
+    for perm in permissions:
+        categories.add(perm.category)
+
+        # Add child categories if inheriting
+        if perm.inherit_to_children:
+            children = get_child_categories(perm.category)
+            categories.update(children)
+
+    return list(categories)
+
+
+def get_child_categories(category, recursive=True):
+    """Get child categories
+
+    Args:
+        category: Parent category name
+        recursive: Whether to get all descendants or just direct children
+
+    Returns:
+        List of category names
+    """
+    import frappe
+
+    children = frappe.get_all(
+        "Category",
+        filters={"parent_category": category},
+        pluck="name"
+    )
+
+    if recursive:
+        all_children = list(children)
+        for child in children:
+            all_children.extend(get_child_categories(child, recursive=True))
+        return all_children
+
+    return children
+
+
+def create_category_permission(category, subject_type, subject, permissions,
+                                inherit_to_children=True, priority=0):
+    """Create a new category permission
+
+    Args:
+        category: Category name
+        subject_type: 'Role', 'User', or 'User Group'
+        subject: Subject name (role name, user name, or group name)
+        permissions: Dict with permission types (read, write, create, delete, export, import)
+        inherit_to_children: Whether to inherit to child categories
+        priority: Permission priority (higher overrides lower)
+
+    Returns:
+        PIM Category Permission document
+    """
+    import frappe
+
+    doc = frappe.new_doc("PIM Category Permission")
+    doc.category = category
+    doc.subject_type = subject_type
+    doc.inherit_to_children = inherit_to_children
+    doc.priority = priority
+
+    # Set subject field
+    if subject_type == "Role":
+        doc.role = subject
+    elif subject_type == "User":
+        doc.user = subject
+    elif subject_type == "User Group":
+        doc.user_group = subject
+
+    # Set permissions
+    doc.permission_read = permissions.get("read", 0)
+    doc.permission_write = permissions.get("write", 0)
+    doc.permission_create = permissions.get("create", 0)
+    doc.permission_delete = permissions.get("delete", 0)
+    doc.permission_export = permissions.get("export", 0)
+    doc.permission_import = permissions.get("import", 0)
+
+    doc.insert(ignore_permissions=True)
+    return doc
+
+
+def get_permission_summary(category, user):
+    """Get aggregated permission summary for a user on a category
+
+    Args:
+        category: Category name
+        user: User name
+
+    Returns:
+        Dict with aggregated permissions and details
+    """
+    import frappe
+
+    permissions = get_category_permissions(category, user, include_inherited=True)
+
+    summary = {
+        "category": category,
+        "user": user,
+        "read": False,
+        "write": False,
+        "create": False,
+        "delete": False,
+        "export": False,
+        "import": False,
+        "permission_sources": [],
+        "raci_roles": []
+    }
+
+    for perm in permissions:
+        # Aggregate permissions (any grant = granted)
+        if perm.permission_read:
+            summary["read"] = True
+        if perm.permission_write:
+            summary["write"] = True
+        if perm.permission_create:
+            summary["create"] = True
+        if perm.permission_delete:
+            summary["delete"] = True
+        if perm.permission_export:
+            summary["export"] = True
+        if perm.permission_import:
+            summary["import"] = True
+
+        # Track sources
+        source = {
+            "name": perm.name,
+            "subject_type": perm.subject_type,
+            "priority": perm.priority
+        }
+
+        if perm.subject_type == "Role":
+            source["subject"] = perm.role
+        elif perm.subject_type == "User":
+            source["subject"] = perm.user
+        else:
+            source["subject"] = perm.user_group
+
+        if perm.get("_inherited_from"):
+            source["inherited_from"] = perm["_inherited_from"]
+
+        summary["permission_sources"].append(source)
+
+        # Collect RACI roles
+        if perm.raci_role:
+            summary["raci_roles"].append({
+                "role": perm.raci_role,
+                "source": perm.name
+            })
+
+    return summary
+
+
+def bulk_create_permissions(category, role_permissions):
+    """Bulk create permissions for multiple roles
+
+    Args:
+        category: Category name
+        role_permissions: Dict mapping role names to permission dicts
+
+    Returns:
+        List of created permission names
+    """
+    import frappe
+
+    created = []
+
+    for role, permissions in role_permissions.items():
+        doc = create_category_permission(
+            category=category,
+            subject_type="Role",
+            subject=role,
+            permissions=permissions
+        )
+        created.append(doc.name)
+
+    if created:
+        frappe.db.commit()
+
+    return created
+
+
+def get_permission_stats():
+    """Get statistics about category permissions
+
+    Returns:
+        Dict with permission statistics
+    """
+    import frappe
+
+    stats = {
+        "total_permissions": 0,
+        "active_permissions": 0,
+        "by_subject_type": {},
+        "by_category": {},
+        "with_abac": 0
+    }
+
+    # Total and active count
+    stats["total_permissions"] = frappe.db.count("PIM Category Permission")
+    stats["active_permissions"] = frappe.db.count(
+        "PIM Category Permission",
+        {"is_active": 1}
+    )
+
+    # By subject type
+    by_type = frappe.db.sql("""
+        SELECT subject_type, COUNT(*) as count
+        FROM `tabPIM Category Permission`
+        WHERE is_active = 1
+        GROUP BY subject_type
+    """, as_dict=True)
+
+    stats["by_subject_type"] = {row.subject_type: row["count"] for row in by_type}
+
+    # By category (top 10)
+    by_category = frappe.db.sql("""
+        SELECT category, COUNT(*) as count
+        FROM `tabPIM Category Permission`
+        WHERE is_active = 1
+        GROUP BY category
+        ORDER BY count DESC
+        LIMIT 10
+    """, as_dict=True)
+
+    stats["by_category"] = {row.category: row["count"] for row in by_category}
+
+    # ABAC permissions count
+    stats["with_abac"] = frappe.db.count(
+        "PIM Category Permission",
+        {"is_active": 1, "use_abac_conditions": 1}
+    )
+
+    return stats

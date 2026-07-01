@@ -1,0 +1,719 @@
+{
+  "doctype": "DocType",
+  "name": "Package Variant",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:package_code",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "tab_basic",
+      "fieldtype": "Tab Break",
+      "label": "Basic Information"
+    },
+    {
+      "fieldname": "package_name",
+      "fieldtype": "Data",
+      "label": "Package Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the package variant (e.g., '6-Pack', '24-Can Case')"
+    },
+    {
+      "fieldname": "package_code",
+      "fieldtype": "Data",
+      "label": "Package Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "no_copy": 1,
+      "description": "Unique identifier code for this package variant"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_master",
+      "fieldtype": "Link",
+      "label": "Product Master",
+      "options": "Product Master",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Parent product for this package variant"
+    },
+    {
+      "fieldname": "product_variant",
+      "fieldtype": "Link",
+      "label": "Product Variant",
+      "options": "Product Variant",
+      "in_standard_filter": 1,
+      "description": "Specific product variant this package contains (optional)"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nInactive\nDiscontinued\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the package variant"
+    },
+    {
+      "fieldname": "section_break_package_config",
+      "fieldtype": "Section Break",
+      "label": "Package Configuration"
+    },
+    {
+      "fieldname": "package_type",
+      "fieldtype": "Select",
+      "label": "Package Type",
+      "options": "Single Unit\n2-Pack\n3-Pack\n4-Pack\n6-Pack\n8-Pack\n10-Pack\n12-Pack\n18-Pack\n24-Pack\n36-Pack\n48-Pack\nCase\nCarton\nBox\nPallet\nBulk\nCustom",
+      "default": "Single Unit",
+      "reqd": 1,
+      "in_standard_filter": 1,
+      "description": "Type of packaging configuration"
+    },
+    {
+      "fieldname": "units_per_package",
+      "fieldtype": "Int",
+      "label": "Units Per Package",
+      "reqd": 1,
+      "default": 1,
+      "description": "Number of individual units in this package"
+    },
+    {
+      "fieldname": "column_break_package",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "base_uom",
+      "fieldtype": "Link",
+      "label": "Base UOM",
+      "options": "UOM",
+      "description": "Unit of measure for individual units (e.g., Piece, Can, Bottle)"
+    },
+    {
+      "fieldname": "package_uom",
+      "fieldtype": "Link",
+      "label": "Package UOM",
+      "options": "UOM",
+      "description": "Unit of measure for the package (e.g., Pack, Case, Carton)"
+    },
+    {
+      "fieldname": "is_default_package",
+      "fieldtype": "Check",
+      "label": "Is Default Package",
+      "default": 0,
+      "description": "Mark as the default package variant for this product"
+    },
+    {
+      "fieldname": "tab_barcodes",
+      "fieldtype": "Tab Break",
+      "label": "Barcodes"
+    },
+    {
+      "fieldname": "primary_barcode",
+      "fieldtype": "Data",
+      "label": "Primary Barcode",
+      "description": "Main barcode (EAN/UPC) for this package"
+    },
+    {
+      "fieldname": "barcode_type",
+      "fieldtype": "Select",
+      "label": "Barcode Type",
+      "options": "EAN-13\nUPC-A\nEAN-8\nUPC-E\nCode 128\nCode 39\nQR Code\nITF-14\nGTIN-14\nOther",
+      "default": "EAN-13",
+      "description": "Type of the primary barcode"
+    },
+    {
+      "fieldname": "column_break_barcode",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "secondary_barcode",
+      "fieldtype": "Data",
+      "label": "Secondary Barcode",
+      "description": "Alternative barcode for this package (e.g., internal code)"
+    },
+    {
+      "fieldname": "secondary_barcode_type",
+      "fieldtype": "Select",
+      "label": "Secondary Barcode Type",
+      "options": "\nEAN-13\nUPC-A\nEAN-8\nUPC-E\nCode 128\nCode 39\nQR Code\nITF-14\nGTIN-14\nOther",
+      "description": "Type of the secondary barcode"
+    },
+    {
+      "fieldname": "section_break_additional_barcodes",
+      "fieldtype": "Section Break",
+      "label": "Additional Barcodes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "case_barcode",
+      "fieldtype": "Data",
+      "label": "Case/Carton Barcode",
+      "description": "Barcode for the outer case/carton packaging (ITF-14 recommended)"
+    },
+    {
+      "fieldname": "pallet_barcode",
+      "fieldtype": "Data",
+      "label": "Pallet Barcode",
+      "description": "Barcode for pallet-level shipping (SSCC-18 format)"
+    },
+    {
+      "fieldname": "column_break_case",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "gtin",
+      "fieldtype": "Data",
+      "label": "GTIN",
+      "description": "Global Trade Item Number"
+    },
+    {
+      "fieldname": "internal_sku",
+      "fieldtype": "Data",
+      "label": "Internal SKU",
+      "description": "Internal stock keeping unit code"
+    },
+    {
+      "fieldname": "tab_pricing",
+      "fieldtype": "Tab Break",
+      "label": "Pricing & Inventory"
+    },
+    {
+      "fieldname": "price",
+      "fieldtype": "Currency",
+      "label": "Package Price",
+      "description": "Selling price for this package"
+    },
+    {
+      "fieldname": "cost_price",
+      "fieldtype": "Currency",
+      "label": "Cost Price",
+      "description": "Cost price for this package"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "msrp",
+      "fieldtype": "Currency",
+      "label": "MSRP",
+      "description": "Manufacturer's Suggested Retail Price"
+    },
+    {
+      "fieldname": "price_per_unit",
+      "fieldtype": "Currency",
+      "label": "Price Per Unit",
+      "read_only": 1,
+      "description": "Calculated price per individual unit"
+    },
+    {
+      "fieldname": "section_break_inventory",
+      "fieldtype": "Section Break",
+      "label": "Inventory"
+    },
+    {
+      "fieldname": "stock_quantity",
+      "fieldtype": "Int",
+      "label": "Stock Quantity",
+      "default": 0,
+      "description": "Current stock quantity of packages"
+    },
+    {
+      "fieldname": "minimum_order_qty",
+      "fieldtype": "Int",
+      "label": "Minimum Order Quantity",
+      "default": 1,
+      "description": "Minimum order quantity for this package"
+    },
+    {
+      "fieldname": "column_break_inventory",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "safety_stock",
+      "fieldtype": "Int",
+      "label": "Safety Stock",
+      "default": 0,
+      "description": "Minimum stock level to maintain"
+    },
+    {
+      "fieldname": "lead_time_days",
+      "fieldtype": "Int",
+      "label": "Lead Time (Days)",
+      "default": 0,
+      "description": "Days required to replenish stock"
+    },
+    {
+      "fieldname": "tab_dimensions",
+      "fieldtype": "Tab Break",
+      "label": "Dimensions & Weight"
+    },
+    {
+      "fieldname": "gross_weight",
+      "fieldtype": "Float",
+      "label": "Gross Weight (kg)",
+      "precision": 3,
+      "description": "Total weight of the package including packaging"
+    },
+    {
+      "fieldname": "net_weight",
+      "fieldtype": "Float",
+      "label": "Net Weight (kg)",
+      "precision": 3,
+      "description": "Weight of product contents only"
+    },
+    {
+      "fieldname": "tare_weight",
+      "fieldtype": "Float",
+      "label": "Tare Weight (kg)",
+      "precision": 3,
+      "read_only": 1,
+      "description": "Calculated packaging weight (gross - net)"
+    },
+    {
+      "fieldname": "column_break_weight",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "length",
+      "fieldtype": "Float",
+      "label": "Length (cm)",
+      "precision": 2,
+      "description": "Package length in centimeters"
+    },
+    {
+      "fieldname": "width",
+      "fieldtype": "Float",
+      "label": "Width (cm)",
+      "precision": 2,
+      "description": "Package width in centimeters"
+    },
+    {
+      "fieldname": "height",
+      "fieldtype": "Float",
+      "label": "Height (cm)",
+      "precision": 2,
+      "description": "Package height in centimeters"
+    },
+    {
+      "fieldname": "section_break_calculated",
+      "fieldtype": "Section Break",
+      "label": "Calculated Metrics"
+    },
+    {
+      "fieldname": "volume",
+      "fieldtype": "Float",
+      "label": "Volume (cm3)",
+      "precision": 2,
+      "read_only": 1,
+      "description": "Calculated volume (L x W x H)"
+    },
+    {
+      "fieldname": "desi",
+      "fieldtype": "Float",
+      "label": "Desi (Volumetric Weight)",
+      "precision": 3,
+      "read_only": 1,
+      "description": "Volumetric weight for shipping (L x W x H / 3000)"
+    },
+    {
+      "fieldname": "column_break_calculated",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "chargeable_weight",
+      "fieldtype": "Float",
+      "label": "Chargeable Weight (kg)",
+      "precision": 3,
+      "read_only": 1,
+      "description": "Higher of gross weight or desi"
+    },
+    {
+      "fieldname": "units_per_layer",
+      "fieldtype": "Int",
+      "label": "Units Per Layer",
+      "description": "Number of packages per pallet layer"
+    },
+    {
+      "fieldname": "layers_per_pallet",
+      "fieldtype": "Int",
+      "label": "Layers Per Pallet",
+      "description": "Number of layers per pallet"
+    },
+    {
+      "fieldname": "tab_content",
+      "fieldtype": "Tab Break",
+      "label": "Content & Media"
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Package Image",
+      "description": "Primary image showing the package"
+    },
+    {
+      "fieldname": "package_description",
+      "fieldtype": "Text Editor",
+      "label": "Package Description",
+      "translatable": 1,
+      "description": "Description specific to this package variant"
+    },
+    {
+      "fieldname": "section_break_marketing",
+      "fieldtype": "Section Break",
+      "label": "Marketing Content"
+    },
+    {
+      "fieldname": "marketing_tagline",
+      "fieldtype": "Data",
+      "label": "Marketing Tagline",
+      "translatable": 1,
+      "description": "Short promotional text for this package"
+    },
+    {
+      "fieldname": "package_benefits",
+      "fieldtype": "Small Text",
+      "label": "Package Benefits",
+      "translatable": 1,
+      "description": "Key selling points for this package size"
+    },
+    {
+      "fieldname": "column_break_marketing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "target_customer",
+      "fieldtype": "Select",
+      "label": "Target Customer",
+      "options": "\nRetail Consumer\nBulk Buyer\nWholesale\nFoodservice\nE-commerce\nInstitutional\nIndustrial",
+      "description": "Primary target customer for this package"
+    },
+    {
+      "fieldname": "display_order",
+      "fieldtype": "Int",
+      "label": "Display Order",
+      "default": 0,
+      "description": "Order for displaying packages on listings"
+    },
+    {
+      "fieldname": "section_break_media",
+      "fieldtype": "Section Break",
+      "label": "Additional Media",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "media",
+      "fieldtype": "Table",
+      "label": "Media Files",
+      "options": "Product Media",
+      "description": "Additional images and media files for this package"
+    },
+    {
+      "fieldname": "tab_channels",
+      "fieldtype": "Tab Break",
+      "label": "Channels"
+    },
+    {
+      "fieldname": "available_channels",
+      "fieldtype": "Table",
+      "label": "Available Channels",
+      "options": "Product Channel",
+      "description": "Channels where this package is available"
+    },
+    {
+      "fieldname": "section_break_channel_settings",
+      "fieldtype": "Section Break",
+      "label": "Channel Settings"
+    },
+    {
+      "fieldname": "available_for_sale",
+      "fieldtype": "Check",
+      "label": "Available for Sale",
+      "default": 1,
+      "description": "Package is available for purchase"
+    },
+    {
+      "fieldname": "available_online",
+      "fieldtype": "Check",
+      "label": "Available Online",
+      "default": 1,
+      "description": "Package can be sold through e-commerce"
+    },
+    {
+      "fieldname": "column_break_channel_settings",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "available_in_store",
+      "fieldtype": "Check",
+      "label": "Available In-Store",
+      "default": 1,
+      "description": "Package can be sold in physical stores"
+    },
+    {
+      "fieldname": "available_wholesale",
+      "fieldtype": "Check",
+      "label": "Available Wholesale",
+      "default": 0,
+      "description": "Package can be sold to wholesale customers"
+    },
+    {
+      "fieldname": "tab_validity",
+      "fieldtype": "Tab Break",
+      "label": "Validity"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Date from which this package is available"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "Date until which this package is available"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_seasonal",
+      "fieldtype": "Check",
+      "label": "Is Seasonal",
+      "default": 0,
+      "description": "Mark as seasonal/limited edition package"
+    },
+    {
+      "fieldname": "season",
+      "fieldtype": "Data",
+      "label": "Season",
+      "depends_on": "eval:doc.is_seasonal",
+      "description": "Season or event this package is for (e.g., 'Holiday 2024')"
+    },
+    {
+      "fieldname": "section_break_lifecycle",
+      "fieldtype": "Section Break",
+      "label": "Lifecycle"
+    },
+    {
+      "fieldname": "launch_date",
+      "fieldtype": "Date",
+      "label": "Launch Date",
+      "description": "Date the package was/will be launched"
+    },
+    {
+      "fieldname": "discontinue_date",
+      "fieldtype": "Date",
+      "label": "Discontinue Date",
+      "description": "Date the package was/will be discontinued"
+    },
+    {
+      "fieldname": "column_break_lifecycle",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "replacement_package",
+      "fieldtype": "Link",
+      "label": "Replacement Package",
+      "options": "Package Variant",
+      "description": "Package variant that replaces this one"
+    },
+    {
+      "fieldname": "discontinue_reason",
+      "fieldtype": "Small Text",
+      "label": "Discontinue Reason",
+      "depends_on": "eval:doc.status == 'Discontinued'",
+      "description": "Reason for discontinuing this package"
+    },
+    {
+      "fieldname": "tab_erp",
+      "fieldtype": "Tab Break",
+      "label": "ERP Integration"
+    },
+    {
+      "fieldname": "erp_item",
+      "fieldtype": "Link",
+      "label": "Linked ERP Item",
+      "options": "Item",
+      "read_only": 1,
+      "description": "Linked Item in ERPNext (auto-synced)"
+    },
+    {
+      "fieldname": "sync_to_erp",
+      "fieldtype": "Check",
+      "label": "Sync to ERP",
+      "default": 1,
+      "description": "Enable automatic synchronization to ERPNext Item"
+    },
+    {
+      "fieldname": "column_break_erp",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_erp_sync",
+      "fieldtype": "Datetime",
+      "label": "Last ERP Sync",
+      "read_only": 1,
+      "description": "Timestamp of last synchronization to ERP"
+    },
+    {
+      "fieldname": "erp_sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "Not Synced\nSynced\nSync Failed\nPending",
+      "default": "Not Synced",
+      "read_only": 1,
+      "description": "Status of ERP synchronization"
+    },
+    {
+      "fieldname": "tab_notes",
+      "fieldtype": "Tab Break",
+      "label": "Notes"
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Internal notes about this package variant (not exported)"
+    },
+    {
+      "fieldname": "packaging_instructions",
+      "fieldtype": "Text Editor",
+      "label": "Packaging Instructions",
+      "description": "Special instructions for packaging this variant"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "tab_basic",
+    "package_name",
+    "package_code",
+    "column_break_basic",
+    "product_master",
+    "product_variant",
+    "status",
+    "section_break_package_config",
+    "package_type",
+    "units_per_package",
+    "column_break_package",
+    "base_uom",
+    "package_uom",
+    "is_default_package",
+    "tab_barcodes",
+    "primary_barcode",
+    "barcode_type",
+    "column_break_barcode",
+    "secondary_barcode",
+    "secondary_barcode_type",
+    "section_break_additional_barcodes",
+    "case_barcode",
+    "pallet_barcode",
+    "column_break_case",
+    "gtin",
+    "internal_sku",
+    "tab_pricing",
+    "price",
+    "cost_price",
+    "column_break_pricing",
+    "msrp",
+    "price_per_unit",
+    "section_break_inventory",
+    "stock_quantity",
+    "minimum_order_qty",
+    "column_break_inventory",
+    "safety_stock",
+    "lead_time_days",
+    "tab_dimensions",
+    "gross_weight",
+    "net_weight",
+    "tare_weight",
+    "column_break_weight",
+    "length",
+    "width",
+    "height",
+    "section_break_calculated",
+    "volume",
+    "desi",
+    "column_break_calculated",
+    "chargeable_weight",
+    "units_per_layer",
+    "layers_per_pallet",
+    "tab_content",
+    "image",
+    "package_description",
+    "section_break_marketing",
+    "marketing_tagline",
+    "package_benefits",
+    "column_break_marketing",
+    "target_customer",
+    "display_order",
+    "section_break_media",
+    "media",
+    "tab_channels",
+    "available_channels",
+    "section_break_channel_settings",
+    "available_for_sale",
+    "available_online",
+    "column_break_channel_settings",
+    "available_in_store",
+    "available_wholesale",
+    "tab_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "is_seasonal",
+    "season",
+    "section_break_lifecycle",
+    "launch_date",
+    "discontinue_date",
+    "column_break_lifecycle",
+    "replacement_package",
+    "discontinue_reason",
+    "tab_erp",
+    "erp_item",
+    "sync_to_erp",
+    "column_break_erp",
+    "last_erp_sync",
+    "erp_sync_status",
+    "tab_notes",
+    "internal_notes",
+    "packaging_instructions"
+  ]
+}

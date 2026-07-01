@@ -1,0 +1,524 @@
+{
+  "doctype": "DocType",
+  "name": "QA Note",
+  "module": "PIM",
+  "naming_rule": "Expression (old style)",
+  "autoname": "QAN-.#####",
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "note_title",
+  "search_fields": "note_title,linked_product,question",
+  "fields": [
+    {
+      "fieldname": "note_title",
+      "fieldtype": "Data",
+      "label": "Note Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "Brief title summarizing the Q&A"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nVerified\nOutdated\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Status of the Q&A note"
+    },
+    {
+      "fieldname": "is_featured",
+      "fieldtype": "Check",
+      "label": "Featured",
+      "default": 0,
+      "description": "Mark as featured/important Q&A"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Links"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Product this Q&A relates to"
+    },
+    {
+      "fieldname": "linked_variant",
+      "fieldtype": "Link",
+      "label": "Product Variant",
+      "options": "Product Variant",
+      "description": "Specific variant if applicable"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "in_standard_filter": 1,
+      "description": "Product family for broader Q&A"
+    },
+    {
+      "fieldname": "linked_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Category",
+      "description": "Category for category-wide Q&A"
+    },
+    {
+      "fieldname": "section_break_question",
+      "fieldtype": "Section Break",
+      "label": "Question"
+    },
+    {
+      "fieldname": "question",
+      "fieldtype": "Text",
+      "label": "Question",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "The question asked"
+    },
+    {
+      "fieldname": "question_type",
+      "fieldtype": "Select",
+      "label": "Question Type",
+      "options": "\nGeneral\nTechnical\nUsage\nCompatibility\nComparison\nTroubleshooting\nPricing\nAvailability\nSpecification\nSafety\nWarranty\nOther",
+      "in_standard_filter": 1,
+      "description": "Category of question"
+    },
+    {
+      "fieldname": "column_break_question",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "question_source",
+      "fieldtype": "Select",
+      "label": "Question Source",
+      "options": "\nAI Agent\nUser Interface\nAPI\nImport\nCustomer Inquiry\nInternal\nDocumentation\nOther",
+      "description": "Where the question originated"
+    },
+    {
+      "fieldname": "asked_by",
+      "fieldtype": "Link",
+      "label": "Asked By",
+      "options": "User",
+      "description": "User who asked the question"
+    },
+    {
+      "fieldname": "asked_date",
+      "fieldtype": "Datetime",
+      "label": "Asked Date",
+      "default": "now",
+      "description": "When the question was asked"
+    },
+    {
+      "fieldname": "section_break_answer",
+      "fieldtype": "Section Break",
+      "label": "Answer"
+    },
+    {
+      "fieldname": "answer",
+      "fieldtype": "Text Editor",
+      "label": "Answer",
+      "reqd": 1,
+      "translatable": 1,
+      "description": "The answer or response"
+    },
+    {
+      "fieldname": "answer_summary",
+      "fieldtype": "Small Text",
+      "label": "Answer Summary",
+      "description": "Brief summary of the answer for listings"
+    },
+    {
+      "fieldname": "section_break_ai",
+      "fieldtype": "Section Break",
+      "label": "AI Generation Details",
+      "collapsible": 1,
+      "collapsible_depends_on": "eval:doc.generation_method !== 'AI'"
+    },
+    {
+      "fieldname": "generation_method",
+      "fieldtype": "Select",
+      "label": "Generation Method",
+      "options": "Manual\nAI\nHybrid\nImported",
+      "default": "Manual",
+      "in_standard_filter": 1,
+      "description": "How the answer was generated"
+    },
+    {
+      "fieldname": "ai_model",
+      "fieldtype": "Data",
+      "label": "AI Model",
+      "depends_on": "eval:doc.generation_method === 'AI' || doc.generation_method === 'Hybrid'",
+      "description": "Name of AI model used (e.g., gpt-4, claude-3)"
+    },
+    {
+      "fieldname": "column_break_ai",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "ai_confidence",
+      "fieldtype": "Percent",
+      "label": "AI Confidence",
+      "depends_on": "eval:doc.generation_method === 'AI' || doc.generation_method === 'Hybrid'",
+      "description": "AI confidence score (0-100%)"
+    },
+    {
+      "fieldname": "tokens_used",
+      "fieldtype": "Int",
+      "label": "Tokens Used",
+      "depends_on": "eval:doc.generation_method === 'AI' || doc.generation_method === 'Hybrid'",
+      "description": "Total tokens consumed for generation"
+    },
+    {
+      "fieldname": "generation_time",
+      "fieldtype": "Float",
+      "label": "Generation Time (seconds)",
+      "depends_on": "eval:doc.generation_method === 'AI' || doc.generation_method === 'Hybrid'",
+      "description": "Time taken to generate the answer"
+    },
+    {
+      "fieldname": "generation_timestamp",
+      "fieldtype": "Datetime",
+      "label": "Generation Timestamp",
+      "depends_on": "eval:doc.generation_method === 'AI' || doc.generation_method === 'Hybrid'",
+      "description": "When the AI generated the answer"
+    },
+    {
+      "fieldname": "section_break_context",
+      "fieldtype": "Section Break",
+      "label": "Context & Sources",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "context_used",
+      "fieldtype": "Text",
+      "label": "Context Used",
+      "description": "Product data/context used to generate the answer"
+    },
+    {
+      "fieldname": "source_references",
+      "fieldtype": "Small Text",
+      "label": "Source References",
+      "description": "References or sources for the answer"
+    },
+    {
+      "fieldname": "column_break_context",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "related_qa_notes",
+      "fieldtype": "Small Text",
+      "label": "Related Q&A Notes",
+      "description": "Links to related Q&A notes (comma-separated)"
+    },
+    {
+      "fieldname": "related_documents",
+      "fieldtype": "Small Text",
+      "label": "Related Documents",
+      "description": "Related documents or links"
+    },
+    {
+      "fieldname": "section_break_verification",
+      "fieldtype": "Section Break",
+      "label": "Verification & Quality"
+    },
+    {
+      "fieldname": "is_verified",
+      "fieldtype": "Check",
+      "label": "Verified",
+      "default": 0,
+      "in_standard_filter": 1,
+      "description": "Answer has been verified by a human"
+    },
+    {
+      "fieldname": "verified_by",
+      "fieldtype": "Link",
+      "label": "Verified By",
+      "options": "User",
+      "depends_on": "is_verified",
+      "description": "User who verified the answer"
+    },
+    {
+      "fieldname": "verified_date",
+      "fieldtype": "Date",
+      "label": "Verified Date",
+      "depends_on": "is_verified",
+      "description": "Date of verification"
+    },
+    {
+      "fieldname": "column_break_verification",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quality_rating",
+      "fieldtype": "Rating",
+      "label": "Quality Rating",
+      "description": "Internal quality rating (1-5 stars)"
+    },
+    {
+      "fieldname": "feedback_count",
+      "fieldtype": "Int",
+      "label": "Feedback Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of user feedbacks received"
+    },
+    {
+      "fieldname": "helpful_count",
+      "fieldtype": "Int",
+      "label": "Helpful Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of users who found this helpful"
+    },
+    {
+      "fieldname": "not_helpful_count",
+      "fieldtype": "Int",
+      "label": "Not Helpful Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of users who found this not helpful"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Date from which the answer is valid"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "Date until which the answer is valid"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "review_date",
+      "fieldtype": "Date",
+      "label": "Review Date",
+      "description": "Date when the answer should be reviewed"
+    },
+    {
+      "fieldname": "last_reviewed",
+      "fieldtype": "Date",
+      "label": "Last Reviewed",
+      "read_only": 1,
+      "description": "Date of last review"
+    },
+    {
+      "fieldname": "section_break_usage",
+      "fieldtype": "Section Break",
+      "label": "Usage Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "view_count",
+      "fieldtype": "Int",
+      "label": "View Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this Q&A has been viewed"
+    },
+    {
+      "fieldname": "last_viewed",
+      "fieldtype": "Datetime",
+      "label": "Last Viewed",
+      "read_only": 1,
+      "description": "Last time this Q&A was viewed"
+    },
+    {
+      "fieldname": "column_break_usage",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "reuse_count",
+      "fieldtype": "Int",
+      "label": "Reuse Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this answer was reused"
+    },
+    {
+      "fieldname": "export_count",
+      "fieldtype": "Int",
+      "label": "Export Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this Q&A was exported"
+    },
+    {
+      "fieldname": "section_break_tags",
+      "fieldtype": "Section Break",
+      "label": "Tags & Classification",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization"
+    },
+    {
+      "fieldname": "language",
+      "fieldtype": "Link",
+      "label": "Language",
+      "options": "Language",
+      "description": "Language of the Q&A content"
+    },
+    {
+      "fieldname": "column_break_tags",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "target_audience",
+      "fieldtype": "Select",
+      "label": "Target Audience",
+      "options": "\nCustomer\nInternal Staff\nDistributor\nTechnical\nGeneral Public\nAll",
+      "description": "Intended audience for this Q&A"
+    },
+    {
+      "fieldname": "visibility",
+      "fieldtype": "Select",
+      "label": "Visibility",
+      "options": "Public\nInternal\nRestricted\nDraft",
+      "default": "Internal",
+      "description": "Who can see this Q&A"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text",
+      "label": "Internal Notes",
+      "description": "Internal notes for reference"
+    },
+    {
+      "fieldname": "improvement_suggestions",
+      "fieldtype": "Small Text",
+      "label": "Improvement Suggestions",
+      "description": "Suggestions for improving this Q&A"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "export": 1
+    }
+  ],
+  "field_order": [
+    "note_title",
+    "column_break_basic",
+    "status",
+    "is_featured",
+    "section_break_product",
+    "linked_product",
+    "linked_variant",
+    "column_break_product",
+    "linked_product_family",
+    "linked_category",
+    "section_break_question",
+    "question",
+    "question_type",
+    "column_break_question",
+    "question_source",
+    "asked_by",
+    "asked_date",
+    "section_break_answer",
+    "answer",
+    "answer_summary",
+    "section_break_ai",
+    "generation_method",
+    "ai_model",
+    "column_break_ai",
+    "ai_confidence",
+    "tokens_used",
+    "generation_time",
+    "generation_timestamp",
+    "section_break_context",
+    "context_used",
+    "source_references",
+    "column_break_context",
+    "related_qa_notes",
+    "related_documents",
+    "section_break_verification",
+    "is_verified",
+    "verified_by",
+    "verified_date",
+    "column_break_verification",
+    "quality_rating",
+    "feedback_count",
+    "helpful_count",
+    "not_helpful_count",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "review_date",
+    "last_reviewed",
+    "section_break_usage",
+    "view_count",
+    "last_viewed",
+    "column_break_usage",
+    "reuse_count",
+    "export_count",
+    "section_break_tags",
+    "tags",
+    "language",
+    "column_break_tags",
+    "target_audience",
+    "visibility",
+    "section_break_notes",
+    "internal_notes",
+    "improvement_suggestions"
+  ]
+}

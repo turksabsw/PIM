@@ -1,0 +1,66 @@
+{
+    "doctype": "DocType",
+    "name": "Product Price Item",
+    "module": "PIM",
+    "istable": 1,
+    "editable_grid": 1,
+    "track_changes": 0,
+    "fields": [
+        {
+            "fieldname": "price_list",
+            "fieldtype": "Link",
+            "label": "Price List",
+            "options": "Price List",
+            "reqd": 1,
+            "in_list_view": 1,
+            "columns": 2
+        },
+        {
+            "fieldname": "price",
+            "fieldtype": "Currency",
+            "label": "Price",
+            "reqd": 1,
+            "in_list_view": 1,
+            "columns": 2
+        },
+        {
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "Currency",
+            "options": "Currency",
+            "in_list_view": 1,
+            "columns": 1
+        },
+        {
+            "fieldname": "min_qty",
+            "fieldtype": "Float",
+            "label": "Min Qty",
+            "default": "1",
+            "in_list_view": 1,
+            "columns": 1
+        },
+        {
+            "fieldname": "valid_from",
+            "fieldtype": "Date",
+            "label": "Valid From",
+            "in_list_view": 1,
+            "columns": 2
+        },
+        {
+            "fieldname": "valid_to",
+            "fieldtype": "Date",
+            "label": "Valid To",
+            "in_list_view": 1,
+            "columns": 2
+        }
+    ],
+    "permissions": [],
+    "field_order": [
+        "price_list",
+        "price",
+        "currency",
+        "min_qty",
+        "valid_from",
+        "valid_to"
+    ]
+}

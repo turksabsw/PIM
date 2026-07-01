@@ -1,0 +1,233 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Sync Conflict Rule",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "CONFR-.#####",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "rule_name",
+
+  "fields": [
+    {
+      "fieldname": "section_break_main",
+      "fieldtype": "Section Break",
+      "label": "Rule Details"
+    },
+    {
+      "fieldname": "rule_name",
+      "fieldtype": "Data",
+      "label": "Rule Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Unique name for this conflict resolution rule"
+    },
+    {
+      "fieldname": "rule_code",
+      "fieldtype": "Data",
+      "label": "Rule Code",
+      "reqd": 1,
+      "unique": 1,
+      "description": "URL-safe identifier for the rule (auto-generated from name if not provided)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Whether this rule is currently active"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Higher priority rules are evaluated first (higher = more important)"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Scope"
+    },
+    {
+      "fieldname": "doctype_name",
+      "fieldtype": "Link",
+      "label": "DocType",
+      "options": "DocType",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Apply this rule to a specific DocType (leave empty for all DocTypes)"
+    },
+    {
+      "fieldname": "field_name",
+      "fieldtype": "Data",
+      "label": "Field Name",
+      "in_list_view": 1,
+      "description": "Apply this rule to a specific field (leave empty for all fields)"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sync_direction",
+      "fieldtype": "Select",
+      "label": "Sync Direction",
+      "options": "\nPIM to ERP\nERP to PIM\nBidirectional",
+      "description": "Apply rule only for specific sync direction (leave empty for all directions)"
+    },
+    {
+      "fieldname": "section_break_resolution",
+      "fieldtype": "Section Break",
+      "label": "Conflict Resolution"
+    },
+    {
+      "fieldname": "priority_source",
+      "fieldtype": "Select",
+      "label": "Priority Source",
+      "options": "PIM\nERP\nLatest\nManual",
+      "reqd": 1,
+      "default": "PIM",
+      "in_list_view": 1,
+      "description": "Which source takes priority when conflicts occur"
+    },
+    {
+      "fieldname": "resolution_strategy",
+      "fieldtype": "Select",
+      "label": "Resolution Strategy",
+      "options": "Overwrite\nMerge\nSkip\nQueue for Review",
+      "default": "Overwrite",
+      "description": "How to apply the resolution when priority source wins"
+    },
+    {
+      "fieldname": "column_break_resolution",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notify_on_conflict",
+      "fieldtype": "Check",
+      "label": "Notify on Conflict",
+      "default": 0,
+      "description": "Send notification when this rule is triggered"
+    },
+    {
+      "fieldname": "notification_recipients",
+      "fieldtype": "Small Text",
+      "label": "Notification Recipients",
+      "depends_on": "notify_on_conflict",
+      "description": "Comma-separated list of email addresses or user IDs"
+    },
+    {
+      "fieldname": "section_break_conditions",
+      "fieldtype": "Section Break",
+      "label": "Conditions",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "condition_type",
+      "fieldtype": "Select",
+      "label": "Condition Type",
+      "options": "\nAlways\nField Value\nTime Based\nCustom",
+      "default": "Always",
+      "description": "When should this rule be applied"
+    },
+    {
+      "fieldname": "condition_field",
+      "fieldtype": "Data",
+      "label": "Condition Field",
+      "depends_on": "eval:doc.condition_type=='Field Value'",
+      "description": "Field to check for condition"
+    },
+    {
+      "fieldname": "condition_operator",
+      "fieldtype": "Select",
+      "label": "Condition Operator",
+      "options": "\n=\n!=\n>\n<\n>=\n<=\ncontains\nnot contains\nis set\nis not set",
+      "depends_on": "eval:doc.condition_type=='Field Value'",
+      "description": "Comparison operator"
+    },
+    {
+      "fieldname": "condition_value",
+      "fieldtype": "Data",
+      "label": "Condition Value",
+      "depends_on": "eval:doc.condition_type=='Field Value'",
+      "description": "Value to compare against"
+    },
+    {
+      "fieldname": "column_break_conditions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "time_window_hours",
+      "fieldtype": "Int",
+      "label": "Time Window (Hours)",
+      "depends_on": "eval:doc.condition_type=='Time Based'",
+      "description": "Apply Latest strategy within this time window (in hours)"
+    },
+    {
+      "fieldname": "custom_condition",
+      "fieldtype": "Code",
+      "label": "Custom Condition",
+      "options": "Python",
+      "depends_on": "eval:doc.condition_type=='Custom'",
+      "description": "Python expression that returns True/False. Available vars: doc, conflict_data, pim_value, erp_value"
+    },
+    {
+      "fieldname": "section_break_audit",
+      "fieldtype": "Section Break",
+      "label": "Audit & Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "times_triggered",
+      "fieldtype": "Int",
+      "label": "Times Triggered",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this rule has been triggered"
+    },
+    {
+      "fieldname": "last_triggered",
+      "fieldtype": "Datetime",
+      "label": "Last Triggered",
+      "read_only": 1,
+      "description": "When this rule was last triggered"
+    },
+    {
+      "fieldname": "column_break_audit",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text",
+      "label": "Description",
+      "description": "Detailed description of what this rule does and when to use it"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

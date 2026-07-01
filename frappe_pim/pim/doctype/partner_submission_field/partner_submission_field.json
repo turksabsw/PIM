@@ -1,0 +1,71 @@
+{
+  "doctype": "DocType",
+  "name": "Partner Submission Field",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "field_name",
+      "fieldtype": "Data",
+      "label": "Field Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Name of the field being updated"
+    },
+    {
+      "fieldname": "field_label",
+      "fieldtype": "Data",
+      "label": "Field Label",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Human-readable label of the field"
+    },
+    {
+      "fieldname": "original_value",
+      "fieldtype": "Text",
+      "label": "Original Value",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Current value in the product"
+    },
+    {
+      "fieldname": "new_value",
+      "fieldtype": "Text",
+      "label": "New Value",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Proposed new value"
+    },
+    {
+      "fieldname": "approval_status",
+      "fieldtype": "Select",
+      "label": "Approval Status",
+      "options": "Pending\nApproved\nRejected",
+      "default": "Pending",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Approval status of this specific field"
+    },
+    {
+      "fieldname": "reviewer_note",
+      "fieldtype": "Small Text",
+      "label": "Reviewer Note",
+      "description": "Note from reviewer about this field"
+    },
+    {
+      "fieldname": "change_type",
+      "fieldtype": "Select",
+      "label": "Change Type",
+      "options": "Update\nNew\nDelete",
+      "default": "Update",
+      "description": "Type of change"
+    }
+  ],
+
+  "permissions": []
+}

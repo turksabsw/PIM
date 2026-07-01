@@ -1,0 +1,1302 @@
+{
+    "archetype": "health_beauty",
+    "version": "1.0",
+    "label": "Health & Beauty",
+    "description": "Industry archetype for cosmetics, skincare, haircare, personal care, and wellness products. Includes product types for beauty, body care, and supplements with regulatory attributes for ingredient lists (INCI), allergen declarations, cruelty-free and vegan certifications, SPF ratings, and shelf-life tracking.",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Formulation",
+            "group_code": "formulation",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-flask",
+            "description": "Product formulation details: ingredients (INCI), active compounds, concentration, and texture"
+        },
+        {
+            "group_name": "Skin & Hair Profile",
+            "group_code": "skin_hair_profile",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-spa",
+            "description": "Target skin type, hair type, skin concern, and suitability profiles"
+        },
+        {
+            "group_name": "Safety & Compliance",
+            "group_code": "safety_compliance",
+            "sort_order": 100,
+            "is_standard": 0,
+            "icon": "fa fa-shield-alt",
+            "description": "Allergen declarations, safety warnings, FDA/EU compliance, and dermatological testing"
+        },
+        {
+            "group_name": "Sustainability & Ethics",
+            "group_code": "sustainability_ethics",
+            "sort_order": 110,
+            "is_standard": 0,
+            "icon": "fa fa-leaf",
+            "description": "Cruelty-free, vegan, organic, clean beauty, and sustainability certifications"
+        },
+        {
+            "group_name": "Shelf Life & Storage",
+            "group_code": "shelf_life_storage",
+            "sort_order": 120,
+            "is_standard": 0,
+            "icon": "fa fa-clock",
+            "description": "Expiration tracking, PAO (period after opening), batch numbers, and storage conditions"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "INCI List",
+            "type_code": "inci_list",
+            "base_type": "Text",
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "textarea",
+            "display_component": "ingredient-list",
+            "icon": "fa fa-list"
+        },
+        {
+            "type_name": "SPF Rating",
+            "type_code": "spf_rating",
+            "base_type": "Integer",
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "max_value": 100,
+            "validation_regex": "^[0-9]{1,3}$",
+            "validation_message": "SPF must be a number between 0 and 100",
+            "input_component": "number-input",
+            "display_component": "badge-display",
+            "icon": "fa fa-sun"
+        },
+        {
+            "type_name": "Percentage Concentration",
+            "type_code": "pct_concentration",
+            "base_type": "Float",
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "max_value": 100,
+            "validation_regex": "^([0-9]|[1-9][0-9]|100)(\\.\\d{1,2})?$",
+            "validation_message": "Value must be a percentage between 0 and 100",
+            "input_component": "number-input",
+            "display_component": "percentage-display",
+            "icon": "fa fa-percent"
+        },
+        {
+            "type_name": "Certification Badge",
+            "type_code": "beauty_cert_badge",
+            "base_type": "JSON",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "multiselect",
+            "display_component": "tags-display",
+            "icon": "fa fa-certificate"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Ingredients (INCI)",
+            "attribute_code": "inci_ingredients",
+            "attribute_group": "formulation",
+            "data_type": "Long Text",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 10,
+            "weight_in_completeness": 3,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Full INCI (International Nomenclature of Cosmetic Ingredients) ingredient list as required by EU/FDA regulations"
+        },
+        {
+            "attribute_name": "Key Active Ingredients",
+            "attribute_code": "key_actives",
+            "attribute_group": "formulation",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 500,
+            "sort_order": 15,
+            "weight_in_completeness": 2,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Highlighted active ingredients (e.g., Retinol 0.5%, Hyaluronic Acid, Niacinamide 10%)"
+        },
+        {
+            "attribute_name": "Product Form",
+            "attribute_code": "product_form",
+            "attribute_group": "formulation",
+            "data_type": "Select",
+            "options": "Cream, Gel, Serum, Oil, Lotion, Balm, Mousse, Spray, Powder, Stick, Liquid, Foam, Paste, Wax, Sheet Mask, Capsule, Tablet",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 20,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Physical form or texture of the product"
+        },
+        {
+            "attribute_name": "Volume/Weight",
+            "attribute_code": "volume_weight",
+            "attribute_group": "formulation",
+            "data_type": "Text",
+            "is_required": 1,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 50,
+            "sort_order": 25,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Net volume or weight (e.g., 50 ml, 100 g, 1.7 fl oz)"
+        },
+        {
+            "attribute_name": "Skin Type",
+            "attribute_code": "skin_type",
+            "attribute_group": "skin_hair_profile",
+            "data_type": "Select",
+            "options": "All Skin Types, Normal, Dry, Oily, Combination, Sensitive, Mature, Acne-Prone",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 30,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Target skin type suitability"
+        },
+        {
+            "attribute_name": "Skin Concern",
+            "attribute_code": "skin_concern",
+            "attribute_group": "skin_hair_profile",
+            "data_type": "Select",
+            "options": "Anti-Aging, Hydration, Acne, Brightening, Dark Spots, Redness, Pores, Fine Lines, Sun Protection, Firming, Exfoliation, General Care",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 35,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary skin concern the product addresses"
+        },
+        {
+            "attribute_name": "Hair Type",
+            "attribute_code": "hair_type",
+            "attribute_group": "skin_hair_profile",
+            "data_type": "Select",
+            "options": "All Hair Types, Straight, Wavy, Curly, Coily, Fine, Thick, Normal, Oily, Dry, Color-Treated, Damaged",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 40,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Target hair type suitability (for haircare products)"
+        },
+        {
+            "attribute_name": "SPF",
+            "attribute_code": "spf",
+            "attribute_group": "safety_compliance",
+            "data_type": "Select",
+            "options": "SPF 15, SPF 20, SPF 30, SPF 50, SPF 50+, N/A",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 45,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Sun protection factor rating if applicable"
+        },
+        {
+            "attribute_name": "Fragrance",
+            "attribute_code": "fragrance",
+            "attribute_group": "formulation",
+            "data_type": "Select",
+            "options": "Fragrance-Free, Unscented, Light Floral, Rose, Citrus, Herbal, Woody, Fresh, Vanilla, Coconut, Lavender, Custom Blend",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 50,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Fragrance profile or scent family"
+        },
+        {
+            "attribute_name": "Allergen Declaration",
+            "attribute_code": "allergen_declaration",
+            "attribute_group": "safety_compliance",
+            "data_type": "Long Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 55,
+            "weight_in_completeness": 2,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Declared allergens as required by EU Cosmetics Regulation (EC) No 1223/2009"
+        },
+        {
+            "attribute_name": "Safety Warnings",
+            "attribute_code": "safety_warnings",
+            "attribute_group": "safety_compliance",
+            "data_type": "Long Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 60,
+            "weight_in_completeness": 1,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Mandatory safety warnings and usage precautions"
+        },
+        {
+            "attribute_name": "Dermatologically Tested",
+            "attribute_code": "derm_tested",
+            "attribute_group": "safety_compliance",
+            "data_type": "Select",
+            "options": "Yes, No, Pending",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 65,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Whether the product has been dermatologically tested"
+        },
+        {
+            "attribute_name": "Cruelty-Free",
+            "attribute_code": "cruelty_free",
+            "attribute_group": "sustainability_ethics",
+            "data_type": "Select",
+            "options": "Yes - Leaping Bunny, Yes - PETA, Yes - Other, No, Pending",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 70,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Cruelty-free certification status and certifying body"
+        },
+        {
+            "attribute_name": "Vegan",
+            "attribute_code": "vegan",
+            "attribute_group": "sustainability_ethics",
+            "data_type": "Select",
+            "options": "Yes - Certified, Yes - Self-Declared, No, Pending",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 75,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Vegan status - contains no animal-derived ingredients"
+        },
+        {
+            "attribute_name": "Organic Certification",
+            "attribute_code": "organic_cert",
+            "attribute_group": "sustainability_ethics",
+            "data_type": "Select",
+            "options": "COSMOS Organic, COSMOS Natural, USDA Organic, Ecocert, Soil Association, NATRUE, None",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 80,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Organic certification body and standard"
+        },
+        {
+            "attribute_name": "Clean Beauty",
+            "attribute_code": "clean_beauty",
+            "attribute_group": "sustainability_ethics",
+            "data_type": "Select",
+            "options": "Yes - Free from Parabens/Sulfates/Phthalates, Yes - EWG Verified, Yes - Custom Standard, No",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 82,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Clean beauty standard compliance (free from harmful chemicals)"
+        },
+        {
+            "attribute_name": "Recyclable Packaging",
+            "attribute_code": "recyclable_packaging",
+            "attribute_group": "sustainability_ethics",
+            "data_type": "Select",
+            "options": "Fully Recyclable, Partially Recyclable, Refillable, Biodegradable, Not Recyclable",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 85,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Packaging recyclability and sustainability"
+        },
+        {
+            "attribute_name": "Shelf Life (Months)",
+            "attribute_code": "shelf_life_months",
+            "attribute_group": "shelf_life_storage",
+            "data_type": "Int",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "min_value": 1,
+            "sort_order": 90,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Total shelf life in months from date of manufacture"
+        },
+        {
+            "attribute_name": "PAO (Period After Opening)",
+            "attribute_code": "pao_months",
+            "attribute_group": "shelf_life_storage",
+            "data_type": "Select",
+            "options": "3M, 6M, 9M, 12M, 18M, 24M, 36M",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 95,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Period after opening (PAO) symbol duration - how long product is safe after first use"
+        },
+        {
+            "attribute_name": "Storage Conditions",
+            "attribute_code": "storage_conditions",
+            "attribute_group": "shelf_life_storage",
+            "data_type": "Select",
+            "options": "Room Temperature, Cool & Dry, Refrigerated, Avoid Direct Sunlight, Below 25°C, Below 30°C",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 97,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Recommended storage conditions for the product"
+        },
+        {
+            "attribute_name": "Shade",
+            "attribute_code": "shade",
+            "attribute_group": "formulation",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 100,
+            "sort_order": 100,
+            "weight_in_completeness": 2,
+            "is_localizable": 1,
+            "is_standard": 0,
+            "description": "Color shade or variant name (e.g., Rose Nude, Fair Ivory, Deep Espresso) for makeup products"
+        },
+        {
+            "attribute_name": "Gender Target",
+            "attribute_code": "beauty_gender",
+            "attribute_group": "skin_hair_profile",
+            "data_type": "Select",
+            "options": "Women, Men, Unisex, All",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 105,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Target demographic for the product"
+        },
+        {
+            "attribute_name": "Application Area",
+            "attribute_code": "application_area",
+            "attribute_group": "skin_hair_profile",
+            "data_type": "Select",
+            "options": "Face, Eyes, Lips, Body, Hands, Feet, Hair, Scalp, Nails, Full Body",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 110,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary area of application"
+        },
+        {
+            "attribute_name": "Usage Frequency",
+            "attribute_code": "usage_frequency",
+            "attribute_group": "formulation",
+            "data_type": "Select",
+            "options": "Daily, Twice Daily, Weekly, 2-3 Times per Week, As Needed, One-Time Use",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "sort_order": 115,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Recommended usage frequency"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "Skincare",
+            "type_code": "skincare",
+            "description": "Facial and body skincare products including moisturizers, serums, cleansers, and treatments. Supports Shade/Volume variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Makeup",
+            "type_code": "makeup",
+            "description": "Color cosmetics including foundation, lipstick, eyeshadow, mascara, and blush. Supports Shade variant axes with extensive color ranges.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Haircare",
+            "type_code": "haircare",
+            "description": "Shampoos, conditioners, treatments, and styling products. Supports Volume/Type variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Fragrance",
+            "type_code": "fragrance",
+            "description": "Perfumes, eau de toilette, body mists, and scented products. Supports Volume variant axes.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Personal Care",
+            "type_code": "personal_care",
+            "description": "Body wash, deodorant, oral care, and everyday personal hygiene products. Some support Volume variants.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Wellness & Supplements",
+            "type_code": "wellness_supplements",
+            "description": "Dietary supplements, vitamins, and wellness products. Requires additional regulatory attributes for claims and dosage.",
+            "is_active": 1,
+            "allow_variants": 0
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Health & Beauty",
+            "family_code": "health_beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Root family for all health, beauty, and personal care products"
+        },
+        {
+            "family_name": "Skincare",
+            "family_code": "skincare",
+            "parent_family": "Health & Beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SKC-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Facial and body skincare: cleansers, moisturizers, serums, and treatments",
+            "attributes": [
+                {"attribute": "inci_ingredients", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "key_actives", "is_required_in_family": 0, "sort_order": 15},
+                {"attribute": "product_form", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "volume_weight", "is_required_in_family": 1, "sort_order": 25},
+                {"attribute": "skin_type", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "skin_concern", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "spf", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "fragrance", "is_required_in_family": 0, "sort_order": 45},
+                {"attribute": "application_area", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "cruelty_free", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "vegan", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "pao_months", "is_required_in_family": 0, "sort_order": 65}
+            ],
+            "variant_attributes": [
+                {"attribute": "volume_weight", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Cleansers",
+            "family_code": "cleansers",
+            "parent_family": "Skincare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "CLN-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Face washes, micellar waters, cleansing oils, and makeup removers"
+        },
+        {
+            "family_name": "Moisturizers",
+            "family_code": "moisturizers",
+            "parent_family": "Skincare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MST-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Day creams, night creams, facial oils, and hydrating treatments"
+        },
+        {
+            "family_name": "Serums & Treatments",
+            "family_code": "serums_treatments",
+            "parent_family": "Skincare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SRM-",
+            "required_media_types": "Main Image, Gallery, Detail Shot",
+            "min_images": 3,
+            "completeness_threshold": 90,
+            "description": "Serums, ampoules, essences, and targeted treatments"
+        },
+        {
+            "family_name": "Sun Care",
+            "family_code": "sun_care",
+            "parent_family": "Skincare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SUN-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Sunscreens, after-sun care, and UV protection products"
+        },
+        {
+            "family_name": "Makeup",
+            "family_code": "makeup",
+            "parent_family": "Health & Beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MKP-",
+            "required_media_types": "Main Image, Swatch Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Color cosmetics and makeup products",
+            "attributes": [
+                {"attribute": "inci_ingredients", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "product_form", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "volume_weight", "is_required_in_family": 1, "sort_order": 25},
+                {"attribute": "shade", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "skin_type", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "application_area", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "cruelty_free", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "vegan", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "pao_months", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "shade", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Face Makeup",
+            "family_code": "face_makeup",
+            "parent_family": "Makeup",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FMK-",
+            "required_media_types": "Main Image, Swatch Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 90,
+            "description": "Foundation, concealer, blush, bronzer, and highlighter"
+        },
+        {
+            "family_name": "Eye Makeup",
+            "family_code": "eye_makeup",
+            "parent_family": "Makeup",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "EMK-",
+            "required_media_types": "Main Image, Swatch Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Eyeshadow, eyeliner, mascara, and brow products"
+        },
+        {
+            "family_name": "Lip Products",
+            "family_code": "lip_products",
+            "parent_family": "Makeup",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "LIP-",
+            "required_media_types": "Main Image, Swatch Image, Gallery",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Lipstick, lip gloss, lip liner, and lip care"
+        },
+        {
+            "family_name": "Haircare",
+            "family_code": "haircare",
+            "parent_family": "Health & Beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "HRC-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Shampoos, conditioners, masks, and hair styling products",
+            "attributes": [
+                {"attribute": "inci_ingredients", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "product_form", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "volume_weight", "is_required_in_family": 1, "sort_order": 25},
+                {"attribute": "hair_type", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "fragrance", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "cruelty_free", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "vegan", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "pao_months", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "volume_weight", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Shampoo & Conditioner",
+            "family_code": "shampoo_conditioner",
+            "parent_family": "Haircare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SHC-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Shampoos, conditioners, co-washes, and cleansing treatments"
+        },
+        {
+            "family_name": "Hair Treatments",
+            "family_code": "hair_treatments",
+            "parent_family": "Haircare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "HTR-",
+            "required_media_types": "Main Image, Gallery",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Hair masks, serums, oils, and intensive treatments"
+        },
+        {
+            "family_name": "Hair Styling",
+            "family_code": "hair_styling",
+            "parent_family": "Haircare",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "HST-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 75,
+            "description": "Gels, mousses, sprays, waxes, and styling products"
+        },
+        {
+            "family_name": "Fragrance",
+            "family_code": "fragrance",
+            "parent_family": "Health & Beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FRG-",
+            "required_media_types": "Main Image, Gallery, Lifestyle Shot",
+            "min_images": 2,
+            "completeness_threshold": 80,
+            "description": "Perfumes, colognes, and scented body products",
+            "attributes": [
+                {"attribute": "inci_ingredients", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "volume_weight", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "fragrance", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "beauty_gender", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "allergen_declaration", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "shelf_life_months", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "volume_weight", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Women's Fragrance",
+            "family_code": "womens_fragrance",
+            "parent_family": "Fragrance",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "WFR-",
+            "required_media_types": "Main Image, Gallery, Lifestyle Shot",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Women's perfumes, eau de parfum, and eau de toilette"
+        },
+        {
+            "family_name": "Men's Fragrance",
+            "family_code": "mens_fragrance",
+            "parent_family": "Fragrance",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MFR-",
+            "required_media_types": "Main Image, Gallery, Lifestyle Shot",
+            "min_images": 3,
+            "completeness_threshold": 85,
+            "description": "Men's cologne, eau de parfum, and aftershave"
+        },
+        {
+            "family_name": "Personal Care",
+            "family_code": "personal_care",
+            "parent_family": "Health & Beauty",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "PRC-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 75,
+            "description": "Body wash, deodorant, oral care, and personal hygiene products",
+            "attributes": [
+                {"attribute": "inci_ingredients", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "product_form", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "volume_weight", "is_required_in_family": 1, "sort_order": 25},
+                {"attribute": "fragrance", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "beauty_gender", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "cruelty_free", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "vegan", "is_required_in_family": 0, "sort_order": 55}
+            ],
+            "variant_attributes": [
+                {"attribute": "volume_weight", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Body Wash & Soap",
+            "family_code": "body_wash_soap",
+            "parent_family": "Personal Care",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BWS-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 75,
+            "description": "Shower gels, bar soaps, and body cleansers"
+        },
+        {
+            "family_name": "Deodorant",
+            "family_code": "deodorant",
+            "parent_family": "Personal Care",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "DEO-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 75,
+            "description": "Deodorants, antiperspirants, and body sprays"
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All health, beauty, and personal care products"
+        },
+        {
+            "category_name": "Skincare",
+            "parent_category": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Facial and body skincare products"
+        },
+        {
+            "category_name": "Cleansers & Toners",
+            "parent_category": "Skincare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Face wash, micellar water, toners, and cleansing oils"
+        },
+        {
+            "category_name": "Moisturizers",
+            "parent_category": "Skincare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Day creams, night creams, and hydrating lotions"
+        },
+        {
+            "category_name": "Serums & Treatments",
+            "parent_category": "Skincare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Serums, ampoules, retinols, and targeted treatments"
+        },
+        {
+            "category_name": "Sun Care",
+            "parent_category": "Skincare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Sunscreen, SPF moisturizers, and after-sun products"
+        },
+        {
+            "category_name": "Eye & Lip Care",
+            "parent_category": "Skincare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Eye creams, lip balms, and delicate area treatments"
+        },
+        {
+            "category_name": "Makeup",
+            "parent_category": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Color cosmetics and makeup products"
+        },
+        {
+            "category_name": "Face Makeup",
+            "parent_category": "Makeup",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Foundation, concealer, powder, blush, bronzer, and highlighter"
+        },
+        {
+            "category_name": "Eye Makeup",
+            "parent_category": "Makeup",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Eyeshadow, eyeliner, mascara, and brow products"
+        },
+        {
+            "category_name": "Lip Products",
+            "parent_category": "Makeup",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Lipstick, lip gloss, lip liner, and lip stain"
+        },
+        {
+            "category_name": "Makeup Tools",
+            "parent_category": "Makeup",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Brushes, sponges, applicators, and makeup tools"
+        },
+        {
+            "category_name": "Haircare",
+            "parent_category": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Shampoo, conditioner, treatments, and styling products"
+        },
+        {
+            "category_name": "Shampoo & Conditioner",
+            "parent_category": "Haircare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Shampoos, conditioners, and co-washes"
+        },
+        {
+            "category_name": "Hair Treatments & Masks",
+            "parent_category": "Haircare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Hair masks, oils, serums, and intensive treatments"
+        },
+        {
+            "category_name": "Hair Styling",
+            "parent_category": "Haircare",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Gels, mousses, sprays, and styling products"
+        },
+        {
+            "category_name": "Fragrance",
+            "parent_category": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Perfumes, colognes, and scented products"
+        },
+        {
+            "category_name": "Women's Fragrance",
+            "parent_category": "Fragrance",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Women's perfumes, eau de parfum, and eau de toilette"
+        },
+        {
+            "category_name": "Men's Fragrance",
+            "parent_category": "Fragrance",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Men's cologne, aftershave, and eau de toilette"
+        },
+        {
+            "category_name": "Personal Care",
+            "parent_category": "Health & Beauty",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Bath, body, and personal hygiene products"
+        },
+        {
+            "category_name": "Bath & Body",
+            "parent_category": "Personal Care",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Body wash, soap, body lotion, and bath products"
+        },
+        {
+            "category_name": "Deodorant",
+            "parent_category": "Personal Care",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Deodorants, antiperspirants, and body sprays"
+        },
+        {
+            "category_name": "Oral Care",
+            "parent_category": "Personal Care",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Toothpaste, mouthwash, and dental care products"
+        },
+        {
+            "category_name": "New Arrivals",
+            "parent_category": "Health & Beauty",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Latest beauty and personal care product launches"
+        },
+        {
+            "category_name": "Clean & Natural",
+            "parent_category": "Health & Beauty",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Clean beauty, organic, and natural product selection"
+        },
+        {
+            "category_name": "Bestsellers",
+            "parent_category": "Health & Beauty",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Top-selling beauty and personal care products"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "hb_req_inci",
+            "rule_name": "INCI Ingredient List Required",
+            "rule_type": "required_field",
+            "target_attribute": "inci_ingredients",
+            "severity": "error",
+            "weight": 10,
+            "message": "Cosmetic products must have a complete INCI ingredient list",
+            "description": "INCI ingredient listing is legally required by EU Cosmetics Regulation (EC) 1223/2009 and FDA regulations"
+        },
+        {
+            "rule_code": "hb_req_form",
+            "rule_name": "Product Form Required",
+            "rule_type": "required_field",
+            "target_attribute": "product_form",
+            "severity": "error",
+            "weight": 8,
+            "message": "Products must specify their physical form (cream, gel, serum, etc.)",
+            "description": "Product form is essential for customer understanding and proper product categorization"
+        },
+        {
+            "rule_code": "hb_req_volume",
+            "rule_name": "Volume/Weight Required",
+            "rule_type": "required_field",
+            "target_attribute": "volume_weight",
+            "severity": "error",
+            "weight": 8,
+            "message": "Products must specify net volume or weight",
+            "description": "Net quantity declaration is legally required on all cosmetic and personal care packaging"
+        },
+        {
+            "rule_code": "hb_req_skin_type",
+            "rule_name": "Skin Type Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "skin_type",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Skincare products should specify the target skin type",
+            "description": "Skin type information helps customers find suitable products and reduces returns"
+        },
+        {
+            "rule_code": "hb_req_cruelty_free",
+            "rule_name": "Cruelty-Free Status Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "cruelty_free",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Products should declare cruelty-free status for transparent marketing",
+            "description": "Cruelty-free information is increasingly important for consumer purchasing decisions"
+        },
+        {
+            "rule_code": "hb_req_allergens",
+            "rule_name": "Allergen Declaration Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "allergen_declaration",
+            "severity": "warning",
+            "weight": 6,
+            "message": "Products should include allergen declarations for customer safety",
+            "description": "Allergen labeling is required under EU Cosmetics Regulation for 26 known allergens"
+        },
+        {
+            "rule_code": "hb_req_pao",
+            "rule_name": "PAO Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "pao_months",
+            "severity": "info",
+            "weight": 3,
+            "message": "Products should specify period after opening (PAO) for customer guidance",
+            "description": "PAO symbol is required on EU cosmetic products with shelf life exceeding 30 months"
+        },
+        {
+            "rule_code": "hb_req_shade",
+            "rule_name": "Shade Required for Color Cosmetics",
+            "rule_type": "required_field",
+            "target_attribute": "shade",
+            "severity": "warning",
+            "weight": 7,
+            "message": "Makeup products should specify the shade or color name",
+            "description": "Shade information is critical for color cosmetics variant management and customer selection"
+        },
+        {
+            "rule_code": "hb_min_images",
+            "rule_name": "Beauty Minimum Images",
+            "rule_type": "media_presence",
+            "min_images": 2,
+            "severity": "warning",
+            "weight": 6,
+            "message": "Beauty products should have at least 2 images (product and texture/swatch)",
+            "description": "Product and swatch imagery helps customers evaluate color, texture, and packaging"
+        },
+        {
+            "rule_code": "hb_inci_format",
+            "rule_name": "INCI List Format",
+            "rule_type": "value_constraint",
+            "target_attribute": "inci_ingredients",
+            "min_length": 10,
+            "severity": "warning",
+            "weight": 4,
+            "message": "INCI list should be comprehensive with proper nomenclature",
+            "description": "Complete INCI listings ensure regulatory compliance and enable allergen checking"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "Vitamin C Brightening Serum",
+            "product_code": "SRM-VCB-001",
+            "product_type": "Skincare",
+            "product_family": "serums_treatments",
+            "description": "Lightweight vitamin C serum with 15% L-Ascorbic Acid and Hyaluronic Acid for radiant, even-toned skin. Clinically proven to reduce dark spots in 4 weeks.",
+            "attributes": {
+                "inci_ingredients": "Aqua, Ascorbic Acid, Propanediol, Glycerin, Sodium Hyaluronate, Tocopherol, Ferulic Acid, Panthenol, Sodium Hydroxide, Citric Acid, Phenoxyethanol, Ethylhexylglycerin",
+                "key_actives": "15% L-Ascorbic Acid, Hyaluronic Acid, Vitamin E, Ferulic Acid",
+                "product_form": "Serum",
+                "volume_weight": "30 ml",
+                "skin_type": "All Skin Types",
+                "skin_concern": "Brightening",
+                "application_area": "Face",
+                "fragrance": "Fragrance-Free",
+                "cruelty_free": "Yes - Leaping Bunny",
+                "vegan": "Yes - Certified",
+                "clean_beauty": "Yes - Free from Parabens/Sulfates/Phthalates",
+                "derm_tested": "Yes",
+                "pao_months": "6M",
+                "shelf_life_months": 24,
+                "storage_conditions": "Cool & Dry",
+                "usage_frequency": "Daily",
+                "beauty_gender": "Unisex"
+            },
+            "variants": [
+                {"volume_weight": "15 ml"},
+                {"volume_weight": "30 ml"},
+                {"volume_weight": "50 ml"}
+            ]
+        },
+        {
+            "product_name": "Velvet Matte Lipstick",
+            "product_code": "LIP-VML-001",
+            "product_type": "Makeup",
+            "product_family": "lip_products",
+            "description": "Long-wearing matte lipstick with creamy, comfortable formula. Enriched with jojoba oil for hydration without compromising the matte finish.",
+            "attributes": {
+                "inci_ingredients": "Isononyl Isononanoate, Dimethicone, Silica, Trimethylsiloxysilicate, Simmondsia Chinensis Seed Oil, Candelilla Cera, Tocopheryl Acetate, CI 77891, CI 15850, CI 77491",
+                "product_form": "Stick",
+                "volume_weight": "3.5 g",
+                "shade": "Rose Nude",
+                "application_area": "Lips",
+                "cruelty_free": "Yes - PETA",
+                "vegan": "Yes - Self-Declared",
+                "pao_months": "18M",
+                "beauty_gender": "Women"
+            },
+            "variants": [
+                {"shade": "Rose Nude"},
+                {"shade": "Berry Bliss"},
+                {"shade": "Coral Crush"},
+                {"shade": "Deep Plum"},
+                {"shade": "Bare Pink"},
+                {"shade": "Red Carpet"},
+                {"shade": "Mauve Moment"}
+            ]
+        },
+        {
+            "product_name": "Hydrating Shampoo - Argan Oil",
+            "product_code": "SHC-HARG-001",
+            "product_type": "Haircare",
+            "product_family": "shampoo_conditioner",
+            "description": "Sulfate-free hydrating shampoo enriched with argan oil and keratin. Gently cleanses while restoring moisture and shine to dry, damaged hair.",
+            "attributes": {
+                "inci_ingredients": "Aqua, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Glycerin, Argania Spinosa Kernel Oil, Hydrolyzed Keratin, Panthenol, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Sodium Benzoate, Potassium Sorbate, Parfum",
+                "product_form": "Liquid",
+                "volume_weight": "300 ml",
+                "hair_type": "Dry",
+                "fragrance": "Fresh",
+                "cruelty_free": "Yes - Leaping Bunny",
+                "vegan": "Yes - Certified",
+                "clean_beauty": "Yes - Free from Parabens/Sulfates/Phthalates",
+                "recyclable_packaging": "Fully Recyclable",
+                "pao_months": "12M",
+                "beauty_gender": "Unisex"
+            },
+            "variants": [
+                {"volume_weight": "100 ml"},
+                {"volume_weight": "300 ml"},
+                {"volume_weight": "500 ml"}
+            ]
+        },
+        {
+            "product_name": "SPF 50 Mineral Sunscreen",
+            "product_code": "SUN-MIN50-001",
+            "product_type": "Skincare",
+            "product_family": "sun_care",
+            "description": "Lightweight mineral sunscreen with zinc oxide and titanium dioxide. Leaves no white cast and provides broad-spectrum UVA/UVB protection.",
+            "attributes": {
+                "inci_ingredients": "Aqua, Zinc Oxide, Titanium Dioxide, Caprylic/Capric Triglyceride, Glycerin, Butyloctyl Salicylate, Dimethicone, Niacinamide, Tocopherol, Aloe Barbadensis Leaf Juice, Silica, Phenoxyethanol, Ethylhexylglycerin",
+                "key_actives": "Zinc Oxide 15%, Titanium Dioxide 5%, Niacinamide, Vitamin E",
+                "product_form": "Cream",
+                "volume_weight": "50 ml",
+                "skin_type": "All Skin Types",
+                "skin_concern": "Sun Protection",
+                "spf": "SPF 50",
+                "application_area": "Face",
+                "cruelty_free": "Yes - Leaping Bunny",
+                "vegan": "Yes - Certified",
+                "organic_cert": "COSMOS Natural",
+                "derm_tested": "Yes",
+                "pao_months": "12M",
+                "shelf_life_months": 36,
+                "storage_conditions": "Below 30°C",
+                "beauty_gender": "Unisex"
+            },
+            "variants": [
+                {"volume_weight": "30 ml"},
+                {"volume_weight": "50 ml"},
+                {"volume_weight": "100 ml"}
+            ]
+        },
+        {
+            "product_name": "Floral Eau de Parfum",
+            "product_code": "WFR-FLRL-001",
+            "product_type": "Fragrance",
+            "product_family": "womens_fragrance",
+            "description": "Elegant floral eau de parfum with top notes of bergamot and peony, heart of jasmine and rose, and a warm base of musk and sandalwood.",
+            "attributes": {
+                "inci_ingredients": "Alcohol Denat., Parfum, Aqua, Limonene, Linalool, Geraniol, Citronellol, Hydroxycitronellal, Benzyl Salicylate, Alpha-Isomethyl Ionone",
+                "volume_weight": "50 ml",
+                "fragrance": "Light Floral",
+                "beauty_gender": "Women",
+                "allergen_declaration": "Contains: Limonene, Linalool, Geraniol, Citronellol, Hydroxycitronellal, Benzyl Salicylate, Alpha-Isomethyl Ionone",
+                "shelf_life_months": 36
+            },
+            "variants": [
+                {"volume_weight": "30 ml"},
+                {"volume_weight": "50 ml"},
+                {"volume_weight": "100 ml"}
+            ]
+        }
+    ]
+}

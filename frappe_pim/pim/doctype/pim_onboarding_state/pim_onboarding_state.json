@@ -1,0 +1,231 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Onboarding State",
+  "module": "PIM",
+  "issingle": 0,
+  "is_submittable": 0,
+  "track_changes": 1,
+  "autoname": "hash",
+
+  "fields": [
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Onboarding Status"
+    },
+    {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "label": "User",
+      "options": "User",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "User who is going through onboarding"
+    },
+    {
+      "fieldname": "current_step",
+      "fieldtype": "Select",
+      "label": "Current Step",
+      "options": "pending\ncompany_info\nindustry_selection\nproduct_structure\nchannel_setup\nworkflow_preferences\ncompliance_setup\ntemplate_applied\ncustomization_review\nfirst_data\nguided_tour\ncompleted",
+      "default": "pending",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current step in the onboarding wizard"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_completed",
+      "fieldtype": "Check",
+      "label": "Is Completed",
+      "default": 0,
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Whether the onboarding process has been completed"
+    },
+    {
+      "fieldname": "is_skipped",
+      "fieldtype": "Check",
+      "label": "Is Skipped",
+      "default": 0,
+      "description": "Whether the user chose to skip the onboarding wizard"
+    },
+    {
+      "fieldname": "started_at",
+      "fieldtype": "Datetime",
+      "label": "Started At",
+      "read_only": 1,
+      "description": "When the onboarding process was started"
+    },
+    {
+      "fieldname": "completed_at",
+      "fieldtype": "Datetime",
+      "label": "Completed At",
+      "read_only": 1,
+      "description": "When the onboarding process was completed"
+    },
+    {
+      "fieldname": "section_break_industry",
+      "fieldtype": "Section Break",
+      "label": "Industry & Template"
+    },
+    {
+      "fieldname": "selected_archetype",
+      "fieldtype": "Data",
+      "label": "Selected Archetype",
+      "description": "Industry archetype selected during onboarding (e.g., fashion, industrial, food)"
+    },
+    {
+      "fieldname": "template_applied",
+      "fieldtype": "Check",
+      "label": "Template Applied",
+      "default": 0,
+      "read_only": 1,
+      "description": "Whether the industry archetype template has been applied"
+    },
+    {
+      "fieldname": "column_break_industry",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "template_applied_at",
+      "fieldtype": "Datetime",
+      "label": "Template Applied At",
+      "read_only": 1,
+      "description": "When the archetype template was applied"
+    },
+    {
+      "fieldname": "template_result",
+      "fieldtype": "JSON",
+      "label": "Template Result",
+      "read_only": 1,
+      "description": "Summary of entities created by template application"
+    },
+    {
+      "fieldname": "section_break_steps",
+      "fieldtype": "Section Break",
+      "label": "Step Data",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "company_info_data",
+      "fieldtype": "JSON",
+      "label": "Company Info Data",
+      "description": "Form data collected during company_info step"
+    },
+    {
+      "fieldname": "industry_selection_data",
+      "fieldtype": "JSON",
+      "label": "Industry Selection Data",
+      "description": "Form data collected during industry_selection step"
+    },
+    {
+      "fieldname": "product_structure_data",
+      "fieldtype": "JSON",
+      "label": "Product Structure Data",
+      "description": "Form data collected during product_structure step"
+    },
+    {
+      "fieldname": "channel_setup_data",
+      "fieldtype": "JSON",
+      "label": "Channel Setup Data",
+      "description": "Form data collected during channel_setup step"
+    },
+    {
+      "fieldname": "workflow_preferences_data",
+      "fieldtype": "JSON",
+      "label": "Workflow Preferences Data",
+      "description": "Form data collected during workflow_preferences step"
+    },
+    {
+      "fieldname": "compliance_setup_data",
+      "fieldtype": "JSON",
+      "label": "Compliance Setup Data",
+      "description": "Form data collected during compliance_setup step"
+    },
+    {
+      "fieldname": "customization_review_data",
+      "fieldtype": "JSON",
+      "label": "Customization Review Data",
+      "description": "Form data collected during customization_review step"
+    },
+    {
+      "fieldname": "first_data_data",
+      "fieldtype": "JSON",
+      "label": "First Data Entry",
+      "description": "Form data collected during first_data step"
+    },
+    {
+      "fieldname": "guided_tour_data",
+      "fieldtype": "JSON",
+      "label": "Guided Tour Data",
+      "description": "Form data collected during guided_tour step"
+    },
+    {
+      "fieldname": "section_break_progress",
+      "fieldtype": "Section Break",
+      "label": "Progress Tracking",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "steps_completed",
+      "fieldtype": "JSON",
+      "label": "Steps Completed",
+      "read_only": 1,
+      "description": "List of steps that have been completed"
+    },
+    {
+      "fieldname": "progress_percent",
+      "fieldtype": "Percent",
+      "label": "Progress",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Overall onboarding progress percentage"
+    },
+    {
+      "fieldname": "column_break_progress",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_step_completed_at",
+      "fieldtype": "Datetime",
+      "label": "Last Step Completed At",
+      "read_only": 1,
+      "description": "When the last step was completed"
+    },
+    {
+      "fieldname": "error_log",
+      "fieldtype": "JSON",
+      "label": "Error Log",
+      "read_only": 1,
+      "description": "Any errors encountered during onboarding"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "if_owner": 1
+    }
+  ]
+}

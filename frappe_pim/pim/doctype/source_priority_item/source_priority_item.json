@@ -1,0 +1,44 @@
+{
+  "doctype": "DocType",
+  "name": "Source Priority Item",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "source_system",
+      "fieldtype": "Link",
+      "label": "Source System",
+      "options": "Source System",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "The source system to rank"
+    },
+    {
+      "fieldname": "rank",
+      "fieldtype": "Int",
+      "label": "Rank",
+      "reqd": 1,
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Priority rank (1 = highest priority, lower number = higher priority)"
+    },
+    {
+      "fieldname": "confidence_override",
+      "fieldtype": "Percent",
+      "label": "Confidence Override",
+      "in_list_view": 1,
+      "description": "Optional: Override the source system's default confidence level for this rule"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Optional notes about why this source has this priority"
+    }
+  ],
+
+  "permissions": []
+}

@@ -1,0 +1,256 @@
+{
+  "doctype": "DocType",
+  "name": "Data Steward",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "format:DST-{steward}-{domain}",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "steward",
+      "fieldtype": "Link",
+      "label": "Steward",
+      "options": "User",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "User assigned as data steward"
+    },
+    {
+      "fieldname": "steward_name",
+      "fieldtype": "Data",
+      "label": "Steward Name",
+      "fetch_from": "steward.full_name",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "role",
+      "fieldtype": "Select",
+      "label": "Stewardship Role",
+      "options": "Data Owner\nData Custodian\nData Quality Analyst\nDomain Expert\nApprover",
+      "reqd": 1,
+      "default": "Data Custodian",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Level of responsibility and access"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Active\nInactive\nOn Leave\nExpired",
+      "default": "Active",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "section_break_domain",
+      "fieldtype": "Section Break",
+      "label": "Stewardship Domain"
+    },
+    {
+      "fieldname": "domain",
+      "fieldtype": "Select",
+      "label": "Domain Type",
+      "options": "Product Family\nBrand\nChannel\nAttribute Group\nAll Products",
+      "reqd": 1,
+      "in_standard_filter": 1,
+      "description": "Type of data domain for stewardship"
+    },
+    {
+      "fieldname": "domain_value",
+      "fieldtype": "Dynamic Link",
+      "label": "Domain Value",
+      "options": "domain_doctype",
+      "description": "Specific domain value (Product Family, Brand, Channel, etc.)"
+    },
+    {
+      "fieldname": "domain_doctype",
+      "fieldtype": "Data",
+      "label": "Domain DocType",
+      "hidden": 1,
+      "read_only": 1,
+      "description": "Internal field for Dynamic Link"
+    },
+    {
+      "fieldname": "column_break_domain",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "include_children",
+      "fieldtype": "Check",
+      "label": "Include Child Categories",
+      "default": 1,
+      "description": "Also apply stewardship to child categories (for Product Family)"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 5,
+      "description": "Priority level (1-10, lower = higher priority) for conflict resolution"
+    },
+    {
+      "fieldname": "section_break_responsibilities",
+      "fieldtype": "Section Break",
+      "label": "Responsibilities"
+    },
+    {
+      "fieldname": "can_approve",
+      "fieldtype": "Check",
+      "label": "Can Approve Changes",
+      "default": 0,
+      "description": "Can approve pending changes and enrichment requests"
+    },
+    {
+      "fieldname": "can_publish",
+      "fieldtype": "Check",
+      "label": "Can Publish",
+      "default": 0,
+      "description": "Can publish products to channels"
+    },
+    {
+      "fieldname": "can_merge",
+      "fieldtype": "Check",
+      "label": "Can Merge Records",
+      "default": 0,
+      "description": "Can merge duplicate records (golden record)"
+    },
+    {
+      "fieldname": "column_break_responsibilities",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "can_delete",
+      "fieldtype": "Check",
+      "label": "Can Delete",
+      "default": 0,
+      "description": "Can delete products in their domain"
+    },
+    {
+      "fieldname": "can_assign_stewards",
+      "fieldtype": "Check",
+      "label": "Can Assign Stewards",
+      "default": 0,
+      "description": "Can assign other stewards within their domain"
+    },
+    {
+      "fieldname": "receives_notifications",
+      "fieldtype": "Check",
+      "label": "Receive Notifications",
+      "default": 1,
+      "description": "Receive notifications for changes in domain"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "default": "Today",
+      "description": "Start date of stewardship assignment"
+    },
+    {
+      "fieldname": "valid_until",
+      "fieldtype": "Date",
+      "label": "Valid Until",
+      "description": "End date of stewardship assignment (leave blank for permanent)"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "backup_steward",
+      "fieldtype": "Link",
+      "label": "Backup Steward",
+      "options": "User",
+      "description": "User to assume responsibilities during absence"
+    },
+    {
+      "fieldname": "escalation_to",
+      "fieldtype": "Link",
+      "label": "Escalation To",
+      "options": "User",
+      "description": "User to escalate unresolved issues to"
+    },
+    {
+      "fieldname": "section_break_metrics",
+      "fieldtype": "Section Break",
+      "label": "Performance Metrics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "products_in_domain",
+      "fieldtype": "Int",
+      "label": "Products in Domain",
+      "read_only": 1,
+      "description": "Number of products under this stewardship"
+    },
+    {
+      "fieldname": "pending_approvals",
+      "fieldtype": "Int",
+      "label": "Pending Approvals",
+      "read_only": 1,
+      "description": "Number of items pending approval"
+    },
+    {
+      "fieldname": "column_break_metrics",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "avg_quality_score",
+      "fieldtype": "Percent",
+      "label": "Average Quality Score",
+      "read_only": 1,
+      "description": "Average data quality score in domain"
+    },
+    {
+      "fieldname": "last_activity",
+      "fieldtype": "Datetime",
+      "label": "Last Activity",
+      "read_only": 1,
+      "description": "Last stewardship activity timestamp"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text Editor",
+      "label": "Notes",
+      "description": "Additional notes about this stewardship assignment"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

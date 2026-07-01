@@ -1,0 +1,646 @@
+"""
+PIM Contract Price Controller
+Customer-specific contract pricing - highest priority in price resolution
+"""
+
+import frappe
+from frappe import _
+from frappe.model.document import Document
+
+# Defer frappe import to function level for module import without Frappe context
+
+class PIMContractPrice(Document):
+
+        def validate(self):
+            self.validate_customer_scope()
+            self.validate_product_scope()
+            self.validate_pricing()
+            self.validate_validity()
+            self.validate_quantity()
+            self.validate_guardrails()
+
+        def validate_customer_scope(self):
+            """Validate that correct customer fields are set based on apply_to"""
+            if self.apply_to == "Specific Customer":
+                if not self.customer:
+                    frappe.throw(
+                        _("Customer is required when Apply To is 'Specific Customer'"),
+                        title=_("Missing Customer")
+                    )
+                # Clear other fields
+                self.customer_segment = None
+                self.customer_group = None
+
+            elif self.apply_to == "Customer Segment":
+                if not self.customer_segment:
+                    frappe.throw(
+                        _("Customer Segment is required when Apply To is 'Customer Segment'"),
+                        title=_("Missing Customer Segment")
+                    )
+                # Clear other fields
+                self.customer = None
+                self.customer_group = None
+
+            elif self.apply_to == "Customer Group":
+                if not self.customer_group:
+                    frappe.throw(
+                        _("Customer Group is required when Apply To is 'Customer Group'"),
+                        title=_("Missing Customer Group")
+                    )
+                # Clear other fields
+                self.customer = None
+                self.customer_segment = None
+
+        def validate_product_scope(self):
+            """Validate that correct product fields are set based on product_scope"""
+            if self.product_scope == "Specific Variant":
+                if not self.product_variant:
+                    frappe.throw(
+                        _("Product Variant is required when Product Scope is 'Specific Variant'"),
+                        title=_("Missing Product Variant")
+                    )
+                # Clear other fields
+                self.product_master = None
+                self.product_family = None
+                self.product_type = None
+
+            elif self.product_scope == "Product Master":
+                if not self.product_master:
+                    frappe.throw(
+                        _("Product Master is required when Product Scope is 'Product Master'"),
+                        title=_("Missing Product Master")
+                    )
+                # Clear other fields
+                self.product_variant = None
+                self.product_family = None
+                self.product_type = None
+
+            elif self.product_scope == "Product Family":
+                if not self.product_family:
+                    frappe.throw(
+                        _("Product Family is required when Product Scope is 'Product Family'"),
+                        title=_("Missing Product Family")
+                    )
+                # Clear other fields
+                self.product_variant = None
+                self.product_master = None
+                self.product_type = None
+
+            elif self.product_scope == "Product Type":
+                if not self.product_type:
+                    frappe.throw(
+                        _("Product Type is required when Product Scope is 'Product Type'"),
+                        title=_("Missing Product Type")
+                    )
+                # Clear other fields
+                self.product_variant = None
+                self.product_master = None
+                self.product_family = None
+
+            elif self.product_scope == "All Products":
+                # Clear all product fields
+                self.product_variant = None
+                self.product_master = None
+                self.product_family = None
+                self.product_type = None
+
+        def validate_pricing(self):
+            """Validate pricing configuration based on pricing_type"""
+            if self.pricing_type in ("Fixed Price", "Price Override"):
+                if not self.contract_price or flt(self.contract_price) <= 0:
+                    frappe.throw(
+                        _("Contract Price must be greater than 0 for Fixed Price or Price Override"),
+                        title=_("Invalid Contract Price")
+                    )
+                # Clear discount fields
+                self.discount_percent = 0
+                self.discount_amount = 0
+
+            elif self.pricing_type == "Discount Percentage":
+                if not self.discount_percent or flt(self.discount_percent) <= 0:
+                    frappe.throw(
+                        _("Discount Percentage must be greater than 0"),
+                        title=_("Invalid Discount")
+                    )
+                if flt(self.discount_percent) > 100:
+                    frappe.throw(
+                        _("Discount Percentage cannot exceed 100%"),
+                        title=_("Invalid Discount")
+                    )
+                # Clear other fields
+                self.contract_price = 0
+                self.discount_amount = 0
+
+            elif self.pricing_type == "Discount Amount":
+                if not self.discount_amount or flt(self.discount_amount) <= 0:
+                    frappe.throw(
+                        _("Discount Amount must be greater than 0"),
+                        title=_("Invalid Discount")
+                    )
+                # Clear other fields
+                self.contract_price = 0
+                self.discount_percent = 0
+
+        def validate_validity(self):
+            """Validate validity period"""
+            if self.valid_from and self.valid_to:
+                if getdate(self.valid_from) > getdate(self.valid_to):
+                    frappe.throw(
+                        _("Valid From date cannot be after Valid To date"),
+                        title=_("Invalid Validity Period")
+                    )
+
+        def validate_quantity(self):
+            """Validate quantity configuration"""
+            if not self.enable_quantity_tiers:
+                # Single quantity range
+                if flt(self.min_qty) < 0:
+                    frappe.throw(
+                        _("Minimum Quantity cannot be negative"),
+                        title=_("Invalid Quantity")
+                    )
+                if flt(self.max_qty) < 0:
+                    frappe.throw(
+                        _("Maximum Quantity cannot be negative"),
+                        title=_("Invalid Quantity")
+                    )
+                if flt(self.max_qty) > 0 and flt(self.min_qty) > flt(self.max_qty):
+                    frappe.throw(
+                        _("Minimum Quantity cannot exceed Maximum Quantity"),
+                        title=_("Invalid Quantity Range")
+                    )
+            else:
+                # Validate quantity tiers
+                if self.quantity_tiers:
+                    self.validate_quantity_tiers()
+
+        def validate_quantity_tiers(self):
+            """Validate quantity tier configuration"""
+            if not self.quantity_tiers:
+                return
+
+            prev_max = 0
+            for i, tier in enumerate(self.quantity_tiers):
+                if flt(tier.min_qty) < 0:
+                    frappe.throw(
+                        _("Row {0}: Minimum Quantity cannot be negative").format(i + 1),
+                        title=_("Invalid Tier")
+                    )
+                if flt(tier.max_qty) < 0:
+                    frappe.throw(
+                        _("Row {0}: Maximum Quantity cannot be negative").format(i + 1),
+                        title=_("Invalid Tier")
+                    )
+                if flt(tier.max_qty) > 0 and flt(tier.min_qty) > flt(tier.max_qty):
+                    frappe.throw(
+                        _("Row {0}: Minimum Quantity cannot exceed Maximum Quantity").format(i + 1),
+                        title=_("Invalid Tier")
+                    )
+                # Check for overlapping tiers
+                if i > 0 and flt(tier.min_qty) <= prev_max:
+                    frappe.throw(
+                        _("Row {0}: Quantity tiers cannot overlap. Min Qty should be greater than {1}").format(
+                            i + 1, prev_max
+                        ),
+                        title=_("Overlapping Tiers")
+                    )
+                prev_max = flt(tier.max_qty) if flt(tier.max_qty) > 0 else float('inf')
+
+        def validate_guardrails(self):
+            """Validate price guardrails"""
+            if self.min_price_guardrail and self.max_price_guardrail:
+                if flt(self.min_price_guardrail) > flt(self.max_price_guardrail):
+                    frappe.throw(
+                        _("Minimum Price guardrail cannot exceed Maximum Price guardrail"),
+                        title=_("Invalid Guardrails")
+                    )
+
+            # Validate contract price against guardrails
+            if self.pricing_type in ("Fixed Price", "Price Override") and self.contract_price:
+                if self.min_price_guardrail and flt(self.contract_price) < flt(self.min_price_guardrail):
+                    frappe.msgprint(
+                        _("Contract Price ({0}) is below the Minimum Price guardrail ({1})").format(
+                            self.contract_price, self.min_price_guardrail
+                        ),
+                        indicator="orange"
+                    )
+                if self.max_price_guardrail and flt(self.contract_price) > flt(self.max_price_guardrail):
+                    frappe.msgprint(
+                        _("Contract Price ({0}) exceeds the Maximum Price guardrail ({1})").format(
+                            self.contract_price, self.max_price_guardrail
+                        ),
+                        indicator="orange"
+                    )
+
+        def before_save(self):
+            """Update calculated fields before save"""
+            self.update_defaults()
+
+        def update_defaults(self):
+            """Set default values"""
+            if self.priority is None:
+                self.priority = 0
+
+            if self.min_qty is None or flt(self.min_qty) == 0:
+                self.min_qty = 1
+
+        def on_update(self):
+            """Actions after save"""
+            self._invalidate_cache()
+            if self.sync_to_erp:
+                self._queue_erp_sync()
+
+        def on_trash(self):
+            """Cleanup before deletion"""
+            self._invalidate_cache()
+
+        def _invalidate_cache(self):
+            """Invalidate contract price related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("pim_contract_price", self.name)
+
+                # Also invalidate customer-specific cache
+                if self.customer:
+                    invalidate_cache("customer_pricing", self.customer)
+            except (ImportError, AttributeError):
+                pass
+
+        def _queue_erp_sync(self):
+            """Queue ERPNext sync for this contract price"""
+            try:
+                from frappe_pim.pim.utils.erp_sync import queue_sync
+                queue_sync("PIM Contract Price", self.name, "update")
+            except (ImportError, AttributeError):
+                pass
+
+        def is_valid_now(self):
+            """Check if contract price is currently valid
+
+            Returns:
+                bool: True if contract is active and within validity period
+            """
+            if not self.is_active:
+                return False
+
+            current_date = getdate(today())
+
+            if self.valid_from and getdate(self.valid_from) > current_date:
+                return False
+
+            if self.valid_to and getdate(self.valid_to) < current_date:
+                return False
+
+            return True
+
+        def applies_to_customer(self, customer):
+            """Check if this contract applies to a specific customer
+
+            Args:
+                customer: Customer name/ID
+
+            Returns:
+                bool: True if contract applies to this customer
+            """
+            if self.apply_to == "Specific Customer":
+                return self.customer == customer
+
+            elif self.apply_to == "Customer Segment":
+                # Check if customer belongs to this segment
+                if not self.customer_segment:
+                    return False
+                try:
+                    segment_doc = frappe.get_doc("PIM Customer Segment", self.customer_segment)
+                    return segment_doc.customer_qualifies(customer)
+                except Exception:
+                    return False
+
+            elif self.apply_to == "Customer Group":
+                # Check if customer belongs to this group
+                if not self.customer_group:
+                    return False
+                customer_doc = frappe.db.get_value("Customer", customer, "customer_group")
+                return customer_doc == self.customer_group
+
+            return False
+
+        def applies_to_product(self, product_variant=None, product_master=None):
+            """Check if this contract applies to a specific product
+
+            Args:
+                product_variant: Product Variant name
+                product_master: Product Master name
+
+            Returns:
+                bool: True if contract applies to this product
+            """
+            if self.product_scope == "All Products":
+                return True
+
+            if self.product_scope == "Specific Variant":
+                return self.product_variant == product_variant
+
+            if self.product_scope == "Product Master":
+                if product_master and self.product_master == product_master:
+                    return True
+                # Check if variant belongs to this master
+                if product_variant:
+                    variant_master = frappe.db.get_value("Product Variant", product_variant, "product_master")
+                    return variant_master == self.product_master
+                return False
+
+            if self.product_scope == "Product Family":
+                # Get family from master
+                master = product_master
+                if not master and product_variant:
+                    master = frappe.db.get_value("Product Variant", product_variant, "product_master")
+                if master:
+                    master_family = frappe.db.get_value("Product Master", master, "product_family")
+                    return master_family == self.product_family
+                return False
+
+            if self.product_scope == "Product Type":
+                # Get type from family from master
+                master = product_master
+                if not master and product_variant:
+                    master = frappe.db.get_value("Product Variant", product_variant, "product_master")
+                if master:
+                    master_family = frappe.db.get_value("Product Master", master, "product_family")
+                    if master_family:
+                        family_type = frappe.db.get_value("Product Family", master_family, "product_type")
+                        return family_type == self.product_type
+                return False
+
+            return False
+
+        def applies_to_channel(self, channel_code):
+            """Check if this contract applies to a specific channel
+
+            Args:
+                channel_code: Sales channel code
+
+            Returns:
+                bool: True if contract applies to this channel
+            """
+            if self.apply_to_all_channels:
+                return True
+
+            return self.sales_channel == channel_code
+
+        def applies_to_quantity(self, qty):
+            """Check if this contract applies to a specific quantity
+
+            Args:
+                qty: Order quantity
+
+            Returns:
+                bool: True if contract applies to this quantity
+            """
+            qty = flt(qty)
+
+            if not self.enable_quantity_tiers:
+                # Simple min/max check
+                if qty < flt(self.min_qty):
+                    return False
+                if flt(self.max_qty) > 0 and qty > flt(self.max_qty):
+                    return False
+                return True
+            else:
+                # Check quantity tiers
+                return self.get_applicable_tier(qty) is not None
+
+        def get_applicable_tier(self, qty):
+            """Get the applicable quantity tier for a given quantity
+
+            Args:
+                qty: Order quantity
+
+            Returns:
+                dict: Tier data or None if no tier applies
+            """
+            qty = flt(qty)
+
+            if not self.enable_quantity_tiers or not self.quantity_tiers:
+                return None
+
+            for tier in self.quantity_tiers:
+                if qty >= flt(tier.min_qty):
+                    if flt(tier.max_qty) == 0 or qty <= flt(tier.max_qty):
+                        return tier
+
+            return None
+
+        def calculate_price(self, base_price, qty=1):
+            """Calculate the contract price for a given base price and quantity
+
+            Args:
+                base_price: The base price to apply contract pricing to
+                qty: Order quantity
+
+            Returns:
+                dict with calculated price details
+            """
+            base_price = flt(base_price)
+            qty = flt(qty)
+
+            result = {
+                "contract_name": self.name,
+                "contract_display_name": self.contract_name,
+                "base_price": base_price,
+                "quantity": qty,
+                "is_applicable": True,
+                "pricing_type": self.pricing_type,
+                "currency": self.currency,
+                "messages": []
+            }
+
+            # Check validity
+            if not self.is_valid_now():
+                result["is_applicable"] = False
+                result["messages"].append("Contract is not currently valid")
+                result["final_price"] = base_price
+                result["discount_amount"] = 0
+                return result
+
+            # Check quantity applicability
+            if not self.applies_to_quantity(qty):
+                result["is_applicable"] = False
+                result["messages"].append(f"Quantity {qty} does not meet contract requirements")
+                result["final_price"] = base_price
+                result["discount_amount"] = 0
+                return result
+
+            # Calculate price based on pricing type
+            final_price = base_price
+            discount_amount = 0
+
+            if self.pricing_type == "Fixed Price":
+                final_price = flt(self.contract_price)
+                discount_amount = base_price - final_price
+
+            elif self.pricing_type == "Price Override":
+                final_price = flt(self.contract_price)
+                discount_amount = base_price - final_price
+
+            elif self.pricing_type == "Discount Percentage":
+                discount_percent = flt(self.discount_percent)
+
+                # Check for tier-specific discount
+                if self.enable_quantity_tiers:
+                    tier = self.get_applicable_tier(qty)
+                    if tier and tier.discount_percent:
+                        discount_percent = flt(tier.discount_percent)
+
+                discount_amount = base_price * (discount_percent / 100)
+                final_price = base_price - discount_amount
+
+            elif self.pricing_type == "Discount Amount":
+                discount_amount = flt(self.discount_amount)
+
+                # Check for tier-specific discount
+                if self.enable_quantity_tiers:
+                    tier = self.get_applicable_tier(qty)
+                    if tier and tier.discount_amount:
+                        discount_amount = flt(tier.discount_amount)
+
+                final_price = base_price - discount_amount
+
+            # Apply guardrails
+            if self.min_price_guardrail and final_price < flt(self.min_price_guardrail):
+                result["messages"].append(
+                    f"Price adjusted to minimum guardrail: {self.min_price_guardrail}"
+                )
+                final_price = flt(self.min_price_guardrail)
+                discount_amount = base_price - final_price
+
+            if self.max_price_guardrail and final_price > flt(self.max_price_guardrail):
+                result["messages"].append(
+                    f"Price adjusted to maximum guardrail: {self.max_price_guardrail}"
+                )
+                final_price = flt(self.max_price_guardrail)
+                discount_amount = base_price - final_price
+
+            # Ensure price doesn't go negative
+            if final_price < 0:
+                final_price = 0
+                discount_amount = base_price
+
+            result["final_price"] = final_price
+            result["discount_amount"] = discount_amount
+            result["discount_percent"] = (discount_amount / base_price * 100) if base_price > 0 else 0
+
+            return result
+def get_contract_prices_for_customer(customer, product_variant=None, product_master=None,
+                                      channel_code=None, qty=1):
+    """Get all applicable contract prices for a customer and product
+
+    Args:
+        customer: Customer name/ID
+        product_variant: Optional product variant
+        product_master: Optional product master
+        channel_code: Optional sales channel code
+        qty: Order quantity
+
+    Returns:
+        List of applicable contract price documents ordered by priority
+    """
+    import frappe
+    from frappe.utils import today, getdate
+
+    if not frappe.has_permission("PIM Contract Price", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    current_date = getdate(today())
+
+    # Get all active contract prices
+    contracts = frappe.get_all(
+        "PIM Contract Price",
+        filters={"is_active": 1},
+        fields=["name", "priority"],
+        order_by="priority desc, creation asc"
+    )
+
+    applicable_contracts = []
+
+    for contract in contracts:
+        doc = frappe.get_doc("PIM Contract Price", contract.name)
+
+        # Check validity
+        if not doc.is_valid_now():
+            continue
+
+        # Check customer applicability
+        if not doc.applies_to_customer(customer):
+            continue
+
+        # Check product applicability
+        if product_variant or product_master:
+            if not doc.applies_to_product(product_variant, product_master):
+                continue
+
+        # Check channel applicability
+        if channel_code and not doc.applies_to_channel(channel_code):
+            continue
+
+        # Check quantity applicability
+        if not doc.applies_to_quantity(qty):
+            continue
+
+        applicable_contracts.append(doc)
+
+    return applicable_contracts
+
+def get_best_contract_price(customer, base_price, product_variant=None, product_master=None,
+                            channel_code=None, qty=1):
+    """Get the best contract price for a customer and product
+
+    Args:
+        customer: Customer name/ID
+        base_price: Base price to calculate from
+        product_variant: Optional product variant
+        product_master: Optional product master
+        channel_code: Optional sales channel code
+        qty: Order quantity
+
+    Returns:
+        dict with best contract price details or None if no contract applies
+    """
+    import frappe
+    from frappe.utils import flt
+
+    if not frappe.has_permission("PIM Contract Price", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    contracts = get_contract_prices_for_customer(
+        customer, product_variant, product_master, channel_code, qty
+    )
+
+    if not contracts:
+        return None
+
+    # Get the highest priority contract (already sorted)
+    best_contract = contracts[0]
+    return best_contract.calculate_price(base_price, qty)
+
+def check_contract_exists(customer, product_variant=None, product_master=None, channel_code=None):
+    """Quick check if any contract exists for a customer/product combination
+
+    Args:
+        customer: Customer name/ID
+        product_variant: Optional product variant
+        product_master: Optional product master
+        channel_code: Optional sales channel code
+
+    Returns:
+        bool: True if at least one contract exists
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Contract Price", "read"):
+        return False
+
+    contracts = get_contract_prices_for_customer(
+        customer, product_variant, product_master, channel_code
+    )
+
+    return len(contracts) > 0

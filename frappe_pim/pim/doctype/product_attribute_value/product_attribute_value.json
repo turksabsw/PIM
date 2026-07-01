@@ -1,0 +1,147 @@
+{
+  "doctype": "DocType",
+  "name": "Product Attribute Value",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "attribute",
+      "fieldtype": "Link",
+      "label": "Attribute",
+      "options": "PIM Attribute",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "value_type",
+      "fieldtype": "Select",
+      "label": "Value Type",
+      "options": "String\nNumber\nBoolean\nOption\nMulti Option\nJSON",
+      "default": "String",
+      "read_only": 1
+    },
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "Language",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "For translatable attributes"
+    },
+    {
+      "fieldname": "value_text",
+      "fieldtype": "Small Text",
+      "label": "Text Value",
+      "in_list_view": 1,
+      "columns": 3,
+      "depends_on": "eval:doc.value_type=='String' || !doc.value_type"
+    },
+    {
+      "fieldname": "value_long_text",
+      "fieldtype": "Text",
+      "label": "Long Text Value",
+      "depends_on": "eval:doc.value_type=='String'"
+    },
+    {
+      "fieldname": "value_int",
+      "fieldtype": "Int",
+      "label": "Integer Value",
+      "depends_on": "eval:doc.value_type=='Number'"
+    },
+    {
+      "fieldname": "value_float",
+      "fieldtype": "Float",
+      "label": "Float Value",
+      "precision": "6",
+      "depends_on": "eval:doc.value_type=='Number'"
+    },
+    {
+      "fieldname": "value_boolean",
+      "fieldtype": "Check",
+      "label": "Boolean Value",
+      "depends_on": "eval:doc.value_type=='Boolean'"
+    },
+    {
+      "fieldname": "value_date",
+      "fieldtype": "Date",
+      "label": "Date Value"
+    },
+    {
+      "fieldname": "value_datetime",
+      "fieldtype": "Datetime",
+      "label": "Datetime Value"
+    },
+    {
+      "fieldname": "value_link",
+      "fieldtype": "Data",
+      "label": "Link Value",
+      "depends_on": "eval:doc.value_type=='Option'"
+    },
+    {
+      "fieldname": "value_json",
+      "fieldtype": "JSON",
+      "label": "JSON Value",
+      "depends_on": "eval:doc.value_type=='JSON'"
+    },
+    {
+      "fieldname": "display_value",
+      "fieldtype": "Data",
+      "label": "Display Value",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Human-readable value for display"
+    },
+    {
+      "fieldname": "unit",
+      "fieldtype": "Data",
+      "label": "Unit",
+      "description": "Unit of measurement (if applicable)"
+    },
+    {
+      "fieldname": "source",
+      "fieldtype": "Select",
+      "label": "Source",
+      "options": "Manual\nInherited\nCalculated\nImported\nAPI",
+      "default": "Manual"
+    },
+    {
+      "fieldname": "is_inherited",
+      "fieldtype": "Check",
+      "label": "Inherited from Parent",
+      "read_only": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "inherited_from",
+      "fieldtype": "Data",
+      "label": "Inherited From",
+      "read_only": 1,
+      "hidden": 1
+    }
+  ],
+  "permissions": [],
+  "field_order": [
+    "attribute",
+    "value_type",
+    "locale",
+    "value_text",
+    "value_long_text",
+    "value_int",
+    "value_float",
+    "value_boolean",
+    "value_date",
+    "value_datetime",
+    "value_link",
+    "value_json",
+    "display_value",
+    "unit",
+    "source",
+    "is_inherited",
+    "inherited_from"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "doctype": "DocType",
+  "name": "Partner Submission Media",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "file",
+      "fieldtype": "Attach",
+      "label": "File",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3,
+      "description": "Uploaded media file"
+    },
+    {
+      "fieldname": "file_name",
+      "fieldtype": "Data",
+      "label": "File Name",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Original file name"
+    },
+    {
+      "fieldname": "media_type",
+      "fieldtype": "Select",
+      "label": "Media Type",
+      "options": "Image\nVideo\nDocument\nOther",
+      "default": "Image",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Type of media file"
+    },
+    {
+      "fieldname": "purpose",
+      "fieldtype": "Select",
+      "label": "Purpose",
+      "options": "Main Image\nGallery Image\nThumbnail\nLifestyle Image\nPackaging Image\nDimension Diagram\nInstruction Manual\nCertificate\nDatasheet\nOther",
+      "default": "Gallery Image",
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Intended purpose of this media"
+    },
+    {
+      "fieldname": "approval_status",
+      "fieldtype": "Select",
+      "label": "Approval Status",
+      "options": "Pending\nApproved\nRejected",
+      "default": "Pending",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Approval status of this media"
+    },
+    {
+      "fieldname": "sequence",
+      "fieldtype": "Int",
+      "label": "Sequence",
+      "default": 0,
+      "description": "Display order for gallery images"
+    },
+    {
+      "fieldname": "alt_text",
+      "fieldtype": "Data",
+      "label": "Alt Text",
+      "description": "Alternative text for accessibility"
+    },
+    {
+      "fieldname": "caption",
+      "fieldtype": "Small Text",
+      "label": "Caption",
+      "description": "Caption or description of the media"
+    },
+    {
+      "fieldname": "reviewer_note",
+      "fieldtype": "Small Text",
+      "label": "Reviewer Note",
+      "description": "Note from reviewer about this media"
+    },
+    {
+      "fieldname": "file_size",
+      "fieldtype": "Int",
+      "label": "File Size (bytes)",
+      "read_only": 1,
+      "description": "File size in bytes"
+    },
+    {
+      "fieldname": "dimensions",
+      "fieldtype": "Data",
+      "label": "Dimensions",
+      "read_only": 1,
+      "description": "Image dimensions (WxH) if applicable"
+    }
+  ],
+
+  "permissions": []
+}

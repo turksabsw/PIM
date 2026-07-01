@@ -1,0 +1,136 @@
+{
+  "doctype": "DocType",
+  "name": "Job Product Item",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+
+  "fields": [
+    {
+      "fieldname": "product",
+      "fieldtype": "Link",
+      "label": "Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Product to process"
+    },
+    {
+      "fieldname": "sku",
+      "fieldtype": "Data",
+      "label": "SKU",
+      "read_only": 1,
+      "fetch_from": "product.sku",
+      "in_list_view": 1,
+      "description": "Product SKU"
+    },
+    {
+      "fieldname": "product_name",
+      "fieldtype": "Data",
+      "label": "Product Name",
+      "read_only": 1,
+      "fetch_from": "product.product_name",
+      "in_list_view": 1,
+      "description": "Product name"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "\nPending\nProcessing\nCompleted\nFailed\nSkipped",
+      "default": "Pending",
+      "in_list_view": 1,
+      "allow_on_submit": 1,
+      "description": "Processing status for this product"
+    },
+    {
+      "fieldname": "processed_at",
+      "fieldtype": "Datetime",
+      "label": "Processed At",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "When this product was processed"
+    },
+    {
+      "fieldname": "confidence_score",
+      "fieldtype": "Percent",
+      "label": "Confidence",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "in_list_view": 1,
+      "description": "AI confidence score for the result"
+    },
+    {
+      "fieldname": "approval_status",
+      "fieldtype": "Select",
+      "label": "Approval Status",
+      "options": "\nNot Required\nPending Approval\nApproved\nRejected\nAuto-Applied",
+      "default": "Not Required",
+      "allow_on_submit": 1,
+      "in_list_view": 1,
+      "description": "Status of approval for AI suggestions"
+    },
+    {
+      "fieldname": "approval_queue_entry",
+      "fieldtype": "Link",
+      "label": "Approval Queue Entry",
+      "options": "AI Approval Queue",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "Link to approval queue entry"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Error Message",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "Error message if processing failed"
+    },
+    {
+      "fieldname": "retry_count",
+      "fieldtype": "Int",
+      "label": "Retry Count",
+      "default": 0,
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "Number of retry attempts"
+    },
+    {
+      "fieldname": "tokens_used",
+      "fieldtype": "Int",
+      "label": "Tokens Used",
+      "default": 0,
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "API tokens consumed for this product"
+    },
+    {
+      "fieldname": "processing_time",
+      "fieldtype": "Float",
+      "label": "Processing Time (s)",
+      "read_only": 1,
+      "precision": 2,
+      "allow_on_submit": 1,
+      "description": "Time taken to process in seconds"
+    },
+    {
+      "fieldname": "result_summary",
+      "fieldtype": "Small Text",
+      "label": "Result Summary",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "Brief summary of what was generated/extracted"
+    },
+    {
+      "fieldname": "result_data",
+      "fieldtype": "JSON",
+      "label": "Result Data",
+      "read_only": 1,
+      "allow_on_submit": 1,
+      "description": "Full AI response data (JSON)"
+    }
+  ],
+
+  "permissions": []
+}

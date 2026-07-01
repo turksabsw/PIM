@@ -1,0 +1,594 @@
+{
+  "doctype": "DocType",
+  "name": "Digital Asset",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "naming_series:",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "asset_title",
+  "search_fields": "asset_code,asset_title,original_filename",
+  "image_field": "thumbnail",
+
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Series",
+      "options": "ASSET-.YYYY.-.#####",
+      "default": "ASSET-.YYYY.-.#####",
+      "reqd": 1,
+      "no_copy": 1
+    },
+    {
+      "fieldname": "asset_code",
+      "fieldtype": "Data",
+      "label": "Asset Code",
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Unique asset identifier (auto-generated or manual)"
+    },
+    {
+      "fieldname": "asset_title",
+      "fieldtype": "Data",
+      "label": "Asset Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display title for the asset"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "asset_type",
+      "fieldtype": "Select",
+      "label": "Asset Type",
+      "options": "\nImage\nVideo\nDocument\nAudio\n3D Model\nArchive\nOther",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of digital asset"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nArchived\nPending Review\nRejected",
+      "default": "Draft",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the asset"
+    },
+    {
+      "fieldname": "thumbnail",
+      "fieldtype": "Attach Image",
+      "label": "Thumbnail",
+      "description": "Preview thumbnail image"
+    },
+
+    {
+      "fieldname": "section_break_file",
+      "fieldtype": "Section Break",
+      "label": "Original File"
+    },
+    {
+      "fieldname": "original_file",
+      "fieldtype": "Attach",
+      "label": "Original File",
+      "reqd": 1,
+      "description": "The original asset file"
+    },
+    {
+      "fieldname": "original_filename",
+      "fieldtype": "Data",
+      "label": "Original Filename",
+      "read_only": 1,
+      "description": "Original filename when uploaded"
+    },
+    {
+      "fieldname": "column_break_file",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "file_format",
+      "fieldtype": "Data",
+      "label": "File Format",
+      "read_only": 1,
+      "description": "File format/extension (e.g., JPG, PNG, MP4, PDF)"
+    },
+    {
+      "fieldname": "mime_type",
+      "fieldtype": "Data",
+      "label": "MIME Type",
+      "read_only": 1,
+      "description": "MIME type of the file"
+    },
+    {
+      "fieldname": "file_size",
+      "fieldtype": "Int",
+      "label": "File Size (bytes)",
+      "read_only": 1,
+      "description": "Size of the original file in bytes"
+    },
+    {
+      "fieldname": "content_hash",
+      "fieldtype": "Data",
+      "label": "Content Hash",
+      "read_only": 1,
+      "description": "SHA256 hash for integrity verification"
+    },
+
+    {
+      "fieldname": "section_break_dimensions",
+      "fieldtype": "Section Break",
+      "label": "Technical Details",
+      "depends_on": "eval:['Image', 'Video', '3D Model'].includes(doc.asset_type)"
+    },
+    {
+      "fieldname": "width",
+      "fieldtype": "Int",
+      "label": "Width (px)",
+      "read_only": 1,
+      "description": "Width in pixels"
+    },
+    {
+      "fieldname": "height",
+      "fieldtype": "Int",
+      "label": "Height (px)",
+      "read_only": 1,
+      "description": "Height in pixels"
+    },
+    {
+      "fieldname": "aspect_ratio",
+      "fieldtype": "Data",
+      "label": "Aspect Ratio",
+      "read_only": 1,
+      "description": "Aspect ratio (e.g., 16:9, 4:3)"
+    },
+    {
+      "fieldname": "column_break_dimensions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "dpi",
+      "fieldtype": "Int",
+      "label": "DPI",
+      "read_only": 1,
+      "description": "Resolution in dots per inch"
+    },
+    {
+      "fieldname": "color_space",
+      "fieldtype": "Data",
+      "label": "Color Space",
+      "read_only": 1,
+      "description": "Color space (e.g., sRGB, Adobe RGB, CMYK)"
+    },
+    {
+      "fieldname": "bit_depth",
+      "fieldtype": "Int",
+      "label": "Bit Depth",
+      "read_only": 1,
+      "description": "Color bit depth"
+    },
+
+    {
+      "fieldname": "section_break_media",
+      "fieldtype": "Section Break",
+      "label": "Media Properties",
+      "depends_on": "eval:['Video', 'Audio'].includes(doc.asset_type)"
+    },
+    {
+      "fieldname": "duration_seconds",
+      "fieldtype": "Float",
+      "label": "Duration (seconds)",
+      "read_only": 1,
+      "description": "Duration for video/audio files"
+    },
+    {
+      "fieldname": "frame_rate",
+      "fieldtype": "Float",
+      "label": "Frame Rate (fps)",
+      "read_only": 1,
+      "description": "Frames per second for videos"
+    },
+    {
+      "fieldname": "video_codec",
+      "fieldtype": "Data",
+      "label": "Video Codec",
+      "read_only": 1,
+      "description": "Video codec used"
+    },
+    {
+      "fieldname": "column_break_media",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "audio_codec",
+      "fieldtype": "Data",
+      "label": "Audio Codec",
+      "read_only": 1,
+      "description": "Audio codec used"
+    },
+    {
+      "fieldname": "audio_channels",
+      "fieldtype": "Int",
+      "label": "Audio Channels",
+      "read_only": 1,
+      "description": "Number of audio channels"
+    },
+    {
+      "fieldname": "sample_rate",
+      "fieldtype": "Int",
+      "label": "Sample Rate (Hz)",
+      "read_only": 1,
+      "description": "Audio sample rate"
+    },
+
+    {
+      "fieldname": "section_break_renditions",
+      "fieldtype": "Section Break",
+      "label": "Renditions"
+    },
+    {
+      "fieldname": "renditions",
+      "fieldtype": "Table",
+      "label": "Renditions",
+      "options": "Asset Rendition",
+      "description": "Different versions/sizes of this asset"
+    },
+    {
+      "fieldname": "auto_generate_renditions",
+      "fieldtype": "Check",
+      "label": "Auto Generate Renditions",
+      "default": 1,
+      "description": "Automatically generate standard renditions on upload"
+    },
+
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "translatable": 1,
+      "description": "Detailed description of the asset"
+    },
+    {
+      "fieldname": "alt_text",
+      "fieldtype": "Small Text",
+      "label": "Alt Text",
+      "translatable": 1,
+      "description": "Alternative text for accessibility"
+    },
+    {
+      "fieldname": "caption",
+      "fieldtype": "Small Text",
+      "label": "Caption",
+      "translatable": 1,
+      "description": "Caption for display"
+    },
+
+    {
+      "fieldname": "section_break_classification",
+      "fieldtype": "Section Break",
+      "label": "Classification"
+    },
+    {
+      "fieldname": "asset_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Product Category",
+      "in_standard_filter": 1,
+      "description": "Asset category for organization"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for search and organization"
+    },
+    {
+      "fieldname": "column_break_classification",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "in_standard_filter": 1,
+      "description": "Associated brand"
+    },
+    {
+      "fieldname": "collection",
+      "fieldtype": "Data",
+      "label": "Collection",
+      "description": "Asset collection or set name"
+    },
+
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Scope"
+    },
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "PIM Locale",
+      "description": "Locale this asset is specific to"
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "description": "Channel this asset is specific to"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Start date for asset validity"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "End date for asset validity"
+    },
+
+    {
+      "fieldname": "section_break_rights",
+      "fieldtype": "Section Break",
+      "label": "Usage Rights",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "copyright_holder",
+      "fieldtype": "Data",
+      "label": "Copyright Holder",
+      "description": "Name of the copyright holder"
+    },
+    {
+      "fieldname": "copyright_year",
+      "fieldtype": "Int",
+      "label": "Copyright Year",
+      "description": "Year of copyright"
+    },
+    {
+      "fieldname": "license_type",
+      "fieldtype": "Select",
+      "label": "License Type",
+      "options": "\nAll Rights Reserved\nRoyalty Free\nRights Managed\nCreative Commons\nPublic Domain\nCustom",
+      "description": "Type of license"
+    },
+    {
+      "fieldname": "column_break_rights",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "license_expiry",
+      "fieldtype": "Date",
+      "label": "License Expiry",
+      "description": "When the license expires"
+    },
+    {
+      "fieldname": "usage_restrictions",
+      "fieldtype": "Small Text",
+      "label": "Usage Restrictions",
+      "description": "Any restrictions on how the asset can be used"
+    },
+    {
+      "fieldname": "credit_line",
+      "fieldtype": "Data",
+      "label": "Credit Line",
+      "description": "Credit line to use when publishing"
+    },
+
+    {
+      "fieldname": "section_break_metadata",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "exif_data",
+      "fieldtype": "Code",
+      "label": "EXIF Data",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "EXIF metadata extracted from images"
+    },
+    {
+      "fieldname": "iptc_data",
+      "fieldtype": "Code",
+      "label": "IPTC Data",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "IPTC metadata extracted from images"
+    },
+    {
+      "fieldname": "xmp_data",
+      "fieldtype": "Code",
+      "label": "XMP Data",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "XMP metadata extracted from images"
+    },
+    {
+      "fieldname": "custom_metadata",
+      "fieldtype": "Code",
+      "label": "Custom Metadata",
+      "options": "JSON",
+      "description": "Additional custom metadata in JSON format"
+    },
+
+    {
+      "fieldname": "section_break_source",
+      "fieldtype": "Section Break",
+      "label": "Source Information",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "source_system",
+      "fieldtype": "Link",
+      "label": "Source System",
+      "options": "Source System",
+      "description": "System where the asset originated"
+    },
+    {
+      "fieldname": "external_id",
+      "fieldtype": "Data",
+      "label": "External ID",
+      "description": "ID in the source system"
+    },
+    {
+      "fieldname": "column_break_source",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "imported_at",
+      "fieldtype": "Datetime",
+      "label": "Imported At",
+      "read_only": 1,
+      "description": "When the asset was imported"
+    },
+    {
+      "fieldname": "photographer",
+      "fieldtype": "Data",
+      "label": "Photographer/Creator",
+      "description": "Name of the asset creator"
+    },
+    {
+      "fieldname": "created_date",
+      "fieldtype": "Date",
+      "label": "Created Date",
+      "description": "When the asset was originally created"
+    },
+
+    {
+      "fieldname": "section_break_cdn",
+      "fieldtype": "Section Break",
+      "label": "CDN & Distribution",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "cdn_enabled",
+      "fieldtype": "Check",
+      "label": "CDN Enabled",
+      "default": 0,
+      "description": "Whether the asset is served via CDN"
+    },
+    {
+      "fieldname": "cdn_url",
+      "fieldtype": "Data",
+      "label": "CDN URL",
+      "options": "URL",
+      "read_only": 1,
+      "description": "CDN URL for the original file"
+    },
+    {
+      "fieldname": "column_break_cdn",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "cdn_synced_at",
+      "fieldtype": "Datetime",
+      "label": "CDN Synced At",
+      "read_only": 1,
+      "description": "When the asset was last synced to CDN"
+    },
+    {
+      "fieldname": "cdn_cache_key",
+      "fieldtype": "Data",
+      "label": "CDN Cache Key",
+      "read_only": 1,
+      "description": "Cache invalidation key"
+    },
+
+    {
+      "fieldname": "section_break_stats",
+      "fieldtype": "Section Break",
+      "label": "Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "view_count",
+      "fieldtype": "Int",
+      "label": "View Count",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of times viewed"
+    },
+    {
+      "fieldname": "download_count",
+      "fieldtype": "Int",
+      "label": "Download Count",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of times downloaded"
+    },
+    {
+      "fieldname": "column_break_stats",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_products_count",
+      "fieldtype": "Int",
+      "label": "Linked Products",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of products using this asset"
+    },
+    {
+      "fieldname": "last_used_at",
+      "fieldtype": "Datetime",
+      "label": "Last Used At",
+      "read_only": 1,
+      "description": "When the asset was last used"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ]
+}

@@ -1,0 +1,418 @@
+{
+  "doctype": "DocType",
+  "name": "AI Prompt Template",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "APT-.####",
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "creation",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "template_name",
+      "fieldtype": "Data",
+      "label": "Template Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Descriptive name for this prompt template"
+    },
+    {
+      "fieldname": "template_code",
+      "fieldtype": "Data",
+      "label": "Template Code",
+      "unique": 1,
+      "in_standard_filter": 1,
+      "description": "Unique code identifier (e.g., desc-gen-standard, attr-extract-fashion)"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Whether this template is available for use"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default",
+      "default": 0,
+      "description": "Set as default template for its job type"
+    },
+    {
+      "fieldname": "job_type",
+      "fieldtype": "Select",
+      "label": "Job Type",
+      "options": "\nDescription Generation\nAttribute Extraction\nClassification Suggestion\nImage Analysis\nSEO Optimization\nTranslation\nContent Enhancement\nQuality Check\nCustom",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of AI enrichment job this template is designed for"
+    },
+    {
+      "fieldname": "version",
+      "fieldtype": "Data",
+      "label": "Version",
+      "default": "1.0",
+      "description": "Template version (e.g., 1.0, 2.1)"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description",
+      "translatable": 1,
+      "description": "Description of what this template does and when to use it"
+    },
+    {
+      "fieldname": "section_break_ai_config",
+      "fieldtype": "Section Break",
+      "label": "AI Configuration"
+    },
+    {
+      "fieldname": "default_ai_provider",
+      "fieldtype": "Select",
+      "label": "Default AI Provider",
+      "options": "\nAnthropic\nOpenAI\nGoogle Gemini\nAzure OpenAI\nAWS Bedrock\nCustom",
+      "description": "Recommended AI provider for this template"
+    },
+    {
+      "fieldname": "default_ai_model",
+      "fieldtype": "Data",
+      "label": "Default AI Model",
+      "description": "Recommended model (e.g., claude-3-sonnet, gpt-4-turbo)"
+    },
+    {
+      "fieldname": "column_break_ai_config",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "default_temperature",
+      "fieldtype": "Float",
+      "label": "Default Temperature",
+      "default": 0.7,
+      "precision": 2,
+      "description": "Recommended temperature setting (0.0-1.0)"
+    },
+    {
+      "fieldname": "default_max_tokens",
+      "fieldtype": "Int",
+      "label": "Default Max Tokens",
+      "default": 2000,
+      "description": "Recommended max tokens for response"
+    },
+    {
+      "fieldname": "requires_json_output",
+      "fieldtype": "Check",
+      "label": "Requires JSON Output",
+      "default": 0,
+      "description": "Whether the template expects structured JSON output"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Scope & Applicability"
+    },
+    {
+      "fieldname": "applicable_product_types",
+      "fieldtype": "Small Text",
+      "label": "Applicable Product Types",
+      "description": "Comma-separated list of product types this template works with (empty = all)"
+    },
+    {
+      "fieldname": "applicable_families",
+      "fieldtype": "Small Text",
+      "label": "Applicable Product Families",
+      "description": "Comma-separated list of product families (empty = all)"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "applicable_channels",
+      "fieldtype": "Small Text",
+      "label": "Applicable Channels",
+      "description": "Comma-separated list of channels this template is optimized for (empty = all)"
+    },
+    {
+      "fieldname": "applicable_locales",
+      "fieldtype": "Small Text",
+      "label": "Applicable Locales",
+      "description": "Comma-separated list of locales (empty = all)"
+    },
+    {
+      "fieldname": "target_attributes",
+      "fieldtype": "Small Text",
+      "label": "Target Attributes",
+      "description": "Comma-separated list of attribute codes this template generates values for"
+    },
+    {
+      "fieldname": "section_break_system_prompt",
+      "fieldtype": "Section Break",
+      "label": "System Prompt",
+      "description": "The system-level instructions that set the context for the AI"
+    },
+    {
+      "fieldname": "system_prompt",
+      "fieldtype": "Code",
+      "label": "System Prompt",
+      "options": "Jinja",
+      "description": "System prompt template. Supports Jinja2 variables like {{ company_name }}, {{ channel.name }}, etc."
+    },
+    {
+      "fieldname": "section_break_user_prompt",
+      "fieldtype": "Section Break",
+      "label": "User Prompt Template",
+      "description": "The main prompt template with product data variables"
+    },
+    {
+      "fieldname": "user_prompt_template",
+      "fieldtype": "Code",
+      "label": "User Prompt Template",
+      "options": "Jinja",
+      "reqd": 1,
+      "description": "Jinja2 template for the user prompt. Available variables: product, attributes, channel, locale, category, family, existing_values"
+    },
+    {
+      "fieldname": "section_break_output",
+      "fieldtype": "Section Break",
+      "label": "Output Configuration"
+    },
+    {
+      "fieldname": "output_format",
+      "fieldtype": "Select",
+      "label": "Output Format",
+      "options": "\nPlain Text\nJSON\nMarkdown\nHTML",
+      "default": "Plain Text",
+      "description": "Expected format of AI response"
+    },
+    {
+      "fieldname": "output_schema",
+      "fieldtype": "JSON",
+      "label": "Output Schema",
+      "depends_on": "eval:doc.output_format=='JSON'",
+      "description": "JSON schema for validating structured output"
+    },
+    {
+      "fieldname": "column_break_output",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "post_processing",
+      "fieldtype": "Select",
+      "label": "Post Processing",
+      "options": "\nNone\nTrim Whitespace\nExtract JSON\nParse Key-Value\nCustom",
+      "default": "None",
+      "description": "Post-processing to apply to AI response"
+    },
+    {
+      "fieldname": "post_processing_script",
+      "fieldtype": "Code",
+      "label": "Post Processing Script",
+      "options": "Python",
+      "depends_on": "eval:doc.post_processing=='Custom'",
+      "description": "Custom Python function for post-processing (receives 'response' variable)"
+    },
+    {
+      "fieldname": "section_break_variables",
+      "fieldtype": "Section Break",
+      "label": "Available Variables",
+      "collapsible": 1,
+      "description": "Documentation of variables available in the template"
+    },
+    {
+      "fieldname": "variable_definitions",
+      "fieldtype": "JSON",
+      "label": "Variable Definitions",
+      "description": "JSON object defining available template variables and their types"
+    },
+    {
+      "fieldname": "custom_variables",
+      "fieldtype": "JSON",
+      "label": "Custom Variables",
+      "description": "Custom static variables to inject into the template context"
+    },
+    {
+      "fieldname": "section_break_examples",
+      "fieldtype": "Section Break",
+      "label": "Few-Shot Examples",
+      "collapsible": 1,
+      "description": "Example inputs and outputs for better AI results"
+    },
+    {
+      "fieldname": "include_examples",
+      "fieldtype": "Check",
+      "label": "Include Examples in Prompt",
+      "default": 1,
+      "description": "Whether to include few-shot examples in the prompt"
+    },
+    {
+      "fieldname": "max_examples",
+      "fieldtype": "Int",
+      "label": "Max Examples",
+      "default": 3,
+      "depends_on": "eval:doc.include_examples",
+      "description": "Maximum number of examples to include"
+    },
+    {
+      "fieldname": "examples",
+      "fieldtype": "JSON",
+      "label": "Examples",
+      "description": "Array of {input: ..., output: ...} examples for few-shot learning"
+    },
+    {
+      "fieldname": "section_break_validation",
+      "fieldtype": "Section Break",
+      "label": "Validation Rules",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "enable_output_validation",
+      "fieldtype": "Check",
+      "label": "Enable Output Validation",
+      "default": 0,
+      "description": "Validate AI output before accepting"
+    },
+    {
+      "fieldname": "validation_rules",
+      "fieldtype": "JSON",
+      "label": "Validation Rules",
+      "depends_on": "eval:doc.enable_output_validation",
+      "description": "JSON array of validation rules [{field: ..., rule: ..., message: ...}]"
+    },
+    {
+      "fieldname": "column_break_validation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_output_length",
+      "fieldtype": "Int",
+      "label": "Min Output Length",
+      "description": "Minimum character length for valid output"
+    },
+    {
+      "fieldname": "max_output_length",
+      "fieldtype": "Int",
+      "label": "Max Output Length",
+      "description": "Maximum character length for output (truncated if exceeded)"
+    },
+    {
+      "fieldname": "forbidden_patterns",
+      "fieldtype": "Small Text",
+      "label": "Forbidden Patterns",
+      "description": "Regex patterns that should NOT appear in output (one per line)"
+    },
+    {
+      "fieldname": "section_break_usage",
+      "fieldtype": "Section Break",
+      "label": "Usage Statistics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "total_uses",
+      "fieldtype": "Int",
+      "label": "Total Uses",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of times this template has been used"
+    },
+    {
+      "fieldname": "successful_uses",
+      "fieldtype": "Int",
+      "label": "Successful Uses",
+      "read_only": 1,
+      "default": 0,
+      "description": "Number of successful enrichments"
+    },
+    {
+      "fieldname": "column_break_usage",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "average_confidence",
+      "fieldtype": "Percent",
+      "label": "Average Confidence",
+      "read_only": 1,
+      "default": 0,
+      "description": "Average confidence score of results"
+    },
+    {
+      "fieldname": "last_used_at",
+      "fieldtype": "Datetime",
+      "label": "Last Used At",
+      "read_only": 1,
+      "description": "When this template was last used"
+    },
+    {
+      "fieldname": "average_tokens",
+      "fieldtype": "Int",
+      "label": "Average Tokens",
+      "read_only": 1,
+      "default": 0,
+      "description": "Average tokens consumed per use"
+    },
+    {
+      "fieldname": "section_break_metadata",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "created_by",
+      "fieldtype": "Link",
+      "label": "Created By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who created this template"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization"
+    },
+    {
+      "fieldname": "column_break_metadata",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text",
+      "label": "Notes",
+      "description": "Internal notes about this template"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

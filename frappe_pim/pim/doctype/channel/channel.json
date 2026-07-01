@@ -1,0 +1,254 @@
+{
+  "doctype": "DocType",
+  "name": "Channel",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:channel_code",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "sort_order",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "channel_name",
+      "fieldtype": "Data",
+      "label": "Channel Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the distribution channel"
+    },
+    {
+      "fieldname": "channel_code",
+      "fieldtype": "Data",
+      "label": "Channel Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (slug). Example: amazon, shopify, website"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "channel_type",
+      "fieldtype": "Select",
+      "label": "Channel Type",
+      "reqd": 1,
+      "options": "E-Commerce\nMarketplace\nSocial Commerce\nRetail\nWholesale\nB2B Portal\nMobile App\nOther",
+      "default": "E-Commerce",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of distribution channel"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this channel"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "description": "Order in which channels appear (lower = first)"
+    },
+    {
+      "fieldname": "section_break_connection",
+      "fieldtype": "Section Break",
+      "label": "Connection Settings"
+    },
+    {
+      "fieldname": "base_url",
+      "fieldtype": "Data",
+      "label": "Base URL",
+      "options": "URL",
+      "description": "Base URL for API integration (e.g., https://api.example.com)"
+    },
+    {
+      "fieldname": "api_key",
+      "fieldtype": "Password",
+      "label": "API Key",
+      "description": "API key for authentication (stored encrypted)"
+    },
+    {
+      "fieldname": "column_break_connection",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "api_secret",
+      "fieldtype": "Password",
+      "label": "API Secret",
+      "description": "API secret for authentication (stored encrypted)"
+    },
+    {
+      "fieldname": "webhook_url",
+      "fieldtype": "Data",
+      "label": "Webhook URL",
+      "options": "URL",
+      "read_only": 1,
+      "description": "URL for receiving webhooks from this channel (auto-generated)"
+    },
+    {
+      "fieldname": "section_break_export",
+      "fieldtype": "Section Break",
+      "label": "Export Settings"
+    },
+    {
+      "fieldname": "default_export_format",
+      "fieldtype": "Select",
+      "label": "Default Export Format",
+      "options": "JSON\nXML\nCSV",
+      "default": "JSON",
+      "description": "Default format for product data exports"
+    },
+    {
+      "fieldname": "export_language",
+      "fieldtype": "Link",
+      "label": "Export Language",
+      "options": "Language",
+      "description": "Default language for exported product data"
+    },
+    {
+      "fieldname": "column_break_export",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "export_currency",
+      "fieldtype": "Link",
+      "label": "Export Currency",
+      "options": "Currency",
+      "description": "Currency for price exports"
+    },
+    {
+      "fieldname": "include_variants",
+      "fieldtype": "Check",
+      "label": "Include Variants",
+      "default": 1,
+      "description": "Include product variants in exports"
+    },
+    {
+      "fieldname": "include_media",
+      "fieldtype": "Check",
+      "label": "Include Media",
+      "default": 1,
+      "description": "Include product images and media in exports"
+    },
+    {
+      "fieldname": "section_break_sync",
+      "fieldtype": "Section Break",
+      "label": "Synchronization Settings"
+    },
+    {
+      "fieldname": "sync_direction",
+      "fieldtype": "Select",
+      "label": "Sync Direction",
+      "options": "Export Only\nImport Only\nBidirectional",
+      "default": "Export Only",
+      "description": "Direction of data synchronization"
+    },
+    {
+      "fieldname": "auto_sync",
+      "fieldtype": "Check",
+      "label": "Auto Sync",
+      "default": 0,
+      "description": "Automatically sync changes to this channel"
+    },
+    {
+      "fieldname": "column_break_sync",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sync_interval",
+      "fieldtype": "Select",
+      "label": "Sync Interval",
+      "options": "Real-time\nHourly\nDaily\nWeekly",
+      "default": "Daily",
+      "depends_on": "eval:doc.auto_sync",
+      "description": "How often to sync data automatically"
+    },
+    {
+      "fieldname": "last_sync",
+      "fieldtype": "Datetime",
+      "label": "Last Sync",
+      "read_only": 1,
+      "description": "Timestamp of last synchronization"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Status"
+    },
+    {
+      "fieldname": "connection_status",
+      "fieldtype": "Select",
+      "label": "Connection Status",
+      "options": "Not Configured\nConnected\nConnection Failed\nAuthentication Error",
+      "default": "Not Configured",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Current connection status"
+    },
+    {
+      "fieldname": "last_connection_check",
+      "fieldtype": "Datetime",
+      "label": "Last Connection Check",
+      "read_only": 1,
+      "description": "When the connection was last verified"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Small Text",
+      "label": "Error Message",
+      "read_only": 1,
+      "description": "Last error message if connection failed"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description",
+      "description": "Detailed description and notes about this channel"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

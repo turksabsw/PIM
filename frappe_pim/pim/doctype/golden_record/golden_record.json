@@ -1,0 +1,286 @@
+{
+  "doctype": "DocType",
+  "name": "Golden Record",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:golden_record_code",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "record_name",
+      "fieldtype": "Data",
+      "label": "Record Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "bold": 1,
+      "description": "Display name for this golden record"
+    },
+    {
+      "fieldname": "golden_record_code",
+      "fieldtype": "Data",
+      "label": "Golden Record Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier for this golden record"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_master",
+      "fieldtype": "Link",
+      "label": "Product Master",
+      "options": "Product Master",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Canonical product linked to this golden record"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nActive\nMerged\nArchived",
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Status of the golden record"
+    },
+    {
+      "fieldname": "section_break_survivorship",
+      "fieldtype": "Section Break",
+      "label": "Survivorship Rules"
+    },
+    {
+      "fieldname": "survivorship_rule",
+      "fieldtype": "Select",
+      "label": "Survivorship Rule",
+      "options": "Most Recent\nHighest Confidence\nSource Priority\nManual Override\nMost Complete",
+      "default": "Most Recent",
+      "reqd": 1,
+      "description": "Rule for determining winning values when merging duplicate records"
+    },
+    {
+      "fieldname": "source_priority_order",
+      "fieldtype": "Small Text",
+      "label": "Source Priority Order",
+      "description": "Comma-separated list of source systems in priority order (e.g., ERP, PIM, Import)",
+      "depends_on": "eval:doc.survivorship_rule=='Source Priority'"
+    },
+    {
+      "fieldname": "column_break_survivorship",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "merge_mode",
+      "fieldtype": "Select",
+      "label": "Merge Mode",
+      "options": "Automatic\nManual Review Required\nAI Assisted",
+      "default": "Manual Review Required",
+      "description": "How merges should be processed"
+    },
+    {
+      "fieldname": "auto_merge_threshold",
+      "fieldtype": "Percent",
+      "label": "Auto-Merge Confidence Threshold",
+      "default": 95,
+      "description": "Minimum confidence score required for automatic merge (when merge mode is Automatic)",
+      "depends_on": "eval:doc.merge_mode=='Automatic'"
+    },
+    {
+      "fieldname": "section_break_source_records",
+      "fieldtype": "Section Break",
+      "label": "Source Records"
+    },
+    {
+      "fieldname": "source_records",
+      "fieldtype": "Table",
+      "label": "Source Records",
+      "options": "Golden Record Source",
+      "description": "Products and data sources that contribute to this golden record"
+    },
+    {
+      "fieldname": "section_break_quality",
+      "fieldtype": "Section Break",
+      "label": "Data Quality"
+    },
+    {
+      "fieldname": "confidence_score",
+      "fieldtype": "Percent",
+      "label": "Confidence Score",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Overall confidence in the golden record data accuracy"
+    },
+    {
+      "fieldname": "data_completeness",
+      "fieldtype": "Percent",
+      "label": "Data Completeness",
+      "read_only": 1,
+      "description": "Percentage of fields populated with valid data"
+    },
+    {
+      "fieldname": "column_break_quality",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "match_score",
+      "fieldtype": "Percent",
+      "label": "Match Score",
+      "read_only": 1,
+      "description": "Score indicating how well source records matched during merge"
+    },
+    {
+      "fieldname": "quality_issues",
+      "fieldtype": "Small Text",
+      "label": "Quality Issues",
+      "read_only": 1,
+      "description": "Identified data quality issues"
+    },
+    {
+      "fieldname": "section_break_governance",
+      "fieldtype": "Section Break",
+      "label": "Data Governance"
+    },
+    {
+      "fieldname": "data_steward",
+      "fieldtype": "Link",
+      "label": "Data Steward",
+      "options": "User",
+      "in_standard_filter": 1,
+      "description": "User responsible for maintaining this golden record"
+    },
+    {
+      "fieldname": "steward_assigned_at",
+      "fieldtype": "Datetime",
+      "label": "Steward Assigned At",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_governance",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "approved_by",
+      "fieldtype": "Link",
+      "label": "Approved By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who approved this golden record"
+    },
+    {
+      "fieldname": "approved_at",
+      "fieldtype": "Datetime",
+      "label": "Approved At",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_merge_history",
+      "fieldtype": "Section Break",
+      "label": "Merge History",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "last_merged_at",
+      "fieldtype": "Datetime",
+      "label": "Last Merged At",
+      "read_only": 1,
+      "description": "When the last merge operation was performed"
+    },
+    {
+      "fieldname": "merge_count",
+      "fieldtype": "Int",
+      "label": "Merge Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times records have been merged into this golden record"
+    },
+    {
+      "fieldname": "column_break_merge_history",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_validated_at",
+      "fieldtype": "Datetime",
+      "label": "Last Validated At",
+      "read_only": 1,
+      "description": "When the record was last validated"
+    },
+    {
+      "fieldname": "validation_status",
+      "fieldtype": "Select",
+      "label": "Validation Status",
+      "options": "Pending\nValid\nInvalid\nNeeds Review",
+      "default": "Pending",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_break_field_tracking",
+      "fieldtype": "Section Break",
+      "label": "Field-Level Tracking",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "field_sources",
+      "fieldtype": "Code",
+      "label": "Field Sources",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "JSON mapping of which source provided each field value"
+    },
+    {
+      "fieldname": "field_confidence",
+      "fieldtype": "Code",
+      "label": "Field Confidence Scores",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "JSON mapping of confidence scores per field"
+    },
+    {
+      "fieldname": "section_break_notes",
+      "fieldtype": "Section Break",
+      "label": "Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Text Editor",
+      "label": "Notes",
+      "description": "Additional notes about this golden record"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "export": 1
+    }
+  ]
+}

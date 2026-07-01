@@ -1,0 +1,272 @@
+"""
+PIM Attribute Template Controller
+Reusable attribute sets for consistent product attribute definition
+"""
+
+# Defer frappe import to function level for module import without Frappe context
+
+
+class PIMAttributeTemplate:
+    """PIM Attribute Template DocType controller stub
+
+    This is a minimal controller that allows the module to be imported
+    without Frappe context. Full functionality is provided when running
+    within Frappe framework via _get_controller().
+    """
+    pass
+
+
+def _get_controller():
+    """Get the full controller class with Frappe dependencies"""
+    import frappe
+    from frappe import _
+    from frappe.model.document import Document
+    import re
+
+    class PIMAttributeTemplateController(Document):
+        def validate(self):
+            self.validate_template_code()
+            self.validate_attributes()
+            self.validate_no_duplicate_attributes()
+
+        def validate_template_code(self):
+            """Ensure template_code is URL-safe slug"""
+            if not self.template_code:
+                self.template_code = frappe.scrub(self.template_name)
+
+            if not re.match(r'^[a-z][a-z0-9_]*$', self.template_code):
+                frappe.throw(
+                    _("Template Code must start with a letter and contain only lowercase letters, numbers, and underscores"),
+                    title=_("Invalid Template Code")
+                )
+
+        def validate_attributes(self):
+            """Ensure at least one attribute is defined"""
+            if not self.attributes or len(self.attributes) == 0:
+                frappe.throw(
+                    _("At least one attribute must be defined in the template"),
+                    title=_("No Attributes")
+                )
+
+            # Validate each attribute exists
+            for row in self.attributes:
+                if row.attribute and not frappe.db.exists("PIM Attribute", row.attribute):
+                    frappe.throw(
+                        _("Attribute '{0}' does not exist").format(row.attribute),
+                        title=_("Invalid Attribute")
+                    )
+
+        def validate_no_duplicate_attributes(self):
+            """Ensure no duplicate attributes in the template"""
+            seen = set()
+            for row in self.attributes:
+                if row.attribute in seen:
+                    frappe.throw(
+                        _("Attribute '{0}' is duplicated in the template").format(row.attribute),
+                        title=_("Duplicate Attribute")
+                    )
+                seen.add(row.attribute)
+
+        def before_save(self):
+            """Set sort order for attributes without one"""
+            for idx, row in enumerate(self.attributes):
+                if not row.sort_order:
+                    row.sort_order = (idx + 1) * 10
+
+        def on_update(self):
+            """Invalidate cache on update"""
+            self._invalidate_cache()
+
+        def on_trash(self):
+            """Prevent deletion if template is in use"""
+            # Check if used by Product Family
+            family_count = frappe.db.count("Product Family", {"attribute_template": self.name})
+            if family_count > 0:
+                frappe.throw(
+                    _("Cannot delete template '{0}' as it is used by {1} product family(ies)").format(
+                        self.template_name, family_count
+                    ),
+                    title=_("Template In Use")
+                )
+
+            # Check if used by Product Master
+            master_count = frappe.db.count("Product Master", {"attribute_template": self.name})
+            if master_count > 0:
+                frappe.throw(
+                    _("Cannot delete template '{0}' as it is used by {1} product master(s)").format(
+                        self.template_name, master_count
+                    ),
+                    title=_("Template In Use")
+                )
+
+        def _invalidate_cache(self):
+            """Invalidate attribute template-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("attribute_template", self.name)
+            except (ImportError, AttributeError):
+                pass
+
+        def get_attributes_list(self):
+            """Get a list of attribute details for this template
+
+            Returns:
+                List of dicts with attribute info including type, required flag, etc.
+            """
+            attributes = []
+            for row in self.attributes:
+                attr_doc = frappe.get_cached_doc("PIM Attribute", row.attribute)
+                attributes.append({
+                    "attribute": row.attribute,
+                    "attribute_name": attr_doc.attribute_name if hasattr(attr_doc, 'attribute_name') else row.attribute,
+                    "attribute_type": attr_doc.attribute_type if hasattr(attr_doc, 'attribute_type') else None,
+                    "is_required": row.is_required,
+                    "is_variant_axis": row.is_variant_axis,
+                    "is_inherited": row.is_inherited,
+                    "default_value": row.default_value,
+                    "sort_order": row.sort_order,
+                    "group": row.group
+                })
+            return sorted(attributes, key=lambda x: x['sort_order'])
+
+        def get_variant_axes(self):
+            """Get attributes marked as variant axes
+
+            Returns:
+                List of attribute names that are variant axes
+            """
+            return [
+                row.attribute for row in self.attributes
+                if row.is_variant_axis
+            ]
+
+        def get_required_attributes(self):
+            """Get attributes marked as required
+
+            Returns:
+                List of attribute names that are required
+            """
+            return [
+                row.attribute for row in self.attributes
+                if row.is_required
+            ]
+
+    return PIMAttributeTemplateController
+
+
+def get_template_attributes(template_name):
+    """Get all attributes for a specific template
+
+    Args:
+        template_name: Name of the PIM Attribute Template
+
+    Returns:
+        List of attribute dicts with configuration
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Attribute Template", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    template = frappe.get_doc("PIM Attribute Template", template_name)
+    return template.get_attributes_list()
+
+
+def get_active_templates(product_type=None):
+    """Get all active attribute templates
+
+    Args:
+        product_type: Optional filter by product type
+
+    Returns:
+        List of template dicts
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Attribute Template", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    filters = {"is_active": 1}
+    if product_type:
+        filters["product_type"] = product_type
+
+    return frappe.get_all(
+        "PIM Attribute Template",
+        filters=filters,
+        fields=["name", "template_name", "template_code", "product_type", "description", "usage_count"],
+        order_by="template_name"
+    )
+
+
+def apply_template_to_product(template_name, product_doctype, product_name):
+    """Apply an attribute template to a product
+
+    This copies the template's attributes to the product's attribute values table.
+
+    Args:
+        template_name: Name of the PIM Attribute Template
+        product_doctype: Either 'Product Master' or 'Product Variant'
+        product_name: Name of the product document
+
+    Returns:
+        Number of attributes applied
+    """
+    import frappe
+    from frappe import _
+
+    if not frappe.has_permission("PIM Attribute Template", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    if not frappe.has_permission(product_doctype, "write"):
+        frappe.throw("Not permitted to modify product", frappe.PermissionError)
+
+    template = frappe.get_doc("PIM Attribute Template", template_name)
+    product = frappe.get_doc(product_doctype, product_name)
+
+    applied_count = 0
+    for attr in template.attributes:
+        # Check if attribute already exists on product
+        existing = [a for a in product.get("attributes", []) if a.attribute == attr.attribute]
+        if not existing:
+            product.append("attributes", {
+                "attribute": attr.attribute,
+                "value": attr.default_value or "",
+                "is_inherited": attr.is_inherited
+            })
+            applied_count += 1
+
+    if applied_count > 0:
+        product.save()
+        # Update usage count
+        frappe.db.set_value("PIM Attribute Template", template_name, {
+            "usage_count": template.usage_count + 1,
+            "last_applied": frappe.utils.now()
+        })
+
+    return applied_count
+
+
+def get_templates_for_product_type(product_type):
+    """Get attribute templates suitable for a product type
+
+    Args:
+        product_type: Name of the PIM Product Type
+
+    Returns:
+        List of matching templates
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Attribute Template", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    # Get templates specifically for this product type or without a specific type
+    return frappe.get_all(
+        "PIM Attribute Template",
+        filters={
+            "is_active": 1,
+            "product_type": ["in", [product_type, None, ""]]
+        },
+        fields=["name", "template_name", "template_code", "product_type", "description"],
+        order_by="product_type desc, template_name"
+    )

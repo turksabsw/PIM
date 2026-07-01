@@ -1,0 +1,351 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:rule_code",
+ "creation": "2026-01-21 13:17:22.898565",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "rule_name",
+  "rule_code",
+  "column_break_basic",
+  "rule_type",
+  "enabled",
+  "is_default",
+  "section_break_scope",
+  "applies_to",
+  "specific_fields",
+  "column_break_scope",
+  "field_pattern",
+  "field_groups",
+  "section_break_priority",
+  "source_priorities",
+  "section_break_confidence",
+  "min_confidence_threshold",
+  "column_break_confidence",
+  "prefer_manual_confidence",
+  "section_break_authoritative",
+  "authoritative_source",
+  "column_break_authoritative",
+  "allow_fallback",
+  "fallback_rule_type",
+  "section_break_custom",
+  "custom_method",
+  "custom_params",
+  "section_break_tiebreaker",
+  "tiebreaker_rule",
+  "column_break_tiebreaker",
+  "prefer_non_empty",
+  "trim_whitespace",
+  "section_break_details",
+  "description",
+  "section_break_stats",
+  "times_applied",
+  "last_applied_at",
+  "column_break_stats",
+  "fields_affected",
+  "average_candidates"
+ ],
+ "fields": [
+  {
+   "description": "Display name for this survivorship rule",
+   "fieldname": "rule_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Rule Name",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "description": "Unique identifier (slug). Example: default-source-priority, newest-value",
+   "fieldname": "rule_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Rule Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Strategy for selecting the winning value when merging records",
+   "fieldname": "rule_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Rule Type",
+   "options": "\nSource Priority\nMost Recent\nHighest Confidence\nAuthoritative Source\nMost Complete\nCustom",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "description": "Enable or disable this survivorship rule",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "default": "0",
+   "description": "If checked, this rule is used as the default for Golden Record merges",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Is Default Rule"
+  },
+  {
+   "fieldname": "section_break_scope",
+   "fieldtype": "Section Break",
+   "label": "Rule Scope"
+  },
+  {
+   "default": "All Fields",
+   "description": "Define which fields this rule applies to",
+   "fieldname": "applies_to",
+   "fieldtype": "Select",
+   "label": "Applies To",
+   "options": "\nAll Fields\nSpecific Fields\nField Pattern\nField Groups",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.applies_to=='Specific Fields'",
+   "description": "Comma-separated list of field names (e.g., product_name, description, short_description)",
+   "fieldname": "specific_fields",
+   "fieldtype": "Small Text",
+   "label": "Specific Fields"
+  },
+  {
+   "fieldname": "column_break_scope",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.applies_to=='Field Pattern'",
+   "description": "Regex pattern to match field names (e.g., ^attr_.* for attribute fields)",
+   "fieldname": "field_pattern",
+   "fieldtype": "Data",
+   "label": "Field Pattern"
+  },
+  {
+   "depends_on": "eval:doc.applies_to=='Field Groups'",
+   "description": "Comma-separated list of attribute groups (e.g., Technical Specifications, Marketing Content)",
+   "fieldname": "field_groups",
+   "fieldtype": "Small Text",
+   "label": "Field Groups"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Source Priority'",
+   "fieldname": "section_break_priority",
+   "fieldtype": "Section Break",
+   "label": "Source Priority Configuration"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Source Priority'",
+   "description": "Define the priority order for source systems. Lower rank = higher priority",
+   "fieldname": "source_priorities",
+   "fieldtype": "Table",
+   "label": "Source Priorities",
+   "options": "Source Priority Item"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Highest Confidence'",
+   "fieldname": "section_break_confidence",
+   "fieldtype": "Section Break",
+   "label": "Confidence Configuration"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.rule_type=='Highest Confidence'",
+   "description": "Minimum confidence level required for a value to be considered (0-100%)",
+   "fieldname": "min_confidence_threshold",
+   "fieldtype": "Percent",
+   "label": "Minimum Confidence Threshold"
+  },
+  {
+   "fieldname": "column_break_confidence",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.rule_type=='Highest Confidence'",
+   "description": "If checked, manually set confidence levels take precedence over source defaults",
+   "fieldname": "prefer_manual_confidence",
+   "fieldtype": "Check",
+   "label": "Prefer Manual Confidence Override"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Authoritative Source'",
+   "fieldname": "section_break_authoritative",
+   "fieldtype": "Section Break",
+   "label": "Authoritative Source Configuration"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Authoritative Source'",
+   "description": "The source system whose values are always used (if available)",
+   "fieldname": "authoritative_source",
+   "fieldtype": "Link",
+   "label": "Authoritative Source System",
+   "options": "Source System"
+  },
+  {
+   "fieldname": "column_break_authoritative",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.rule_type=='Authoritative Source'",
+   "description": "If checked, use other sources when authoritative source has no value",
+   "fieldname": "allow_fallback",
+   "fieldtype": "Check",
+   "label": "Allow Fallback"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Authoritative Source' && doc.allow_fallback",
+   "description": "Rule to apply when authoritative source has no value",
+   "fieldname": "fallback_rule_type",
+   "fieldtype": "Select",
+   "label": "Fallback Rule Type",
+   "options": "\nSource Priority\nMost Recent\nHighest Confidence"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Custom'",
+   "fieldname": "section_break_custom",
+   "fieldtype": "Section Break",
+   "label": "Custom Rule Configuration"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Custom'",
+   "description": "Dotted path to custom Python method (e.g., frappe_pim.mdm.custom_rules.my_rule)",
+   "fieldname": "custom_method",
+   "fieldtype": "Data",
+   "label": "Custom Method"
+  },
+  {
+   "depends_on": "eval:doc.rule_type=='Custom'",
+   "description": "JSON parameters to pass to the custom method",
+   "fieldname": "custom_params",
+   "fieldtype": "JSON",
+   "label": "Custom Parameters"
+  },
+  {
+   "fieldname": "section_break_tiebreaker",
+   "fieldtype": "Section Break",
+   "label": "Tie-Breaker Configuration"
+  },
+  {
+   "default": "Most Recent",
+   "description": "How to break ties when multiple values have equal priority/confidence",
+   "fieldname": "tiebreaker_rule",
+   "fieldtype": "Select",
+   "label": "Tie-Breaker Rule",
+   "options": "\nMost Recent\nFirst Encountered\nLongest Value\nShortest Value\nAlphabetical"
+  },
+  {
+   "fieldname": "column_break_tiebreaker",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "If checked, empty/null values are always deprioritized",
+   "fieldname": "prefer_non_empty",
+   "fieldtype": "Check",
+   "label": "Prefer Non-Empty Values"
+  },
+  {
+   "default": "1",
+   "description": "If checked, trim leading/trailing whitespace when comparing values",
+   "fieldname": "trim_whitespace",
+   "fieldtype": "Check",
+   "label": "Trim Whitespace"
+  },
+  {
+   "fieldname": "section_break_details",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "description": "Detailed description of when and how to use this survivorship rule",
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_stats",
+   "fieldtype": "Section Break",
+   "label": "Usage Statistics"
+  },
+  {
+   "default": "0",
+   "description": "Number of times this rule has been applied in Golden Record merges",
+   "fieldname": "times_applied",
+   "fieldtype": "Int",
+   "label": "Times Applied",
+   "read_only": 1
+  },
+  {
+   "description": "When this rule was last used in a merge operation",
+   "fieldname": "last_applied_at",
+   "fieldtype": "Datetime",
+   "label": "Last Applied At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_stats",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Total number of fields this rule has determined values for",
+   "fieldname": "fields_affected",
+   "fieldtype": "Int",
+   "label": "Fields Affected",
+   "read_only": 1
+  },
+  {
+   "description": "Average number of candidate values per field in merges",
+   "fieldname": "average_candidates",
+   "fieldtype": "Float",
+   "label": "Average Candidates",
+   "precision": "2",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-01-21 13:44:52.526229",
+ "modified_by": "Administrator",
+ "module": "PIM",
+ "name": "Survivorship Rule",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "role": "PIM Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "PIM User"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "rule_name",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

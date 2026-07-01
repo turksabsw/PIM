@@ -1,0 +1,215 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Customer Segment",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:segment_code",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "segment_name",
+      "fieldtype": "Data",
+      "label": "Segment Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "translatable": 1,
+      "description": "Display name for the customer segment"
+    },
+    {
+      "fieldname": "segment_code",
+      "fieldtype": "Data",
+      "label": "Segment Code",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "Unique identifier (URL-safe slug)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Higher priority segments are evaluated first in price resolution (higher = more important)"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_break_erp",
+      "fieldtype": "Section Break",
+      "label": "ERPNext Integration"
+    },
+    {
+      "fieldname": "erp_customer_group",
+      "fieldtype": "Link",
+      "label": "Customer Group",
+      "options": "Customer Group",
+      "description": "Linked ERPNext Customer Group for automatic segment assignment"
+    },
+    {
+      "fieldname": "erp_pricing_rule",
+      "fieldtype": "Link",
+      "label": "Pricing Rule",
+      "options": "Pricing Rule",
+      "description": "Linked ERPNext Pricing Rule for this segment"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing Configuration"
+    },
+    {
+      "fieldname": "discount_type",
+      "fieldtype": "Select",
+      "label": "Discount Type",
+      "options": "Percentage\nFixed Amount",
+      "default": "Percentage",
+      "description": "Type of discount applied to this segment"
+    },
+    {
+      "fieldname": "discount_percent",
+      "fieldtype": "Percent",
+      "label": "Discount %",
+      "default": 0,
+      "depends_on": "eval:doc.discount_type=='Percentage'",
+      "description": "Default discount percentage for this segment"
+    },
+    {
+      "fieldname": "discount_amount",
+      "fieldtype": "Currency",
+      "label": "Discount Amount",
+      "depends_on": "eval:doc.discount_type=='Fixed Amount'",
+      "description": "Fixed discount amount for this segment"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "max_discount_percent",
+      "fieldtype": "Percent",
+      "label": "Max Discount %",
+      "description": "Maximum discount percentage allowed for this segment (0 = unlimited)"
+    },
+    {
+      "fieldname": "min_order_value",
+      "fieldtype": "Currency",
+      "label": "Minimum Order Value",
+      "description": "Minimum order value to qualify for segment pricing"
+    },
+    {
+      "fieldname": "section_break_validity",
+      "fieldtype": "Section Break",
+      "label": "Validity Period",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "valid_from",
+      "fieldtype": "Date",
+      "label": "Valid From",
+      "description": "Start date for segment pricing (leave empty for no start restriction)"
+    },
+    {
+      "fieldname": "valid_to",
+      "fieldtype": "Date",
+      "label": "Valid To",
+      "description": "End date for segment pricing (leave empty for no end restriction)"
+    },
+    {
+      "fieldname": "column_break_validity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "apply_to_all_channels",
+      "fieldtype": "Check",
+      "label": "Apply to All Channels",
+      "default": 1,
+      "description": "If unchecked, segment pricing only applies to specific channels"
+    },
+    {
+      "fieldname": "specific_channels",
+      "fieldtype": "Small Text",
+      "label": "Specific Channels",
+      "depends_on": "eval:!doc.apply_to_all_channels",
+      "description": "Comma-separated list of channel names where this segment pricing applies"
+    },
+    {
+      "fieldname": "section_break_criteria",
+      "fieldtype": "Section Break",
+      "label": "Segment Criteria",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "segment_type",
+      "fieldtype": "Select",
+      "label": "Segment Type",
+      "options": "Manual\nAutomatic",
+      "default": "Manual",
+      "description": "Manual segments are assigned explicitly; Automatic segments use criteria rules"
+    },
+    {
+      "fieldname": "criteria_description",
+      "fieldtype": "Small Text",
+      "label": "Criteria Description",
+      "depends_on": "eval:doc.segment_type=='Automatic'",
+      "description": "Human-readable description of segment criteria"
+    },
+    {
+      "fieldname": "column_break_criteria",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_total_orders",
+      "fieldtype": "Int",
+      "label": "Minimum Total Orders",
+      "depends_on": "eval:doc.segment_type=='Automatic'",
+      "description": "Minimum number of orders to qualify for this segment"
+    },
+    {
+      "fieldname": "min_total_spend",
+      "fieldtype": "Currency",
+      "label": "Minimum Total Spend",
+      "depends_on": "eval:doc.segment_type=='Automatic'",
+      "description": "Minimum total spend to qualify for this segment"
+    },
+    {
+      "fieldname": "section_break_description",
+      "fieldtype": "Section Break",
+      "label": "Description"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Text Editor",
+      "label": "Description"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1
+    }
+  ]
+}

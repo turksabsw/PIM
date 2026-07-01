@@ -1,0 +1,431 @@
+"""
+PIM Customer Segment Controller
+Customer segment definition for segment-based pricing support
+"""
+
+import frappe
+from frappe import _
+from frappe.model.document import Document
+
+# Defer frappe import to function level for module import without Frappe context
+
+class PIMCustomerSegment(Document):
+
+        def validate(self):
+            self.validate_segment_code()
+            self.validate_discount()
+            self.validate_validity()
+            self.validate_criteria()
+
+        def validate_segment_code(self):
+            """Ensure segment_code is URL-safe slug"""
+            if not self.segment_code:
+                self.segment_code = frappe.scrub(self.segment_name)
+
+            if not re.match(r'^[a-z][a-z0-9_-]*$', self.segment_code):
+                frappe.throw(
+                    _("Segment Code must start with a letter and contain only lowercase letters, numbers, underscores, and hyphens"),
+                    title=_("Invalid Segment Code")
+                )
+
+        def validate_discount(self):
+            """Validate discount configurations"""
+            if self.discount_type == "Percentage":
+                if self.discount_percent and self.discount_percent < 0:
+                    frappe.throw(
+                        _("Discount Percentage cannot be negative"),
+                        title=_("Invalid Discount")
+                    )
+
+                if self.discount_percent and self.discount_percent > 100:
+                    frappe.throw(
+                        _("Discount Percentage cannot exceed 100%"),
+                        title=_("Invalid Discount")
+                    )
+
+                if self.max_discount_percent:
+                    if self.max_discount_percent < 0:
+                        frappe.throw(
+                            _("Maximum Discount Percentage cannot be negative"),
+                            title=_("Invalid Maximum Discount")
+                        )
+
+                    if self.discount_percent and self.discount_percent > self.max_discount_percent:
+                        frappe.throw(
+                            _("Discount Percentage ({0}%) cannot exceed Maximum Discount ({1}%)").format(
+                                self.discount_percent, self.max_discount_percent
+                            ),
+                            title=_("Invalid Discount Configuration")
+                        )
+
+            elif self.discount_type == "Fixed Amount":
+                if self.discount_amount and self.discount_amount < 0:
+                    frappe.throw(
+                        _("Discount Amount cannot be negative"),
+                        title=_("Invalid Discount")
+                    )
+
+            if self.min_order_value and self.min_order_value < 0:
+                frappe.throw(
+                    _("Minimum Order Value cannot be negative"),
+                    title=_("Invalid Minimum Order Value")
+                )
+
+        def validate_validity(self):
+            """Validate validity period"""
+            if self.valid_from and self.valid_to:
+                if getdate(self.valid_from) > getdate(self.valid_to):
+                    frappe.throw(
+                        _("Valid From date cannot be after Valid To date"),
+                        title=_("Invalid Validity Period")
+                    )
+
+        def validate_criteria(self):
+            """Validate automatic segment criteria"""
+            if self.segment_type == "Automatic":
+                if not self.erp_customer_group and not self.min_total_orders and not self.min_total_spend:
+                    frappe.msgprint(
+                        _("Automatic segments should have at least one criterion defined (Customer Group, Min Orders, or Min Spend)"),
+                        indicator="orange"
+                    )
+
+        def before_save(self):
+            """Update calculated fields before save"""
+            self.update_defaults()
+
+        def update_defaults(self):
+            """Set default values"""
+            # Set priority if not specified
+            if self.priority is None:
+                self.priority = 0
+
+        def on_update(self):
+            """Actions after save"""
+            self._invalidate_cache()
+
+        def on_trash(self):
+            """Prevent deletion if segment is in use"""
+            # Check for contract prices using this segment
+            contract_count = frappe.db.count("PIM Contract Price", {"customer_segment": self.name})
+            if contract_count > 0:
+                frappe.throw(
+                    _("Cannot delete segment '{0}' as it has {1} contract prices").format(
+                        self.segment_name, contract_count
+                    ),
+                    title=_("Segment In Use")
+                )
+
+        def _invalidate_cache(self):
+            """Invalidate segment-related caches"""
+            try:
+                from frappe_pim.pim.utils.cache import invalidate_cache
+                invalidate_cache("pim_customer_segment", self.name)
+            except (ImportError, AttributeError):
+                pass
+
+        def is_valid_now(self):
+            """Check if segment is currently valid
+
+            Returns:
+                bool: True if segment is active and within validity period
+            """
+            if not self.is_active:
+                return False
+
+            current_date = getdate(today())
+
+            if self.valid_from and getdate(self.valid_from) > current_date:
+                return False
+
+            if self.valid_to and getdate(self.valid_to) < current_date:
+                return False
+
+            return True
+
+        def get_discount(self, base_price, order_value=None):
+            """Calculate discount for this segment
+
+            Args:
+                base_price: The base price to apply discount to
+                order_value: Total order value (for min order value check)
+
+            Returns:
+                dict with discount_amount, discounted_price, is_applicable
+            """
+            is_applicable = True
+            discount_amount = 0
+            messages = []
+
+            # Check minimum order value
+            if self.min_order_value and order_value:
+                if order_value < self.min_order_value:
+                    is_applicable = False
+                    messages.append(
+                        f"Order value ({order_value}) below minimum ({self.min_order_value})"
+                    )
+
+            # Check validity
+            if not self.is_valid_now():
+                is_applicable = False
+                messages.append("Segment is not currently valid")
+
+            # Calculate discount if applicable
+            if is_applicable:
+                if self.discount_type == "Percentage" and self.discount_percent:
+                    discount_amount = base_price * (self.discount_percent / 100)
+
+                    # Apply max discount cap
+                    if self.max_discount_percent:
+                        max_discount = base_price * (self.max_discount_percent / 100)
+                        discount_amount = min(discount_amount, max_discount)
+
+                elif self.discount_type == "Fixed Amount" and self.discount_amount:
+                    discount_amount = min(self.discount_amount, base_price)
+
+            discounted_price = base_price - discount_amount
+
+            return {
+                "base_price": base_price,
+                "discount_amount": discount_amount,
+                "discounted_price": discounted_price,
+                "is_applicable": is_applicable,
+                "segment_code": self.segment_code,
+                "segment_name": self.segment_name,
+                "priority": self.priority,
+                "messages": messages
+            }
+
+        def applies_to_channel(self, channel_code):
+            """Check if segment applies to a specific channel
+
+            Args:
+                channel_code: The sales channel code
+
+            Returns:
+                bool: True if segment applies to this channel
+            """
+            if self.apply_to_all_channels:
+                return True
+
+            if not self.specific_channels:
+                return True
+
+            # Check if channel is in specific channels list
+            return any(ch.sales_channel == channel_code for ch in self.specific_channels)
+
+        def customer_qualifies(self, customer):
+            """Check if a customer qualifies for this segment
+
+            Args:
+                customer: Customer name/ID
+
+            Returns:
+                bool: True if customer qualifies for this segment
+            """
+            import frappe
+
+            # Manual segments require explicit assignment
+            if self.segment_type == "Manual":
+                # Check if customer is explicitly assigned to this segment
+                # This would typically be done via a link table or customer field
+                return False
+
+            # Automatic segment - check criteria
+            customer_doc = frappe.get_doc("Customer", customer) if frappe.db.exists("Customer", customer) else None
+
+            if not customer_doc:
+                return False
+
+            # Check customer group
+            if self.erp_customer_group:
+                if customer_doc.customer_group != self.erp_customer_group:
+                    return False
+
+            # Check total orders
+            if self.min_total_orders:
+                order_count = frappe.db.count(
+                    "Sales Order",
+                    filters={"customer": customer, "docstatus": 1}
+                )
+                if order_count < self.min_total_orders:
+                    return False
+
+            # Check total spend
+            if self.min_total_spend:
+                total_spend = frappe.db.sql("""
+                    SELECT COALESCE(SUM(grand_total), 0)
+                    FROM `tabSales Order`
+                    WHERE customer = %s AND docstatus = 1
+                """, customer)[0][0]
+                if total_spend < self.min_total_spend:
+                    return False
+
+            return True
+def get_active_segments(channel_code=None):
+    """Get all active customer segments
+
+    Args:
+        channel_code: Optional filter by applicable channel
+
+    Returns:
+        List of segment dicts ordered by priority (highest first)
+    """
+    import frappe
+    from frappe.utils import today, getdate
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    current_date = getdate(today())
+
+    segments = frappe.get_all(
+        "PIM Customer Segment",
+        filters={"is_active": 1},
+        fields=[
+            "name", "segment_name", "segment_code", "priority",
+            "discount_type", "discount_percent", "discount_amount",
+            "max_discount_percent", "min_order_value",
+            "valid_from", "valid_to", "apply_to_all_channels",
+            "erp_customer_group", "segment_type"
+        ],
+        order_by="priority desc, segment_name asc"
+    )
+
+    # Filter by validity and channel
+    valid_segments = []
+    for segment in segments:
+        # Check validity period
+        if segment.valid_from and getdate(segment.valid_from) > current_date:
+            continue
+        if segment.valid_to and getdate(segment.valid_to) < current_date:
+            continue
+
+        # Check channel applicability
+        if channel_code and not segment.apply_to_all_channels:
+            doc = frappe.get_doc("PIM Customer Segment", segment.name)
+            if not doc.applies_to_channel(channel_code):
+                continue
+
+        valid_segments.append(segment)
+
+    return valid_segments
+
+def get_segment_by_code(segment_code):
+    """Get a customer segment by its code
+
+    Args:
+        segment_code: The segment code to look up
+
+    Returns:
+        Segment document or None
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    if not frappe.db.exists("PIM Customer Segment", segment_code):
+        return None
+
+    return frappe.get_doc("PIM Customer Segment", segment_code)
+
+def get_customer_segments(customer, channel_code=None):
+    """Get all segments that a customer qualifies for
+
+    Args:
+        customer: Customer name/ID
+        channel_code: Optional filter by channel
+
+    Returns:
+        List of segment dicts the customer qualifies for
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    active_segments = get_active_segments(channel_code)
+    qualifying_segments = []
+
+    for segment in active_segments:
+        doc = frappe.get_doc("PIM Customer Segment", segment.name)
+        if doc.customer_qualifies(customer):
+            qualifying_segments.append(segment)
+
+    return qualifying_segments
+
+def calculate_segment_discount(segment_code, base_price, order_value=None):
+    """Calculate discount for a segment
+
+    Args:
+        segment_code: Segment code or name
+        base_price: Base price to apply discount to
+        order_value: Total order value for min order value check
+
+    Returns:
+        dict with discount calculation results
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    segment = frappe.get_doc("PIM Customer Segment", segment_code)
+    return segment.get_discount(base_price, order_value)
+
+def get_best_segment_discount(customer, base_price, channel_code=None, order_value=None):
+    """Get the best discount from all qualifying segments
+
+    Args:
+        customer: Customer name/ID
+        base_price: Base price to apply discount to
+        channel_code: Optional channel code
+        order_value: Total order value for min order value check
+
+    Returns:
+        dict with best discount and segment info, or None if no discount
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    qualifying_segments = get_customer_segments(customer, channel_code)
+
+    if not qualifying_segments:
+        return None
+
+    best_discount = None
+
+    for segment in qualifying_segments:
+        doc = frappe.get_doc("PIM Customer Segment", segment.name)
+        result = doc.get_discount(base_price, order_value)
+
+        if result["is_applicable"]:
+            if best_discount is None or result["discount_amount"] > best_discount["discount_amount"]:
+                best_discount = result
+
+    return best_discount
+
+def get_segments_for_customer_group(customer_group):
+    """Get all segments linked to a specific customer group
+
+    Args:
+        customer_group: ERPNext Customer Group name
+
+    Returns:
+        List of segment names
+    """
+    import frappe
+
+    if not frappe.has_permission("PIM Customer Segment", "read"):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    return frappe.get_all(
+        "PIM Customer Segment",
+        filters={
+            "erp_customer_group": customer_group,
+            "is_active": 1
+        },
+        pluck="name"
+    )

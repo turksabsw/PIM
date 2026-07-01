@@ -1,0 +1,146 @@
+{
+  "doctype": "DocType",
+  "name": "Asset Rendition",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+  "sort_field": "idx",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "rendition_name",
+      "fieldtype": "Data",
+      "label": "Rendition Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Name of the rendition (e.g., Thumbnail, Web, Print, Original)"
+    },
+    {
+      "fieldname": "rendition_type",
+      "fieldtype": "Select",
+      "label": "Rendition Type",
+      "options": "\nOriginal\nThumbnail\nSmall\nMedium\nLarge\nWeb\nMobile\nPrint\nPreview\nCustom",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Type of rendition"
+    },
+    {
+      "fieldname": "file",
+      "fieldtype": "Attach",
+      "label": "File",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "The rendition file"
+    },
+    {
+      "fieldname": "column_break_dimensions",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "width",
+      "fieldtype": "Int",
+      "label": "Width (px)",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Width in pixels (for images/videos)"
+    },
+    {
+      "fieldname": "height",
+      "fieldtype": "Int",
+      "label": "Height (px)",
+      "in_list_view": 1,
+      "columns": 1,
+      "description": "Height in pixels (for images/videos)"
+    },
+    {
+      "fieldname": "file_size",
+      "fieldtype": "Int",
+      "label": "File Size (bytes)",
+      "read_only": 1,
+      "description": "Size of the file in bytes"
+    },
+    {
+      "fieldname": "file_format",
+      "fieldtype": "Data",
+      "label": "File Format",
+      "read_only": 1,
+      "description": "File format/extension (e.g., JPG, PNG, PDF)"
+    },
+    {
+      "fieldname": "section_break_settings",
+      "fieldtype": "Section Break",
+      "label": "Settings"
+    },
+    {
+      "fieldname": "is_auto_generated",
+      "fieldtype": "Check",
+      "label": "Auto Generated",
+      "default": 0,
+      "description": "Whether this rendition was auto-generated from the original"
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default",
+      "default": 0,
+      "description": "Use as default rendition for this type"
+    },
+    {
+      "fieldname": "column_break_settings2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "quality",
+      "fieldtype": "Percent",
+      "label": "Quality",
+      "description": "Compression quality (for lossy formats)"
+    },
+    {
+      "fieldname": "dpi",
+      "fieldtype": "Int",
+      "label": "DPI",
+      "description": "Resolution in dots per inch (for print)"
+    },
+    {
+      "fieldname": "color_profile",
+      "fieldtype": "Data",
+      "label": "Color Profile",
+      "description": "Color profile (e.g., sRGB, Adobe RGB, CMYK)"
+    },
+    {
+      "fieldname": "section_break_metadata",
+      "fieldtype": "Section Break",
+      "label": "Metadata",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "generated_at",
+      "fieldtype": "Datetime",
+      "label": "Generated At",
+      "read_only": 1,
+      "description": "When this rendition was generated"
+    },
+    {
+      "fieldname": "content_hash",
+      "fieldtype": "Data",
+      "label": "Content Hash",
+      "read_only": 1,
+      "description": "SHA256 hash of the file content for integrity verification"
+    },
+    {
+      "fieldname": "cdn_url",
+      "fieldtype": "Data",
+      "label": "CDN URL",
+      "options": "URL",
+      "read_only": 1,
+      "description": "URL of the file on CDN (if applicable)"
+    }
+  ],
+
+  "permissions": []
+}

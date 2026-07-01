@@ -1,0 +1,531 @@
+{
+  "doctype": "DocType",
+  "name": "Import Configuration",
+  "module": "PIM",
+  "naming_rule": "By fieldname",
+  "autoname": "field:config_name",
+  "is_submittable": 0,
+  "allow_rename": 1,
+  "track_changes": 1,
+  "sort_field": "config_name",
+  "sort_order": "ASC",
+
+  "fields": [
+    {
+      "fieldname": "config_name",
+      "fieldtype": "Data",
+      "label": "Configuration Name",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Unique name for this import configuration"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description",
+      "description": "Description of what this import configuration is used for"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Enable or disable this import configuration"
+    },
+    {
+      "fieldname": "source_system",
+      "fieldtype": "Link",
+      "label": "Source System",
+      "options": "Source System",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Source system this import is associated with"
+    },
+    {
+      "fieldname": "target_doctype",
+      "fieldtype": "Select",
+      "label": "Target DocType",
+      "options": "Product Master\nProduct Variant\nDigital Asset\nBrand\nManufacturer\nProduct Family\nTaxonomy Node",
+      "default": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The DocType to import data into"
+    },
+    {
+      "fieldname": "section_break_file_format",
+      "fieldtype": "Section Break",
+      "label": "File Format"
+    },
+    {
+      "fieldname": "file_format",
+      "fieldtype": "Select",
+      "label": "File Format",
+      "options": "CSV\nXLSX\nJSON\nXML\nTSV",
+      "default": "CSV",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Format of the import file"
+    },
+    {
+      "fieldname": "file_encoding",
+      "fieldtype": "Select",
+      "label": "File Encoding",
+      "options": "UTF-8\nUTF-16\nISO-8859-1\nWindows-1252\nASCII",
+      "default": "UTF-8",
+      "description": "Character encoding of the import file"
+    },
+    {
+      "fieldname": "column_break_format",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "csv_delimiter",
+      "fieldtype": "Select",
+      "label": "CSV Delimiter",
+      "options": "Comma (,)\nSemicolon (;)\nTab\nPipe (|)",
+      "default": "Comma (,)",
+      "depends_on": "eval:['CSV', 'TSV'].includes(doc.file_format)",
+      "description": "Column delimiter for CSV/TSV files"
+    },
+    {
+      "fieldname": "csv_quotechar",
+      "fieldtype": "Select",
+      "label": "Quote Character",
+      "options": "Double Quote (\")\nSingle Quote (')\nNone",
+      "default": "Double Quote (\")",
+      "depends_on": "eval:['CSV', 'TSV'].includes(doc.file_format)",
+      "description": "Character used to quote fields containing special characters"
+    },
+    {
+      "fieldname": "has_header_row",
+      "fieldtype": "Check",
+      "label": "Has Header Row",
+      "default": 1,
+      "depends_on": "eval:['CSV', 'TSV', 'XLSX'].includes(doc.file_format)",
+      "description": "First row contains column headers"
+    },
+    {
+      "fieldname": "skip_rows",
+      "fieldtype": "Int",
+      "label": "Skip Rows",
+      "default": 0,
+      "depends_on": "eval:['CSV', 'TSV', 'XLSX'].includes(doc.file_format)",
+      "description": "Number of rows to skip at the beginning of the file"
+    },
+    {
+      "fieldname": "json_root_path",
+      "fieldtype": "Data",
+      "label": "JSON Root Path",
+      "depends_on": "eval:doc.file_format=='JSON'",
+      "description": "JSONPath to the array of records (e.g., $.data.products)"
+    },
+    {
+      "fieldname": "xml_record_xpath",
+      "fieldtype": "Data",
+      "label": "XML Record XPath",
+      "depends_on": "eval:doc.file_format=='XML'",
+      "description": "XPath to the record elements (e.g., //Product)"
+    },
+    {
+      "fieldname": "xlsx_sheet_name",
+      "fieldtype": "Data",
+      "label": "Sheet Name",
+      "depends_on": "eval:doc.file_format=='XLSX'",
+      "description": "Name of the sheet to import (default: first sheet)"
+    },
+    {
+      "fieldname": "section_break_field_mapping",
+      "fieldtype": "Section Break",
+      "label": "Field Mapping"
+    },
+    {
+      "fieldname": "field_mappings",
+      "fieldtype": "Table",
+      "label": "Field Mappings",
+      "options": "Import Field Mapping",
+      "description": "Map source fields to target fields"
+    },
+    {
+      "fieldname": "section_break_identifier",
+      "fieldtype": "Section Break",
+      "label": "Record Identification"
+    },
+    {
+      "fieldname": "identifier_field",
+      "fieldtype": "Data",
+      "label": "Identifier Field",
+      "default": "sku",
+      "reqd": 1,
+      "description": "Field used to identify existing records (e.g., sku, external_id)"
+    },
+    {
+      "fieldname": "identifier_source_field",
+      "fieldtype": "Data",
+      "label": "Identifier Source Field",
+      "description": "Source field containing the identifier value (if different from target field name)"
+    },
+    {
+      "fieldname": "column_break_identifier",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "duplicate_handling",
+      "fieldtype": "Select",
+      "label": "Duplicate Handling",
+      "options": "Update Existing\nSkip Duplicates\nCreate New\nFail on Duplicate",
+      "default": "Update Existing",
+      "reqd": 1,
+      "description": "How to handle records that already exist"
+    },
+    {
+      "fieldname": "update_only_empty",
+      "fieldtype": "Check",
+      "label": "Update Only Empty Fields",
+      "default": 0,
+      "depends_on": "eval:doc.duplicate_handling=='Update Existing'",
+      "description": "Only update fields that are currently empty in the target record"
+    },
+    {
+      "fieldname": "section_break_validation",
+      "fieldtype": "Section Break",
+      "label": "Validation & Error Handling",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "validate_before_import",
+      "fieldtype": "Check",
+      "label": "Validate Before Import",
+      "default": 1,
+      "description": "Validate all records before importing (dry run first)"
+    },
+    {
+      "fieldname": "stop_on_error",
+      "fieldtype": "Check",
+      "label": "Stop on Error",
+      "default": 0,
+      "description": "Stop import when an error occurs (otherwise continue with remaining records)"
+    },
+    {
+      "fieldname": "max_errors",
+      "fieldtype": "Int",
+      "label": "Max Errors Before Stop",
+      "default": 100,
+      "depends_on": "eval:!doc.stop_on_error",
+      "description": "Maximum number of errors before stopping import (0 = unlimited)"
+    },
+    {
+      "fieldname": "column_break_validation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "skip_invalid_rows",
+      "fieldtype": "Check",
+      "label": "Skip Invalid Rows",
+      "default": 1,
+      "description": "Skip rows that fail validation instead of failing the entire import"
+    },
+    {
+      "fieldname": "log_skipped_rows",
+      "fieldtype": "Check",
+      "label": "Log Skipped Rows",
+      "default": 1,
+      "depends_on": "eval:doc.skip_invalid_rows",
+      "description": "Log details of skipped rows for review"
+    },
+    {
+      "fieldname": "required_fields_validation",
+      "fieldtype": "Check",
+      "label": "Validate Required Fields",
+      "default": 1,
+      "description": "Check that all required fields have values"
+    },
+    {
+      "fieldname": "section_break_processing",
+      "fieldtype": "Section Break",
+      "label": "Processing Options",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "batch_size",
+      "fieldtype": "Int",
+      "label": "Batch Size",
+      "default": 100,
+      "description": "Number of records to process in each batch"
+    },
+    {
+      "fieldname": "run_in_background",
+      "fieldtype": "Check",
+      "label": "Run in Background",
+      "default": 1,
+      "description": "Process import as a background job"
+    },
+    {
+      "fieldname": "column_break_processing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notify_on_complete",
+      "fieldtype": "Check",
+      "label": "Notify on Complete",
+      "default": 1,
+      "description": "Send notification when import completes"
+    },
+    {
+      "fieldname": "notification_email",
+      "fieldtype": "Data",
+      "label": "Notification Email",
+      "options": "Email",
+      "depends_on": "eval:doc.notify_on_complete",
+      "description": "Email address for import notifications"
+    },
+    {
+      "fieldname": "create_pim_events",
+      "fieldtype": "Check",
+      "label": "Create PIM Events",
+      "default": 1,
+      "description": "Create PIM Events for imported/updated records"
+    },
+    {
+      "fieldname": "section_break_transformations",
+      "fieldtype": "Section Break",
+      "label": "Global Transformations",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "trim_whitespace",
+      "fieldtype": "Check",
+      "label": "Trim Whitespace",
+      "default": 1,
+      "description": "Remove leading/trailing whitespace from all text values"
+    },
+    {
+      "fieldname": "normalize_unicode",
+      "fieldtype": "Check",
+      "label": "Normalize Unicode",
+      "default": 1,
+      "description": "Normalize Unicode characters (NFC normalization)"
+    },
+    {
+      "fieldname": "column_break_transformations",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "empty_string_as_null",
+      "fieldtype": "Check",
+      "label": "Treat Empty as Null",
+      "default": 1,
+      "description": "Treat empty strings as null values"
+    },
+    {
+      "fieldname": "strip_html",
+      "fieldtype": "Check",
+      "label": "Strip HTML Tags",
+      "default": 0,
+      "description": "Remove HTML tags from text fields"
+    },
+    {
+      "fieldname": "pre_import_script",
+      "fieldtype": "Code",
+      "label": "Pre-Import Script",
+      "options": "Python",
+      "description": "Python script to run before each record is imported. Available: row, frappe"
+    },
+    {
+      "fieldname": "post_import_script",
+      "fieldtype": "Code",
+      "label": "Post-Import Script",
+      "options": "Python",
+      "description": "Python script to run after each record is imported. Available: doc, row, frappe"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Scope Configuration",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "default_locale",
+      "fieldtype": "Link",
+      "label": "Default Locale",
+      "options": "PIM Locale",
+      "description": "Default locale for imported attribute values"
+    },
+    {
+      "fieldname": "default_channel",
+      "fieldtype": "Link",
+      "label": "Default Channel",
+      "options": "Channel",
+      "description": "Default channel for imported attribute values"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "product_type",
+      "fieldtype": "Link",
+      "label": "Default Product Type",
+      "options": "PIM Product Type",
+      "description": "Default product type for new products"
+    },
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Default Product Family",
+      "options": "Product Family",
+      "description": "Default product family for new products"
+    },
+    {
+      "fieldname": "section_break_statistics",
+      "fieldtype": "Section Break",
+      "label": "Import Statistics"
+    },
+    {
+      "fieldname": "total_imports",
+      "fieldtype": "Int",
+      "label": "Total Imports",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of import runs"
+    },
+    {
+      "fieldname": "total_records_imported",
+      "fieldtype": "Int",
+      "label": "Total Records Imported",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of records successfully imported"
+    },
+    {
+      "fieldname": "total_records_updated",
+      "fieldtype": "Int",
+      "label": "Total Records Updated",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of records updated"
+    },
+    {
+      "fieldname": "column_break_statistics",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "total_records_skipped",
+      "fieldtype": "Int",
+      "label": "Total Records Skipped",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of records skipped due to errors"
+    },
+    {
+      "fieldname": "total_errors",
+      "fieldtype": "Int",
+      "label": "Total Errors",
+      "read_only": 1,
+      "default": 0,
+      "description": "Total number of errors across all imports"
+    },
+    {
+      "fieldname": "last_import_at",
+      "fieldtype": "Datetime",
+      "label": "Last Import At",
+      "read_only": 1,
+      "description": "Timestamp of last import run"
+    },
+    {
+      "fieldname": "section_break_last_import",
+      "fieldtype": "Section Break",
+      "label": "Last Import Details",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "last_import_status",
+      "fieldtype": "Select",
+      "label": "Last Import Status",
+      "options": "\nPending\nIn Progress\nCompleted\nCompleted with Errors\nFailed",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "Status of the last import run"
+    },
+    {
+      "fieldname": "last_import_file",
+      "fieldtype": "Data",
+      "label": "Last Import File",
+      "read_only": 1,
+      "description": "Filename of the last imported file"
+    },
+    {
+      "fieldname": "last_import_records",
+      "fieldtype": "Int",
+      "label": "Records in Last Import",
+      "read_only": 1,
+      "description": "Number of records in the last import"
+    },
+    {
+      "fieldname": "column_break_last_import",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_import_success",
+      "fieldtype": "Int",
+      "label": "Successful in Last Import",
+      "read_only": 1,
+      "description": "Number of successful records in last import"
+    },
+    {
+      "fieldname": "last_import_errors",
+      "fieldtype": "Int",
+      "label": "Errors in Last Import",
+      "read_only": 1,
+      "description": "Number of errors in last import"
+    },
+    {
+      "fieldname": "last_import_duration",
+      "fieldtype": "Float",
+      "label": "Last Import Duration (seconds)",
+      "read_only": 1,
+      "description": "Duration of last import in seconds"
+    },
+    {
+      "fieldname": "last_error_log",
+      "fieldtype": "Code",
+      "label": "Last Error Log",
+      "options": "JSON",
+      "read_only": 1,
+      "description": "Error details from the last import"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1
+    }
+  ]
+}

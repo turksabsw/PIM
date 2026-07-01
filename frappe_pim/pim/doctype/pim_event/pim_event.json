@@ -1,0 +1,354 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Event",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "EVT-.YYYY.-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 0,
+  "sort_field": "creation",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "event_type",
+      "fieldtype": "Select",
+      "label": "Event Type",
+      "options": "\nCreated\nUpdated\nDeleted\nMerged\nSplit\nPublished\nUnpublished\nApproved\nRejected\nImported\nExported\nEnriched\nClassified\nValidated\nWorkflowTransition\nAttributeChanged\nRelationshipChanged\nAssetLinked\nAssetUnlinked\nCustom",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of event that occurred"
+    },
+    {
+      "fieldname": "event_category",
+      "fieldtype": "Select",
+      "label": "Event Category",
+      "options": "\nProduct\nAttribute\nClassification\nAsset\nChannel\nWorkflow\nGoldenRecord\nAI\nImportExport\nSystem\nUser",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Category of the event for filtering and reporting"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "event_timestamp",
+      "fieldtype": "Datetime",
+      "label": "Event Timestamp",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "When the event occurred"
+    },
+    {
+      "fieldname": "severity",
+      "fieldtype": "Select",
+      "label": "Severity",
+      "options": "\nInfo\nWarning\nError\nCritical",
+      "default": "Info",
+      "in_standard_filter": 1,
+      "description": "Severity level of the event"
+    },
+    {
+      "fieldname": "section_break_reference",
+      "fieldtype": "Section Break",
+      "label": "Reference Document"
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "label": "Reference DocType",
+      "options": "DocType",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "DocType of the document this event relates to"
+    },
+    {
+      "fieldname": "reference_docname",
+      "fieldtype": "Dynamic Link",
+      "label": "Reference Document",
+      "options": "reference_doctype",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Document this event relates to"
+    },
+    {
+      "fieldname": "column_break_reference",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "reference_field",
+      "fieldtype": "Data",
+      "label": "Reference Field",
+      "description": "Specific field that changed (for attribute change events)"
+    },
+    {
+      "fieldname": "parent_event",
+      "fieldtype": "Link",
+      "label": "Parent Event",
+      "options": "PIM Event",
+      "description": "Parent event for hierarchical/batch operations"
+    },
+    {
+      "fieldname": "section_break_source",
+      "fieldtype": "Section Break",
+      "label": "Event Source"
+    },
+    {
+      "fieldname": "source_system",
+      "fieldtype": "Link",
+      "label": "Source System",
+      "options": "Source System",
+      "in_standard_filter": 1,
+      "description": "External source system that triggered this event"
+    },
+    {
+      "fieldname": "triggered_by",
+      "fieldtype": "Link",
+      "label": "Triggered By",
+      "options": "User",
+      "in_list_view": 1,
+      "description": "User who triggered this event"
+    },
+    {
+      "fieldname": "column_break_source",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "trigger_method",
+      "fieldtype": "Select",
+      "label": "Trigger Method",
+      "options": "\nManual\nAPI\nImport\nScheduler\nWebhook\nWorkflow\nAI\nSystem\nDocument Hook\nBatch Operation",
+      "default": "Manual",
+      "in_standard_filter": 1,
+      "description": "How this event was triggered"
+    },
+    {
+      "fieldname": "session_id",
+      "fieldtype": "Data",
+      "label": "Session ID",
+      "description": "Session identifier for tracing related events"
+    },
+    {
+      "fieldname": "section_break_data",
+      "fieldtype": "Section Break",
+      "label": "Event Data"
+    },
+    {
+      "fieldname": "event_summary",
+      "fieldtype": "Small Text",
+      "label": "Event Summary",
+      "description": "Human-readable summary of what happened"
+    },
+    {
+      "fieldname": "old_value",
+      "fieldtype": "JSON",
+      "label": "Old Value",
+      "description": "Previous state/value before the event (JSON format)"
+    },
+    {
+      "fieldname": "new_value",
+      "fieldtype": "JSON",
+      "label": "New Value",
+      "description": "New state/value after the event (JSON format)"
+    },
+    {
+      "fieldname": "changed_fields",
+      "fieldtype": "JSON",
+      "label": "Changed Fields",
+      "description": "List of fields that were modified (JSON array)"
+    },
+    {
+      "fieldname": "event_metadata",
+      "fieldtype": "JSON",
+      "label": "Event Metadata",
+      "description": "Additional context data about the event (JSON format)"
+    },
+    {
+      "fieldname": "section_break_scope",
+      "fieldtype": "Section Break",
+      "label": "Event Scope",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "channel",
+      "fieldtype": "Link",
+      "label": "Channel",
+      "options": "Channel",
+      "description": "Channel context for channel-specific events"
+    },
+    {
+      "fieldname": "locale",
+      "fieldtype": "Link",
+      "label": "Locale",
+      "options": "PIM Locale",
+      "description": "Locale context for locale-specific events"
+    },
+    {
+      "fieldname": "column_break_scope",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "golden_record",
+      "fieldtype": "Link",
+      "label": "Golden Record",
+      "options": "Golden Record",
+      "description": "Associated golden record for MDM events"
+    },
+    {
+      "fieldname": "workflow_state",
+      "fieldtype": "Data",
+      "label": "Workflow State",
+      "description": "Workflow state at time of event"
+    },
+    {
+      "fieldname": "section_break_processing",
+      "fieldtype": "Section Break",
+      "label": "Processing Status",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "processed",
+      "fieldtype": "Check",
+      "label": "Processed",
+      "default": 0,
+      "in_standard_filter": 1,
+      "description": "Whether this event has been processed by downstream systems"
+    },
+    {
+      "fieldname": "processed_at",
+      "fieldtype": "Datetime",
+      "label": "Processed At",
+      "depends_on": "eval:doc.processed",
+      "description": "When this event was processed"
+    },
+    {
+      "fieldname": "column_break_processing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "webhook_delivered",
+      "fieldtype": "Check",
+      "label": "Webhook Delivered",
+      "default": 0,
+      "description": "Whether webhook was delivered for this event"
+    },
+    {
+      "fieldname": "delivery_attempts",
+      "fieldtype": "Int",
+      "label": "Delivery Attempts",
+      "default": 0,
+      "description": "Number of webhook delivery attempts"
+    },
+    {
+      "fieldname": "last_delivery_error",
+      "fieldtype": "Small Text",
+      "label": "Last Delivery Error",
+      "read_only": 1,
+      "description": "Error message from last failed delivery attempt"
+    },
+    {
+      "fieldname": "section_break_correlation",
+      "fieldtype": "Section Break",
+      "label": "Event Correlation",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "correlation_id",
+      "fieldtype": "Data",
+      "label": "Correlation ID",
+      "description": "ID for correlating events across systems"
+    },
+    {
+      "fieldname": "causation_id",
+      "fieldtype": "Data",
+      "label": "Causation ID",
+      "description": "ID of the event that caused this event"
+    },
+    {
+      "fieldname": "column_break_correlation",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "batch_id",
+      "fieldtype": "Data",
+      "label": "Batch ID",
+      "description": "ID for grouping batch operation events"
+    },
+    {
+      "fieldname": "sequence_number",
+      "fieldtype": "Int",
+      "label": "Sequence Number",
+      "default": 0,
+      "description": "Order within a batch of events"
+    },
+    {
+      "fieldname": "section_break_replay",
+      "fieldtype": "Section Break",
+      "label": "Event Replay",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "is_replayable",
+      "fieldtype": "Check",
+      "label": "Is Replayable",
+      "default": 1,
+      "description": "Whether this event can be replayed for recovery"
+    },
+    {
+      "fieldname": "replayed",
+      "fieldtype": "Check",
+      "label": "Replayed",
+      "default": 0,
+      "description": "Whether this is a replayed event"
+    },
+    {
+      "fieldname": "column_break_replay",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "original_event",
+      "fieldtype": "Link",
+      "label": "Original Event",
+      "options": "PIM Event",
+      "depends_on": "eval:doc.replayed",
+      "description": "Original event if this is a replay"
+    },
+    {
+      "fieldname": "replay_reason",
+      "fieldtype": "Small Text",
+      "label": "Replay Reason",
+      "depends_on": "eval:doc.replayed",
+      "description": "Reason for replaying this event"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 0,
+      "create": 1,
+      "delete": 0,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "export": 1
+    }
+  ]
+}

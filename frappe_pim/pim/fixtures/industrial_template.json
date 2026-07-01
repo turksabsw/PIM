@@ -1,0 +1,1131 @@
+{
+    "archetype": "industrial",
+    "version": "1.0",
+    "label": "Industrial & Manufacturing",
+    "description": "Industry archetype for industrial manufacturing, MRO supplies, and B2B component distribution. Includes product types for raw materials, components, assemblies, and finished goods with engineering-grade attributes for tensile strength, tolerance, material grade, and certification tracking.",
+    "extends": "base",
+
+    "attribute_groups": [
+        {
+            "group_name": "Engineering",
+            "group_code": "engineering",
+            "sort_order": 80,
+            "is_standard": 0,
+            "icon": "fa fa-drafting-compass",
+            "description": "Engineering specifications: tolerances, tensile strength, hardness, and mechanical properties"
+        },
+        {
+            "group_name": "Material Science",
+            "group_code": "material_science",
+            "sort_order": 90,
+            "is_standard": 0,
+            "icon": "fa fa-atom",
+            "description": "Material composition, grades, alloy designations, and chemical properties"
+        },
+        {
+            "group_name": "Quality & Certification",
+            "group_code": "quality_certification",
+            "sort_order": 100,
+            "is_standard": 0,
+            "icon": "fa fa-certificate",
+            "description": "Quality certifications, test reports, inspection standards, and regulatory approvals"
+        },
+        {
+            "group_name": "Manufacturing",
+            "group_code": "manufacturing",
+            "sort_order": 110,
+            "is_standard": 0,
+            "icon": "fa fa-industry",
+            "description": "Manufacturing process, surface finish, heat treatment, and production-related attributes"
+        }
+    ],
+
+    "attribute_types": [
+        {
+            "type_name": "Tensile Strength",
+            "type_code": "tensile_strength",
+            "base_type": "Float",
+            "supports_unit": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "min_value": 0,
+            "input_component": "measurement-input",
+            "display_component": "measurement-display",
+            "icon": "fa fa-arrows-alt-v"
+        },
+        {
+            "type_name": "Tolerance",
+            "type_code": "tolerance",
+            "base_type": "String",
+            "is_standard": 0,
+            "is_active": 1,
+            "validation_regex": "^[\\+\\-±]?\\d+(\\.\\d+)?\\s*(mm|in|µm|mil)?\\s*(/\\s*[\\+\\-±]?\\d+(\\.\\d+)?\\s*(mm|in|µm|mil)?)?$",
+            "validation_message": "Tolerance must be in engineering notation (e.g., ±0.05 mm, +0.1/-0.05 mm)",
+            "input_component": "tolerance-input",
+            "display_component": "tolerance-display",
+            "icon": "fa fa-arrows-alt-h"
+        },
+        {
+            "type_name": "Material Grade",
+            "type_code": "material_grade",
+            "base_type": "String",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "select",
+            "display_component": "badge-display",
+            "icon": "fa fa-layer-group"
+        },
+        {
+            "type_name": "Certification",
+            "type_code": "certification",
+            "base_type": "JSON",
+            "has_options": 1,
+            "is_standard": 0,
+            "is_active": 1,
+            "input_component": "multiselect",
+            "display_component": "tags-display",
+            "icon": "fa fa-stamp"
+        }
+    ],
+
+    "attributes": [
+        {
+            "attribute_name": "Material Grade",
+            "attribute_code": "material_grade",
+            "attribute_group": "material_science",
+            "data_type": "Select",
+            "options": "AISI 304, AISI 316, AISI 316L, AISI 410, AISI 4140, A36, A572, 6061-T6, 7075-T6, C360, C110, Ti-6Al-4V, Inconel 625, Inconel 718, Hastelloy C-276, HDPE, PTFE, Nylon 6/6, PEEK, Polycarbonate",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 10,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Material grade designation per ASTM/AISI/SAE/UNS standards"
+        },
+        {
+            "attribute_name": "Material Type",
+            "attribute_code": "material_type",
+            "attribute_group": "material_science",
+            "data_type": "Select",
+            "options": "Carbon Steel, Stainless Steel, Alloy Steel, Tool Steel, Aluminum, Copper, Brass, Bronze, Titanium, Nickel Alloy, Cast Iron, Plastic, Rubber, Composite, Ceramic",
+            "is_required": 1,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 15,
+            "weight_in_completeness": 3,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary material classification"
+        },
+        {
+            "attribute_name": "Tensile Strength",
+            "attribute_code": "tensile_strength",
+            "attribute_group": "engineering",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "min_value": 0,
+            "value_suffix": " MPa",
+            "sort_order": 20,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Ultimate tensile strength in megapascals (MPa)"
+        },
+        {
+            "attribute_name": "Yield Strength",
+            "attribute_code": "yield_strength",
+            "attribute_group": "engineering",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "min_value": 0,
+            "value_suffix": " MPa",
+            "sort_order": 25,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Yield strength (0.2% proof stress) in megapascals (MPa)"
+        },
+        {
+            "attribute_name": "Hardness",
+            "attribute_code": "hardness",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 30,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Hardness rating (e.g., HRC 58-62, HB 200, HV 300)"
+        },
+        {
+            "attribute_name": "Tolerance",
+            "attribute_code": "tolerance",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "max_length": 100,
+            "sort_order": 35,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Dimensional tolerance specification (e.g., ±0.05 mm, H7, ISO 2768-m)"
+        },
+        {
+            "attribute_name": "Tolerance Class",
+            "attribute_code": "tolerance_class",
+            "attribute_group": "engineering",
+            "data_type": "Select",
+            "options": "ISO 2768-f (Fine), ISO 2768-m (Medium), ISO 2768-c (Coarse), ISO 2768-v (Very Coarse), Custom",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 37,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "General tolerance class per ISO 2768"
+        },
+        {
+            "attribute_name": "Surface Finish",
+            "attribute_code": "surface_finish",
+            "attribute_group": "manufacturing",
+            "data_type": "Select",
+            "options": "As-Machined, Ground, Polished, Brushed, Bead Blasted, Anodized, Chrome Plated, Zinc Plated, Black Oxide, Powder Coated, Painted, Passivated, Electropolished, Hot-Dip Galvanized, Raw",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 40,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Surface finish or coating applied to the product"
+        },
+        {
+            "attribute_name": "Surface Roughness",
+            "attribute_code": "surface_roughness",
+            "attribute_group": "manufacturing",
+            "data_type": "Float",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "min_value": 0,
+            "value_suffix": " Ra µm",
+            "sort_order": 45,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Surface roughness average (Ra) in micrometers"
+        },
+        {
+            "attribute_name": "Heat Treatment",
+            "attribute_code": "heat_treatment",
+            "attribute_group": "manufacturing",
+            "data_type": "Select",
+            "options": "None, Annealed, Normalized, Quenched & Tempered, Case Hardened, Carburized, Nitrided, Induction Hardened, Stress Relieved, Solution Treated, Aged",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 50,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Heat treatment process applied to the material"
+        },
+        {
+            "attribute_name": "Manufacturing Process",
+            "attribute_code": "manufacturing_process",
+            "attribute_group": "manufacturing",
+            "data_type": "Select",
+            "options": "CNC Machining, Turning, Milling, Grinding, Casting, Forging, Stamping, Extrusion, Injection Molding, 3D Printing, Sheet Metal Fabrication, Welding, Die Casting, Investment Casting, Sintering",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 55,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary manufacturing or fabrication process"
+        },
+        {
+            "attribute_name": "Certification",
+            "attribute_code": "ind_certification",
+            "attribute_group": "quality_certification",
+            "data_type": "Select",
+            "options": "ISO 9001, ISO 14001, ISO 45001, AS9100, IATF 16949, NADCAP, API, ASME, CE, UL, CSA, ATEX, PED, NACE, MIL-SPEC, RoHS, REACH",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 1,
+            "sort_order": 60,
+            "weight_in_completeness": 2,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Primary quality or industry certification applicable to this product"
+        },
+        {
+            "attribute_name": "Test Report Number",
+            "attribute_code": "test_report_number",
+            "attribute_group": "quality_certification",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 100,
+            "sort_order": 65,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Material test report (MTR) or certificate of conformance number"
+        },
+        {
+            "attribute_name": "Inspection Standard",
+            "attribute_code": "inspection_standard",
+            "attribute_group": "quality_certification",
+            "data_type": "Select",
+            "options": "ASTM, DIN, JIS, BS, ISO, EN, ANSI, SAE, MIL-STD, AMS",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 70,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Applicable inspection or testing standard"
+        },
+        {
+            "attribute_name": "Traceability Code",
+            "attribute_code": "traceability_code",
+            "attribute_group": "quality_certification",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 100,
+            "sort_order": 75,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Heat number, lot number, or batch traceability code"
+        },
+        {
+            "attribute_name": "Operating Temperature Range",
+            "attribute_code": "operating_temp_range",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 80,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Operating temperature range (e.g., -40°C to +200°C)"
+        },
+        {
+            "attribute_name": "Corrosion Resistance",
+            "attribute_code": "corrosion_resistance",
+            "attribute_group": "material_science",
+            "data_type": "Select",
+            "options": "Excellent, Good, Moderate, Poor, N/A",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "sort_order": 85,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Corrosion resistance rating for the material"
+        },
+        {
+            "attribute_name": "Thread Specification",
+            "attribute_code": "thread_spec",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 90,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Thread type and size (e.g., M10x1.5, 1/2-13 UNC, G1/4)"
+        },
+        {
+            "attribute_name": "Pressure Rating",
+            "attribute_code": "pressure_rating",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 1,
+            "show_in_grid": 0,
+            "max_length": 50,
+            "sort_order": 95,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Maximum pressure rating (e.g., PN16, Class 150, 3000 PSI)"
+        },
+        {
+            "attribute_name": "Drawing Number",
+            "attribute_code": "drawing_number",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 1,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 100,
+            "sort_order": 100,
+            "weight_in_completeness": 1,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Engineering drawing or CAD reference number"
+        },
+        {
+            "attribute_name": "Revision",
+            "attribute_code": "revision",
+            "attribute_group": "engineering",
+            "data_type": "Text",
+            "is_required": 0,
+            "is_searchable": 0,
+            "is_filterable": 0,
+            "show_in_grid": 0,
+            "max_length": 20,
+            "sort_order": 105,
+            "weight_in_completeness": 0,
+            "is_localizable": 0,
+            "is_standard": 0,
+            "description": "Drawing or specification revision (e.g., Rev C, v2.1)"
+        }
+    ],
+
+    "product_types": [
+        {
+            "type_name": "Raw Material",
+            "type_code": "raw_material",
+            "description": "Base materials such as bar stock, sheet metal, plate, tubing, and bulk materials. Typically sold by weight or length with material test reports.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Component",
+            "type_code": "component",
+            "description": "Individual manufactured parts such as fasteners, bearings, seals, fittings, and machined parts. Each has specific dimensional tolerances and material certifications.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Assembly",
+            "type_code": "assembly",
+            "description": "Multi-part assemblies including sub-assemblies, valve assemblies, gearboxes, and modular units. Has a bill of materials and assembly documentation.",
+            "is_active": 1,
+            "allow_variants": 1
+        },
+        {
+            "type_name": "Finished Good",
+            "type_code": "finished_good",
+            "description": "Complete end-use products ready for installation or deployment. Includes machines, tools, instruments, and equipment with full documentation packages.",
+            "is_active": 1,
+            "allow_variants": 0
+        }
+    ],
+
+    "product_families": [
+        {
+            "family_name": "Industrial",
+            "family_code": "industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 0,
+            "min_images": 1,
+            "completeness_threshold": 75,
+            "description": "Root family for all industrial and manufacturing products"
+        },
+        {
+            "family_name": "Metals & Alloys",
+            "family_code": "metals_alloys",
+            "parent_family": "Industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MTL-",
+            "required_media_types": "Main Image, Datasheet",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Metal stock, alloys, and metallurgical products",
+            "attributes": [
+                {"attribute": "material_grade", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "material_type", "is_required_in_family": 1, "sort_order": 15},
+                {"attribute": "tensile_strength", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "yield_strength", "is_required_in_family": 0, "sort_order": 25},
+                {"attribute": "hardness", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "heat_treatment", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "corrosion_resistance", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "ind_certification", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "traceability_code", "is_required_in_family": 0, "sort_order": 70}
+            ],
+            "variant_attributes": [
+                {"attribute": "material_grade", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Steel Bar Stock",
+            "family_code": "steel_bar_stock",
+            "parent_family": "Metals & Alloys",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SBS-",
+            "required_media_types": "Main Image, Datasheet",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Round bar, flat bar, square bar, and hex bar in various steel grades"
+        },
+        {
+            "family_name": "Sheet & Plate",
+            "family_code": "sheet_plate",
+            "parent_family": "Metals & Alloys",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SHP-",
+            "required_media_types": "Main Image, Datasheet",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Flat sheet metal and plate in various materials and thicknesses"
+        },
+        {
+            "family_name": "Tubing & Pipe",
+            "family_code": "tubing_pipe",
+            "parent_family": "Metals & Alloys",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "TBP-",
+            "required_media_types": "Main Image, Datasheet",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Seamless and welded tubing, pipe, and hollow sections"
+        },
+        {
+            "family_name": "Fasteners",
+            "family_code": "fasteners",
+            "parent_family": "Industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FST-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Bolts, screws, nuts, washers, and threaded fasteners",
+            "attributes": [
+                {"attribute": "material_grade", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "material_type", "is_required_in_family": 1, "sort_order": 15},
+                {"attribute": "thread_spec", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "surface_finish", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "tensile_strength", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "tolerance_class", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "ind_certification", "is_required_in_family": 0, "sort_order": 60}
+            ],
+            "variant_attributes": [
+                {"attribute": "material_grade", "sort_order": 10},
+                {"attribute": "surface_finish", "sort_order": 20}
+            ]
+        },
+        {
+            "family_name": "Bolts & Screws",
+            "family_code": "bolts_screws",
+            "parent_family": "Fasteners",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BLT-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 1,
+            "completeness_threshold": 85,
+            "description": "Hex bolts, cap screws, set screws, machine screws, and self-tapping screws"
+        },
+        {
+            "family_name": "Nuts & Washers",
+            "family_code": "nuts_washers",
+            "parent_family": "Fasteners",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "NTW-",
+            "required_media_types": "Main Image",
+            "min_images": 1,
+            "completeness_threshold": 80,
+            "description": "Hex nuts, lock nuts, flat washers, spring washers, and lock washers"
+        },
+        {
+            "family_name": "Machined Parts",
+            "family_code": "machined_parts",
+            "parent_family": "Industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "MCP-",
+            "required_media_types": "Main Image, Technical Drawing, 3D Model",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Precision machined components including shafts, bushings, flanges, and custom parts",
+            "attributes": [
+                {"attribute": "material_grade", "is_required_in_family": 1, "sort_order": 10},
+                {"attribute": "material_type", "is_required_in_family": 1, "sort_order": 15},
+                {"attribute": "tolerance", "is_required_in_family": 1, "sort_order": 20},
+                {"attribute": "tolerance_class", "is_required_in_family": 0, "sort_order": 25},
+                {"attribute": "surface_finish", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "surface_roughness", "is_required_in_family": 0, "sort_order": 35},
+                {"attribute": "manufacturing_process", "is_required_in_family": 1, "sort_order": 40},
+                {"attribute": "heat_treatment", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "hardness", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "drawing_number", "is_required_in_family": 1, "sort_order": 60},
+                {"attribute": "revision", "is_required_in_family": 0, "sort_order": 65},
+                {"attribute": "ind_certification", "is_required_in_family": 0, "sort_order": 70}
+            ],
+            "variant_attributes": [
+                {"attribute": "material_grade", "sort_order": 10}
+            ]
+        },
+        {
+            "family_name": "Shafts & Pins",
+            "family_code": "shafts_pins",
+            "parent_family": "Machined Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "SFT-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Drive shafts, dowel pins, roll pins, and precision-ground shafts"
+        },
+        {
+            "family_name": "Bushings & Bearings",
+            "family_code": "bushings_bearings",
+            "parent_family": "Machined Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "BRG-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Plain bearings, bushings, thrust washers, and bearing housings"
+        },
+        {
+            "family_name": "Flanges & Couplings",
+            "family_code": "flanges_couplings",
+            "parent_family": "Machined Parts",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 1,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "FLG-",
+            "required_media_types": "Main Image, Technical Drawing",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Pipe flanges, coupling adapters, and connection hardware"
+        },
+        {
+            "family_name": "Assemblies",
+            "family_code": "assemblies",
+            "parent_family": "Industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "ASM-",
+            "required_media_types": "Main Image, Assembly Drawing, BOM",
+            "min_images": 2,
+            "completeness_threshold": 85,
+            "description": "Multi-component assemblies and sub-assemblies",
+            "attributes": [
+                {"attribute": "material_type", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "surface_finish", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "operating_temp_range", "is_required_in_family": 0, "sort_order": 30},
+                {"attribute": "pressure_rating", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "drawing_number", "is_required_in_family": 1, "sort_order": 50},
+                {"attribute": "revision", "is_required_in_family": 0, "sort_order": 55},
+                {"attribute": "ind_certification", "is_required_in_family": 0, "sort_order": 60},
+                {"attribute": "test_report_number", "is_required_in_family": 0, "sort_order": 70}
+            ]
+        },
+        {
+            "family_name": "Valve Assemblies",
+            "family_code": "valve_assemblies",
+            "parent_family": "Assemblies",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "VLV-",
+            "required_media_types": "Main Image, Assembly Drawing, BOM, Test Report",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Gate valves, ball valves, check valves, and control valve assemblies"
+        },
+        {
+            "family_name": "Gear Assemblies",
+            "family_code": "gear_assemblies",
+            "parent_family": "Assemblies",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "GRA-",
+            "required_media_types": "Main Image, Assembly Drawing, BOM",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Gearboxes, gear trains, and power transmission assemblies"
+        },
+        {
+            "family_name": "Finished Equipment",
+            "family_code": "finished_equipment",
+            "parent_family": "Industrial",
+            "is_group": 1,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "EQP-",
+            "required_media_types": "Main Image, Gallery, Datasheet, Manual",
+            "min_images": 3,
+            "completeness_threshold": 90,
+            "description": "Complete end-use equipment, tools, and instruments",
+            "attributes": [
+                {"attribute": "operating_temp_range", "is_required_in_family": 0, "sort_order": 10},
+                {"attribute": "pressure_rating", "is_required_in_family": 0, "sort_order": 20},
+                {"attribute": "ind_certification", "is_required_in_family": 1, "sort_order": 30},
+                {"attribute": "drawing_number", "is_required_in_family": 0, "sort_order": 40},
+                {"attribute": "revision", "is_required_in_family": 0, "sort_order": 45},
+                {"attribute": "inspection_standard", "is_required_in_family": 0, "sort_order": 50},
+                {"attribute": "test_report_number", "is_required_in_family": 0, "sort_order": 60}
+            ]
+        },
+        {
+            "family_name": "Pumps & Motors",
+            "family_code": "pumps_motors",
+            "parent_family": "Finished Equipment",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "PMP-",
+            "required_media_types": "Main Image, Gallery, Datasheet, Manual",
+            "min_images": 3,
+            "completeness_threshold": 90,
+            "description": "Centrifugal pumps, positive displacement pumps, electric motors, and drives"
+        },
+        {
+            "family_name": "Instruments & Gauges",
+            "family_code": "instruments_gauges",
+            "parent_family": "Finished Equipment",
+            "is_group": 0,
+            "is_active": 1,
+            "allow_variants": 0,
+            "inherit_parent_attributes": 1,
+            "naming_series_prefix": "INS-",
+            "required_media_types": "Main Image, Datasheet, Calibration Certificate",
+            "min_images": 2,
+            "completeness_threshold": 90,
+            "description": "Pressure gauges, temperature sensors, flow meters, and measurement instruments"
+        }
+    ],
+
+    "categories": [
+        {
+            "category_name": "Industrial Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "All industrial and manufacturing products"
+        },
+        {
+            "category_name": "Raw Materials",
+            "parent_category": "Industrial Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Base materials and stock for manufacturing"
+        },
+        {
+            "category_name": "Steel",
+            "parent_category": "Raw Materials",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Carbon steel, stainless steel, alloy steel, and tool steel products"
+        },
+        {
+            "category_name": "Aluminum",
+            "parent_category": "Raw Materials",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Aluminum alloys, extrusions, sheet, and plate"
+        },
+        {
+            "category_name": "Specialty Metals",
+            "parent_category": "Raw Materials",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Titanium, nickel alloys, copper alloys, and exotic metals"
+        },
+        {
+            "category_name": "Plastics & Polymers",
+            "parent_category": "Raw Materials",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Engineering plastics, thermoplastics, and polymer materials"
+        },
+        {
+            "category_name": "Components",
+            "parent_category": "Industrial Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Individual manufactured parts and components"
+        },
+        {
+            "category_name": "Fasteners & Hardware",
+            "parent_category": "Components",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Bolts, screws, nuts, washers, and mechanical hardware"
+        },
+        {
+            "category_name": "Bearings & Bushings",
+            "parent_category": "Components",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Ball bearings, roller bearings, plain bearings, and bushings"
+        },
+        {
+            "category_name": "Seals & Gaskets",
+            "parent_category": "Components",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "O-rings, gaskets, seals, and sealing solutions"
+        },
+        {
+            "category_name": "Fittings & Connectors",
+            "parent_category": "Components",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Pipe fittings, tube connectors, flanges, and coupling hardware"
+        },
+        {
+            "category_name": "Custom Machined Parts",
+            "parent_category": "Components",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "CNC machined, turned, and milled custom components"
+        },
+        {
+            "category_name": "Assemblies & Sub-Assemblies",
+            "parent_category": "Industrial Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Multi-component assembled units"
+        },
+        {
+            "category_name": "Valve Assemblies",
+            "parent_category": "Assemblies & Sub-Assemblies",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Complete valve assemblies and actuation packages"
+        },
+        {
+            "category_name": "Power Transmission",
+            "parent_category": "Assemblies & Sub-Assemblies",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Gearboxes, belt drives, chain drives, and coupling assemblies"
+        },
+        {
+            "category_name": "Equipment",
+            "parent_category": "Industrial Products",
+            "is_group": 1,
+            "enabled": 1,
+            "description": "Complete industrial equipment and machinery"
+        },
+        {
+            "category_name": "Pumps",
+            "parent_category": "Equipment",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Centrifugal, positive displacement, and specialty pumps"
+        },
+        {
+            "category_name": "Motors & Drives",
+            "parent_category": "Equipment",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Electric motors, variable frequency drives, and servo systems"
+        },
+        {
+            "category_name": "Instrumentation",
+            "parent_category": "Equipment",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Measurement instruments, sensors, gauges, and calibration equipment"
+        },
+        {
+            "category_name": "New Products",
+            "parent_category": "Industrial Products",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Recently added industrial products"
+        },
+        {
+            "category_name": "Clearance",
+            "parent_category": "Industrial Products",
+            "is_group": 0,
+            "enabled": 1,
+            "description": "Discontinued and clearance stock items"
+        }
+    ],
+
+    "quality_rules": [
+        {
+            "rule_code": "ind_req_material_grade",
+            "rule_name": "Material Grade Required",
+            "rule_type": "required_field",
+            "target_attribute": "material_grade",
+            "severity": "error",
+            "weight": 10,
+            "message": "Industrial products must specify a material grade designation",
+            "description": "Material grade is essential for procurement, quality control, and regulatory compliance"
+        },
+        {
+            "rule_code": "ind_req_material_type",
+            "rule_name": "Material Type Required",
+            "rule_type": "required_field",
+            "target_attribute": "material_type",
+            "severity": "error",
+            "weight": 8,
+            "message": "Industrial products must specify the material type",
+            "description": "Material type classification is required for inventory management and sourcing"
+        },
+        {
+            "rule_code": "ind_req_tolerance",
+            "rule_name": "Tolerance Recommended for Machined Parts",
+            "rule_type": "required_field",
+            "target_attribute": "tolerance",
+            "severity": "warning",
+            "weight": 6,
+            "message": "Machined parts should specify dimensional tolerances",
+            "description": "Tolerance specifications are critical for parts interchangeability and quality inspection"
+        },
+        {
+            "rule_code": "ind_req_certification",
+            "rule_name": "Certification Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "ind_certification",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Products should list applicable certifications for quality assurance",
+            "description": "Industry certifications build customer trust and are often required for regulated applications"
+        },
+        {
+            "rule_code": "ind_req_surface_finish",
+            "rule_name": "Surface Finish Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "surface_finish",
+            "severity": "info",
+            "weight": 3,
+            "message": "Specifying surface finish improves product clarity for customers",
+            "description": "Surface finish affects corrosion resistance, friction, and aesthetic appearance"
+        },
+        {
+            "rule_code": "ind_req_drawing",
+            "rule_name": "Drawing Number Recommended",
+            "rule_type": "required_field",
+            "target_attribute": "drawing_number",
+            "severity": "info",
+            "weight": 3,
+            "message": "Linking an engineering drawing number aids traceability and reordering",
+            "description": "Drawing references enable precise reordering and quality verification"
+        },
+        {
+            "rule_code": "ind_req_traceability",
+            "rule_name": "Traceability Code for Raw Materials",
+            "rule_type": "required_field",
+            "target_attribute": "traceability_code",
+            "severity": "warning",
+            "weight": 5,
+            "message": "Raw materials should have a heat or lot number for traceability",
+            "description": "Material traceability is required by many industry standards (AS9100, IATF 16949, etc.)"
+        },
+        {
+            "rule_code": "ind_tensile_positive",
+            "rule_name": "Tensile Strength Must Be Positive",
+            "rule_type": "value_constraint",
+            "target_attribute": "tensile_strength",
+            "min_value": 0.1,
+            "severity": "error",
+            "weight": 5,
+            "message": "Tensile strength must be a positive number",
+            "description": "Zero or negative tensile strength values indicate data entry errors"
+        },
+        {
+            "rule_code": "ind_min_images",
+            "rule_name": "Industrial Minimum Images",
+            "rule_type": "media_presence",
+            "min_images": 1,
+            "severity": "warning",
+            "weight": 4,
+            "message": "Industrial products should have at least one product photo or technical drawing",
+            "description": "Visual documentation aids product identification and reduces ordering errors"
+        }
+    ],
+
+    "demo_products": [
+        {
+            "product_name": "AISI 316L Stainless Steel Round Bar",
+            "product_code": "SBS-316L-001",
+            "product_type": "Raw Material",
+            "product_family": "steel_bar_stock",
+            "description": "Precision-ground stainless steel round bar in AISI 316L. Excellent corrosion resistance for marine, chemical, and pharmaceutical applications. Supplied with 3.1 mill certificate.",
+            "attributes": {
+                "material_grade": "AISI 316L",
+                "material_type": "Stainless Steel",
+                "tensile_strength": 485,
+                "yield_strength": 170,
+                "hardness": "HB 217 max",
+                "heat_treatment": "Solution Treated",
+                "corrosion_resistance": "Excellent",
+                "surface_finish": "Ground",
+                "surface_roughness": 0.8,
+                "ind_certification": "ISO 9001",
+                "inspection_standard": "ASTM",
+                "traceability_code": "HN-2024-08-4521"
+            },
+            "variants": [
+                {"material_grade": "AISI 316L"},
+                {"material_grade": "AISI 304"}
+            ]
+        },
+        {
+            "product_name": "M10x1.5 Hex Head Bolt - Grade 8.8",
+            "product_code": "BLT-M10-88-001",
+            "product_type": "Component",
+            "product_family": "bolts_screws",
+            "description": "DIN 931 hex head bolt M10x1.5 thread, Grade 8.8 carbon steel with zinc plating. Meets ISO 4014 standard. Available in multiple lengths.",
+            "attributes": {
+                "material_grade": "A36",
+                "material_type": "Carbon Steel",
+                "thread_spec": "M10x1.5",
+                "tensile_strength": 800,
+                "surface_finish": "Zinc Plated",
+                "tolerance_class": "ISO 2768-m (Medium)",
+                "ind_certification": "ISO 9001",
+                "inspection_standard": "DIN"
+            },
+            "variants": [
+                {"material_grade": "A36", "surface_finish": "Zinc Plated"},
+                {"material_grade": "A36", "surface_finish": "Black Oxide"},
+                {"material_grade": "AISI 304", "surface_finish": "Passivated"}
+            ]
+        },
+        {
+            "product_name": "Precision CNC Turned Shaft - 4140",
+            "product_code": "SFT-4140-001",
+            "product_type": "Component",
+            "product_family": "shafts_pins",
+            "description": "CNC turned precision shaft in AISI 4140 quenched and tempered steel. Ground to h6 tolerance with polished journal surfaces. Suitable for power transmission applications.",
+            "attributes": {
+                "material_grade": "AISI 4140",
+                "material_type": "Alloy Steel",
+                "tolerance": "h6 (0/-0.016 mm)",
+                "tolerance_class": "ISO 2768-f (Fine)",
+                "surface_finish": "Ground",
+                "surface_roughness": 0.4,
+                "manufacturing_process": "CNC Machining",
+                "heat_treatment": "Quenched & Tempered",
+                "hardness": "HRC 28-32",
+                "tensile_strength": 965,
+                "yield_strength": 655,
+                "drawing_number": "DWG-SFT-4140-R003",
+                "revision": "Rev C",
+                "ind_certification": "ISO 9001",
+                "inspection_standard": "ISO"
+            },
+            "variants": [
+                {"material_grade": "AISI 4140"},
+                {"material_grade": "AISI 316"}
+            ]
+        },
+        {
+            "product_name": "DN50 PN16 Ball Valve Assembly",
+            "product_code": "VLV-BV50-001",
+            "product_type": "Assembly",
+            "product_family": "valve_assemblies",
+            "description": "Full-bore ball valve assembly DN50 (2\") PN16 rated. 316 stainless steel body with PTFE seats and fire-safe design per API 607. Includes lever handle and mounting kit.",
+            "attributes": {
+                "material_type": "Stainless Steel",
+                "surface_finish": "Electropolished",
+                "operating_temp_range": "-29°C to +200°C",
+                "pressure_rating": "PN16",
+                "drawing_number": "ASM-VLV-BV50-R002",
+                "revision": "Rev B",
+                "ind_certification": "CE",
+                "test_report_number": "TR-2024-VLV-0847"
+            }
+        },
+        {
+            "product_name": "Centrifugal Process Pump - 15 kW",
+            "product_code": "PMP-CP15-001",
+            "product_type": "Finished Good",
+            "product_family": "pumps_motors",
+            "description": "End-suction centrifugal pump rated 15 kW with cast iron casing, stainless steel impeller, and mechanical seal. Designed for clean water and light chemical duty. Compliant with EN 733 / ISO 2858.",
+            "attributes": {
+                "operating_temp_range": "-10°C to +120°C",
+                "pressure_rating": "PN16",
+                "ind_certification": "CE",
+                "inspection_standard": "EN",
+                "test_report_number": "TR-2024-PMP-1205"
+            }
+        }
+    ]
+}

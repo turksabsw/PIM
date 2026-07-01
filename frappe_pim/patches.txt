@@ -1,0 +1,14 @@
+# Frappe PIM Patches
+# This file lists database migration patches that will be executed during bench migrate
+# Format: frappe_pim.patches.patch_module.patch_function
+#
+# v1.0 - Initial Release
+# Install standard attribute types, attribute groups, conflict rules,
+# create onboarding states for existing PIM users, and ensure indexes.
+frappe_pim.patches.v1_0.setup_onboarding_state
+# Initialize Tenant Config singleton with default values for onboarding.
+frappe_pim.patches.v1_0.create_tenant_config
+# Seed all 7 industry sector templates (fashion, industrial, food, etc.)
+frappe_pim.patches.v1_0.seed_industry_templates
+# Migrate Tenant Config from Single (per-site) to per-user DocType
+frappe_pim.patches.v1_0.migrate_tenant_config_to_per_user

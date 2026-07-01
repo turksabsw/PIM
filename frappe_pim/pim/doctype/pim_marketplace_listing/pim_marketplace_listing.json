@@ -1,0 +1,440 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Marketplace Listing",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "format:{sales_channel}-{product_variant}",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "product_variant",
+      "fieldtype": "Link",
+      "label": "Product Variant",
+      "options": "Product Variant",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The product variant to list on the marketplace"
+    },
+    {
+      "fieldname": "sales_channel",
+      "fieldtype": "Link",
+      "label": "Sales Channel",
+      "options": "PIM Sales Channel",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The marketplace/channel to list on"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "listing_status",
+      "fieldtype": "Select",
+      "label": "Listing Status",
+      "options": "Draft\nPending\nActive\nInactive\nPaused\nOut of Stock\nSuppressed\nError",
+      "reqd": 1,
+      "default": "Draft",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the listing on the marketplace"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "description": "Enable/disable this listing"
+    },
+    {
+      "fieldname": "section_break_identifiers",
+      "fieldtype": "Section Break",
+      "label": "Listing Identifiers"
+    },
+    {
+      "fieldname": "listing_sku",
+      "fieldtype": "Data",
+      "label": "Listing SKU",
+      "in_list_view": 1,
+      "description": "SKU used for this listing on the marketplace (may differ from internal SKU)"
+    },
+    {
+      "fieldname": "external_id",
+      "fieldtype": "Data",
+      "label": "External ID",
+      "description": "Marketplace's unique identifier for this listing (ASIN, item_id, etc.)"
+    },
+    {
+      "fieldname": "column_break_identifiers",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "external_url",
+      "fieldtype": "Data",
+      "label": "External URL",
+      "description": "URL to the listing on the marketplace"
+    },
+    {
+      "fieldname": "parent_listing",
+      "fieldtype": "Link",
+      "label": "Parent Listing",
+      "options": "PIM Marketplace Listing",
+      "description": "Parent listing for variant grouping (e.g., parent ASIN)"
+    },
+    {
+      "fieldname": "section_break_content",
+      "fieldtype": "Section Break",
+      "label": "Listing Content"
+    },
+    {
+      "fieldname": "listing_title",
+      "fieldtype": "Data",
+      "label": "Listing Title",
+      "length": 500,
+      "translatable": 1,
+      "description": "Title for this listing (marketplace-specific, may differ from product name)"
+    },
+    {
+      "fieldname": "listing_description",
+      "fieldtype": "Text Editor",
+      "label": "Listing Description",
+      "translatable": 1,
+      "description": "Description for this listing (marketplace-specific)"
+    },
+    {
+      "fieldname": "bullet_points",
+      "fieldtype": "Text",
+      "label": "Bullet Points",
+      "translatable": 1,
+      "description": "Key features/bullet points (one per line)"
+    },
+    {
+      "fieldname": "column_break_content",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "search_keywords",
+      "fieldtype": "Small Text",
+      "label": "Search Keywords",
+      "description": "Keywords for marketplace search optimization"
+    },
+    {
+      "fieldname": "brand_override",
+      "fieldtype": "Data",
+      "label": "Brand Override",
+      "description": "Override brand name for this marketplace"
+    },
+    {
+      "fieldname": "section_break_category",
+      "fieldtype": "Section Break",
+      "label": "Category Mapping"
+    },
+    {
+      "fieldname": "marketplace_category_id",
+      "fieldtype": "Data",
+      "label": "Marketplace Category ID",
+      "description": "Category ID on the marketplace"
+    },
+    {
+      "fieldname": "marketplace_category_path",
+      "fieldtype": "Small Text",
+      "label": "Marketplace Category Path",
+      "description": "Full category path on the marketplace"
+    },
+    {
+      "fieldname": "column_break_category",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "browse_node_id",
+      "fieldtype": "Data",
+      "label": "Browse Node ID",
+      "description": "Marketplace browse node/subcategory ID"
+    },
+    {
+      "fieldname": "product_type_code",
+      "fieldtype": "Data",
+      "label": "Product Type Code",
+      "description": "Marketplace product type identifier"
+    },
+    {
+      "fieldname": "section_break_pricing",
+      "fieldtype": "Section Break",
+      "label": "Pricing"
+    },
+    {
+      "fieldname": "listing_price",
+      "fieldtype": "Currency",
+      "label": "Listing Price",
+      "in_list_view": 1,
+      "description": "Price for this listing on the marketplace"
+    },
+    {
+      "fieldname": "listing_currency",
+      "fieldtype": "Link",
+      "label": "Listing Currency",
+      "options": "Currency",
+      "description": "Currency for listing price"
+    },
+    {
+      "fieldname": "column_break_pricing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sale_price",
+      "fieldtype": "Currency",
+      "label": "Sale Price",
+      "description": "Promotional/sale price if applicable"
+    },
+    {
+      "fieldname": "sale_start_date",
+      "fieldtype": "Datetime",
+      "label": "Sale Start Date",
+      "description": "When the sale price becomes active"
+    },
+    {
+      "fieldname": "sale_end_date",
+      "fieldtype": "Datetime",
+      "label": "Sale End Date",
+      "description": "When the sale price expires"
+    },
+    {
+      "fieldname": "section_break_pricing_rules",
+      "fieldtype": "Section Break",
+      "label": "Price Rules",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "use_channel_pricing",
+      "fieldtype": "Check",
+      "label": "Use Channel Pricing",
+      "default": 1,
+      "description": "Automatically calculate price from channel rules"
+    },
+    {
+      "fieldname": "price_override",
+      "fieldtype": "Check",
+      "label": "Price Override",
+      "default": 0,
+      "description": "Override calculated price with manual listing price"
+    },
+    {
+      "fieldname": "column_break_pricing_rules",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_advertised_price",
+      "fieldtype": "Currency",
+      "label": "Min Advertised Price",
+      "description": "MAP for this specific listing"
+    },
+    {
+      "fieldname": "max_price",
+      "fieldtype": "Currency",
+      "label": "Max Price",
+      "description": "Maximum allowed price for this listing"
+    },
+    {
+      "fieldname": "section_break_inventory",
+      "fieldtype": "Section Break",
+      "label": "Inventory"
+    },
+    {
+      "fieldname": "listing_quantity",
+      "fieldtype": "Int",
+      "label": "Listing Quantity",
+      "description": "Available quantity on this marketplace"
+    },
+    {
+      "fieldname": "fulfillment_channel",
+      "fieldtype": "Select",
+      "label": "Fulfillment Channel",
+      "options": "\nMerchant\nMarketplace\nDropship\n3PL",
+      "description": "How orders are fulfilled"
+    },
+    {
+      "fieldname": "column_break_inventory",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "lead_time_days",
+      "fieldtype": "Int",
+      "label": "Lead Time (Days)",
+      "description": "Processing/handling time in days"
+    },
+    {
+      "fieldname": "min_order_qty",
+      "fieldtype": "Int",
+      "label": "Min Order Qty",
+      "default": 1,
+      "description": "Minimum order quantity"
+    },
+    {
+      "fieldname": "max_order_qty",
+      "fieldtype": "Int",
+      "label": "Max Order Qty",
+      "description": "Maximum order quantity (0 = no limit)"
+    },
+    {
+      "fieldname": "section_break_shipping",
+      "fieldtype": "Section Break",
+      "label": "Shipping",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "shipping_template",
+      "fieldtype": "Data",
+      "label": "Shipping Template",
+      "description": "Marketplace shipping template ID or name"
+    },
+    {
+      "fieldname": "handling_time_days",
+      "fieldtype": "Int",
+      "label": "Handling Time (Days)",
+      "description": "Days to prepare order for shipment"
+    },
+    {
+      "fieldname": "column_break_shipping",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "weight_override",
+      "fieldtype": "Float",
+      "label": "Weight Override",
+      "description": "Override product weight for this listing"
+    },
+    {
+      "fieldname": "weight_unit",
+      "fieldtype": "Select",
+      "label": "Weight Unit",
+      "options": "\nkg\nlb\ng\noz",
+      "description": "Unit for weight override"
+    },
+    {
+      "fieldname": "section_break_attributes",
+      "fieldtype": "Section Break",
+      "label": "Marketplace Attributes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "marketplace_attributes",
+      "fieldtype": "JSON",
+      "label": "Marketplace Attributes",
+      "description": "JSON object with marketplace-specific attribute mappings"
+    },
+    {
+      "fieldname": "variation_theme",
+      "fieldtype": "Data",
+      "label": "Variation Theme",
+      "description": "Variation theme for parent-child relationship (e.g., SizeColor)"
+    },
+    {
+      "fieldname": "section_break_sync",
+      "fieldtype": "Section Break",
+      "label": "Sync Status"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced",
+      "read_only": 1,
+      "description": "Last successful sync to marketplace"
+    },
+    {
+      "fieldname": "sync_status",
+      "fieldtype": "Select",
+      "label": "Sync Status",
+      "options": "\nPending\nQueued\nSyncing\nSynced\nFailed\nSkipped",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "column_break_sync",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sync_error",
+      "fieldtype": "Small Text",
+      "label": "Sync Error",
+      "read_only": 1,
+      "description": "Last sync error message"
+    },
+    {
+      "fieldname": "sync_retries",
+      "fieldtype": "Int",
+      "label": "Sync Retries",
+      "read_only": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "section_break_performance",
+      "fieldtype": "Section Break",
+      "label": "Performance Metrics",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "page_views",
+      "fieldtype": "Int",
+      "label": "Page Views",
+      "read_only": 1,
+      "description": "Total page views (from marketplace)"
+    },
+    {
+      "fieldname": "conversion_rate",
+      "fieldtype": "Percent",
+      "label": "Conversion Rate",
+      "read_only": 1,
+      "description": "Views to orders conversion rate"
+    },
+    {
+      "fieldname": "column_break_performance",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "total_orders",
+      "fieldtype": "Int",
+      "label": "Total Orders",
+      "read_only": 1
+    },
+    {
+      "fieldname": "total_revenue",
+      "fieldtype": "Currency",
+      "label": "Total Revenue",
+      "read_only": 1
+    },
+    {
+      "fieldname": "rating",
+      "fieldtype": "Float",
+      "label": "Rating",
+      "read_only": 1,
+      "description": "Product rating on this marketplace"
+    },
+    {
+      "fieldname": "review_count",
+      "fieldtype": "Int",
+      "label": "Review Count",
+      "read_only": 1
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Attribute Option",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "format:{attribute}-{option_value}",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+
+  "fields": [
+    {
+      "fieldname": "attribute",
+      "fieldtype": "Link",
+      "label": "Attribute",
+      "options": "PIM Attribute",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The attribute this option belongs to"
+    },
+    {
+      "fieldname": "option_value",
+      "fieldtype": "Data",
+      "label": "Option Value",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Internal value used in code/data (e.g., red, blue, small, medium)"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "option_label",
+      "fieldtype": "Data",
+      "label": "Option Label",
+      "reqd": 1,
+      "in_list_view": 1,
+      "translatable": 1,
+      "description": "Display label shown to users (e.g., Red, Blue, Small, Medium)"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Is Default",
+      "default": 0,
+      "description": "If checked, this option will be selected by default"
+    },
+    {
+      "fieldname": "section_break_display",
+      "fieldtype": "Section Break",
+      "label": "Display Settings"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Order in which options appear (lower numbers first)"
+    },
+    {
+      "fieldname": "color_code",
+      "fieldtype": "Color",
+      "label": "Color Code",
+      "description": "Hex color code for color-type attributes (e.g., #FF0000)"
+    },
+    {
+      "fieldname": "column_break_display",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "icon",
+      "fieldtype": "Data",
+      "label": "Icon",
+      "description": "Icon class for visual display (e.g., fa fa-circle)"
+    },
+    {
+      "fieldname": "image",
+      "fieldtype": "Attach Image",
+      "label": "Image",
+      "description": "Image for visual selection (e.g., color swatch, size chart)"
+    },
+    {
+      "fieldname": "section_break_metadata",
+      "fieldtype": "Section Break",
+      "label": "Additional Data",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description",
+      "translatable": 1,
+      "description": "Additional description or tooltip for this option"
+    },
+    {
+      "fieldname": "external_code",
+      "fieldtype": "Data",
+      "label": "External Code",
+      "description": "External system code for integration (e.g., ERP code, marketplace code)"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1
+    }
+  ]
+}

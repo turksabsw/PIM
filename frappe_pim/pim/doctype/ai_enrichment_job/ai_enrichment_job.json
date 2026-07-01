@@ -1,0 +1,732 @@
+{
+ "actions": [],
+ "autoname": "AIJ-.YYYY.-.#####",
+ "creation": "2026-01-21 13:24:27.364790",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "job_name",
+  "job_type",
+  "column_break_basic",
+  "status",
+  "priority",
+  "scheduled_at",
+  "section_break_ai_config",
+  "ai_provider",
+  "ai_model",
+  "column_break_ai_config",
+  "prompt_template",
+  "custom_prompt",
+  "temperature",
+  "max_tokens",
+  "section_break_scope",
+  "target_locale",
+  "target_channel",
+  "column_break_scope",
+  "target_attributes",
+  "overwrite_existing",
+  "section_break_products",
+  "selection_method",
+  "filter_product_family",
+  "filter_product_category",
+  "filter_channel",
+  "filter_query",
+  "include_variants",
+  "column_break_products",
+  "max_products",
+  "skip_completed",
+  "only_incomplete",
+  "min_completeness_gap",
+  "products",
+  "section_break_processing",
+  "batch_size",
+  "retry_on_failure",
+  "max_retries",
+  "column_break_processing",
+  "require_approval",
+  "auto_apply_high_confidence",
+  "auto_apply_threshold",
+  "notify_on_completion",
+  "notification_users",
+  "section_break_progress",
+  "total_products",
+  "processed_count",
+  "successful_count",
+  "column_break_progress",
+  "failed_count",
+  "skipped_count",
+  "progress_percent",
+  "pending_approval_count",
+  "section_break_execution",
+  "started_at",
+  "completed_at",
+  "column_break_execution",
+  "duration_seconds",
+  "average_time_per_product",
+  "current_batch",
+  "total_batches",
+  "section_break_costs",
+  "total_tokens_used",
+  "input_tokens",
+  "output_tokens",
+  "column_break_costs",
+  "estimated_cost",
+  "cost_per_product",
+  "section_break_errors",
+  "last_error",
+  "error_log",
+  "processing_log",
+  "section_break_metadata",
+  "created_by",
+  "queue_position",
+  "column_break_metadata",
+  "worker_id",
+  "correlation_id",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "description": "Descriptive name for this enrichment job",
+   "fieldname": "job_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Job Name",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "description": "Type of AI enrichment to perform",
+   "fieldname": "job_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Job Type",
+   "options": "\nDescription Generation\nAttribute Extraction\nClassification Suggestion\nImage Analysis\nSEO Optimization\nTranslation\nContent Enhancement\nQuality Check\nCustom",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "description": "Current status of the enrichment job",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "\nDraft\nQueued\nProcessing\nCompleted\nPartially Completed\nFailed\nCancelled",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Normal",
+   "description": "Job processing priority",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Priority",
+   "options": "\nLow\nNormal\nHigh\nCritical"
+  },
+  {
+   "description": "Schedule job to run at a specific time (optional)",
+   "fieldname": "scheduled_at",
+   "fieldtype": "Datetime",
+   "label": "Scheduled At"
+  },
+  {
+   "fieldname": "section_break_ai_config",
+   "fieldtype": "Section Break",
+   "label": "AI Configuration"
+  },
+  {
+   "default": "Anthropic",
+   "description": "AI provider to use for this job",
+   "fieldname": "ai_provider",
+   "fieldtype": "Select",
+   "label": "AI Provider",
+   "options": "\nAnthropic\nOpenAI\nGoogle Gemini\nAzure OpenAI\nAWS Bedrock\nCustom",
+   "reqd": 1
+  },
+  {
+   "description": "Specific model to use (e.g., claude-3-opus, gpt-4, gemini-pro)",
+   "fieldname": "ai_model",
+   "fieldtype": "Data",
+   "label": "AI Model"
+  },
+  {
+   "fieldname": "column_break_ai_config",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Template defining the AI prompt structure",
+   "fieldname": "prompt_template",
+   "fieldtype": "Link",
+   "label": "Prompt Template",
+   "options": "AI Prompt Template"
+  },
+  {
+   "depends_on": "eval:!doc.prompt_template",
+   "description": "Custom prompt text (used if no template selected). Supports Jinja2 variables: {{ product.sku }}, {{ product.name }}, etc.",
+   "fieldname": "custom_prompt",
+   "fieldtype": "Text",
+   "label": "Custom Prompt"
+  },
+  {
+   "default": "0.7",
+   "description": "AI generation temperature (0.0-1.0). Lower = more deterministic",
+   "fieldname": "temperature",
+   "fieldtype": "Float",
+   "label": "Temperature",
+   "precision": "2"
+  },
+  {
+   "default": "2000",
+   "description": "Maximum tokens in AI response",
+   "fieldname": "max_tokens",
+   "fieldtype": "Int",
+   "label": "Max Tokens"
+  },
+  {
+   "fieldname": "section_break_scope",
+   "fieldtype": "Section Break",
+   "label": "Target Scope"
+  },
+  {
+   "description": "Locale for generated content (for translation/localization jobs)",
+   "fieldname": "target_locale",
+   "fieldtype": "Link",
+   "label": "Target Locale",
+   "options": "PIM Locale"
+  },
+  {
+   "description": "Channel to optimize content for",
+   "fieldname": "target_channel",
+   "fieldtype": "Link",
+   "label": "Target Channel",
+   "options": "Channel"
+  },
+  {
+   "fieldname": "column_break_scope",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Comma-separated list of attribute codes to enrich (leave empty for all applicable)",
+   "fieldname": "target_attributes",
+   "fieldtype": "Small Text",
+   "label": "Target Attributes"
+  },
+  {
+   "default": "0",
+   "description": "If checked, existing attribute values will be replaced",
+   "fieldname": "overwrite_existing",
+   "fieldtype": "Check",
+   "label": "Overwrite Existing Values"
+  },
+  {
+   "fieldname": "section_break_products",
+   "fieldtype": "Section Break",
+   "label": "Products to Process"
+  },
+  {
+   "default": "Manual Selection",
+   "description": "How to select products for this job",
+   "fieldname": "selection_method",
+   "fieldtype": "Select",
+   "label": "Product Selection Method",
+   "options": "\nManual Selection\nProduct Family\nProduct Category\nChannel\nFilter Query\nAll Products",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.selection_method=='Product Family'",
+   "description": "Process all products in this family (and sub-families)",
+   "fieldname": "filter_product_family",
+   "fieldtype": "Link",
+   "label": "Product Family",
+   "options": "Product Family"
+  },
+  {
+   "depends_on": "eval:doc.selection_method=='Product Category'",
+   "description": "Process all products in this category",
+   "fieldname": "filter_product_category",
+   "fieldtype": "Link",
+   "label": "Product Category",
+   "options": "Product Category"
+  },
+  {
+   "depends_on": "eval:doc.selection_method=='Channel'",
+   "description": "Process products assigned to this channel",
+   "fieldname": "filter_channel",
+   "fieldtype": "Link",
+   "label": "Filter by Channel",
+   "options": "Channel"
+  },
+  {
+   "depends_on": "eval:doc.selection_method=='Filter Query'",
+   "description": "JSON filter for product selection (e.g., {\"product_type\": \"Simple\", \"enabled\": 1})",
+   "fieldname": "filter_query",
+   "fieldtype": "Small Text",
+   "label": "Filter Query"
+  },
+  {
+   "default": "1",
+   "description": "Include product variants in processing",
+   "fieldname": "include_variants",
+   "fieldtype": "Check",
+   "label": "Include Variants"
+  },
+  {
+   "fieldname": "column_break_products",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Maximum products to process (0 = unlimited)",
+   "fieldname": "max_products",
+   "fieldtype": "Int",
+   "label": "Max Products"
+  },
+  {
+   "default": "1",
+   "description": "Skip products that already have values for target attributes",
+   "fieldname": "skip_completed",
+   "fieldtype": "Check",
+   "label": "Skip Already Enriched"
+  },
+  {
+   "default": "0",
+   "description": "Only process products below channel completeness threshold",
+   "fieldname": "only_incomplete",
+   "fieldtype": "Check",
+   "label": "Only Incomplete Products"
+  },
+  {
+   "depends_on": "eval:doc.only_incomplete",
+   "description": "Only process products with completeness at least this much below threshold",
+   "fieldname": "min_completeness_gap",
+   "fieldtype": "Percent",
+   "label": "Min Completeness Gap"
+  },
+  {
+   "depends_on": "eval:doc.selection_method=='Manual Selection'",
+   "description": "Products to process (for manual selection)",
+   "fieldname": "products",
+   "fieldtype": "Table",
+   "label": "Products",
+   "options": "Job Product Item"
+  },
+  {
+   "fieldname": "section_break_processing",
+   "fieldtype": "Section Break",
+   "label": "Processing Settings"
+  },
+  {
+   "default": "10",
+   "description": "Number of products to process in each batch",
+   "fieldname": "batch_size",
+   "fieldtype": "Int",
+   "label": "Batch Size"
+  },
+  {
+   "default": "1",
+   "description": "Retry failed products with exponential backoff",
+   "fieldname": "retry_on_failure",
+   "fieldtype": "Check",
+   "label": "Retry on Failure"
+  },
+  {
+   "default": "3",
+   "depends_on": "eval:doc.retry_on_failure",
+   "description": "Maximum retry attempts per product",
+   "fieldname": "max_retries",
+   "fieldtype": "Int",
+   "label": "Max Retries"
+  },
+  {
+   "fieldname": "column_break_processing",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "AI suggestions require approval before being applied",
+   "fieldname": "require_approval",
+   "fieldtype": "Check",
+   "label": "Require Approval"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.require_approval",
+   "description": "Automatically apply suggestions with confidence above threshold",
+   "fieldname": "auto_apply_high_confidence",
+   "fieldtype": "Check",
+   "label": "Auto-Apply High Confidence"
+  },
+  {
+   "default": "95",
+   "depends_on": "eval:doc.auto_apply_high_confidence",
+   "description": "Minimum confidence for auto-approval (95% recommended)",
+   "fieldname": "auto_apply_threshold",
+   "fieldtype": "Percent",
+   "label": "Auto-Apply Threshold"
+  },
+  {
+   "default": "1",
+   "description": "Send notification when job completes",
+   "fieldname": "notify_on_completion",
+   "fieldtype": "Check",
+   "label": "Notify on Completion"
+  },
+  {
+   "depends_on": "eval:doc.notify_on_completion",
+   "description": "Comma-separated list of user emails to notify",
+   "fieldname": "notification_users",
+   "fieldtype": "Small Text",
+   "label": "Notification Users"
+  },
+  {
+   "fieldname": "section_break_progress",
+   "fieldtype": "Section Break",
+   "label": "Progress"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Total products to process",
+   "fieldname": "total_products",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Products",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Products processed so far",
+   "fieldname": "processed_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Processed",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Products successfully enriched",
+   "fieldname": "successful_count",
+   "fieldtype": "Int",
+   "label": "Successful",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_progress",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Products that failed processing",
+   "fieldname": "failed_count",
+   "fieldtype": "Int",
+   "label": "Failed",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Products skipped (already enriched or filtered)",
+   "fieldname": "skipped_count",
+   "fieldtype": "Int",
+   "label": "Skipped",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Overall progress percentage",
+   "fieldname": "progress_percent",
+   "fieldtype": "Percent",
+   "label": "Progress",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Suggestions awaiting approval",
+   "fieldname": "pending_approval_count",
+   "fieldtype": "Int",
+   "label": "Pending Approval",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_execution",
+   "fieldtype": "Section Break",
+   "label": "Execution Details"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "When job execution started",
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "When job execution completed",
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_execution",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Total processing time in seconds",
+   "fieldname": "duration_seconds",
+   "fieldtype": "Int",
+   "label": "Duration (seconds)",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Average processing time per product",
+   "fieldname": "average_time_per_product",
+   "fieldtype": "Float",
+   "label": "Avg Time/Product (s)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Currently processing batch number",
+   "fieldname": "current_batch",
+   "fieldtype": "Int",
+   "label": "Current Batch",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Total number of batches",
+   "fieldname": "total_batches",
+   "fieldtype": "Int",
+   "label": "Total Batches",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_costs",
+   "fieldtype": "Section Break",
+   "label": "Cost Tracking"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Total API tokens consumed",
+   "fieldname": "total_tokens_used",
+   "fieldtype": "Int",
+   "label": "Total Tokens Used",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Tokens used for input/prompts",
+   "fieldname": "input_tokens",
+   "fieldtype": "Int",
+   "label": "Input Tokens",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Tokens used for output/responses",
+   "fieldname": "output_tokens",
+   "fieldtype": "Int",
+   "label": "Output Tokens",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_costs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Estimated API cost (USD)",
+   "fieldname": "estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Cost",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Average cost per product enriched",
+   "fieldname": "cost_per_product",
+   "fieldtype": "Currency",
+   "label": "Cost Per Product",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_errors",
+   "fieldtype": "Section Break",
+   "label": "Errors & Logs"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Most recent error message",
+   "fieldname": "last_error",
+   "fieldtype": "Small Text",
+   "label": "Last Error",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Detailed error log (JSON array)",
+   "fieldname": "error_log",
+   "fieldtype": "JSON",
+   "label": "Error Log",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Detailed processing log (JSON array)",
+   "fieldname": "processing_log",
+   "fieldtype": "JSON",
+   "label": "Processing Log",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_metadata",
+   "fieldtype": "Section Break",
+   "label": "Metadata"
+  },
+  {
+   "description": "User who created this job",
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Position in processing queue",
+   "fieldname": "queue_position",
+   "fieldtype": "Int",
+   "label": "Queue Position",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_metadata",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "ID of background worker processing this job",
+   "fieldname": "worker_id",
+   "fieldtype": "Data",
+   "label": "Worker ID",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Unique ID for tracking across systems",
+   "fieldname": "correlation_id",
+   "fieldtype": "Data",
+   "label": "Correlation ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "AI Enrichment Job",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-21 13:44:52.162179",
+ "modified_by": "Administrator",
+ "module": "PIM",
+ "name": "AI Enrichment Job",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "role": "PIM Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "PIM User",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Blue",
+   "title": "Draft"
+  },
+  {
+   "color": "Blue",
+   "title": "Queued"
+  },
+  {
+   "color": "Blue",
+   "title": "Processing"
+  },
+  {
+   "color": "Blue",
+   "title": "Completed"
+  },
+  {
+   "color": "Blue",
+   "title": "Partially Completed"
+  },
+  {
+   "color": "Blue",
+   "title": "Failed"
+  },
+  {
+   "color": "Blue",
+   "title": "Cancelled"
+  }
+ ],
+ "track_changes": 1
+}

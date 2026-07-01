@@ -1,0 +1,58 @@
+{
+  "doctype": "DocType",
+  "name": "Brand Portal User Brand",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3,
+      "description": "Brand assigned to this portal user"
+    },
+    {
+      "fieldname": "brand_name",
+      "fieldtype": "Data",
+      "label": "Brand Name",
+      "fetch_from": "brand.brand_name",
+      "read_only": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "access_level",
+      "fieldtype": "Select",
+      "label": "Access Level",
+      "options": "View Only\nContributor\nEditor\nBrand Admin",
+      "default": "View Only",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "Level of access for this brand"
+    },
+    {
+      "fieldname": "assigned_at",
+      "fieldtype": "Datetime",
+      "label": "Assigned At",
+      "read_only": 1,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "When this brand was assigned to the user"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Notes",
+      "description": "Notes about this brand assignment"
+    }
+  ],
+
+  "permissions": []
+}

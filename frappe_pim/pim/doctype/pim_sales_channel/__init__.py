@@ -1,0 +1,1 @@
+# PIM Sales Channel DocType

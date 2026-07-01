@@ -1,0 +1,272 @@
+{
+  "doctype": "DocType",
+  "name": "PIM Sync Queue",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "SYNC-.#####",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "document_name",
+
+  "fields": [
+    {
+      "fieldname": "section_break_main",
+      "fieldtype": "Section Break",
+      "label": "Sync Entry Details"
+    },
+    {
+      "fieldname": "doctype_name",
+      "fieldtype": "Link",
+      "label": "DocType",
+      "options": "DocType",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The DocType being synced"
+    },
+    {
+      "fieldname": "document_name",
+      "fieldtype": "Dynamic Link",
+      "label": "Document",
+      "options": "doctype_name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "The specific document being synced"
+    },
+    {
+      "fieldname": "column_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sync_direction",
+      "fieldtype": "Select",
+      "label": "Sync Direction",
+      "options": "PIM to ERP\nERP to PIM",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "default": "PIM to ERP",
+      "description": "Direction of data flow"
+    },
+    {
+      "fieldname": "sync_action",
+      "fieldtype": "Select",
+      "label": "Sync Action",
+      "options": "Create\nUpdate\nDelete",
+      "reqd": 1,
+      "default": "Update",
+      "description": "Type of sync operation"
+    },
+    {
+      "fieldname": "section_break_status",
+      "fieldtype": "Section Break",
+      "label": "Status & Priority"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Pending\nProcessing\nCompleted\nFailed\nCancelled",
+      "reqd": 1,
+      "default": "Pending",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the sync entry"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Int",
+      "label": "Priority",
+      "default": 0,
+      "in_list_view": 1,
+      "description": "Higher priority entries are processed first (higher = more urgent)"
+    },
+    {
+      "fieldname": "column_break_status",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "retry_count",
+      "fieldtype": "Int",
+      "label": "Retry Count",
+      "default": 0,
+      "read_only": 1,
+      "description": "Number of times this entry has been retried"
+    },
+    {
+      "fieldname": "max_retries",
+      "fieldtype": "Int",
+      "label": "Max Retries",
+      "default": 3,
+      "description": "Maximum retry attempts before moving to dead letter"
+    },
+    {
+      "fieldname": "section_break_timing",
+      "fieldtype": "Section Break",
+      "label": "Timing"
+    },
+    {
+      "fieldname": "scheduled_at",
+      "fieldtype": "Datetime",
+      "label": "Scheduled At",
+      "description": "When to process this entry (leave empty for immediate processing)"
+    },
+    {
+      "fieldname": "started_at",
+      "fieldtype": "Datetime",
+      "label": "Started At",
+      "read_only": 1,
+      "description": "When processing started"
+    },
+    {
+      "fieldname": "column_break_timing",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "completed_at",
+      "fieldtype": "Datetime",
+      "label": "Completed At",
+      "read_only": 1,
+      "description": "When processing completed"
+    },
+    {
+      "fieldname": "processing_time_ms",
+      "fieldtype": "Int",
+      "label": "Processing Time (ms)",
+      "read_only": 1,
+      "description": "Time taken to process in milliseconds"
+    },
+    {
+      "fieldname": "section_break_payload",
+      "fieldtype": "Section Break",
+      "label": "Sync Payload",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "payload",
+      "fieldtype": "JSON",
+      "label": "Payload",
+      "description": "JSON data to be synced (changes, field mappings, etc.)"
+    },
+    {
+      "fieldname": "changed_fields",
+      "fieldtype": "Small Text",
+      "label": "Changed Fields",
+      "description": "Comma-separated list of fields that changed"
+    },
+    {
+      "fieldname": "section_break_result",
+      "fieldtype": "Section Break",
+      "label": "Result",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "erp_document",
+      "fieldtype": "Data",
+      "label": "ERP Document",
+      "read_only": 1,
+      "description": "Linked document in ERPNext (Item name, etc.)"
+    },
+    {
+      "fieldname": "result_message",
+      "fieldtype": "Small Text",
+      "label": "Result Message",
+      "read_only": 1,
+      "description": "Success message or details"
+    },
+    {
+      "fieldname": "column_break_result",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "error_message",
+      "fieldtype": "Long Text",
+      "label": "Error Message",
+      "read_only": 1,
+      "description": "Error details if sync failed"
+    },
+    {
+      "fieldname": "error_traceback",
+      "fieldtype": "Code",
+      "label": "Error Traceback",
+      "read_only": 1,
+      "options": "Python",
+      "description": "Full error traceback for debugging"
+    },
+    {
+      "fieldname": "section_break_job",
+      "fieldtype": "Section Break",
+      "label": "Background Job",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "job_id",
+      "fieldtype": "Data",
+      "label": "Job ID",
+      "read_only": 1,
+      "description": "Background job ID for tracking"
+    },
+    {
+      "fieldname": "column_break_job",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "created_by_user",
+      "fieldtype": "Link",
+      "label": "Created By",
+      "options": "User",
+      "read_only": 1,
+      "description": "User who triggered this sync"
+    },
+    {
+      "fieldname": "section_break_conflict",
+      "fieldtype": "Section Break",
+      "label": "Conflict Resolution",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "has_conflict",
+      "fieldtype": "Check",
+      "label": "Has Conflict",
+      "read_only": 1,
+      "description": "Whether a conflict was detected during sync"
+    },
+    {
+      "fieldname": "conflict_resolution",
+      "fieldtype": "Select",
+      "label": "Conflict Resolution",
+      "options": "\nPIM Wins\nERP Wins\nLatest Wins\nManual",
+      "depends_on": "has_conflict",
+      "description": "How the conflict was resolved"
+    },
+    {
+      "fieldname": "column_break_conflict",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "conflict_details",
+      "fieldtype": "JSON",
+      "label": "Conflict Details",
+      "depends_on": "has_conflict",
+      "read_only": 1,
+      "description": "Details of the conflict (field values from both sides)"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1, "write": 1, "create": 1
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "doctype": "DocType",
+  "name": "Policy Product Family",
+  "module": "PIM",
+  "istable": 1,
+  "editable_grid": 1,
+  "track_changes": 0,
+
+  "fields": [
+    {
+      "fieldname": "product_family",
+      "fieldtype": "Link",
+      "label": "Product Family",
+      "options": "Product Family",
+      "reqd": 1,
+      "in_list_view": 1
+    }
+  ],
+
+  "permissions": []
+}

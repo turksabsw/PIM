@@ -1,0 +1,285 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2024-01-15 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "product_section",
+  "product",
+  "product_name",
+  "column_break_product",
+  "enrichment_type",
+  "language",
+  "status",
+  "content_section",
+  "original_content",
+  "column_break_content",
+  "suggested_content",
+  "review_section",
+  "reviewed_by",
+  "reviewed_on",
+  "column_break_review",
+  "rejection_reason",
+  "notes",
+  "metadata_section",
+  "confidence_score",
+  "model_used",
+  "column_break_metadata",
+  "tokens_used",
+  "estimated_cost",
+  "metadata",
+  "auto_approval_section",
+  "auto_approved",
+  "auto_approval_rule",
+  "column_break_auto",
+  "approval_threshold",
+  "notification_section",
+  "notification_sent",
+  "notification_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_section",
+   "fieldtype": "Section Break",
+   "label": "Product Information"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Product",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "product.item_name",
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "label": "Product Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_product",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enrichment_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Enrichment Type",
+   "options": "\ndescription\ntitle\nkeywords\ntranslation\nattributes\nmeta_description\nbullet_points",
+   "reqd": 1
+  },
+  {
+   "default": "en",
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Language",
+   "options": "Language"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected\nAuto Approved\nExpired",
+   "reqd": 1
+  },
+  {
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Content"
+  },
+  {
+   "fieldname": "original_content",
+   "fieldtype": "Long Text",
+   "label": "Original Content"
+  },
+  {
+   "fieldname": "column_break_content",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "suggested_content",
+   "fieldtype": "Long Text",
+   "label": "Suggested Content",
+   "reqd": 1
+  },
+  {
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Review"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_on",
+   "fieldtype": "Datetime",
+   "label": "Reviewed On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_review",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejection_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejection Reason"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "metadata_section",
+   "fieldtype": "Section Break",
+   "label": "AI Metadata"
+  },
+  {
+   "fieldname": "confidence_score",
+   "fieldtype": "Percent",
+   "label": "Confidence Score",
+   "read_only": 1
+  },
+  {
+   "fieldname": "model_used",
+   "fieldtype": "Data",
+   "label": "AI Model Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_metadata",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tokens_used",
+   "fieldtype": "Int",
+   "label": "Tokens Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Cost (USD)",
+   "precision": "6",
+   "read_only": 1
+  },
+  {
+   "fieldname": "metadata",
+   "fieldtype": "Code",
+   "label": "Metadata (JSON)",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "auto_approval_section",
+   "fieldtype": "Section Break",
+   "label": "Auto Approval"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_approved",
+   "fieldtype": "Check",
+   "label": "Auto Approved",
+   "read_only": 1
+  },
+  {
+   "fieldname": "auto_approval_rule",
+   "fieldtype": "Data",
+   "label": "Auto Approval Rule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_auto",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approval_threshold",
+   "fieldtype": "Percent",
+   "label": "Approval Threshold"
+  },
+  {
+   "fieldname": "notification_section",
+   "fieldtype": "Section Break",
+   "label": "Notification"
+  },
+  {
+   "default": "0",
+   "fieldname": "notification_sent",
+   "fieldtype": "Check",
+   "label": "Notification Sent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notification_date",
+   "fieldtype": "Datetime",
+   "label": "Notification Date",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_submittable": 0,
+ "links": [],
+ "modified": "2024-01-15 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "PIM",
+ "name": "AI Approval Queue",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "PIM Manager",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "role": "PIM User",
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "product",
+ "track_changes": 1
+}

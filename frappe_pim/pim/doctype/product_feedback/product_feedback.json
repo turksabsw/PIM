@@ -1,0 +1,399 @@
+{
+  "doctype": "DocType",
+  "name": "Product Feedback",
+  "module": "PIM",
+  "naming_rule": "Expression",
+  "autoname": "PF-.#####",
+  "is_submittable": 0,
+  "allow_rename": 0,
+  "track_changes": 1,
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "fields": [
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "label": "Title",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Brief summary of the feedback"
+    },
+    {
+      "fieldname": "feedback_type",
+      "fieldtype": "Select",
+      "label": "Feedback Type",
+      "reqd": 1,
+      "options": "Comment\nComplaint\nSuggestion\nQuestion\nReview\nBug Report",
+      "default": "Comment",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Type of customer feedback"
+    },
+    {
+      "fieldname": "column_break_basic",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "reqd": 1,
+      "options": "New\nUnder Review\nIn Progress\nResolved\nClosed\nRejected",
+      "default": "New",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Current status of the feedback"
+    },
+    {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "Low\nMedium\nHigh\nCritical",
+      "default": "Medium",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Priority level for handling this feedback"
+    },
+    {
+      "fieldname": "section_break_product",
+      "fieldtype": "Section Break",
+      "label": "Product Information"
+    },
+    {
+      "fieldname": "linked_product",
+      "fieldtype": "Link",
+      "label": "Linked Product",
+      "options": "Product Master",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Product this feedback is about"
+    },
+    {
+      "fieldname": "linked_product_variant",
+      "fieldtype": "Link",
+      "label": "Linked Product Variant",
+      "options": "Product Variant",
+      "in_standard_filter": 1,
+      "description": "Specific product variant (if applicable)"
+    },
+    {
+      "fieldname": "column_break_product",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_product_family",
+      "fieldtype": "Link",
+      "label": "Linked Product Family",
+      "options": "Product Family",
+      "in_standard_filter": 1,
+      "description": "Product family (auto-populated from product)"
+    },
+    {
+      "fieldname": "purchase_date",
+      "fieldtype": "Date",
+      "label": "Purchase Date",
+      "description": "When the customer purchased the product"
+    },
+    {
+      "fieldname": "section_break_customer",
+      "fieldtype": "Section Break",
+      "label": "Customer Information"
+    },
+    {
+      "fieldname": "customer_name",
+      "fieldtype": "Data",
+      "label": "Customer Name",
+      "description": "Name of the customer providing feedback"
+    },
+    {
+      "fieldname": "customer_email",
+      "fieldtype": "Data",
+      "label": "Customer Email",
+      "options": "Email",
+      "description": "Email address for follow-up"
+    },
+    {
+      "fieldname": "customer_phone",
+      "fieldtype": "Data",
+      "label": "Customer Phone",
+      "options": "Phone",
+      "description": "Phone number for follow-up"
+    },
+    {
+      "fieldname": "column_break_customer",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "linked_customer",
+      "fieldtype": "Link",
+      "label": "Customer",
+      "options": "Customer",
+      "description": "Link to ERPNext Customer record (if available)"
+    },
+    {
+      "fieldname": "source_channel",
+      "fieldtype": "Select",
+      "label": "Source Channel",
+      "options": "Email\nPhone\nWebsite\nSocial Media\nIn-Store\nChat\nMarketplace\nOther",
+      "default": "Website",
+      "in_standard_filter": 1,
+      "description": "How the feedback was received"
+    },
+    {
+      "fieldname": "external_reference",
+      "fieldtype": "Data",
+      "label": "External Reference",
+      "description": "Reference ID from external system (ticket number, review ID, etc.)"
+    },
+    {
+      "fieldname": "section_break_feedback",
+      "fieldtype": "Section Break",
+      "label": "Feedback Details"
+    },
+    {
+      "fieldname": "feedback_content",
+      "fieldtype": "Text Editor",
+      "label": "Feedback Content",
+      "reqd": 1,
+      "description": "Full text of customer feedback"
+    },
+    {
+      "fieldname": "section_break_rating",
+      "fieldtype": "Section Break",
+      "label": "Rating"
+    },
+    {
+      "fieldname": "rating",
+      "fieldtype": "Rating",
+      "label": "Rating",
+      "description": "Customer rating (if applicable)"
+    },
+    {
+      "fieldname": "would_recommend",
+      "fieldtype": "Check",
+      "label": "Would Recommend",
+      "description": "Customer would recommend this product"
+    },
+    {
+      "fieldname": "column_break_rating",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "sentiment",
+      "fieldtype": "Select",
+      "label": "Sentiment",
+      "options": "Positive\nNeutral\nNegative",
+      "default": "Neutral",
+      "in_standard_filter": 1,
+      "description": "Overall sentiment of the feedback"
+    },
+    {
+      "fieldname": "verified_purchase",
+      "fieldtype": "Check",
+      "label": "Verified Purchase",
+      "description": "Customer purchase has been verified"
+    },
+    {
+      "fieldname": "section_break_resolution",
+      "fieldtype": "Section Break",
+      "label": "Resolution"
+    },
+    {
+      "fieldname": "assigned_to",
+      "fieldtype": "Link",
+      "label": "Assigned To",
+      "options": "User",
+      "in_standard_filter": 1,
+      "description": "User responsible for handling this feedback"
+    },
+    {
+      "fieldname": "response_due_date",
+      "fieldtype": "Date",
+      "label": "Response Due Date",
+      "description": "Target date for initial response"
+    },
+    {
+      "fieldname": "column_break_resolution",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "first_response_date",
+      "fieldtype": "Datetime",
+      "label": "First Response Date",
+      "read_only": 1,
+      "description": "When the first response was sent"
+    },
+    {
+      "fieldname": "resolved_date",
+      "fieldtype": "Datetime",
+      "label": "Resolved Date",
+      "read_only": 1,
+      "description": "When the issue was resolved"
+    },
+    {
+      "fieldname": "section_break_resolution_notes",
+      "fieldtype": "Section Break",
+      "label": "Resolution Notes"
+    },
+    {
+      "fieldname": "resolution_notes",
+      "fieldtype": "Text Editor",
+      "label": "Resolution Notes",
+      "description": "Internal notes on how the feedback was addressed"
+    },
+    {
+      "fieldname": "customer_response",
+      "fieldtype": "Text Editor",
+      "label": "Customer Response",
+      "description": "Response sent to the customer"
+    },
+    {
+      "fieldname": "section_break_action",
+      "fieldtype": "Section Break",
+      "label": "Action Taken",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "action_taken",
+      "fieldtype": "Select",
+      "label": "Action Taken",
+      "options": "\nNo Action Required\nRefund Issued\nReplacement Sent\nProduct Updated\nDocumentation Updated\nFeature Added\nBug Fixed\nEscalated\nForwarded to Team",
+      "description": "Primary action taken to resolve this feedback"
+    },
+    {
+      "fieldname": "action_details",
+      "fieldtype": "Small Text",
+      "label": "Action Details",
+      "description": "Additional details about actions taken"
+    },
+    {
+      "fieldname": "column_break_action",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "improvement_suggestion",
+      "fieldtype": "Small Text",
+      "label": "Improvement Suggestion",
+      "description": "Suggestions for product or process improvements based on this feedback"
+    },
+    {
+      "fieldname": "follow_up_required",
+      "fieldtype": "Check",
+      "label": "Follow-up Required",
+      "description": "Additional follow-up with customer is needed"
+    },
+    {
+      "fieldname": "follow_up_date",
+      "fieldtype": "Date",
+      "label": "Follow-up Date",
+      "depends_on": "follow_up_required",
+      "description": "Date for follow-up"
+    },
+    {
+      "fieldname": "section_break_attachments",
+      "fieldtype": "Section Break",
+      "label": "Attachments",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "attachments",
+      "fieldtype": "Attach",
+      "label": "Attachments",
+      "description": "Supporting documents, images, or screenshots"
+    },
+    {
+      "fieldname": "section_break_internal",
+      "fieldtype": "Section Break",
+      "label": "Internal Notes",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "internal_notes",
+      "fieldtype": "Text Editor",
+      "label": "Internal Notes",
+      "description": "Notes visible only to internal team"
+    },
+    {
+      "fieldname": "tags",
+      "fieldtype": "Small Text",
+      "label": "Tags",
+      "description": "Comma-separated tags for categorization"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
+    },
+    {
+      "role": "PIM User",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    }
+  ],
+  "field_order": [
+    "title",
+    "feedback_type",
+    "column_break_basic",
+    "status",
+    "priority",
+    "section_break_product",
+    "linked_product",
+    "linked_product_variant",
+    "column_break_product",
+    "linked_product_family",
+    "purchase_date",
+    "section_break_customer",
+    "customer_name",
+    "customer_email",
+    "customer_phone",
+    "column_break_customer",
+    "linked_customer",
+    "source_channel",
+    "external_reference",
+    "section_break_feedback",
+    "feedback_content",
+    "section_break_rating",
+    "rating",
+    "would_recommend",
+    "column_break_rating",
+    "sentiment",
+    "verified_purchase",
+    "section_break_resolution",
+    "assigned_to",
+    "response_due_date",
+    "column_break_resolution",
+    "first_response_date",
+    "resolved_date",
+    "section_break_resolution_notes",
+    "resolution_notes",
+    "customer_response",
+    "section_break_action",
+    "action_taken",
+    "action_details",
+    "column_break_action",
+    "improvement_suggestion",
+    "follow_up_required",
+    "follow_up_date",
+    "section_break_attachments",
+    "attachments",
+    "section_break_internal",
+    "internal_notes",
+    "tags"
+  ]
+}

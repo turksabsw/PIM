@@ -1,0 +1,60 @@
+{
+    "doctype": "DocType",
+    "name": "Product Certification Item",
+    "module": "PIM",
+    "istable": 1,
+    "editable_grid": 1,
+    "track_changes": 0,
+    "fields": [
+        {
+            "fieldname": "certification_name",
+            "fieldtype": "Data",
+            "label": "Certification",
+            "reqd": 1,
+            "in_list_view": 1,
+            "columns": 3
+        },
+        {
+            "fieldname": "certification_body",
+            "fieldtype": "Data",
+            "label": "Issuing Body",
+            "in_list_view": 1,
+            "columns": 2
+        },
+        {
+            "fieldname": "certificate_number",
+            "fieldtype": "Data",
+            "label": "Certificate No.",
+            "in_list_view": 1,
+            "columns": 2
+        },
+        {
+            "fieldname": "valid_from",
+            "fieldtype": "Date",
+            "label": "Valid From",
+            "in_list_view": 1,
+            "columns": 1
+        },
+        {
+            "fieldname": "valid_to",
+            "fieldtype": "Date",
+            "label": "Valid To",
+            "in_list_view": 1,
+            "columns": 1
+        },
+        {
+            "fieldname": "certificate_file",
+            "fieldtype": "Attach",
+            "label": "Certificate File"
+        }
+    ],
+    "permissions": [],
+    "field_order": [
+        "certification_name",
+        "certification_body",
+        "certificate_number",
+        "valid_from",
+        "valid_to",
+        "certificate_file"
+    ]
+}
