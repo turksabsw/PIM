@@ -1,0 +1,13 @@
+.DS_Store
+*.pyc
+*.egg-info
+*.swp
+tags
+node_modules
+__pycache__/
+*.egg-info/
+.venv
+env
+.idea
+.vscode
+.wnf-lang-status
