@@ -45,6 +45,7 @@ def _get_or_create_api_credentials(user):
 
 
 @frappe.whitelist(allow_guest=True)
+@frappe.rate_limit(key="usr", limit=5, seconds=60)
 def login(usr, pwd):
     """Authenticate and return an API token (api_key:api_secret)."""
     user = _resolve_user(usr)
@@ -68,6 +69,7 @@ def login(usr, pwd):
 
 
 @frappe.whitelist(allow_guest=True)
+@frappe.rate_limit(key="email", limit=5, seconds=60)
 def register(email, full_name):
     """Public self-signup: create a Website User and send a verification email.
 
