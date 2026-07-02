@@ -12,3 +12,5 @@ frappe_pim.patches.v1_0.create_tenant_config
 frappe_pim.patches.v1_0.seed_industry_templates
 # Migrate Tenant Config from Single (per-site) to per-user DocType
 frappe_pim.patches.v1_0.migrate_tenant_config_to_per_user
+# Enable public website signup for decoupled SPA register tab
+frappe_pim.patches.v1_0.enable_website_signup
