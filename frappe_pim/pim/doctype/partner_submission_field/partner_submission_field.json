@@ -5,7 +5,15 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "field_name",
+    "field_label",
+    "original_value",
+    "new_value",
+    "approval_status",
+    "reviewer_note",
+    "change_type"
+  ],
   "fields": [
     {
       "fieldname": "field_name",
@@ -66,6 +74,5 @@
       "description": "Type of change"
     }
   ],
-
   "permissions": []
 }

@@ -9,7 +9,38 @@
   "sort_field": "modified",
   "sort_order": "DESC",
   "title_field": "rule_name",
-
+  "field_order": [
+    "section_break_main",
+    "rule_name",
+    "rule_code",
+    "column_break_1",
+    "is_active",
+    "priority",
+    "section_break_scope",
+    "doctype_name",
+    "field_name",
+    "column_break_scope",
+    "sync_direction",
+    "section_break_resolution",
+    "priority_source",
+    "resolution_strategy",
+    "column_break_resolution",
+    "notify_on_conflict",
+    "notification_recipients",
+    "section_break_conditions",
+    "condition_type",
+    "condition_field",
+    "condition_operator",
+    "condition_value",
+    "column_break_conditions",
+    "time_window_hours",
+    "custom_condition",
+    "section_break_audit",
+    "times_triggered",
+    "last_triggered",
+    "column_break_audit",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "section_break_main",
@@ -215,15 +246,23 @@
       "description": "Detailed description of what this rule does and when to use it"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",

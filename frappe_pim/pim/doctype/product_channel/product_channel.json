@@ -5,7 +5,16 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "channel",
+    "is_published",
+    "published_date",
+    "last_sync",
+    "sync_status",
+    "external_id",
+    "external_url",
+    "error_message"
+  ],
   "fields": [
     {
       "fieldname": "channel",
@@ -73,6 +82,5 @@
       "hidden": 1
     }
   ],
-
   "permissions": []
 }

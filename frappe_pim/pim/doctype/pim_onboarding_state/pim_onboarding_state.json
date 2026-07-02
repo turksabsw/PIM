@@ -6,7 +6,38 @@
   "is_submittable": 0,
   "track_changes": 1,
   "autoname": "hash",
-
+  "field_order": [
+    "section_break_status",
+    "user",
+    "current_step",
+    "column_break_status",
+    "is_completed",
+    "is_skipped",
+    "started_at",
+    "completed_at",
+    "section_break_industry",
+    "selected_archetype",
+    "template_applied",
+    "column_break_industry",
+    "template_applied_at",
+    "template_result",
+    "section_break_steps",
+    "company_info_data",
+    "industry_selection_data",
+    "product_structure_data",
+    "channel_setup_data",
+    "workflow_preferences_data",
+    "compliance_setup_data",
+    "customization_review_data",
+    "first_data_data",
+    "guided_tour_data",
+    "section_break_progress",
+    "steps_completed",
+    "progress_percent",
+    "column_break_progress",
+    "last_step_completed_at",
+    "error_log"
+  ],
   "fields": [
     {
       "fieldname": "section_break_status",
@@ -205,7 +236,6 @@
       "description": "Any errors encountered during onboarding"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

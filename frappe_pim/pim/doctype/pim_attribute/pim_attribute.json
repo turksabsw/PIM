@@ -9,7 +9,39 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-  
+  "field_order": [
+    "attribute_name",
+    "attribute_code",
+    "column_break_1",
+    "attribute_group",
+    "data_type",
+    "section_break_options",
+    "options",
+    "section_break_link",
+    "linked_doctype",
+    "section_break_validation",
+    "is_required",
+    "is_unique",
+    "column_break_validation",
+    "min_value",
+    "max_value",
+    "max_length",
+    "value_prefix",
+    "value_suffix",
+    "section_break_display",
+    "is_filterable",
+    "is_searchable",
+    "column_break_display",
+    "show_in_grid",
+    "sort_order",
+    "section_break_completeness",
+    "weight_in_completeness",
+    "section_break_localization",
+    "is_localizable",
+    "section_break_meta",
+    "is_standard",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "attribute_name",
@@ -207,7 +239,6 @@
       "label": "Description"
     }
   ],
-  
   "permissions": [
     {
       "role": "System Manager",

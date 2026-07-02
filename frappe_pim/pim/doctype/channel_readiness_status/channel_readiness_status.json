@@ -6,7 +6,32 @@
   "editable_grid": 1,
   "track_changes": 0,
   "engine": "InnoDB",
-
+  "field_order": [
+    "channel",
+    "completeness_score",
+    "is_ready",
+    "critical_gaps",
+    "required_gaps",
+    "column_break_1",
+    "recommended_gaps",
+    "last_calculated",
+    "section_missing_details",
+    "missing_attributes",
+    "column_break_2",
+    "validation_errors",
+    "section_media",
+    "media_complete",
+    "media_gaps",
+    "column_break_3",
+    "image_count",
+    "min_images_required",
+    "section_scores",
+    "critical_score",
+    "required_score",
+    "column_break_4",
+    "recommended_score",
+    "remediation_summary"
+  ],
   "fields": [
     {
       "fieldname": "channel",
@@ -173,6 +198,5 @@
       "description": "Brief summary of steps needed to make product channel-ready"
     }
   ],
-
   "permissions": []
 }

@@ -6,6 +6,28 @@
   "autoname": "field:type_code",
   "track_changes": 1,
   "engine": "InnoDB",
+  "field_order": [
+    "type_name",
+    "type_code",
+    "column_break_1",
+    "base_type",
+    "is_active",
+    "is_standard",
+    "section_break_options",
+    "has_options",
+    "supports_unit",
+    "default_unit",
+    "section_break_validation",
+    "validation_regex",
+    "validation_message",
+    "min_value",
+    "max_value",
+    "max_length",
+    "section_break_ui",
+    "input_component",
+    "display_component",
+    "icon"
+  ],
   "fields": [
     {
       "fieldname": "type_name",

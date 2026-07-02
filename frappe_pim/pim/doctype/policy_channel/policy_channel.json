@@ -5,7 +5,9 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "channel"
+  ],
   "fields": [
     {
       "fieldname": "channel",
@@ -16,6 +18,5 @@
       "in_list_view": 1
     }
   ],
-
   "permissions": []
 }

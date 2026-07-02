@@ -8,7 +8,59 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "contract_name",
+    "is_active",
+    "column_break_1",
+    "priority",
+    "section_break_customer",
+    "apply_to",
+    "customer",
+    "column_break_customer",
+    "customer_segment",
+    "customer_group",
+    "section_break_product",
+    "product_scope",
+    "product_variant",
+    "column_break_product",
+    "product_master",
+    "product_family",
+    "product_type",
+    "section_break_channel",
+    "apply_to_all_channels",
+    "sales_channel",
+    "section_break_pricing",
+    "pricing_type",
+    "contract_price",
+    "column_break_pricing",
+    "discount_percent",
+    "discount_amount",
+    "currency",
+    "section_break_quantity",
+    "enable_quantity_tiers",
+    "min_qty",
+    "max_qty",
+    "quantity_tiers",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "contract_reference",
+    "section_break_guardrails",
+    "min_price_guardrail",
+    "max_price_guardrail",
+    "column_break_guardrails",
+    "allow_below_cost",
+    "enforce_map",
+    "section_break_erp",
+    "erp_pricing_rule",
+    "sync_to_erp",
+    "column_break_erp",
+    "last_sync_date",
+    "sync_status",
+    "section_break_notes",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "contract_name",
@@ -367,19 +419,32 @@
       "description": "Internal notes about this contract price"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "Sales Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 0, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 0,
+      "export": 1
     },
     {
       "role": "PIM User",

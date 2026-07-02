@@ -5,7 +5,16 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "locale",
+    "is_primary",
+    "enabled",
+    "content_required",
+    "fallback_locale",
+    "min_completeness",
+    "export_priority",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "locale",
@@ -68,6 +77,5 @@
       "description": "Notes about this locale configuration for the channel"
     }
   ],
-
   "permissions": []
 }

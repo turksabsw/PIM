@@ -5,7 +5,14 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "tier_name",
+    "min_qty",
+    "max_qty",
+    "tier_price",
+    "discount_percent",
+    "discount_amount"
+  ],
   "fields": [
     {
       "fieldname": "tier_name",
@@ -58,6 +65,5 @@
       "description": "Fixed discount amount for this tier"
     }
   ],
-
   "permissions": []
 }

@@ -8,7 +8,42 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "steward",
+    "steward_name",
+    "column_break_1",
+    "role",
+    "status",
+    "section_break_domain",
+    "domain",
+    "domain_value",
+    "domain_doctype",
+    "column_break_domain",
+    "include_children",
+    "priority",
+    "section_break_responsibilities",
+    "can_approve",
+    "can_publish",
+    "can_merge",
+    "column_break_responsibilities",
+    "can_delete",
+    "can_assign_stewards",
+    "receives_notifications",
+    "section_break_validity",
+    "valid_from",
+    "valid_until",
+    "column_break_validity",
+    "backup_steward",
+    "escalation_to",
+    "section_break_metrics",
+    "products_in_domain",
+    "pending_approvals",
+    "column_break_metrics",
+    "avg_quality_score",
+    "last_activity",
+    "section_break_notes",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "steward",
@@ -238,15 +273,23 @@
       "description": "Additional notes about this stewardship assignment"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",

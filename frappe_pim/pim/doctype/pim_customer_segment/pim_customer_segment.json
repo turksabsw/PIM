@@ -8,7 +8,37 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "segment_name",
+    "segment_code",
+    "column_break_1",
+    "priority",
+    "is_active",
+    "section_break_erp",
+    "erp_customer_group",
+    "erp_pricing_rule",
+    "section_break_pricing",
+    "discount_type",
+    "discount_percent",
+    "discount_amount",
+    "column_break_pricing",
+    "max_discount_percent",
+    "min_order_value",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "column_break_validity",
+    "apply_to_all_channels",
+    "specific_channels",
+    "section_break_criteria",
+    "segment_type",
+    "criteria_description",
+    "column_break_criteria",
+    "min_total_orders",
+    "min_total_spend",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "segment_name",
@@ -197,15 +227,24 @@
       "label": "Description"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",

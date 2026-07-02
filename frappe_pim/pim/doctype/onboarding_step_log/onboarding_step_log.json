@@ -6,7 +6,22 @@
   "is_submittable": 0,
   "track_changes": 0,
   "autoname": "hash",
-
+  "field_order": [
+    "section_break_step",
+    "user",
+    "step_id",
+    "step_number",
+    "column_break_step",
+    "action",
+    "section_break_data",
+    "form_data",
+    "validation_errors",
+    "section_break_timing",
+    "started_at",
+    "column_break_timing",
+    "completed_at",
+    "time_spent_seconds"
+  ],
   "fields": [
     {
       "fieldname": "section_break_step",
@@ -100,7 +115,6 @@
       "description": "Time spent on this step in seconds"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
@@ -123,7 +137,6 @@
       "if_owner": 1
     }
   ],
-
   "sort_field": "creation",
   "sort_order": "DESC"
 }

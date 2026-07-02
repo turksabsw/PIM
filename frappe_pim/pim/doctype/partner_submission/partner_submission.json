@@ -9,7 +9,62 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "portal_user",
+    "brand",
+    "submission_status",
+    "column_break_basic",
+    "submission_date",
+    "priority",
+    "section_break_product",
+    "product_name",
+    "product_code",
+    "barcode",
+    "column_break_product",
+    "product_type",
+    "product_family",
+    "item_group",
+    "section_break_description",
+    "short_description",
+    "full_description",
+    "section_break_pricing",
+    "standard_price",
+    "currency",
+    "column_break_pricing",
+    "msrp",
+    "cost_price",
+    "section_break_attributes",
+    "attributes_json",
+    "section_break_media",
+    "primary_image",
+    "additional_images",
+    "column_break_media",
+    "video_url",
+    "documents",
+    "section_break_dimensions",
+    "weight",
+    "weight_uom",
+    "column_break_dimensions",
+    "length",
+    "width",
+    "height",
+    "dimension_uom",
+    "section_break_review",
+    "reviewer",
+    "reviewed_on",
+    "column_break_review",
+    "review_notes",
+    "rejection_reason",
+    "revision_requested",
+    "section_break_result",
+    "created_item",
+    "created_product",
+    "column_break_result",
+    "item_created_on",
+    "section_break_internal",
+    "internal_notes",
+    "quality_score"
+  ],
   "fields": [
     {
       "fieldname": "portal_user",
@@ -366,7 +421,6 @@
       "description": "Auto-calculated quality score"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
@@ -403,7 +457,6 @@
       "create": 1
     }
   ],
-
   "states": [
     {
       "title": "Draft",

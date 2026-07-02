@@ -10,7 +10,19 @@
   "sort_field": "modified",
   "sort_order": "DESC",
   "is_virtual": 0,
-
+  "field_order": [
+    "type_name",
+    "type_code",
+    "description",
+    "is_active",
+    "section_variant_config",
+    "allow_variants",
+    "default_attribute_template",
+    "section_type_fields",
+    "type_fields",
+    "section_allowed_families",
+    "allowed_families_text"
+  ],
   "fields": [
     {
       "fieldname": "type_name",
@@ -85,7 +97,6 @@
       "description": "Comma-separated list of allowed Product Family names. Leave empty to allow all families."
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
@@ -109,7 +120,6 @@
       "read": 1
     }
   ],
-
   "actions": [],
   "links": [],
   "modified": "2026-01-23 16:20:00.000000",

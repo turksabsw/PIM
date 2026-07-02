@@ -9,7 +9,44 @@
   "sort_field": "modified",
   "sort_order": "DESC",
   "title_field": "document_name",
-
+  "field_order": [
+    "section_break_main",
+    "doctype_name",
+    "document_name",
+    "column_break_1",
+    "sync_direction",
+    "sync_action",
+    "section_break_status",
+    "status",
+    "priority",
+    "column_break_status",
+    "retry_count",
+    "max_retries",
+    "section_break_timing",
+    "scheduled_at",
+    "started_at",
+    "column_break_timing",
+    "completed_at",
+    "processing_time_ms",
+    "section_break_payload",
+    "payload",
+    "changed_fields",
+    "section_break_result",
+    "erp_document",
+    "result_message",
+    "column_break_result",
+    "error_message",
+    "error_traceback",
+    "section_break_job",
+    "job_id",
+    "column_break_job",
+    "created_by_user",
+    "section_break_conflict",
+    "has_conflict",
+    "conflict_resolution",
+    "column_break_conflict",
+    "conflict_details"
+  ],
   "fields": [
     {
       "fieldname": "section_break_main",
@@ -254,19 +291,29 @@
       "description": "Details of the conflict (field values from both sides)"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",
-      "read": 1, "write": 1, "create": 1
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
   ]
 }

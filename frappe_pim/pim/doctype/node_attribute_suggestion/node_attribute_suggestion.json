@@ -5,7 +5,15 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "attribute",
+    "is_required",
+    "default_value",
+    "etim_feature_code",
+    "etim_unit",
+    "allowed_values",
+    "sort_order"
+  ],
   "fields": [
     {
       "fieldname": "attribute",
@@ -57,6 +65,5 @@
       "description": "Display order (lower = higher priority)"
     }
   ],
-
   "permissions": []
 }

@@ -8,7 +8,48 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "section_break_main",
+    "category",
+    "inherit_to_children",
+    "column_break_main",
+    "is_active",
+    "priority",
+    "section_break_subject",
+    "subject_type",
+    "role",
+    "column_break_subject",
+    "user",
+    "user_group",
+    "section_break_permissions",
+    "permission_read",
+    "permission_write",
+    "permission_create",
+    "column_break_permissions",
+    "permission_delete",
+    "permission_export",
+    "permission_import",
+    "section_break_abac",
+    "use_abac_conditions",
+    "condition_field",
+    "condition_operator",
+    "column_break_abac",
+    "condition_value",
+    "custom_condition",
+    "section_break_validity",
+    "valid_from",
+    "column_break_validity",
+    "valid_to",
+    "section_break_raci",
+    "raci_role",
+    "raci_description",
+    "section_break_audit",
+    "created_by_user",
+    "approved_by",
+    "column_break_audit",
+    "approval_date",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "section_break_main",
@@ -284,15 +325,23 @@
       "description": "Additional notes about this permission"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",

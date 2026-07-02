@@ -10,7 +10,128 @@
   "sort_field": "sort_order",
   "sort_order": "ASC",
   "description": "Template for generating product datasheets with customizable layouts",
-
+  "field_order": [
+    "template_name",
+    "template_code",
+    "column_break_basic",
+    "enabled",
+    "is_default",
+    "sort_order",
+    "section_break_page",
+    "page_size",
+    "page_orientation",
+    "column_break_page",
+    "custom_width_mm",
+    "custom_height_mm",
+    "columns",
+    "section_break_margins",
+    "margin_top_mm",
+    "margin_bottom_mm",
+    "column_break_margins",
+    "margin_left_mm",
+    "margin_right_mm",
+    "section_break_header",
+    "show_header",
+    "header_logo",
+    "header_logo_position",
+    "column_break_header",
+    "header_logo_width_mm",
+    "header_text",
+    "header_height_mm",
+    "section_break_footer",
+    "show_footer",
+    "show_page_numbers",
+    "page_number_format",
+    "column_break_footer",
+    "footer_text",
+    "show_generation_date",
+    "footer_height_mm",
+    "section_break_product_header",
+    "show_product_header",
+    "product_header_style",
+    "show_product_code",
+    "column_break_product_header",
+    "show_product_status",
+    "show_barcode",
+    "barcode_type",
+    "section_break_images",
+    "show_images",
+    "image_layout",
+    "max_images",
+    "column_break_images",
+    "main_image_width_percent",
+    "image_border",
+    "image_caption",
+    "section_break_description",
+    "show_description",
+    "description_heading",
+    "column_break_description",
+    "truncate_description",
+    "max_description_chars",
+    "section_break_attributes",
+    "show_attributes",
+    "attributes_heading",
+    "attributes_layout",
+    "column_break_attributes",
+    "attribute_selection",
+    "selected_attributes",
+    "selected_attribute_groups",
+    "hide_empty_attributes",
+    "section_break_dimensions",
+    "show_dimensions",
+    "dimensions_heading",
+    "column_break_dimensions",
+    "show_packaging_dimensions",
+    "dimension_units",
+    "weight_units",
+    "section_break_pricing",
+    "show_pricing",
+    "pricing_heading",
+    "column_break_pricing",
+    "price_list",
+    "show_currency_symbol",
+    "section_break_gs1",
+    "show_gs1_info",
+    "show_certifications",
+    "column_break_gs1",
+    "show_country_of_origin",
+    "show_manufacturer",
+    "section_break_nutrition",
+    "show_nutrition",
+    "nutrition_style",
+    "column_break_nutrition",
+    "show_allergens",
+    "show_ingredients",
+    "section_break_styling",
+    "primary_color",
+    "secondary_color",
+    "column_break_styling",
+    "heading_font",
+    "body_font",
+    "base_font_size",
+    "section_break_custom_css",
+    "custom_css",
+    "custom_html_header",
+    "custom_html_footer",
+    "section_break_output",
+    "output_format",
+    "filename_pattern",
+    "column_break_output",
+    "include_watermark",
+    "watermark_text",
+    "watermark_opacity",
+    "section_break_scope",
+    "apply_to_all_products",
+    "product_families",
+    "column_break_scope",
+    "channels",
+    "brands",
+    "section_break_preview",
+    "preview_product",
+    "last_preview",
+    "section_break_info",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "template_name",
@@ -57,7 +178,6 @@
       "default": 0,
       "description": "Order in which templates appear (lower = first)"
     },
-
     {
       "fieldname": "section_break_page",
       "fieldtype": "Section Break",
@@ -106,7 +226,6 @@
       "default": "1",
       "description": "Number of content columns per page"
     },
-
     {
       "fieldname": "section_break_margins",
       "fieldtype": "Section Break",
@@ -145,7 +264,6 @@
       "default": 15,
       "description": "Right margin in millimeters"
     },
-
     {
       "fieldname": "section_break_header",
       "fieldtype": "Section Break",
@@ -202,7 +320,6 @@
       "depends_on": "eval:doc.show_header",
       "description": "Height of the header area"
     },
-
     {
       "fieldname": "section_break_footer",
       "fieldtype": "Section Break",
@@ -260,7 +377,6 @@
       "depends_on": "eval:doc.show_footer",
       "description": "Height of the footer area"
     },
-
     {
       "fieldname": "section_break_product_header",
       "fieldtype": "Section Break",
@@ -319,7 +435,6 @@
       "depends_on": "eval:doc.show_product_header && doc.show_barcode",
       "description": "Type of barcode to generate"
     },
-
     {
       "fieldname": "section_break_images",
       "fieldtype": "Section Break",
@@ -377,7 +492,6 @@
       "depends_on": "eval:doc.show_images",
       "description": "Display captions below images"
     },
-
     {
       "fieldname": "section_break_description",
       "fieldtype": "Section Break",
@@ -419,7 +533,6 @@
       "depends_on": "eval:doc.show_description && doc.truncate_description",
       "description": "Maximum characters before truncation"
     },
-
     {
       "fieldname": "section_break_attributes",
       "fieldtype": "Section Break",
@@ -485,7 +598,6 @@
       "depends_on": "eval:doc.show_attributes",
       "description": "Don't show attributes without values"
     },
-
     {
       "fieldname": "section_break_dimensions",
       "fieldtype": "Section Break",
@@ -537,7 +649,6 @@
       "depends_on": "eval:doc.show_dimensions",
       "description": "Units for weight display"
     },
-
     {
       "fieldname": "section_break_pricing",
       "fieldtype": "Section Break",
@@ -579,7 +690,6 @@
       "depends_on": "eval:doc.show_pricing",
       "description": "Display currency symbol with prices"
     },
-
     {
       "fieldname": "section_break_gs1",
       "fieldtype": "Section Break",
@@ -617,7 +727,6 @@
       "default": 1,
       "description": "Include manufacturer information"
     },
-
     {
       "fieldname": "section_break_nutrition",
       "fieldtype": "Section Break",
@@ -658,7 +767,6 @@
       "default": 0,
       "description": "Include ingredients list"
     },
-
     {
       "fieldname": "section_break_styling",
       "fieldtype": "Section Break",
@@ -705,7 +813,6 @@
       "default": 10,
       "description": "Base font size in points"
     },
-
     {
       "fieldname": "section_break_custom_css",
       "fieldtype": "Section Break",
@@ -733,7 +840,6 @@
       "options": "HTML",
       "description": "Custom HTML to inject at the bottom of the document"
     },
-
     {
       "fieldname": "section_break_output",
       "fieldtype": "Section Break",
@@ -781,7 +887,6 @@
       "depends_on": "eval:doc.include_watermark",
       "description": "Opacity of watermark (0-100)"
     },
-
     {
       "fieldname": "section_break_scope",
       "fieldtype": "Section Break",
@@ -819,7 +924,6 @@
       "depends_on": "eval:!doc.apply_to_all_products",
       "description": "Comma-separated list of brand codes this template applies to"
     },
-
     {
       "fieldname": "section_break_preview",
       "fieldtype": "Section Break",
@@ -839,7 +943,6 @@
       "read_only": 1,
       "description": "When the template was last previewed"
     },
-
     {
       "fieldname": "section_break_info",
       "fieldtype": "Section Break",
@@ -852,7 +955,6 @@
       "description": "Internal notes about this template"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

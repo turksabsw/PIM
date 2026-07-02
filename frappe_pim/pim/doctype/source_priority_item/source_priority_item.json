@@ -5,7 +5,12 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "source_system",
+    "rank",
+    "confidence_override",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "source_system",
@@ -39,6 +44,5 @@
       "description": "Optional notes about why this source has this priority"
     }
   ],
-
   "permissions": []
 }

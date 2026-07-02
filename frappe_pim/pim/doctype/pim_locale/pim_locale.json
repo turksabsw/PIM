@@ -9,7 +9,37 @@
   "track_changes": 1,
   "sort_field": "locale_name",
   "sort_order": "ASC",
-
+  "field_order": [
+    "locale_name",
+    "locale_code",
+    "column_break_basic",
+    "enabled",
+    "is_default",
+    "section_break_language",
+    "language_code",
+    "country_code",
+    "column_break_language",
+    "script_code",
+    "text_direction",
+    "section_break_format",
+    "date_format",
+    "time_format",
+    "column_break_format",
+    "number_format",
+    "currency",
+    "section_break_content",
+    "fallback_locale",
+    "column_break_content",
+    "content_priority",
+    "section_break_measurements",
+    "measurement_system",
+    "column_break_measurements",
+    "temperature_unit",
+    "section_break_stats",
+    "products_with_content",
+    "column_break_stats",
+    "average_completeness"
+  ],
   "fields": [
     {
       "fieldname": "locale_name",
@@ -195,7 +225,6 @@
       "description": "Average content completeness for this locale (auto-calculated)"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

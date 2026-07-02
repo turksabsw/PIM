@@ -5,7 +5,16 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "fieldname",
+    "label",
+    "fieldtype",
+    "options",
+    "reqd",
+    "default_value",
+    "description",
+    "sort_order"
+  ],
   "fields": [
     {
       "fieldname": "fieldname",

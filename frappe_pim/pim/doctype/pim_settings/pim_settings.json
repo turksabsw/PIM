@@ -5,7 +5,44 @@
   "issingle": 1,
   "is_submittable": 0,
   "track_changes": 1,
-
+  "field_order": [
+    "section_break_erp",
+    "enable_erp_sync",
+    "auto_create_variant_from_item",
+    "column_break_erp",
+    "sync_direction",
+    "sync_on_save",
+    "section_break_channel",
+    "default_channel",
+    "auto_publish_to_default",
+    "column_break_channel",
+    "default_export_format",
+    "section_break_ai",
+    "enable_ai_enrichment",
+    "ai_provider",
+    "column_break_ai",
+    "ai_api_key",
+    "ai_model",
+    "ai_require_approval",
+    "section_break_quality",
+    "enable_quality_scoring",
+    "minimum_quality_score",
+    "column_break_quality",
+    "block_publish_below_minimum",
+    "auto_scan_on_save",
+    "section_break_gs1",
+    "enable_gs1_validation",
+    "gln",
+    "column_break_gs1",
+    "gs1_data_pool",
+    "data_pool_api_key",
+    "section_break_media",
+    "auto_generate_thumbnails",
+    "thumbnail_size",
+    "column_break_media",
+    "max_image_size_mb",
+    "allowed_image_formats"
+  ],
   "fields": [
     {
       "fieldname": "section_break_erp",
@@ -242,7 +279,6 @@
       "description": "Comma-separated list of allowed image file extensions"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

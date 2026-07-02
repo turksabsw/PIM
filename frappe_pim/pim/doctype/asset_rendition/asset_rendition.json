@@ -7,7 +7,27 @@
   "track_changes": 0,
   "sort_field": "idx",
   "sort_order": "ASC",
-
+  "field_order": [
+    "rendition_name",
+    "rendition_type",
+    "file",
+    "column_break_dimensions",
+    "width",
+    "height",
+    "file_size",
+    "file_format",
+    "section_break_settings",
+    "is_auto_generated",
+    "is_default",
+    "column_break_settings2",
+    "quality",
+    "dpi",
+    "color_profile",
+    "section_break_metadata",
+    "generated_at",
+    "content_hash",
+    "cdn_url"
+  ],
   "fields": [
     {
       "fieldname": "rendition_name",
@@ -141,6 +161,5 @@
       "description": "URL of the file on CDN (if applicable)"
     }
   ],
-
   "permissions": []
 }

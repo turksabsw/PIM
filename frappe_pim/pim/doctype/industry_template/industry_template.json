@@ -6,7 +6,33 @@
   "is_submittable": 0,
   "track_changes": 1,
   "autoname": "format:{template_code}-v{version}",
-
+  "field_order": [
+    "section_break_identity",
+    "template_code",
+    "display_name",
+    "column_break_identity",
+    "version",
+    "is_active",
+    "section_break_details",
+    "description",
+    "column_break_details",
+    "estimated_setup_minutes",
+    "quality_threshold",
+    "section_break_product_config",
+    "attribute_groups",
+    "product_families",
+    "section_break_channels",
+    "default_channels",
+    "coming_soon_channels",
+    "section_break_compliance",
+    "compliance_modules",
+    "scoring_weights",
+    "section_break_taxonomy",
+    "category_tree",
+    "default_languages",
+    "section_break_demo",
+    "demo_products"
+  ],
   "fields": [
     {
       "fieldname": "section_break_identity",
@@ -167,7 +193,6 @@
       "description": "JSON array of sample product definitions used during onboarding preview and first data entry"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

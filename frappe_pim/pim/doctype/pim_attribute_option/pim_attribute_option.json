@@ -8,7 +8,23 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "attribute",
+    "option_value",
+    "column_break_1",
+    "option_label",
+    "is_active",
+    "is_default",
+    "section_break_display",
+    "sort_order",
+    "color_code",
+    "column_break_display",
+    "icon",
+    "image",
+    "section_break_metadata",
+    "description",
+    "external_code"
+  ],
   "fields": [
     {
       "fieldname": "attribute",
@@ -110,19 +126,30 @@
       "description": "External system code for integration (e.g., ERP code, marketplace code)"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",
-      "read": 1, "write": 1, "create": 1
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
   ]
 }

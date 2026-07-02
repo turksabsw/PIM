@@ -5,7 +5,34 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "slot_name",
+    "slot_code",
+    "product_variant",
+    "product_master",
+    "qty",
+    "column_break_1",
+    "is_required",
+    "is_configurable",
+    "allow_qty_change",
+    "section_break_constraints",
+    "min_qty",
+    "max_qty",
+    "column_break_constraints",
+    "sort_order",
+    "section_break_pricing",
+    "price_modifier_type",
+    "price_modifier",
+    "section_break_configurable",
+    "allowed_category",
+    "allowed_product_type",
+    "column_break_configurable",
+    "allowed_brand",
+    "filter_expression",
+    "section_break_dependencies",
+    "depends_on_slot",
+    "excluded_with_slot"
+  ],
   "fields": [
     {
       "fieldname": "slot_name",
@@ -185,6 +212,5 @@
       "description": "Slot code this slot is mutually exclusive with"
     }
   ],
-
   "permissions": []
 }

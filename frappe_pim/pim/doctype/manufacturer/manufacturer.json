@@ -9,7 +9,18 @@
   "track_changes": 1,
   "sort_field": "manufacturer_name",
   "sort_order": "ASC",
-
+  "field_order": [
+    "manufacturer_name",
+    "manufacturer_code",
+    "column_break_basic",
+    "enabled",
+    "section_break_details",
+    "logo",
+    "column_break_details",
+    "website",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "manufacturer_name",
@@ -76,7 +87,6 @@
       "description": "Detailed description about this manufacturer"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

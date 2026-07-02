@@ -6,7 +6,91 @@
   "autoname": "field:user",
   "is_submittable": 0,
   "track_changes": 1,
-
+  "field_order": [
+    "user",
+    "section_break_company",
+    "company_name",
+    "company_website",
+    "column_break_company",
+    "company_size",
+    "primary_role",
+    "existing_systems",
+    "pain_points",
+    "section_break_industry",
+    "selected_industry",
+    "industry_sub_vertical",
+    "column_break_industry",
+    "industry_template_version",
+    "custom_industry_name",
+    "section_break_product",
+    "estimated_sku_count",
+    "uses_variants",
+    "variant_axes",
+    "column_break_product",
+    "product_family_count",
+    "custom_families",
+    "data_import_source",
+    "section_break_attributes",
+    "attribute_groups",
+    "removed_template_attrs",
+    "column_break_attributes",
+    "custom_attributes",
+    "total_attribute_count",
+    "section_break_taxonomy",
+    "category_source",
+    "category_data",
+    "brand_names",
+    "section_break_channels",
+    "selected_channels",
+    "primary_channel",
+    "business_model",
+    "section_break_localization",
+    "primary_language",
+    "additional_languages",
+    "enable_auto_translate",
+    "column_break_localization",
+    "default_currency",
+    "default_uom",
+    "section_break_workflow",
+    "workflow_complexity",
+    "require_quality_check",
+    "column_break_workflow",
+    "auto_publish",
+    "notify_on_status_change",
+    "section_break_quality",
+    "quality_threshold",
+    "scoring_weights",
+    "section_break_integrations",
+    "enable_erp_sync",
+    "erp_type",
+    "sync_direction",
+    "column_break_integrations",
+    "enable_ai_enrichment",
+    "ai_provider",
+    "ai_use_cases",
+    "enable_gs1",
+    "enable_mdm",
+    "section_break_compliance",
+    "compliance_standards",
+    "certification_tracking",
+    "section_break_feature_flags",
+    "enable_variants",
+    "enable_quality_scoring",
+    "enable_channels",
+    "enable_workflow",
+    "column_break_feature_flags",
+    "enable_translations",
+    "enable_ai",
+    "enable_bundling",
+    "enable_competitor_tracking",
+    "section_break_onboarding",
+    "onboarding_status",
+    "onboarding_current_step",
+    "column_break_onboarding",
+    "onboarding_started_at",
+    "onboarding_completed_at",
+    "onboarding_step_data"
+  ],
   "fields": [
     {
       "fieldname": "user",
@@ -70,7 +154,6 @@
       "label": "Pain Points (JSON)",
       "description": "JSON array of pain points the company wants to solve"
     },
-
     {
       "fieldname": "section_break_industry",
       "fieldtype": "Section Break",
@@ -108,7 +191,6 @@
       "depends_on": "eval:doc.selected_industry == 'custom'",
       "description": "Custom industry name when 'custom' sector is selected"
     },
-
     {
       "fieldname": "section_break_product",
       "fieldtype": "Section Break",
@@ -162,7 +244,6 @@
       "reqd": 1,
       "description": "How existing product data will be imported"
     },
-
     {
       "fieldname": "section_break_attributes",
       "fieldtype": "Section Break",
@@ -198,7 +279,6 @@
       "read_only": 1,
       "description": "Computed total count of active attributes"
     },
-
     {
       "fieldname": "section_break_taxonomy",
       "fieldtype": "Section Break",
@@ -224,7 +304,6 @@
       "label": "Brands (JSON)",
       "description": "JSON array of brand names managed by this tenant"
     },
-
     {
       "fieldname": "section_break_channels",
       "fieldtype": "Section Break",
@@ -250,7 +329,6 @@
       "options": "\nb2c\nb2b\nb2b2c\nmarketplace\nomnichannel",
       "description": "Primary business model for channel strategy"
     },
-
     {
       "fieldname": "section_break_localization",
       "fieldtype": "Section Break",
@@ -295,7 +373,6 @@
       "options": "UOM",
       "description": "Default unit of measure for products"
     },
-
     {
       "fieldname": "section_break_workflow",
       "fieldtype": "Section Break",
@@ -335,7 +412,6 @@
       "default": 1,
       "description": "Send notifications when product workflow status changes"
     },
-
     {
       "fieldname": "section_break_quality",
       "fieldtype": "Section Break",
@@ -355,7 +431,6 @@
       "label": "Scoring Weights (JSON)",
       "description": "JSON object with scoring dimension weights (attribute, content, media, seo, compliance)"
     },
-
     {
       "fieldname": "section_break_integrations",
       "fieldtype": "Section Break",
@@ -427,7 +502,6 @@
       "default": 0,
       "description": "Enable Master Data Management features (golden record, survivorship rules)"
     },
-
     {
       "fieldname": "section_break_compliance",
       "fieldtype": "Section Break",
@@ -447,7 +521,6 @@
       "default": 0,
       "description": "Enable product certification tracking and expiry management"
     },
-
     {
       "fieldname": "section_break_feature_flags",
       "fieldtype": "Section Break",
@@ -513,7 +586,6 @@
       "default": 0,
       "description": "Enable competitor product tracking and analysis"
     },
-
     {
       "fieldname": "section_break_onboarding",
       "fieldtype": "Section Break",
@@ -560,7 +632,6 @@
       "description": "JSON object storing per-step completion data and timestamps"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

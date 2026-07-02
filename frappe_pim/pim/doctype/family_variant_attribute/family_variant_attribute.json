@@ -5,7 +5,12 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "attribute",
+    "is_required",
+    "level",
+    "sort_order"
+  ],
   "fields": [
     {
       "fieldname": "attribute",

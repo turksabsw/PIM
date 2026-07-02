@@ -9,7 +9,37 @@
   "track_changes": 1,
   "sort_field": "taxonomy_name",
   "sort_order": "ASC",
-
+  "field_order": [
+    "taxonomy_name",
+    "taxonomy_code",
+    "column_break_basic",
+    "standard",
+    "version",
+    "enabled",
+    "section_break_structure",
+    "max_levels",
+    "node_code_pattern",
+    "column_break_structure",
+    "code_separator",
+    "level_names",
+    "section_break_details",
+    "description",
+    "section_break_reference",
+    "reference_url",
+    "column_break_reference",
+    "publisher",
+    "release_date",
+    "section_break_etim",
+    "etim_feature_doctype",
+    "etim_value_doctype",
+    "section_break_gs1",
+    "gtin_validation",
+    "supported_gtin_formats",
+    "section_break_stats",
+    "total_nodes",
+    "column_break_stats",
+    "products_classified"
+  ],
   "fields": [
     {
       "fieldname": "taxonomy_name",
@@ -200,7 +230,6 @@
       "description": "Number of products using this taxonomy (auto-calculated)"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

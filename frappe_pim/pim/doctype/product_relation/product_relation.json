@@ -4,7 +4,13 @@
   "module": "PIM",
   "istable": 1,
   "editable_grid": 1,
-  
+  "field_order": [
+    "related_product",
+    "relation_type",
+    "is_bidirectional",
+    "sort_order",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "related_product",

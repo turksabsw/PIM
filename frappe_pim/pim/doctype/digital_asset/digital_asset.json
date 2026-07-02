@@ -12,7 +12,90 @@
   "title_field": "asset_title",
   "search_fields": "asset_code,asset_title,original_filename",
   "image_field": "thumbnail",
-
+  "field_order": [
+    "naming_series",
+    "asset_code",
+    "asset_title",
+    "column_break_basic",
+    "asset_type",
+    "status",
+    "thumbnail",
+    "section_break_file",
+    "original_file",
+    "original_filename",
+    "column_break_file",
+    "file_format",
+    "mime_type",
+    "file_size",
+    "content_hash",
+    "section_break_dimensions",
+    "width",
+    "height",
+    "aspect_ratio",
+    "column_break_dimensions",
+    "dpi",
+    "color_space",
+    "bit_depth",
+    "section_break_media",
+    "duration_seconds",
+    "frame_rate",
+    "video_codec",
+    "column_break_media",
+    "audio_codec",
+    "audio_channels",
+    "sample_rate",
+    "section_break_renditions",
+    "renditions",
+    "auto_generate_renditions",
+    "section_break_description",
+    "description",
+    "alt_text",
+    "caption",
+    "section_break_classification",
+    "asset_category",
+    "tags",
+    "column_break_classification",
+    "brand",
+    "collection",
+    "section_break_scope",
+    "locale",
+    "channel",
+    "column_break_scope",
+    "valid_from",
+    "valid_to",
+    "section_break_rights",
+    "copyright_holder",
+    "copyright_year",
+    "license_type",
+    "column_break_rights",
+    "license_expiry",
+    "usage_restrictions",
+    "credit_line",
+    "section_break_metadata",
+    "exif_data",
+    "iptc_data",
+    "xmp_data",
+    "custom_metadata",
+    "section_break_source",
+    "source_system",
+    "external_id",
+    "column_break_source",
+    "imported_at",
+    "photographer",
+    "created_date",
+    "section_break_cdn",
+    "cdn_enabled",
+    "cdn_url",
+    "column_break_cdn",
+    "cdn_synced_at",
+    "cdn_cache_key",
+    "section_break_stats",
+    "view_count",
+    "download_count",
+    "column_break_stats",
+    "linked_products_count",
+    "last_used_at"
+  ],
   "fields": [
     {
       "fieldname": "naming_series",
@@ -73,7 +156,6 @@
       "label": "Thumbnail",
       "description": "Preview thumbnail image"
     },
-
     {
       "fieldname": "section_break_file",
       "fieldtype": "Section Break",
@@ -125,7 +207,6 @@
       "read_only": 1,
       "description": "SHA256 hash for integrity verification"
     },
-
     {
       "fieldname": "section_break_dimensions",
       "fieldtype": "Section Break",
@@ -178,7 +259,6 @@
       "read_only": 1,
       "description": "Color bit depth"
     },
-
     {
       "fieldname": "section_break_media",
       "fieldtype": "Section Break",
@@ -231,7 +311,6 @@
       "read_only": 1,
       "description": "Audio sample rate"
     },
-
     {
       "fieldname": "section_break_renditions",
       "fieldtype": "Section Break",
@@ -251,7 +330,6 @@
       "default": 1,
       "description": "Automatically generate standard renditions on upload"
     },
-
     {
       "fieldname": "section_break_description",
       "fieldtype": "Section Break",
@@ -278,7 +356,6 @@
       "translatable": 1,
       "description": "Caption for display"
     },
-
     {
       "fieldname": "section_break_classification",
       "fieldtype": "Section Break",
@@ -316,7 +393,6 @@
       "label": "Collection",
       "description": "Asset collection or set name"
     },
-
     {
       "fieldname": "section_break_scope",
       "fieldtype": "Section Break",
@@ -352,7 +428,6 @@
       "label": "Valid To",
       "description": "End date for asset validity"
     },
-
     {
       "fieldname": "section_break_rights",
       "fieldtype": "Section Break",
@@ -400,7 +475,6 @@
       "label": "Credit Line",
       "description": "Credit line to use when publishing"
     },
-
     {
       "fieldname": "section_break_metadata",
       "fieldtype": "Section Break",
@@ -438,7 +512,6 @@
       "options": "JSON",
       "description": "Additional custom metadata in JSON format"
     },
-
     {
       "fieldname": "section_break_source",
       "fieldtype": "Section Break",
@@ -481,7 +554,6 @@
       "label": "Created Date",
       "description": "When the asset was originally created"
     },
-
     {
       "fieldname": "section_break_cdn",
       "fieldtype": "Section Break",
@@ -521,7 +593,6 @@
       "read_only": 1,
       "description": "Cache invalidation key"
     },
-
     {
       "fieldname": "section_break_stats",
       "fieldtype": "Section Break",
@@ -564,7 +635,6 @@
       "description": "When the asset was last used"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

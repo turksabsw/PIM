@@ -5,7 +5,17 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "attribute",
+    "requirement_level",
+    "locale_specific",
+    "min_length",
+    "max_length",
+    "validation_pattern",
+    "validation_message",
+    "allowed_values",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "attribute",
@@ -73,6 +83,5 @@
       "description": "Additional notes or guidance for this attribute requirement"
     }
   ],
-
   "permissions": []
 }

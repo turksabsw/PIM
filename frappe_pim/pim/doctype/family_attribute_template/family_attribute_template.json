@@ -5,7 +5,14 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "attribute",
+    "is_required_in_family",
+    "default_value",
+    "sort_order",
+    "inherited",
+    "inherited_from"
+  ],
   "fields": [
     {
       "fieldname": "attribute",

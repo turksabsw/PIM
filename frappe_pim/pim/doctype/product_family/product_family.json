@@ -10,7 +10,35 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-  
+  "field_order": [
+    "family_name",
+    "family_code",
+    "column_break_1",
+    "parent_family",
+    "naming_series_prefix",
+    "section_break_tree",
+    "lft",
+    "rgt",
+    "is_group",
+    "old_parent",
+    "section_break_settings",
+    "is_active",
+    "allow_variants",
+    "column_break_settings",
+    "inherit_parent_attributes",
+    "erp_item_group",
+    "section_break_attributes",
+    "attributes",
+    "section_break_variant",
+    "variant_attributes",
+    "section_break_media",
+    "required_media_types",
+    "min_images",
+    "section_break_completeness",
+    "completeness_threshold",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "family_name",
@@ -184,15 +212,24 @@
       "label": "Description"
     }
   ],
-  
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",

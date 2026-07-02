@@ -8,7 +8,75 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "product_variant",
+    "sales_channel",
+    "column_break_1",
+    "listing_status",
+    "is_active",
+    "section_break_identifiers",
+    "listing_sku",
+    "external_id",
+    "column_break_identifiers",
+    "external_url",
+    "parent_listing",
+    "section_break_content",
+    "listing_title",
+    "listing_description",
+    "bullet_points",
+    "column_break_content",
+    "search_keywords",
+    "brand_override",
+    "section_break_category",
+    "marketplace_category_id",
+    "marketplace_category_path",
+    "column_break_category",
+    "browse_node_id",
+    "product_type_code",
+    "section_break_pricing",
+    "listing_price",
+    "listing_currency",
+    "column_break_pricing",
+    "sale_price",
+    "sale_start_date",
+    "sale_end_date",
+    "section_break_pricing_rules",
+    "use_channel_pricing",
+    "price_override",
+    "column_break_pricing_rules",
+    "min_advertised_price",
+    "max_price",
+    "section_break_inventory",
+    "listing_quantity",
+    "fulfillment_channel",
+    "column_break_inventory",
+    "lead_time_days",
+    "min_order_qty",
+    "max_order_qty",
+    "section_break_shipping",
+    "shipping_template",
+    "handling_time_days",
+    "column_break_shipping",
+    "weight_override",
+    "weight_unit",
+    "section_break_attributes",
+    "marketplace_attributes",
+    "variation_theme",
+    "section_break_sync",
+    "last_synced",
+    "sync_status",
+    "column_break_sync",
+    "sync_error",
+    "sync_retries",
+    "section_break_performance",
+    "page_views",
+    "conversion_rate",
+    "column_break_performance",
+    "total_orders",
+    "total_revenue",
+    "rating",
+    "review_count"
+  ],
   "fields": [
     {
       "fieldname": "product_variant",
@@ -422,19 +490,30 @@
       "read_only": 1
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",
-      "read": 1, "write": 1, "create": 1
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
   ]
 }

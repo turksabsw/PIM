@@ -5,6 +5,13 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
+  "field_order": [
+    "min_qty",
+    "max_qty",
+    "discount_type",
+    "discount_value",
+    "price"
+  ],
   "fields": [
     {
       "fieldname": "min_qty",

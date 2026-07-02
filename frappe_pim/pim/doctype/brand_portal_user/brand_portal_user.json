@@ -9,7 +9,52 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "user",
+    "full_name",
+    "email",
+    "column_break_basic",
+    "status",
+    "portal_role",
+    "section_break_brand",
+    "brand",
+    "brand_name",
+    "column_break_brand",
+    "company_name",
+    "company_registration",
+    "section_break_permissions",
+    "can_submit_products",
+    "can_edit_products",
+    "can_view_analytics",
+    "column_break_permissions",
+    "can_manage_media",
+    "can_approve_submissions",
+    "can_manage_users",
+    "section_break_limits",
+    "max_submissions_per_month",
+    "current_month_submissions",
+    "column_break_limits",
+    "max_media_size_mb",
+    "storage_used_mb",
+    "section_break_activity",
+    "last_login",
+    "last_submission",
+    "total_submissions",
+    "column_break_activity",
+    "approved_submissions",
+    "rejected_submissions",
+    "pending_submissions",
+    "section_break_notes",
+    "notes",
+    "approval_notes",
+    "section_break_dates",
+    "approved_on",
+    "approved_by",
+    "column_break_dates",
+    "suspended_on",
+    "suspended_by",
+    "suspension_reason"
+  ],
   "fields": [
     {
       "fieldname": "user",
@@ -313,7 +358,6 @@
       "description": "Reason for suspension"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

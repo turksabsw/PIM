@@ -9,7 +9,45 @@
   "track_changes": 1,
   "sort_field": "system_name",
   "sort_order": "ASC",
-
+  "field_order": [
+    "system_name",
+    "system_code",
+    "column_break_basic",
+    "system_type",
+    "enabled",
+    "section_break_priority",
+    "priority",
+    "confidence_level",
+    "column_break_priority",
+    "is_authoritative",
+    "authoritative_fields",
+    "section_break_connection",
+    "connection_type",
+    "base_url",
+    "column_break_connection",
+    "auth_type",
+    "api_key_field",
+    "api_key",
+    "section_break_mapping",
+    "default_import_config",
+    "identifier_field",
+    "column_break_mapping",
+    "timestamp_field",
+    "timestamp_format",
+    "section_break_details",
+    "description",
+    "section_break_contact",
+    "contact_name",
+    "contact_email",
+    "column_break_contact",
+    "department",
+    "section_break_stats",
+    "last_sync_at",
+    "records_imported",
+    "column_break_stats",
+    "last_error",
+    "average_confidence"
+  ],
   "fields": [
     {
       "fieldname": "system_name",
@@ -254,7 +292,6 @@
       "description": "Average confidence level of data from this source based on quality checks"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

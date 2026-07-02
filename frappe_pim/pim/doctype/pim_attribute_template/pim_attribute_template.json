@@ -8,7 +8,21 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "template_name",
+    "template_code",
+    "column_break_1",
+    "product_type",
+    "is_active",
+    "section_break_description",
+    "description",
+    "section_break_attributes",
+    "attributes",
+    "section_break_metadata",
+    "usage_count",
+    "column_break_metadata",
+    "last_applied"
+  ],
   "fields": [
     {
       "fieldname": "template_name",
@@ -98,15 +112,24 @@
       "description": "When this template was last applied to a product"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",

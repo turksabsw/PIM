@@ -4,7 +4,22 @@
   "module": "PIM",
   "istable": 1,
   "editable_grid": 1,
-
+  "field_order": [
+    "product",
+    "sku",
+    "product_name",
+    "status",
+    "processed_at",
+    "confidence_score",
+    "approval_status",
+    "approval_queue_entry",
+    "error_message",
+    "retry_count",
+    "tokens_used",
+    "processing_time",
+    "result_summary",
+    "result_data"
+  ],
   "fields": [
     {
       "fieldname": "product",
@@ -131,6 +146,5 @@
       "description": "Full AI response data (JSON)"
     }
   ],
-
   "permissions": []
 }

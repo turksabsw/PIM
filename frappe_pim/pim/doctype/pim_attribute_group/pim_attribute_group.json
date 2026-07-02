@@ -9,7 +9,22 @@
   "track_changes": 1,
   "sort_field": "sort_order",
   "sort_order": "ASC",
-
+  "field_order": [
+    "group_name",
+    "group_code",
+    "column_break_1",
+    "sort_order",
+    "is_standard",
+    "parent_group",
+    "section_break_display",
+    "icon",
+    "color",
+    "column_break_display",
+    "is_collapsible",
+    "is_collapsed_default",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "group_name",
@@ -106,7 +121,6 @@
       "description": "Brief description of what attributes belong in this group"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

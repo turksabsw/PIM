@@ -5,7 +5,18 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "file",
+    "media_type",
+    "title",
+    "alt_text",
+    "is_primary",
+    "role",
+    "sort_order",
+    "apply_to_variant",
+    "locale",
+    "channel"
+  ],
   "fields": [
     {
       "fieldname": "file",

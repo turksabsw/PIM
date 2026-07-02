@@ -5,7 +5,17 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "source_product",
+    "source_system",
+    "confidence_score",
+    "is_primary",
+    "is_winning",
+    "added_at",
+    "last_synced_at",
+    "external_id",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "source_product",
@@ -83,6 +93,5 @@
       "description": "Notes about this source record"
     }
   ],
-
   "permissions": []
 }

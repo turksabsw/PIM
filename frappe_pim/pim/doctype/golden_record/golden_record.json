@@ -9,7 +9,44 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "record_name",
+    "golden_record_code",
+    "column_break_basic",
+    "product_master",
+    "status",
+    "section_break_survivorship",
+    "survivorship_rule",
+    "source_priority_order",
+    "column_break_survivorship",
+    "merge_mode",
+    "auto_merge_threshold",
+    "section_break_source_records",
+    "source_records",
+    "section_break_quality",
+    "confidence_score",
+    "data_completeness",
+    "column_break_quality",
+    "match_score",
+    "quality_issues",
+    "section_break_governance",
+    "data_steward",
+    "steward_assigned_at",
+    "column_break_governance",
+    "approved_by",
+    "approved_at",
+    "section_break_merge_history",
+    "last_merged_at",
+    "merge_count",
+    "column_break_merge_history",
+    "last_validated_at",
+    "validation_status",
+    "section_break_field_tracking",
+    "field_sources",
+    "field_confidence",
+    "section_break_notes",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "record_name",
@@ -256,7 +293,6 @@
       "description": "Additional notes about this golden record"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

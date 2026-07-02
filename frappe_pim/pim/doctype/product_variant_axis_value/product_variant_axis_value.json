@@ -6,7 +6,12 @@
   "editable_grid": 1,
   "track_changes": 0,
   "engine": "InnoDB",
-
+  "field_order": [
+    "attribute",
+    "attribute_value",
+    "display_value",
+    "option"
+  ],
   "fields": [
     {
       "fieldname": "attribute",

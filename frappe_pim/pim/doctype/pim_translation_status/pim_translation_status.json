@@ -8,7 +8,40 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "section_break_main",
+    "source_doctype",
+    "source_name",
+    "column_break_1",
+    "language",
+    "field_name",
+    "section_break_status",
+    "is_translated",
+    "translation_status",
+    "column_break_status",
+    "translation_score",
+    "translation_method",
+    "section_break_content",
+    "source_value",
+    "translated_value",
+    "section_break_hash",
+    "source_hash",
+    "needs_update",
+    "column_break_hash",
+    "source_modified",
+    "translation_modified",
+    "section_break_review",
+    "translated_by",
+    "reviewed_by",
+    "column_break_review",
+    "review_date",
+    "review_notes",
+    "section_break_frappe",
+    "frappe_translation_name",
+    "use_frappe_translation",
+    "column_break_frappe",
+    "last_synced"
+  ],
   "fields": [
     {
       "fieldname": "section_break_main",
@@ -229,23 +262,35 @@
       "description": "When this status was last synced with Frappe Translation"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",
-      "read": 1, "write": 1, "create": 1
+      "read": 1,
+      "write": 1,
+      "create": 1
     },
     {
       "role": "Translator",
-      "read": 1, "write": 1, "create": 1
+      "read": 1,
+      "write": 1,
+      "create": 1
     }
   ]
 }

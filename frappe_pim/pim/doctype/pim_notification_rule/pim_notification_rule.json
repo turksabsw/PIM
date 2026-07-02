@@ -9,7 +9,65 @@
   "sort_field": "modified",
   "sort_order": "DESC",
   "title_field": "rule_name",
-
+  "field_order": [
+    "section_break_main",
+    "rule_name",
+    "is_enabled",
+    "column_break_main",
+    "priority",
+    "category",
+    "section_break_trigger",
+    "event_type",
+    "target_doctype",
+    "column_break_trigger",
+    "watched_field",
+    "threshold_field",
+    "threshold_operator",
+    "threshold_value",
+    "section_break_conditions",
+    "condition_filters",
+    "custom_condition",
+    "section_break_schedule",
+    "schedule_type",
+    "schedule_time",
+    "column_break_schedule",
+    "schedule_day",
+    "schedule_date",
+    "cron_expression",
+    "section_break_recipients",
+    "send_to_document_owner",
+    "send_to_assigned_users",
+    "column_break_recipients",
+    "recipient_roles",
+    "recipient_users",
+    "recipient_email_list",
+    "section_break_channel",
+    "send_system_notification",
+    "send_email",
+    "column_break_channel",
+    "publish_realtime",
+    "realtime_event_name",
+    "section_break_message",
+    "subject_template",
+    "message_template",
+    "column_break_message",
+    "include_document_link",
+    "attach_document_pdf",
+    "section_break_limits",
+    "cooldown_minutes",
+    "max_daily_notifications",
+    "column_break_limits",
+    "aggregate_notifications",
+    "aggregate_interval_minutes",
+    "section_break_stats",
+    "total_sent",
+    "last_triggered",
+    "column_break_stats",
+    "sent_today",
+    "last_reset_date",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "section_break_main",
@@ -387,15 +445,23 @@
       "description": "Notes about this notification rule"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1
     },
     {
       "role": "PIM User",

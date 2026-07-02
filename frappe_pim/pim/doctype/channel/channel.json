@@ -9,7 +9,40 @@
   "track_changes": 1,
   "sort_field": "sort_order",
   "sort_order": "ASC",
-
+  "field_order": [
+    "channel_name",
+    "channel_code",
+    "column_break_basic",
+    "channel_type",
+    "enabled",
+    "sort_order",
+    "section_break_connection",
+    "base_url",
+    "api_key",
+    "column_break_connection",
+    "api_secret",
+    "webhook_url",
+    "section_break_export",
+    "default_export_format",
+    "export_language",
+    "column_break_export",
+    "export_currency",
+    "include_variants",
+    "include_media",
+    "section_break_sync",
+    "sync_direction",
+    "auto_sync",
+    "column_break_sync",
+    "sync_interval",
+    "last_sync",
+    "section_break_status",
+    "connection_status",
+    "last_connection_check",
+    "column_break_status",
+    "error_message",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "channel_name",
@@ -226,7 +259,6 @@
       "description": "Detailed description and notes about this channel"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

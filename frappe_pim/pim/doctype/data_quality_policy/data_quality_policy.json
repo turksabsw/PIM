@@ -9,7 +9,48 @@
   "track_changes": 1,
   "sort_field": "priority",
   "sort_order": "ASC",
-
+  "field_order": [
+    "policy_name",
+    "policy_code",
+    "column_break_basic",
+    "policy_type",
+    "enabled",
+    "priority",
+    "section_break_scope",
+    "apply_to_product_families",
+    "apply_to_channels",
+    "column_break_scope",
+    "apply_to_brands",
+    "exclude_product_families",
+    "section_break_rules",
+    "rules",
+    "section_break_behavior",
+    "enforcement_mode",
+    "block_publish_on_failure",
+    "column_break_behavior",
+    "run_on_save",
+    "run_on_import",
+    "run_scheduled",
+    "section_break_scoring",
+    "include_in_score",
+    "policy_weight",
+    "column_break_scoring",
+    "minimum_pass_rate",
+    "section_break_notification",
+    "notify_on_failure",
+    "notification_recipients",
+    "column_break_notification",
+    "notification_frequency",
+    "section_break_description",
+    "description",
+    "section_break_stats",
+    "total_products_evaluated",
+    "total_products_passed",
+    "column_break_stats",
+    "total_products_failed",
+    "last_scan_date",
+    "pass_rate"
+  ],
   "fields": [
     {
       "fieldname": "policy_name",
@@ -282,7 +323,6 @@
       "description": "Percentage of products that passed this policy"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",

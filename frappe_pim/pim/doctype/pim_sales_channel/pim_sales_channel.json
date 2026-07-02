@@ -8,7 +8,46 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "channel_name",
+    "channel_code",
+    "column_break_1",
+    "channel_type",
+    "is_active",
+    "section_break_pricing",
+    "erp_price_list",
+    "currency",
+    "column_break_pricing",
+    "price_markup_percent",
+    "price_rounding",
+    "section_break_margins",
+    "commission_rate",
+    "min_price_margin",
+    "column_break_margins",
+    "fulfillment_fee",
+    "handling_fee_percent",
+    "section_break_guardrails",
+    "min_price",
+    "max_price",
+    "column_break_guardrails",
+    "enforce_map",
+    "allow_below_cost",
+    "section_break_integration",
+    "integration_type",
+    "api_endpoint",
+    "column_break_integration",
+    "api_key_field",
+    "last_sync_date",
+    "sync_status",
+    "section_break_marketplace",
+    "marketplace_name",
+    "seller_id",
+    "column_break_marketplace",
+    "store_name",
+    "store_url",
+    "section_break_description",
+    "description"
+  ],
   "fields": [
     {
       "fieldname": "channel_name",
@@ -253,15 +292,24 @@
       "label": "Description"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",

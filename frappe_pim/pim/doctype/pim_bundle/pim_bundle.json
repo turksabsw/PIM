@@ -8,7 +8,55 @@
   "track_changes": 1,
   "sort_field": "modified",
   "sort_order": "DESC",
-
+  "field_order": [
+    "bundle_name",
+    "bundle_code",
+    "column_break_1",
+    "bundle_type",
+    "status",
+    "section_break_description",
+    "short_description",
+    "long_description",
+    "main_image",
+    "section_break_pricing",
+    "pricing_method",
+    "base_price",
+    "column_break_pricing",
+    "discount_type",
+    "discount_value",
+    "currency",
+    "section_break_slots",
+    "slots",
+    "section_break_tiered",
+    "tiered_pricing",
+    "section_break_rules",
+    "min_items",
+    "max_items",
+    "column_break_rules",
+    "allow_duplicates",
+    "require_all_slots",
+    "section_break_dynamic",
+    "filter_category",
+    "filter_product_type",
+    "filter_brand",
+    "section_break_channels",
+    "available_channels",
+    "section_break_validity",
+    "valid_from",
+    "valid_to",
+    "section_break_erp",
+    "erp_product_bundle",
+    "auto_sync_to_erp",
+    "column_break_erp",
+    "last_sync_date",
+    "sync_status",
+    "section_break_metadata",
+    "total_items",
+    "calculated_price",
+    "column_break_metadata",
+    "savings_amount",
+    "savings_percent"
+  ],
   "fields": [
     {
       "fieldname": "bundle_name",
@@ -317,19 +365,31 @@
       "description": "Percentage saved compared to individual purchase"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM Manager",
-      "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "import": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "import": 1
     },
     {
       "role": "PIM User",
-      "read": 1, "write": 1, "create": 1, "export": 1
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "export": 1
     }
   ]
 }

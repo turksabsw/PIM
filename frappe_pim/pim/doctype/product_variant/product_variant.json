@@ -8,6 +8,26 @@
   "track_changes": 1,
   "autoname": "field:variant_code",
   "naming_rule": "By fieldname",
+  "field_order": [
+    "variant_name",
+    "variant_code",
+    "parent_product",
+    "product_family",
+    "column_break_1",
+    "status",
+    "variant_level",
+    "completeness_score",
+    "erp_item",
+    "section_axis_values",
+    "axis_values",
+    "section_inherited",
+    "description",
+    "brand",
+    "manufacturer",
+    "section_sync",
+    "sync_enabled",
+    "last_synced"
+  ],
   "fields": [
     {
       "fieldname": "variant_name",

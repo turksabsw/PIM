@@ -5,7 +5,19 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "file",
+    "file_name",
+    "media_type",
+    "purpose",
+    "approval_status",
+    "sequence",
+    "alt_text",
+    "caption",
+    "reviewer_note",
+    "file_size",
+    "dimensions"
+  ],
   "fields": [
     {
       "fieldname": "file",
@@ -94,6 +106,5 @@
       "description": "Image dimensions (WxH) if applicable"
     }
   ],
-
   "permissions": []
 }

@@ -5,7 +5,13 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "allergen_type",
+    "allergen_type_code",
+    "level_of_containment",
+    "allergen_statement",
+    "source_specification"
+  ],
   "fields": [
     {
       "fieldname": "allergen_type",
@@ -51,6 +57,5 @@
       "description": "Specific source (e.g., 'Wheat' for gluten, 'Almond' for tree nuts)"
     }
   ],
-
   "permissions": []
 }

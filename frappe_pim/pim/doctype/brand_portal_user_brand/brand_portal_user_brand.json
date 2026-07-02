@@ -5,7 +5,13 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "brand",
+    "brand_name",
+    "access_level",
+    "assigned_at",
+    "notes"
+  ],
   "fields": [
     {
       "fieldname": "brand",
@@ -53,6 +59,5 @@
       "description": "Notes about this brand assignment"
     }
   ],
-
   "permissions": []
 }

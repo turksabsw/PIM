@@ -5,7 +5,45 @@
   "istable": 1,
   "editable_grid": 1,
   "track_changes": 0,
-
+  "field_order": [
+    "rule_name",
+    "rule_type",
+    "target_field",
+    "severity",
+    "enabled",
+    "section_break_config",
+    "min_length",
+    "max_length",
+    "column_break_length",
+    "min_value",
+    "max_value",
+    "section_break_format",
+    "format_type",
+    "regex_pattern",
+    "column_break_format",
+    "allowed_values",
+    "section_break_conditional",
+    "condition_field",
+    "condition_operator",
+    "condition_value",
+    "section_break_image",
+    "min_width",
+    "min_height",
+    "column_break_image",
+    "max_width",
+    "max_height",
+    "section_break_file",
+    "max_file_size_mb",
+    "allowed_extensions",
+    "section_break_custom",
+    "custom_script",
+    "section_break_message",
+    "error_message",
+    "remediation_hint",
+    "section_break_weight",
+    "weight",
+    "affects_completeness"
+  ],
   "fields": [
     {
       "fieldname": "rule_name",
@@ -262,6 +300,5 @@
       "description": "Whether this rule affects the product completeness score"
     }
   ],
-
   "permissions": []
 }

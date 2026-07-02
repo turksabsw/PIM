@@ -11,7 +11,42 @@
   "nsm_parent_field": "parent_node",
   "sort_field": "lft",
   "sort_order": "ASC",
-
+  "field_order": [
+    "taxonomy",
+    "node_name",
+    "node_code",
+    "column_break_basic",
+    "node_key",
+    "parent_node",
+    "level",
+    "section_break_tree",
+    "lft",
+    "rgt",
+    "column_break_tree",
+    "is_leaf",
+    "is_group",
+    "old_parent",
+    "section_break_details",
+    "description",
+    "section_break_standard",
+    "external_id",
+    "external_definition",
+    "column_break_standard",
+    "synonyms",
+    "keywords",
+    "section_break_etim",
+    "etim_features",
+    "section_break_attributes",
+    "suggested_attributes",
+    "section_break_status",
+    "enabled",
+    "column_break_status",
+    "products_count",
+    "children_count",
+    "section_break_path",
+    "full_path",
+    "full_code_path"
+  ],
   "fields": [
     {
       "fieldname": "taxonomy",
@@ -246,7 +281,6 @@
       "description": "Full path using codes (auto-generated)"
     }
   ],
-
   "permissions": [
     {
       "role": "System Manager",
@@ -271,7 +305,6 @@
       "read": 1
     }
   ],
-
   "links": [
     {
       "group": "Related",
