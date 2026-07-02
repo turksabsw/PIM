@@ -225,7 +225,7 @@
       "fieldtype": "Column Break"
     },
     {
-      "fieldname": "field_order",
+      "fieldname": "display_field_order",
       "fieldtype": "Small Text",
       "label": "Field Order",
       "description": "Comma-separated list defining field display order."
@@ -442,7 +442,7 @@
     "included_fields",
     "excluded_fields",
     "column_break_fields",
-    "field_order",
+    "display_field_order",
     "custom_field_labels",
     "section_break_template",
     "header_html",
